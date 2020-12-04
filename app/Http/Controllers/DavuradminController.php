@@ -10,8 +10,7 @@ class DavuradminController extends Controller
 	    // Dashboard
     public function dashboard_1()
     {
-      
-     
+    
         $page_title = 'Dashboard';
         $page_description = 'Some description for the page';
         $logo = "images/logo.png";

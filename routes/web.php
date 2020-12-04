@@ -19,9 +19,9 @@ use Illuminate\Support\Facades\Route;
  */
  
  
+Route::get('/', 'App\Http\Controllers\AlatController@index');
 
-
-Route::get('/', 'App\Http\Controllers\DavuradminController@dashboard_1');
+// Route::get('/', 'App\Http\Controllers\DavuradminController@dashboard_1');
 /* Route::get('/index', 'App\Http\Controllers\DavuradminController@dashboard_1'); */
 Route::get('/page-analytics', 'App\Http\Controllers\DavuradminController@analytics');
 Route::get('/page-order', 'App\Http\Controllers\DavuradminController@order');
