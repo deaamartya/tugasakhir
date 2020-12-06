@@ -12,17 +12,22 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-/* Route::get('/', function () {
-    return view('welcome');
+ 
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::get('/', 'App\Http\Controllers\AdminController@dashboard')->name('dashboard');
+    Route::resource('jenis-kelas','App\Http\Controllers\Admin\JenisKelasController');
+    Route::resource('kelas','App\Http\Controllers\Admin\KelasController');
+    Route::resource('mata-pelajaran','App\Http\Controllers\Admin\MataPelajaranController');
+    Route::resource('tahun-akademik','App\Http\Controllers\Admin\TahunAkademikController');
+    Route::resource('tipe-user','App\Http\Controllers\Admin\TipeUserController');
+    Route::resource('user','App\Http\Controllers\Admin\UserController');
+    Route::resource('guru','App\Http\Controllers\Admin\GuruController');
 });
- */
- 
- 
-Route::get('/', 'App\Http\Controllers\AlatController@index');
 
-// Route::get('/', 'App\Http\Controllers\DavuradminController@dashboard_1');
-/* Route::get('/index', 'App\Http\Controllers\DavuradminController@dashboard_1'); */
+// Route::get('/', 'AlatController@index');
+
+Route::get('/', 'App\Http\Controllers\DavuradminController@dashboard_1');
+Route::get('/index', 'App\Http\Controllers\DavuradminController@dashboard_1');
 Route::get('/page-analytics', 'App\Http\Controllers\DavuradminController@analytics');
 Route::get('/page-order', 'App\Http\Controllers\DavuradminController@order');
 Route::get('/page-order-list', 'App\Http\Controllers\DavuradminController@order_list');

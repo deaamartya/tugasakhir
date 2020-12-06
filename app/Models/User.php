@@ -1,43 +1,58 @@
 <?php
 
+/**
+ * Created by Reliese Model.
+ */
+
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 
-class User extends Authenticatable
+/**
+ * Class User
+ * 
+ * @property int $ID_USER
+ * @property int $ID_TIPE_USER
+ * @property string $USERNAME
+ * @property string $PASSWORD
+ * @property string $PATH_FOTO
+ * 
+ * @property TipeUser $tipe_user
+ * @property Collection|Kela[] $kelas
+ * @property Collection|PerubahanJadwalPeminjaman[] $perubahan_jadwal_peminjamen
+ *
+ * @package App\Models
+ */
+class User extends Model
 {
-    use HasFactory, Notifiable;
+	protected $table = 'users';
+	protected $primaryKey = 'ID_USER';
+	public $timestamps = false;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
+	protected $casts = [
+		'ID_TIPE_USER' => 'int'
+	];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
+	protected $fillable = [
+		'ID_TIPE_USER',
+		'USERNAME',
+		'PASSWORD',
+		'PATH_FOTO'
+	];
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+	public function tipe_user()
+	{
+		return $this->belongsTo(TipeUser::class, 'ID_TIPE_USER');
+	}
+
+	public function kelas()
+	{
+		return $this->hasMany(Kela::class, 'ID_USER');
+	}
+
+	public function perubahan_jadwal_peminjamen()
+	{
+		return $this->hasMany(PerubahanJadwalPeminjaman::class, 'ID_USER');
+	}
 }
