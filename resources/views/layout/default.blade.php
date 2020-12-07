@@ -17,7 +17,7 @@
 		@foreach(config('dz.public.pagelevel.css.'.$action) as $style)
 				<link href="{{ asset($style) }}" rel="stylesheet" type="text/css"/>
 		@endforeach
-	@endif	
+	@endif
 
 	{{-- Global Theme Styles (used by all pages) --}}
 	@if(!empty(config('dz.public.global.css'))) 
@@ -26,6 +26,7 @@
 		@endforeach
 	@endif	
 
+    @yield('tambahan-style')
 
 </head>
 
@@ -140,5 +141,6 @@
         Scripts
     ***********************************-->
 	@include('elements.footer-scripts')
+    @yield('tambahan-script')
 </body>
 </html>

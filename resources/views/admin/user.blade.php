@@ -1,8 +1,8 @@
 {{-- Extends layout --}}
-@extends('layout.admin-default')
+@extends('layout.default')
 
 {{-- Tambahan Style Admin --}}
-@section('tambahan-style-admin')
+@section('tambahan-style')
     @if(!empty(config('dz.public.pagelevel.css.ui_modal'))) 
         @foreach(config('dz.public.pagelevel.css.ui_modal') as $style)
                 <link href="{{ asset($style) }}" rel="stylesheet" type="text/css"/>
@@ -44,6 +44,11 @@
             <div class="card">
                 <div class="card-header">
                     <h4 class="card-title">User</h4>
+                    <button type="button" class="btn btn-rounded btn-info" data-toggle="modal" data-target="#create-modal">
+                        <span class="btn-icon-left text-info">
+                            <i class="fa fa-plus color-info"></i>
+                        </span>Buat User Baru
+                    </button>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -98,6 +103,60 @@
     </div>
 </div>
 
+{{-- Create Modal --}}
+<div id="create-modal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit User #{{ $d->ID_USER }}</h5>
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-validation">
+                    <form id="create-user" action="{{ route('admin.user.store') }}" name="create-user" method="POST" enctype="multipart/form-data">
+                    @csrf
+                        <div class="form-group">
+                            <label>Tipe User</label>
+                            <select class="form-control select2" name="id_tipe_user" id="id_tipe_user">
+                                @foreach($tipeuser as $t)
+                                    <option value="{{ $t->ID_TIPE_USER }}">{{ $t->NAMA_TIPE_USER }}</option>
+                                @endforeach
+                            </select>
+                            
+                        </div>
+
+                        <div class="form-group">
+                            <label>Nama Lengkap</label>
+                            <input type="text" class="form-control" id="nama_lengkap" name="nama_lengkap">
+                            
+                        </div>
+
+                        <div class="form-group">
+                            <label>Username</label>
+                            <input type="text" class="form-control" id="username" name="username">
+                            
+                        </div>
+
+                        <div class="form-group">
+                            <label>Foto Profil</label>
+                            <input type="file" class="form-control" name="foto" accept=".jpg,.jpeg,.png">
+                            <div class="invalid-feedback">
+                                Foto Profil yang diupload kurang dari 2MB dengan format .jpg, .jpeg atau .png
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-danger light" data-dismiss="modal">Batal</button>
+                            <button type="submit" class="btn btn-primary submit-btn" id="{{ $d->ID_USER }}">Simpan</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{-- End of Create Modal --}}
+
 @foreach($user as $d)
 {{-- Edit Modal --}}
 <div id="modal-edit-{{ $d->ID_USER }}" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
@@ -114,21 +173,30 @@
                     @csrf
                         <div class="form-group">
                             <label>Tipe User</label>
-                            <select class="form-control select2" name="id_tipe_user" id="select-tipe-user">
+                            <select class="form-control select2" name="id_tipe_user" id="id_tipe_user" required>
                                 @foreach($tipeuser as $t)
                                     <option value="{{ $t->ID_TIPE_USER }}" @if($d->ID_TIPE_USER == $t->ID_TIPE_USER) selected @endif>{{ $t->NAMA_TIPE_USER }}</option>
                                 @endforeach
                             </select>
+                            <div class="invalid-feedback animated fadeInUp">
+                                Silahkan pilih tipe user
+                            </div>
                         </div>
 
                         <div class="form-group">
                             <label>Nama Lengkap</label>
-                            <input type="text" class="form-control" id="nama_lengkap" name="nama_lengkap" value="{{ $d->NAMA_LENGKAP }}">
+                            <input type="text" class="form-control" id="nama_lengkap" name="nama_lengkap" value="{{ $d->NAMA_LENGKAP }}" required minlength="3">
+                            <div class="invalid-feedback animated fadeInUp">
+                                Silahkan isi nama lengkap pengguna dengan minimal 3 karakter
+                            </div>
                         </div>
 
                         <div class="form-group">
                             <label>Username</label>
-                            <input type="text" class="form-control" id="username" name="username" value="{{ $d->USERNAME }}">
+                            <input type="text" class="form-control" id="username" name="username" value="{{ $d->USERNAME }}" required minlength="6">
+                            <div class="invalid-feedback animated fadeInUp">
+                                Silahkan isi username pengguna dengan minimal 6 karakter
+                            </div>
                         </div>
 
                         <div class="form-group">
@@ -138,23 +206,49 @@
                                 Foto Profil yang diupload kurang dari 2MB dengan format .jpg, .jpeg atau .png
                             </div>
                         </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-danger light" data-dismiss="modal">Batal</button>
+                            <button type="submit" class="btn btn-primary submit-btn" id="{{ $d->ID_USER }}">Simpan</button>
+                        </div>
                     </form>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="reset" class="btn btn-danger light" data-dismiss="modal">Batal</button>
-                <button type="submit" class="btn btn-primary submit-btn" id="{{ $d->ID_USER }}">Simpan</button>
             </div>
         </div>
     </div>
 </div>
 {{-- End of Edit Modal --}}
+
+{{-- Delete Modal --}}
+<div class="modal fade" id="modal-delete-{{ $d->ID_USER }}">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Delete User #{{ $d->ID_USER }}</h5>
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ route('admin.user.destroy',[$d->ID_USER]) }}" method="POST">
+                    @method('DELETE')
+                    @csrf
+                    Apakah anda yakin ingin menghapus user {{ $d->NAMA_LENGKAP }} ?
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger light" data-dismiss="modal">Tidak, batalkan.</button>
+                        <button type="submit" class="btn btn-primary">Ya</button>
+                    </div>
+                </form>
+            </div>
+            
+        </div>
+    </div>
+</div>
+{{-- End of Delete Modal --}}
 @endforeach
 
 @endsection
 
 {{-- Tambahan Script --}}
-@section('tambahan-script-admin')
+@section('tambahan-script')
 @if(!empty(config('dz.public.pagelevel.js.ui_modal')))
 	@foreach(config('dz.public.pagelevel.js.ui_modal') as $script)
 			<script src="{{ asset($script) }}" type="text/javascript"></script>
@@ -173,7 +267,7 @@
 <script>
 $(document).ready(function(){
     $("#select-tipe-user").select2();
-    $(".form-valide").validate({
+    $("#create-user").validate({
         rules: {
             id_tipe_user: {
                 required: true
@@ -198,23 +292,22 @@ $(document).ready(function(){
                 minlength: "Username pengguna minimal 6 karakter"
             },
         },
-
-        ignore: ["foto"],
+        errorElement : 'div',
         errorClass: "invalid-feedback animated fadeInUp",
-        errorElement: "div",
-        errorPlacement: function(e, a) {
-            jQuery(a).parents(".form-group > div").append(e)
+        errorPlacement: function(error, element) {
+            if(!$(element).hasClass("is-invalid")){
+                $(element).after(error)
+            }  
         },
         highlight: function(e) {
-            jQuery(e).closest(".form-group").removeClass("is-invalid").addClass("is-invalid")
+            $(e).closest(".form-group").removeClass("is-invalid").addClass("is-invalid")
         },
         success: function(e) {
-            jQuery(e).closest(".form-group").removeClass("is-invalid"), jQuery(e).remove()
+            $(e).closest(".form-group").removeClass("is-invalid"), jQuery(e).remove()
         },
-    });
-    $(".submit-btn").on('click',function(){
-        console.log("submiting.....");
-        $("#form-edit-"+$(this).attr('id')).submit();
+        submitHandler: function(form) {
+            form.submit();
+        },
     });
 });
     

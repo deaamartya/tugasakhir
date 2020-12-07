@@ -1,5 +1,35 @@
 <div class="deznav">
             <div class="deznav-scroll">
+                @if(Request::segment(1) == "admin")
+                <ul class="metismenu" id="menu">
+                    <li><a href="{!! route('admin.dashboard'); !!}" class="ai-icon" aria-expanded="false">
+                            <i class="flaticon-381-settings-2"></i>
+                            <span class="nav-text">Dashboard</span>
+                        </a>
+                    </li>
+                    <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                            <i class="flaticon-381-networking"></i>
+                            <span class="nav-text">Data Pengguna</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="{!! route('admin.user.index'); !!}">Data User</a></li>
+                            <li><a href="{!! route('admin.tipe-user.index'); !!}">Data Tipe User</a></li>
+                        </ul>
+                    </li>
+                    <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                            <i class="flaticon-381-networking"></i>
+                            <span class="nav-text">Data Akademik</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="{!! route('admin.tahun-akademik.index'); !!}">Tahun Akademik</a></li>
+                            <li><a href="{!! route('admin.mata-pelajaran.index'); !!}">Mata Pelajaran</a></li>
+                            <li><a href="{!! route('admin.guru.index'); !!}">Guru</a></li>
+                            <li><a href="{!! route('admin.jenis-kelas.index'); !!}">Jenis Kelas</a></li>
+                            <li><a href="{!! route('admin.kelas.index'); !!}">Kelas</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                @else
 				<ul class="metismenu" id="menu">
                     <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
 							<i class="flaticon-381-networking"></i>
@@ -138,6 +168,7 @@
                         </ul>
                     </li>
                 </ul>
+                @endif
             
 				<div class="add-menu-sidebar">
 					<img src="{{ asset('images/icon1.png') }}" alt=""/>
