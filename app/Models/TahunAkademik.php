@@ -26,7 +26,7 @@ class TahunAkademik extends Model
 	public $timestamps = false;
 
 	protected $fillable = [
-		'TAHUN_AJARAN'
+		'TAHUN_AKADEMIK'
 	];
 
 	public function kelas()

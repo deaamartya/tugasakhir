@@ -38,7 +38,8 @@ class User extends Model
 		'ID_TIPE_USER',
 		'USERNAME',
 		'PASSWORD',
-		'PATH_FOTO'
+		'PATH_FOTO',
+		'NAMA_LENGKAP'
 	];
 
 	public function tipe_user()
@@ -48,7 +49,7 @@ class User extends Model
 
 	public function kelas()
 	{
-		return $this->hasMany(Kela::class, 'ID_USER');
+		return $this->hasMany(Kelas::class, 'ID_USER');
 	}
 
 	public function perubahan_jadwal_peminjamen()

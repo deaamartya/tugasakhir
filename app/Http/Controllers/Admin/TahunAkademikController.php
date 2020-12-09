@@ -15,17 +15,11 @@ class TahunAkademikController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        $page_title = 'Data Tahun Akademik';
+        $page_description = 'Menampilkan seluruh data tahun akademik';
+        $action = 'table_datatable_basic';
+        $tahunakademik = TahunAkademik::all()->sortByAsc("ID_TAHUN_AKADEMIK");
+        return view('admin.tahunakademik', compact('page_title', 'page_description','action','tahunakademik'));
     }
 
     /**
@@ -36,29 +30,15 @@ class TahunAkademikController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\TahunAkademik  $tahunAkademik
-     * @return \Illuminate\Http\Response
-     */
-    public function show(TahunAkademik $tahunAkademik)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\TahunAkademik  $tahunAkademik
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(TahunAkademik $tahunAkademik)
-    {
-        //
+        $request->validate([
+            "tahun_akademik" => 'required|min:10|unique:App\Models\TahunAkademik,TAHUN_AKADEMIK'
+        ]);
+        DB::transaction(function() use($request){
+            TahunAkademik::insert([
+                "TAHUN_AKADEMIK" => ucwords(strtolower(trim($request->tahun_akademik))),
+            ]);
+        });
+        return redirect()->route('admin.tahunakademik.index')->with('created','Data berhasil dibuat');
     }
 
     /**
@@ -70,7 +50,19 @@ class TahunAkademikController extends Controller
      */
     public function update(Request $request, TahunAkademik $tahunAkademik)
     {
-        //
+        DB::transaction(function() use($request,$id){
+            $tipeuser = TipeUser::find($id);
+            if($user->NAMA_TIPE_USER != $request->nama_tipe_user)
+            {
+                $request->validate([
+                    "nama_tipe_user" => 'required|min:3|unique:App\Models\TipeUser,NAMA_TIPE_USER'
+                ]);
+            }
+            $tipeuser->update([
+                "NAMA_TIPE_USER" => ucwords(strtolower(trim($request->nama_tipe_user))),
+            ]);
+        });
+        return redirect()->route('admin.tipe-user.index')->with('updated','Data berhasil diubah');
     }
 
     /**

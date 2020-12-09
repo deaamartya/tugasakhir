@@ -488,7 +488,6 @@ return [
               'vendor/chart.js/Chart.bundle.min.js',
               'vendor/apexchart/apexchart.js',
 							'vendor/jquery-validation/jquery.validate.min.js',
-							'js/plugins-init/jquery.validate-init.js',
               'js/custom.min.js',
               'js/deznav-init.js',
 				],

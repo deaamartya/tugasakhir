@@ -15,7 +15,7 @@ class CreateTahunAkademikTable extends Migration
     {
         Schema::create('tahun_akademik', function (Blueprint $table) {
             $table->integer('ID_TAHUN_AKADEMIK', true);
-            $table->string('TAHUN_AJARAN', 20);
+            $table->string('TAHUN_AKADEMIK', 20);
         });
     }
 

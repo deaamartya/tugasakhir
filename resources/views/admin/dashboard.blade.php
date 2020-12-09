@@ -1,5 +1,5 @@
 {{-- Extends layout --}}
-@extends('layout.admin-default')
+@extends('layout.default')
 
 
 

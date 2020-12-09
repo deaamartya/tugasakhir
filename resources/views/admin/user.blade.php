@@ -37,8 +37,33 @@
             </ol>
         </div>
     </div>
-    <!-- row -->
     
+    @if(Session::has('created') || Session::has('updated') || Session::has('deleted') || Session::has('error'))
+    <div class="alert 
+        @if(Session::has('created') || Session::has('updated'))
+        alert-success
+        @elseif(Session::has('deleted'))
+        alert-info
+        @elseif(Session::has('errored'))
+        alert-danger
+        @endif">
+        @if(Session::has('created'))
+        {{ @session('created') }}
+        @elseif(Session::has('updated'))
+        {{ @session('updated') }}
+        @elseif(Session::has('deleted'))
+        {{ @session('deleted') }}
+        @elseif(Session::has('errored'))
+        {{ @session('errored') }}
+        @endif
+    </div>
+    @endif
+
+    @if($errors->any())
+        <div class="alert alert-danger">Data tidak berhasil disimpan. Cek kembali form</div>
+    @endif
+
+    <!-- row -->
     <div class="row">
         <div class="col-12">
             <div class="card">
@@ -58,6 +83,7 @@
                                     <th></th>
                                     <th>ID User</th>
                                     <th>Username</th>
+                                    <th>Nama Lengkap</th>
                                     <th>Status</th>
                                     <th>Aksi</th>
                                 </tr>
@@ -66,24 +92,28 @@
                                 @foreach($user as $d)
                                 <tr>
                                     @if($d->PATH_FOTO == null)
-                                    <td><img class="rounded-circle" width="35" src="{{ asset('images/profile/small/pic1.jpg') }}" alt=""></td>
+                                    <td><img class="rounded-circle" width="50" height="50" src="{{ asset('images/profile/small/pic1.jpg') }}" alt="foto_profile" style="object-fit: cover;"></td>
                                     @else
-                                    <td><img class="rounded-circle" width="35" src="{{ asset('images/profile/'.$d->PATH_FOTO) }}" alt=""></td>
+                                    <td><img class="rounded-circle" width="50" height="50" src="{{ asset('storage'.$d->PATH_FOTO) }}" alt="foto_profile" style="object-fit: cover;"></td>
                                     @endif
                                     <td> {{ $d->ID_USER }} </td>
                                     <td> {{ $d->USERNAME }} </td>
+                                    <td> {{ $d->NAMA_LENGKAP }} </td>
                                     <td>
-                                        @if($d->tipe_user->NAMA_TIPE_USER == 'Admin')
+                                        @if($d->NAMA_TIPE_USER == 'Admin')
                                         <span class="badge light badge-info">
                                             <i class="fa fa-circle text-info mr-1"></i>
-                                        @elseif ($d->tipe_user->NAMA_TIPE_USER == 'Guru')
-                                        <span class="badge light badge-primary">
-                                            <i class="fa fa-circle text-primary mr-1"></i>
-                                        @else
+                                        @elseif (strpos($d->NAMA_TIPE_USER, 'Guru') !== false)
                                         <span class="badge light badge-success">
                                             <i class="fa fa-circle text-success mr-1"></i>
+                                        @elseif (strpos($d->NAMA_TIPE_USER, 'Pengelola') !== false)
+                                        <span class="badge light badge-warning">
+                                            <i class="fa fa-circle text-warning mr-1"></i>
+                                        @else
+                                        <span class="badge light badge-primary">
+                                            <i class="fa fa-circle text-primary mr-1"></i>
                                         @endif
-                                            {{ $d->tipe_user->NAMA_TIPE_USER }}
+                                            {{ $d->NAMA_TIPE_USER }}
                                         </span>
                                     </td>
                                     <td>
@@ -108,7 +138,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Edit User #{{ $d->ID_USER }}</h5>
+                <h5 class="modal-title">Buat User Baru</h5>
                 <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
                 </button>
             </div>
@@ -123,24 +153,29 @@
                                     <option value="{{ $t->ID_TIPE_USER }}">{{ $t->NAMA_TIPE_USER }}</option>
                                 @endforeach
                             </select>
-                            
                         </div>
 
                         <div class="form-group">
                             <label>Nama Lengkap</label>
-                            <input type="text" class="form-control" id="nama_lengkap" name="nama_lengkap">
-                            
+                            <input type="text" class="form-control" id="nama_lengkap" name="nama_lengkap" value="{{ @old('nama_lengkap') }}">
                         </div>
 
                         <div class="form-group">
                             <label>Username</label>
-                            <input type="text" class="form-control" id="username" name="username">
-                            
+                            <input type="text" class="form-control @error('username') is-invalid @enderror" data-rule-insz="true" id="username" name="username" value="{{ @old('username') }}">
+                            <div class="invalid-feedback">
+                                Username harus unik.
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" class="form-control" id="password" name="password" required minlength="6" value="{{ @old('password') }}">
                         </div>
 
                         <div class="form-group">
                             <label>Foto Profil</label>
-                            <input type="file" class="form-control" name="foto" accept=".jpg,.jpeg,.png">
+                            <input type="file" class="form-control @error('foto') is-invalid @enderror" name="foto" accept=".jpg,.jpeg,.png">
                             <div class="invalid-feedback">
                                 Foto Profil yang diupload kurang dari 2MB dengan format .jpg, .jpeg atau .png
                             </div>
@@ -168,50 +203,53 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div class="form-validation">
-                    <form class="form-valide" action="{{ url('admin/user') }}" name="edit-user" method="POST" enctype="multipart/form-data" id="form-edit-{{ $d->ID_USER }}">
-                    @csrf
-                        <div class="form-group">
-                            <label>Tipe User</label>
-                            <select class="form-control select2" name="id_tipe_user" id="id_tipe_user" required>
-                                @foreach($tipeuser as $t)
-                                    <option value="{{ $t->ID_TIPE_USER }}" @if($d->ID_TIPE_USER == $t->ID_TIPE_USER) selected @endif>{{ $t->NAMA_TIPE_USER }}</option>
-                                @endforeach
-                            </select>
-                            <div class="invalid-feedback animated fadeInUp">
-                                Silahkan pilih tipe user
-                            </div>
-                        </div>
+                <form class="form-valide" action="{{ route('admin.user.update',$d->ID_USER) }}" name="edit-user" method="POST" enctype="multipart/form-data" id="form-edit-{{ $d->ID_USER }}">
+                @method('PUT')
+                @csrf
+                    <div class="form-group">
+                        <label>Tipe User</label>
+                        <select class="form-control select2" name="id_tipe_user" id="id_tipe_user">
+                            @foreach($tipeuser as $t)
+                                <option value="{{ $t->ID_TIPE_USER }}" @if($d->ID_TIPE_USER == $t->ID_TIPE_USER) selected @endif>{{ $t->NAMA_TIPE_USER }}</option>
+                            @endforeach
+                        </select>
+                    </div>
 
-                        <div class="form-group">
-                            <label>Nama Lengkap</label>
-                            <input type="text" class="form-control" id="nama_lengkap" name="nama_lengkap" value="{{ $d->NAMA_LENGKAP }}" required minlength="3">
-                            <div class="invalid-feedback animated fadeInUp">
-                                Silahkan isi nama lengkap pengguna dengan minimal 3 karakter
-                            </div>
-                        </div>
+                    <div class="form-group">
+                        <label>Nama Lengkap</label>
+                        <input type="text" class="form-control" id="nama_lengkap" name="nama_lengkap" value="{{ $d->NAMA_LENGKAP }}">
+                    </div>
 
-                        <div class="form-group">
-                            <label>Username</label>
-                            <input type="text" class="form-control" id="username" name="username" value="{{ $d->USERNAME }}" required minlength="6">
-                            <div class="invalid-feedback animated fadeInUp">
-                                Silahkan isi username pengguna dengan minimal 6 karakter
-                            </div>
+                    <div class="form-group">
+                        <label>Username</label>
+                        <input type="text" class="form-control @error('username') is-invalid @enderror" id="username" name="username" value="{{ $d->USERNAME }}">
+                        <div class="invalid-feedback">
+                            Username harus unik.
                         </div>
+                    </div>
 
-                        <div class="form-group">
-                            <label>Foto Profil</label>
-                            <input type="file" class="form-control" name="foto" accept=".jpg,.jpeg,.png">
+                    <div class="form-group">
+                        <label>Password Baru</label>
+                        <input type="password" class="form-control" id="edit-password" name="password" minlength="6" value="">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Foto Profil</label>
+                        <div class="row p-3 align-items-center">
+                            @if($d->PATH_FOTO != null)
+                            <img class="rounded mr-3" width="100" height="100" src="{{ asset('storage'.$d->PATH_FOTO) }}" alt="foto_profile" style="object-fit: cover;">
+                            @endif
+                            <input type="file" class="@error('foto') is-invalid @enderror" name="foto" accept=".jpg,.jpeg,.png">
                             <div class="invalid-feedback">
                                 Foto Profil yang diupload kurang dari 2MB dengan format .jpg, .jpeg atau .png
                             </div>
                         </div>
-                        <div class="modal-footer">
-                            <button type="submit" class="btn btn-danger light" data-dismiss="modal">Batal</button>
-                            <button type="submit" class="btn btn-primary submit-btn" id="{{ $d->ID_USER }}">Simpan</button>
-                        </div>
-                    </form>
-                </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-danger light" data-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-primary submit-btn" id="{{ $d->ID_USER }}">Simpan</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -267,6 +305,22 @@
 <script>
 $(document).ready(function(){
     $("#select-tipe-user").select2();
+    $.validator.addMethod("checkUserName", 
+        function(value, element) {
+            var result = false;
+            $.ajax({
+                type:"GET",
+                async: false,
+                url: "/cekusername/"+value,
+                success: function(data) {
+                    result = (data == true) ? false : true;
+                }
+            });
+            // return true if username is exist in database
+            return result; 
+        },
+        "Username ini sudah ada. Silahkan coba yang lain"
+    );
     $("#create-user").validate({
         rules: {
             id_tipe_user: {
@@ -278,8 +332,13 @@ $(document).ready(function(){
             },
             username: {
                 required: true,
-                minlength: 6
+                minlength: 6,
+                checkUserName: true,
             },
+            password: {
+                required: true,
+                minlength: 6
+            }
         },
         messages: {
             id_tipe_user: "Silahkan pilih tipe user",
@@ -291,6 +350,10 @@ $(document).ready(function(){
                 required: "Silahkan isi username pengguna",
                 minlength: "Username pengguna minimal 6 karakter"
             },
+            password: {
+                minlength: "Password pengguna minimal 6 karakter",
+                required: "Silahkan isi password pengguna"
+            }
         },
         errorElement : 'div',
         errorClass: "invalid-feedback animated fadeInUp",
@@ -308,6 +371,56 @@ $(document).ready(function(){
         submitHandler: function(form) {
             form.submit();
         },
+    });
+    $(".form-valide").each(function(){
+        $(this).validate({
+            rules: {
+                id_tipe_user: {
+                    required: true
+                },
+                nama_lengkap: {
+                    required: true,
+                    minlength: 3
+                },
+                username: {
+                    required: true,
+                    minlength: 6,
+                },
+                password: {
+                    minlength: 6
+                }
+            },
+            messages: {
+                id_tipe_user: "Silahkan pilih tipe user",
+                nama_lengkap: {
+                    required: "Silahkan isi nama lengkap pengguna",
+                    minlength: "Nama Lengkap pengguna minimal 3 karakter"
+                },
+                username: {
+                    required: "Silahkan isi username pengguna",
+                    minlength: "Username pengguna minimal 6 karakter"
+                },
+                password: {
+                    minlength: "Password baru minimal 6 karakter"
+                }
+            },
+            errorElement : 'div',
+            errorClass: "invalid-feedback animated fadeInUp",
+            errorPlacement: function(error, element) {
+                if(!$(element).hasClass("is-invalid")){
+                    $(element).after(error)
+                }  
+            },
+            highlight: function(e) {
+                $(e).closest(".form-group").removeClass("is-invalid").addClass("is-invalid")
+            },
+            success: function(e) {
+                $(e).closest(".form-group").removeClass("is-invalid"), jQuery(e).remove()
+            },
+            submitHandler: function(form) {
+                form.submit();
+            },
+        });
     });
 });
     

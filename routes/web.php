@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +23,11 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('tipe-user','App\Http\Controllers\Admin\TipeUserController');
     Route::resource('user','App\Http\Controllers\Admin\UserController');
     Route::resource('guru','App\Http\Controllers\Admin\GuruController');
+});
+
+Route::get('cekusername/{username}', function($username){
+    $hasil = User::where('username',$username)->exists() ? true : false;
+    return response()->json($hasil);
 });
 
 // Route::get('/', 'AlatController@index');
