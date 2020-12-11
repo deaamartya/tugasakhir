@@ -100,20 +100,20 @@
                                     <td> {{ $d->USERNAME }} </td>
                                     <td> {{ $d->NAMA_LENGKAP }} </td>
                                     <td>
-                                        @if($d->NAMA_TIPE_USER == 'Admin')
+                                        @if($d->tipe_user->NAMA_TIPE_USER == 'Admin')
                                         <span class="badge light badge-info">
                                             <i class="fa fa-circle text-info mr-1"></i>
-                                        @elseif (strpos($d->NAMA_TIPE_USER, 'Guru') !== false)
+                                        @elseif (strpos($d->tipe_user->NAMA_TIPE_USER, 'Guru') !== false)
                                         <span class="badge light badge-success">
                                             <i class="fa fa-circle text-success mr-1"></i>
-                                        @elseif (strpos($d->NAMA_TIPE_USER, 'Pengelola') !== false)
+                                        @elseif (strpos($d->tipe_user->NAMA_TIPE_USER, 'Pengelola') !== false)
                                         <span class="badge light badge-warning">
                                             <i class="fa fa-circle text-warning mr-1"></i>
                                         @else
                                         <span class="badge light badge-primary">
                                             <i class="fa fa-circle text-primary mr-1"></i>
                                         @endif
-                                            {{ $d->NAMA_TIPE_USER }}
+                                            {{ $d->tipe_user->NAMA_TIPE_USER }}
                                         </span>
                                     </td>
                                     <td>
