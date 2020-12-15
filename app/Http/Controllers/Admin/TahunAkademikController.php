@@ -18,7 +18,7 @@ class TahunAkademikController extends Controller
         $page_title = 'Data Tahun Akademik';
         $page_description = 'Menampilkan seluruh data tahun akademik';
         $action = 'table_datatable_basic';
-        $tahunakademik = TahunAkademik::all()->sortByAsc("ID_TAHUN_AKADEMIK");
+        $tahunakademik = TahunAkademik::all();
         return view('admin.tahunakademik', compact('page_title', 'page_description','action','tahunakademik'));
     }
 
