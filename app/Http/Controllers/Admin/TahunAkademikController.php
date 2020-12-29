@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\TahunAkademik;
 use Illuminate\Http\Request;
+use DB;
 
 class TahunAkademikController extends Controller
 {
@@ -38,7 +39,7 @@ class TahunAkademikController extends Controller
                 "TAHUN_AKADEMIK" => ucwords(strtolower(trim($request->tahun_akademik))),
             ]);
         });
-        return redirect()->route('admin.tahunakademik.index')->with('created','Data berhasil dibuat');
+        return redirect()->route('admin.tahun-akademik.index')->with('created','Data berhasil dibuat');
     }
 
     /**
@@ -48,21 +49,21 @@ class TahunAkademikController extends Controller
      * @param  \App\Models\TahunAkademik  $tahunAkademik
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, TahunAkademik $tahunAkademik)
+    public function update(Request $request, $id)
     {
         DB::transaction(function() use($request,$id){
-            $tipeuser = TipeUser::find($id);
-            if($user->NAMA_TIPE_USER != $request->nama_tipe_user)
+            $tahunAkademik = TahunAkademik::find($id);
+            if($tahunAkademik->TAHUN_AKADEMIK != $request->tahun_akademik)
             {
                 $request->validate([
-                    "nama_tipe_user" => 'required|min:3|unique:App\Models\TipeUser,NAMA_TIPE_USER'
+                    "tahun_akademik" => 'required|min:3|unique:App\Models\TahunAkademik,TAHUN_AKADEMIK'
                 ]);
             }
-            $tipeuser->update([
-                "NAMA_TIPE_USER" => ucwords(strtolower(trim($request->nama_tipe_user))),
+            $tahunAkademik->update([
+                "TAHUN_AKADEMIK" => ucwords(strtolower(trim($request->tahun_akademik))),
             ]);
         });
-        return redirect()->route('admin.tipe-user.index')->with('updated','Data berhasil diubah');
+        return redirect()->route('admin.tahun-akademik.index')->with('updated','Data berhasil diubah');
     }
 
     /**
@@ -71,8 +72,9 @@ class TahunAkademikController extends Controller
      * @param  \App\Models\TahunAkademik  $tahunAkademik
      * @return \Illuminate\Http\Response
      */
-    public function destroy(TahunAkademik $tahunAkademik)
+    public function destroy($id)
     {
-        //
+        TahunAkademik::find($id)->delete();
+        return redirect()->route('admin.tahun-akademik.index')->with('deleted','Data berhasil dihapus');
     }
 }

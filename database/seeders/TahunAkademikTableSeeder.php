@@ -19,7 +19,7 @@ class TahunAkademikTableSeeder extends Seeder
             $tahun = 2020+$i;
             $tahun_2 = $tahun++;
             for($j=0;$j<2;$j++){
-                $string = ($j == 0) ? $tahun."/".$tahun_2." Ganjil" : $tahun."/".$tahun_2." Genap";
+                $string = ($j == 0) ? $tahun_2."/".$tahun." Ganjil" : $tahun_2."/".$tahun." Genap";
                 $data[] = [
                     "TAHUN_AKADEMIK" => $string
                     ];

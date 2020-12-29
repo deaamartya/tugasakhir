@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\MataPelajaran;
 use Illuminate\Http\Request;
+use DB;
 
 class MataPelajaranController extends Controller
 {
@@ -15,17 +16,11 @@ class MataPelajaranController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        $page_title = 'Data Mata Pelajaran';
+        $page_description = 'Menampilkan seluruh data mata pelajaran';
+        $action = 'table_datatable_basic';
+        $matapelajaran = MataPelajaran::all();
+        return view('admin.matapelajaran', compact('page_title', 'page_description','action','matapelajaran'));
     }
 
     /**
@@ -36,29 +31,15 @@ class MataPelajaranController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\MataPelajaran  $mataPelajaran
-     * @return \Illuminate\Http\Response
-     */
-    public function show(MataPelajaran $mataPelajaran)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\MataPelajaran  $mataPelajaran
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(MataPelajaran $mataPelajaran)
-    {
-        //
+        $request->validate([
+            "mata_pelajaran" => 'required|min:3|unique:App\Models\MataPelajaran,NAMA_MAPEL'
+        ]);
+        DB::transaction(function() use($request){
+            MataPelajaran::insert([
+                "NAMA_MAPEL" => ucwords(strtolower(trim($request->mata_pelajaran)))
+            ]);
+        });
+        return redirect()->route('admin.mata-pelajaran.index')->with('created','Data berhasil dibuat');
     }
 
     /**
@@ -68,9 +49,21 @@ class MataPelajaranController extends Controller
      * @param  \App\Models\MataPelajaran  $mataPelajaran
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, MataPelajaran $mataPelajaran)
+    public function update(Request $request, $id)
     {
-        //
+        DB::transaction(function() use($request,$id){
+            $mataPelajaran = MataPelajaran::find($id);
+            if($mataPelajaran->NAMA_MAPEL != $request->mata_pelajaran)
+            {
+                $request->validate([
+                    "mata_pelajaran" => 'required|min:3|unique:App\Models\MataPelajaran,NAMA_MAPEL'
+                ]);
+            }
+            $mataPelajaran->update([
+                "NAMA_MAPEL" => ucwords(strtolower(trim($request->mata_pelajaran)))
+            ]);
+        });
+        return redirect()->route('admin.mata-pelajaran.index')->with('updated','Data berhasil diubah');
     }
 
     /**
@@ -79,8 +72,9 @@ class MataPelajaranController extends Controller
      * @param  \App\Models\MataPelajaran  $mataPelajaran
      * @return \Illuminate\Http\Response
      */
-    public function destroy(MataPelajaran $mataPelajaran)
+    public function destroy($id)
     {
-        //
+        MataPelajaran::find($id)->delete();
+        return redirect()->route('admin.mata-pelajaran.index')->with('deleted','Data berhasil dihapus');
     }
 }
