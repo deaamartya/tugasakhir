@@ -29,6 +29,24 @@
                         </ul>
                     </li>
                 </ul>
+                @elseif(Request::segment(1) == "guru")
+                <ul class="metismenu" id="menu">
+                    <li><a href="{!! route('guru.dashboard'); !!}" class="ai-icon" aria-expanded="false">
+                            <i class="flaticon-381-settings-2"></i>
+                            <span class="nav-text">Dashboard</span>
+                        </a>
+                    </li>
+                    <li><a href="{!! route('guru.praktikum.index'); !!}" class="ai-icon" aria-expanded="false">
+                            <i class="flaticon-381-settings-2"></i>
+                            <span class="nav-text">Praktikum Kelas Saya</span>
+                        </a>
+                    </li>
+                    <li><a href="{!! route('guru.penjadwalan-ulang.index'); !!}" class="ai-icon" aria-expanded="false">
+                            <i class="flaticon-381-settings-2"></i>
+                            <span class="nav-text">Penjadwalan Ulang</span>
+                        </a>
+                    </li>
+                </ul>
                 @else
 				<ul class="metismenu" id="menu">
                     <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">

@@ -16,8 +16,8 @@ class JenisKelasController extends Controller
      */
     public function index()
     {
-        $page_title = 'Data Mata Pelajaran';
-        $page_description = 'Menampilkan seluruh data mata pelajaran';
+        $page_title = 'Data Jenis Kelas';
+        $page_description = 'Menampilkan seluruh data jenis kelas';
         $action = 'table_datatable_basic';
         $jeniskelas = JenisKelas::all();
         return view('admin.jeniskelas', compact('page_title', 'page_description','action','jeniskelas'));

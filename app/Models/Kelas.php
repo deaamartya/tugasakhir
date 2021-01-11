@@ -40,7 +40,8 @@ class Kelas extends Model
 	protected $fillable = [
 		'ID_TAHUN_AKADEMIK',
 		'ID_USER',
-		'ID_JENIS_KELAS'
+		'ID_JENIS_KELAS',
+		'ID_MAPEL'
 	];
 
 	public function tahun_akademik()
@@ -61,5 +62,10 @@ class Kelas extends Model
 	public function praktikums()
 	{
 		return $this->hasMany(Praktikum::class, 'ID_KELAS');
+	}
+
+	public function mapel()
+	{
+		return $this->belongsTo(MataPelajaran::class, 'ID_MAPEL');
 	}
 }

@@ -13,11 +13,6 @@ class KelasTableSeeder extends Seeder
      */
     public function run()
     {
-        
-
-        \DB::table('kelas')->delete();
-        
-        
-        
+        \DB::table('kelas')->delete();   
     }
 }

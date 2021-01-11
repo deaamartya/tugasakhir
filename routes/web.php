@@ -25,6 +25,12 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('guru','App\Http\Controllers\Admin\GuruController');
 });
 
+Route::prefix('guru')->name('guru.')->group(function () {
+    Route::get('/', 'App\Http\Controllers\GuruController@dashboard')->name('dashboard');
+    Route::resource('praktikum','App\Http\Controllers\Guru\PraktikumController');
+    Route::resource('penjadwalan-ulang','App\Http\Controllers\Guru\PenjadwalanUlangController');
+});
+
 Route::get('cekusername/{username}', function($username){
     $hasil = User::where('username',$username)->exists() ? true : false;
     return response()->json($hasil);

@@ -56,4 +56,8 @@ class User extends Model
 	{
 		return $this->hasMany(PerubahanJadwalPeminjaman::class, 'ID_USER');
 	}
+
+	public static function guru(){
+		return self::join('tipe_user as t','t.ID_TIPE_USER','=','users.ID_TIPE_USER')->where('t.NAMA_TIPE_USER','LIKE','%Guru%')->get();
+	}
 }

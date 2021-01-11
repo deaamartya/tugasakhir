@@ -600,7 +600,6 @@ return [
             'vendor/select2/js/select2.full.min.js',
             'vendor/chart.js/Chart.bundle.min.js',
             'vendor/apexchart/apexchart.js',
-            'js/plugins-init/select2-init.js',
             'js/custom.min.js',
             'js/deznav-init.js',
 				],

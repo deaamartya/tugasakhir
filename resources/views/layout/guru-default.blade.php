@@ -10,21 +10,21 @@
 	<meta name="description" content="@yield('page_description', $page_description ?? '')"/>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('images/favicon.png') }}">
-	
-	@if(!empty(config('dz.public.pagelevel.css.'.$action))) 
+
+    @if(!empty(config('dz.public.pagelevel.css.'.$action))) 
 		@foreach(config('dz.public.pagelevel.css.'.$action) as $style)
 				<link href="{{ asset($style) }}" rel="stylesheet" type="text/css"/>
 		@endforeach
-	@endif
+	@endif	
 
 	{{-- Global Theme Styles (used by all pages) --}}
 	@if(!empty(config('dz.public.global.css'))) 
 		@foreach(config('dz.public.global.css') as $style)
 			<link href="{{ asset($style) }}" rel="stylesheet" type="text/css"/>
 		@endforeach
-	@endif	
+	@endif
 
-    @yield('tambahan-style')
+    @yield('tambahan-style-admin')
 
 </head>
 
@@ -82,7 +82,7 @@
             Header start
         ***********************************-->
         
-		@include('elements.header')
+		@include('elements.admin-header')
 		
 		
         <!--**********************************
@@ -92,7 +92,7 @@
         <!--**********************************
             Sidebar start
         ***********************************-->
-        @include('elements.sidebar')
+        @include('elements.admin-sidebar')
         <!--**********************************
             Sidebar end
         ***********************************-->
@@ -115,7 +115,7 @@
             Footer start
         ***********************************-->
         
-		@include('elements.footer')
+		@include('elements.admin-footer')
 		
         <!--**********************************
             Footer end
@@ -138,7 +138,7 @@
     <!--**********************************
         Scripts
     ***********************************-->
-	@include('elements.footer-scripts')
-    @yield('tambahan-script')
+	@include('elements.admin-footer-scripts')
+    @yield('tambahan-script-admin')
 </body>
 </html>
