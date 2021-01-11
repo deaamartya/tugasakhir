@@ -31,6 +31,34 @@ Route::prefix('guru')->name('guru.')->group(function () {
     Route::resource('penjadwalan-ulang','App\Http\Controllers\Guru\PenjadwalanUlangController');
 });
 
+Route::prefix('pengelola')->name('pengelola.')->group(function () {
+    Route::get('/', 'App\Http\Controllers\PengelolaController@dashboard')->name('dashboard');
+
+    Route::resource('lab','App\Http\Controllers\Pengelola\LaboratoriumController');
+    Route::resource('ruang-lab','App\Http\Controllers\Pengelola\RuangLaboratoriumController');
+    Route::resource('lemari','App\Http\Controllers\Pengelola\LemariController');
+    Route::resource('katalog-alat','App\Http\Controllers\Pengelola\KatalogAlatController');
+    Route::resource('alat','App\Http\Controllers\Pengelola\AlatController');
+    Route::resource('bahan-kimia','App\Http\Controllers\Pengelola\BahanKimiaController');
+    Route::resource('bahan','App\Http\Controllers\Pengelola\BahanController');
+    Route::resource('praktikum','App\Http\Controllers\Pengelola\PraktikumController');
+
+    Route::get('jadwal-praktikum','App\Http\Controllers\Pengelola\JadwalPraktikumController@index');
+
+    Route::get('penjadwalan-ulang','App\Http\Controllers\Pengelola\PenjadwalanUlangController@index');
+
+    Route::get('peminjaman','App\Http\Controllers\Pengelola\PeminjamanController@index');
+
+    Route::get('pengembalian','App\Http\Controllers\Pengelola\PengembalianController@index');
+
+    Route::get('simulasi','App\Http\Controllers\Pengelola\SimulasiController@index');
+    
+    Route::get('cetak/kartu-stok','App\Http\Controllers\Pengelola\CetakController@kartuStok');
+    Route::get('cetak/katalog-lemari','App\Http\Controllers\Pengelola\CetakController@katalogLemari');
+    Route::get('cetak/barang-rusak','App\Http\Controllers\Pengelola\CetakController@barangRusak');
+
+});
+
 Route::get('cekusername/{username}', function($username){
     $hasil = User::where('username',$username)->exists() ? true : false;
     return response()->json($hasil);

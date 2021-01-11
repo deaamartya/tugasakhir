@@ -47,6 +47,65 @@
                         </a>
                     </li>
                 </ul>
+                @elseif(Request::segment(1) == "pengelola")
+                <ul class="metismenu" id="menu">
+                    <li><a href="{!! route('pengelola.dashboard'); !!}" class="ai-icon" aria-expanded="false">
+                            <i class="flaticon-381-settings-2"></i>
+                            <span class="nav-text">Dashboard</span>
+                        </a>
+                    </li>
+                    <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                            <i class="flaticon-381-networking"></i>
+                            <span class="nav-text">Data Master</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="{!! route('pengelola.lab.index'); !!}">Data Laboratorium</a></li>
+                            <li><a href="{!! route('pengelola.ruang-lab.index'); !!}">Data Ruang Laboratorium</a></li>
+                            <li><a href="{!! route('pengelola.lemari.index'); !!}">Data Lemari</a></li>
+                            <li><a href="{!! route('pengelola.katalog-alat.index'); !!}">Data Katalog Alat</a></li>
+                            <li><a href="{!! route('pengelola.alat.index'); !!}">Data Alat</a></li>
+                            <li><a href="{!! route('pengelola.bahan-kimia.index'); !!}">Data Bahan Kimia</a></li>
+                            <li><a href="{!! route('pengelola.bahan.index'); !!}">Data Bahan</a></li>
+                            <li><a href="{!! route('pengelola.praktikum.index'); !!}">Data Praktikum</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="{!! url('pengelola/jadwal-praktikum'); !!}" class="ai-icon" aria-expanded="false">
+                            <i class="flaticon-381-settings-2"></i>
+                            <span class="nav-text">Jadwal Praktikum</span>
+                        </a>
+                    </li>
+                    <li><a href="{!! url('pengelola/penjadwalan-ulang'); !!}" class="ai-icon" aria-expanded="false">
+                            <i class="flaticon-381-settings-2"></i>
+                            <span class="nav-text">Penjadwalan Ulang</span>
+                        </a>
+                    </li>
+                    <li><a href="{!! url('pengelola/peminjaman'); !!}" class="ai-icon" aria-expanded="false">
+                            <i class="flaticon-381-settings-2"></i>
+                            <span class="nav-text">Peminjaman</span>
+                        </a>
+                    </li>
+                    <li><a href="{!! url('pengelola/pengembalian'); !!}" class="ai-icon" aria-expanded="false">
+                            <i class="flaticon-381-settings-2"></i>
+                            <span class="nav-text">Pengembalian</span>
+                        </a>
+                    </li>
+                    <li><a href="{!! url('pengelola/simulasi'); !!}" class="ai-icon" aria-expanded="false">
+                            <i class="flaticon-381-settings-2"></i>
+                            <span class="nav-text">Simulasi Praktikum</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                            <i class="flaticon-381-networking"></i>
+                            <span class="nav-text">Cetak</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="{!! url('pengelola/cetak/kartu-stok'); !!}">Data Kartu Stok</a></li>
+                            <li><a href="{!! url('pengelola/cetak/katalog-lemari'); !!}">Data Katalog Lemari</a></li>
+                            <li><a href="{!! url('pengelola/cetak/barang-rusak'); !!}">Data Laporan Barang Rusak</a></li>
+                        </ul>
+                    </li>
+                </ul>
                 @else
 				<ul class="metismenu" id="menu">
                     <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
@@ -187,12 +246,6 @@
                     </li>
                 </ul>
                 @endif
-            
-				<div class="add-menu-sidebar">
-					<img src="{{ asset('images/icon1.png') }}" alt=""/>
-					<p>Organize your menus through button bellow</p>
-					<a href="javascript:void(0);" class="btn btn-primary btn-block light">+ Add Menus</a>
-				</div>
 				<div class="copyright">
 					<p><strong>Davur - Restaurant Admin Dashboard</strong> © 2020 All Rights Reserved</p>
 					<p>Made with <i class="fa fa-heart"></i> by DexignZone</p>
