@@ -44,6 +44,9 @@ Route::prefix('pengelola')->name('pengelola.')->group(function () {
     Route::resource('kategori-alat','App\Http\Controllers\Pengelola\KategoriAlatController');
     Route::resource('tipe','App\Http\Controllers\Pengelola\MerkTipeController');
     Route::resource('alat','App\Http\Controllers\Pengelola\AlatController');
+    Route::post('alat/update','App\Http\Controllers\Pengelola\AlatController@update')->name('alat.update');
+    Route::post('alat/destroy','App\Http\Controllers\Pengelola\AlatController@destroy')->name('alat.destroy');
+
     Route::resource('bahan-kimia','App\Http\Controllers\Pengelola\BahanKimiaController');
     Route::resource('bahan','App\Http\Controllers\Pengelola\BahanController');
     Route::resource('praktikum','App\Http\Controllers\Pengelola\PraktikumController');

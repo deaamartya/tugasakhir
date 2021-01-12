@@ -8,19 +8,22 @@ use App\Models\KatalogAlat;
 use App\Models\Lemari;
 use App\Models\MerkTipeAlat;
 use App\Models\Alat;
+
 use DB;
 
 class AlatController extends Controller
 {
     public function index()
     {
-        $page_title = 'Data Lemari';
-        $page_description = 'Menampilkan seluruh data lemari';
+        $page_title = 'Data Alat';
+        $page_description = 'Menampilkan seluruh data alat';
         $action = 'table_datatable_basic';
         $id_lab = 1;
         $lemari = Lemari::where('ID_LABORATORIUM',$id_lab)->get();
-        $lab = Laboratorium::find($id_lab);
-        return view('pengelola.lemari', compact('page_title', 'page_description','action','lemari','lab'));
+        $katalog = KatalogAlat::all();
+        $tipe = MerkTipeAlat::all();
+        $alat = Alat::all();
+        return view('pengelola.alat', compact('page_title', 'page_description','action','lemari','katalog','tipe','alat'));
     }
 
     /**
@@ -32,17 +35,23 @@ class AlatController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'ID_LABORATORIUM' => 'required|exists:App\Models\Laboratorium,ID_LABORATORIUM',
-            'NAMA_LEMARI' => 'required',
+            'ID_LEMARI' => 'required|exists:App\Models\Lemari,ID_LEMARI',
+            'ID_MERK_TIPE' => 'required|exists:App\Models\MerkTipeAlat,ID_MERK_TIPE',
+            'ID_KATALOG_ALAT' => 'required|exists:App\Models\KatalogAlat,ID_KATALOG_ALAT',
+            'JUMLAH_BAGUS' => 'required',
+            'JUMLAH_RUSAK' => 'required'
         ]);
 
         DB::transaction(function() use($request){
-            Lemari::insert([
-                "ID_LABORATORIUM" => $request->ID_LABORATORIUM,
-                "NAMA_LEMARI" => $request->NAMA_LEMARI,
+            Alat::insert([
+                'ID_LEMARI' => $request->ID_LEMARI,
+                'ID_MERK_TIPE' => $request->ID_MERK_TIPE,
+                'ID_KATALOG_ALAT' => $request->ID_KATALOG_ALAT,
+                'JUMLAH_BAGUS' => $request->JUMLAH_BAGUS,
+                'JUMLAH_RUSAK' => $request->JUMLAH_RUSAK
             ]);
         });
-        return redirect()->route('pengelola.lemari.index')->with('created','Data berhasil dibuat');
+        return redirect()->route('pengelola.alat.index')->with('created','Data berhasil dibuat');
     }
 
     /**
@@ -52,20 +61,26 @@ class AlatController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         $request->validate([
-            'ID_LABORATORIUM' => 'required|exists:App\Models\Laboratorium,ID_LABORATORIUM',
-            'NAMA_LEMARI' => 'required',
+            'ID_LEMARI' => 'required|exists:App\Models\Lemari,ID_LEMARI',
+            'ID_MERK_TIPE' => 'required|exists:App\Models\MerkTipeAlat,ID_MERK_TIPE',
+            'ID_KATALOG_ALAT' => 'required|exists:App\Models\KatalogAlat,ID_KATALOG_ALAT',
+            'JUMLAH_BAGUS' => 'required',
+            'JUMLAH_RUSAK' => 'required'
         ]);
 
-        $ruanglab = Lemari::find($id);
-        $ruanglab->update([
-            "ID_LABORATORIUM" => $request->ID_LABORATORIUM,
-            "NAMA_LEMARI" => $request->NAMA_LEMARI,
+        $alat = Alat::find($request->ID_ALAT_LAMA);
+        $alat->update([
+            'ID_LEMARI' => $request->ID_LEMARI,
+            'ID_MERK_TIPE' => $request->ID_MERK_TIPE,
+            'ID_KATALOG_ALAT' => $request->ID_KATALOG_ALAT,
+            'JUMLAH_BAGUS' => $request->JUMLAH_BAGUS,
+            'JUMLAH_RUSAK' => $request->JUMLAH_RUSAK
         ]);
         
-        return redirect()->route('pengelola.lemari.index')->with('updated','Data berhasil diubah');
+        return redirect()->route('pengelola.alat.index')->with('updated','Data berhasil diubah');
     }
 
     /**
@@ -74,9 +89,9 @@ class AlatController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        Lemari::find($id)->delete();
-        return redirect()->route('pengelola.lemari.index')->with('deleted','Data berhasil dihapus');
+        Alat::find($request->ID_ALAT_LAMA)->delete();
+        return redirect()->route('pengelola.alat.index')->with('deleted','Data berhasil dihapus');
     }
 }

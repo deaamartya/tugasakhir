@@ -33,7 +33,7 @@
         <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="javascript:void(0)">Data Master</a></li>
-                <li class="breadcrumb-item active"><a href="javascript:void(0)">Data Katalog Alat</a></li>
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">Data Alat</a></li>
             </ol>
         </div>
     </div>
@@ -68,11 +68,11 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Katalog Alat</h4>
+                    <h4 class="card-title">Alat</h4>
                     <button type="button" class="btn btn-rounded btn-info" data-toggle="modal" data-target="#create-modal">
                         <span class="btn-icon-left text-info">
                             <i class="fa fa-plus color-info"></i>
-                        </span>Buat Katalog Alat Baru
+                        </span>Buat Alat Baru
                     </button>
                 </div>
                 <div class="card-body">
@@ -80,26 +80,28 @@
                         <table id="example5" class="display" style="min-width: 845px">
                             <thead>
                                 <tr>
-                                    <th>ID Katalog Alat</th>
-                                    <th>Nama Kategori</th>
-                                    <th>Nama Katalog Alat</th>
+                                    <th>ID Alat</th>
+                                    <th>Lemari</th>
+                                    <th>ID Katalog</th>
+                                    <th>Nama Alat</th>
                                     <th>Ukuran</th>
-                                    {{-- <th>Jumlah Bagus</th>
+                                    <th>Merk/Type</th>
+                                    <th>Jumlah Bagus</th>
                                     <th>Jumlah Rusak</th>
-                                    <th>Jumlah</th> --}}
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($katalogalat as $d)
+                                @foreach($alat as $d)
                                 <tr>
+                                    <td> {{ $d->ID_ALAT }} </td>
+                                    <td> {{ $d->lemari->NAMA_LEMARI }} </td>
                                     <td> {{ $d->ID_KATALOG_ALAT }} </td>
-                                    <td> {{ $d->kategori_alat->NAMA_KATEGORI }} </td>
-                                    <td> {{ $d->NAMA_ALAT }} </td>
-                                    <td> {{ $d->UKURAN }} </td>
-                                    {{-- <td> @if($d->alats->JUMLAH_BAGUS != null){{ count($d->alats->JUMLAH_BAGUS) }} @else 0 @endif</td>
-                                    <td> @if($d->alats->JUMLAH_RUSAK != null){{ count($d->alats->JUMLAH_RUSAK) }} @else 0 @endif</td>
-                                    <td> @if($d->alats->JUMLAH_BAGUS != null && $d->alats->JUMLAH_RUSAK != null){{ count($d->alats->JUMLAH_BAGUS) + count($d->alats->JUMLAH_RUSAK) }} @else 0 @endif</td> --}}
+                                    <td> {{ $d->katalog_alat->NAMA_ALAT }} </td>
+                                    <td> {{ $d->katalog_alat->UKURAN }} </td>
+                                    <td> {{ $d->merk_tipe_alat->NAMA_MERK_TIPE }} </td>
+                                    <td> {{ $d->JUMLAH_BAGUS }}pcs </td>
+                                    <td> {{ $d->JUMLAH_RUSAK }}pcs </td>
                                     <td>
                                         <div class="d-flex">
                                             <button type="button" class="btn btn-primary shadow btn-xs sharp mr-1" data-toggle="modal" data-target="#modal-edit-{{ $loop->index }}"><i class="fa fa-pencil"></i></button>
@@ -122,44 +124,63 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Buat Katalog Alat Baru</h5>
+                <h5 class="modal-title">Buat Alat Baru</h5>
                 <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <div class="form-validation">
-                    <form id="create-katalogalat" action="{{ route('pengelola.katalog-alat.store') }}" name="create-katalogalat" method="POST" enctype="multipart/form-data">
+                    <form id="create-alat" action="{{ route('pengelola.alat.store') }}" name="create-alat" method="POST" enctype="multipart/form-data">
                     @csrf
                         <div class="form-group">
-                            <label>Kategori Alat</label>
-                            <select class="form-control select2" name="ID_KATEGORI_ALAT" id="ID_KATEGORI_ALAT">
-                                @foreach($kategori as $t)
-                                    <option value="{{ $t->ID_KATEGORI_ALAT }}">{{ $t->NAMA_KATEGORI }}</option>
+                            <label>Katalog Alat</label>
+                            <select class="form-control select2 @error('ID_KATALOG_ALAT') is-invalid @enderror" name="ID_KATALOG_ALAT" id="ID_KATALOG_ALAT">
+                                @foreach($katalog as $t)
+                                    <option value="{{ $t->ID_KATALOG_ALAT }}">{{ $t->ID_KATALOG_ALAT }} - {{ $t->NAMA_ALAT }} - {{ $t->UKURAN }}</option>
                                 @endforeach
                             </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label>ID Katalog Alat</label>
-                            <input type="text" class="form-control @error('ID_KATALOG_ALAT') is-invalid @enderror" id="ID_KATALOG_ALAT" name="ID_KATALOG_ALAT" value="{{ @old('ID_KATALOG_ALAT') }}">
                             <div class="invalid-feedback animated fadeInUp">
-                                ID Katalog Alat harus diisi
+                                Silahkan pilih katalog alat
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label>Nama Alat</label>
-                            <input type="text" class="form-control @error('NAMA_ALAT') is-invalid @enderror" id="NAMA_ALAT" name="NAMA_ALAT" value="{{ @old('NAMA_ALAT') }}">
+                            <label>Lemari</label>
+                            <select class="form-control select2 @error('ID_LEMARI') is-invalid @enderror" name="ID_LEMARI" id="ID_LEMARI">
+                                @foreach($lemari as $t)
+                                    <option value="{{ $t->ID_LEMARI }}">{{ $t->NAMA_LEMARI }}</option>
+                                @endforeach
+                            </select>
                             <div class="invalid-feedback animated fadeInUp">
-                                Nama Alat harus diisi
+                                Silahkan pilih lemari
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label>Ukuran</label>
-                            <input type="text" class="form-control @error('UKURAN') is-invalid @enderror" id="UKURAN" name="UKURAN" value="{{ @old('UKURAN') }}">
+                            <label>Merk/Tipe</label>
+                            <select class="form-control select2 @error('ID_MERK_TIPE') is-invalid @enderror" name="ID_MERK_TIPE" id="ID_MERK_TIPE">
+                                @foreach($tipe as $t)
+                                    <option value="{{ $t->ID_MERK_TIPE }}">{{ $t->NAMA_MERK_TIPE }}</option>
+                                @endforeach
+                            </select>
                             <div class="invalid-feedback animated fadeInUp">
-                                Ukuran harus diisi
+                                Silahkan pilih merk/tipe alat
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Jumlah Bagus</label>
+                            <input type="number" class="form-control @error('JUMLAH_BAGUS') is-invalid @enderror" id="JUMLAH_BAGUS" name="JUMLAH_BAGUS" value="{{ @old('JUMLAH_BAGUS') }}">
+                            <div class="invalid-feedback animated fadeInUp">
+                                Jumlah bagus harus diisi
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Jumlah Rusak</label>
+                            <input type="number" class="form-control @error('JUMLAH_RUSAK') is-invalid @enderror" id="JUMLAH_RUSAK" name="JUMLAH_RUSAK" value="{{ @old('JUMLAH_RUSAK') }}">
+                            <div class="invalid-feedback animated fadeInUp">
+                                Jumlah rusak harus diisi
                             </div>
                         </div>
 
@@ -175,55 +196,76 @@
 </div>
 {{-- End of Create Modal --}}
 
-@foreach($katalogalat as $d)
+@foreach($alat as $d)
 {{-- Edit Modal --}}
 <div id="modal-edit-{{ $loop->index }}" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Edit Katalog Alat #{{ $d->ID_KATALOG_ALAT }}</h5>
+                <h5 class="modal-title">Edit Alat #{{ $d->ID_ALAT }}</h5>
                 <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form class="form-valide" action="{{ route('pengelola.katalog-alat.update') }}" name="edit-katalogalat" method="POST" enctype="multipart/form-data" id="form-edit-{{ $loop->index }}">
+                <form class="form-valide" action="{{ route('pengelola.alat.update') }}" name="edit-alat" method="POST" id="form-edit-{{ $loop->index }}">
                     @method('PUT')
                     @csrf
-                    <input type="hidden" name="ID_KATALOG_LAMA" value="{{ $d->ID_KATALOG_ALAT }}">
+                    <input type="hidden" name="ID_ALAT_LAMA" value="{{ $d->ID_ALAT }}">
                     <div class="form-group">
-                        <label>ID Katalog Alat</label>
-                        <input type="text" class="form-control @error('ID_KATALOG_ALAT') is-invalid @enderror" id="ID_KATALOG_ALAT" name="ID_KATALOG_ALAT" value="{{ $d->ID_KATALOG_ALAT }}">
-                        <div class="invalid-feedback animated fadeInUp">
-                            ID Katalog Alat harus diisi
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>Kategori Alat</label>
-                        <select class="form-control select2" name="ID_KATEGORI_ALAT" id="ID_KATEGORI_ALAT">
-                            @foreach($kategori as $t)
-                                <option value="{{ $t->ID_KATEGORI_ALAT }}" @if($d->ID_KATEGORI_ALAT == $t->ID_KATEGORI_ALAT) selected @endif>{{ $t->NAMA_KATEGORI }}</option>
+                        <label>Katalog Alat</label>
+                        <select class="form-control select2 @error('ID_KATALOG_ALAT') is-invalid @enderror" name="ID_KATALOG_ALAT" id="ID_KATALOG_ALAT">
+                            @foreach($katalog as $t)
+                                <option value="{{ $t->ID_KATALOG_ALAT }}" @if($t->ID_KATALOG_ALAT == $d->ID_KATALOG_ALAT) selected @endif>{{ $t->ID_KATALOG_ALAT }} - {{ $t->NAMA_ALAT }} - {{ $t->UKURAN }}</option>
                             @endforeach
                         </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Nama Alat</label>
-                        <input type="text" class="form-control @error('NAMA_ALAT') is-invalid @enderror" id="NAMA_ALAT" name="NAMA_ALAT" value="{{ $d->NAMA_ALAT }}">
                         <div class="invalid-feedback animated fadeInUp">
-                            Nama Alat harus diisi
+                            Silahkan pilih katalog alat
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label>Ukuran</label>
-                        <input type="text" class="form-control @error('UKURAN') is-invalid @enderror" id="UKURAN" name="UKURAN" value="{{ $d->UKURAN }}">
+                        <label>Lemari</label>
+                        <select class="form-control select2 @error('ID_LEMARI') is-invalid @enderror" name="ID_LEMARI" id="ID_LEMARI">
+                            @foreach($lemari as $t)
+                                <option value="{{ $t->ID_LEMARI }}" @if($t->ID_LEMARI == $d->ID_LEMARI) selected @endif>{{ $t->NAMA_LEMARI }}</option>
+                            @endforeach
+                        </select>
                         <div class="invalid-feedback animated fadeInUp">
-                            Ukuran harus diisi
+                            Silahkan pilih lemari
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Merk/Tipe</label>
+                        <select class="form-control select2 @error('ID_MERK_TIPE') is-invalid @enderror" name="ID_MERK_TIPE" id="ID_MERK_TIPE">
+                            @foreach($tipe as $t)
+                                <option value="{{ $t->ID_MERK_TIPE }}" @if($d->ID_MERK_TIPE == $t->ID_MERK_TIPE) selected @endif>{{ $t->NAMA_MERK_TIPE }}</option>
+                            @endforeach
+                        </select>
+                        <div class="invalid-feedback animated fadeInUp">
+                            Silahkan pilih merk/tipe alat
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Jumlah Bagus</label>
+                        <input type="number" class="form-control @error('JUMLAH_BAGUS') is-invalid @enderror" id="JUMLAH_BAGUS" name="JUMLAH_BAGUS" value="{{ $d->JUMLAH_BAGUS }}">
+                        <div class="invalid-feedback animated fadeInUp">
+                            Jumlah bagus harus diisi
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Jumlah Rusak</label>
+                        <input type="number" class="form-control @error('JUMLAH_RUSAK') is-invalid @enderror" id="JUMLAH_RUSAK" name="JUMLAH_RUSAK" value="{{ $d->JUMLAH_RUSAK }}">
+                        <div class="invalid-feedback animated fadeInUp">
+                            Jumlah rusak harus diisi
                         </div>
                     </div>
 
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-danger light" data-dismiss="modal">Batal</button>
-                        <button type="submit" class="btn btn-primary submit-btn" id="{{ $d->ID_KATALOG_ALAT }}">Simpan</button>
+                        <button type="submit" class="btn btn-primary submit-btn" id="{{ $d->ID_ALAT }}">Simpan</button>
                     </div>
                 </form>
             </div>
@@ -237,16 +279,16 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Delete Katalog Alat #{{ $d->ID_KATALOG_ALAT }}</h5>
+                <h5 class="modal-title">Delete Alat #{{ $d->ID_ALAT }}</h5>
                 <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('pengelola.katalog-alat.destroy') }}" method="POST">
+                <form action="{{ route('pengelola.alat.destroy') }}" method="POST">
                     @method('DELETE')
                     @csrf
-                    Apakah anda yakin ingin menghapus katalog alat {{ $d->NAMA_ALAT }} {{$d->UKURAN}} ?
-                    <input type="hidden" name="ID_KATALOG_LAMA" value="{{ $d->ID_KATALOG_ALAT }}">
+                    Apakah anda yakin ingin menghapus alat {{ $d->katalog_alat->NAMA_ALAT }} {{$d->katalog_alat->UKURAN}} ?
+                    <input type="hidden" name="ID_ALAT_LAMA" value="{{ $d->ID_ALAT }}">
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger light" data-dismiss="modal">Tidak, batalkan.</button>
                         <button type="submit" class="btn btn-primary">Ya</button>
@@ -281,26 +323,38 @@
 @endif
 <script>
 $(document).ready(function(){
-    $("#create-katalogalat").validate({
+    $("#create-alat").validate({
         rules: {
-            ID_KATEGORI_ALAT: {
+            ID_KATALOG_ALAT: {
                 required: true
             },
-            NAMA_ALAT: {
+            ID_LEMARI: {
                 required: true,
             },
-            ID_KATALOG_ALAT: {
+            ID_MERK_TIPE: {
                 required: true,
             },
-            UKURAN: {
+            JUMLAH_BAGUS: {
                 required: true,
+                min: 0,
+            },
+            JUMLAH_RUSAK: {
+                required: true,
+                min: 0,
             },
         },
         messages: {
-            ID_KATEGORI_ALAT: "Silahkan pilih kategori alat",
-            NAMA_ALAT: "Silahkan isi nama katalog Alat",
-            ID_KATALOG_ALAT: "Silahkan isi katalog alat",
-            UKURAN: "Silahkan isi ukuran alat",
+            ID_KATALOG_ALAT: "Silahkan pilih katalog alat",
+            ID_LEMARI: "Silahkan pilih lemari lokasi alat",
+            ID_MERK_TIPE: "Silahkan pilih merk/tipe alat",
+            JUMLAH_BAGUS: {
+                "required" : "Silahkan isi jumlah bagus",
+                "min" : "Minimal jumlah bagus 0"
+            },
+            JUMLAH_RUSAK: {
+                "required" : "Silahkan isi jumlah rusak",
+                "min" : "Minimal jumlah rusak 0"
+            },
         },
         errorElement : 'div',
         errorClass: "invalid-feedback animated fadeInUp",
@@ -322,24 +376,36 @@ $(document).ready(function(){
     $(".form-valide").each(function(){
         $(this).validate({
             rules: {
-                ID_KATEGORI_ALAT: {
+                ID_KATALOG_ALAT: {
                     required: true
                 },
-                NAMA_ALAT: {
+                ID_LEMARI: {
                     required: true,
                 },
-                ID_KATALOG_ALAT: {
+                ID_MERK_TIPE: {
                     required: true,
                 },
-                UKURAN: {
+                JUMLAH_BAGUS: {
                     required: true,
+                    min: 0,
+                },
+                JUMLAH_RUSAK: {
+                    required: true,
+                    min: 0,
                 },
             },
             messages: {
-                ID_KATEGORI_ALAT: "Silahkan pilih kategori alat",
-                NAMA_ALAT: "Silahkan isi nama katalog Alat",
-                ID_KATALOG_ALAT: "Silahkan isi katalog alat",
-                UKURAN: "Silahkan isi ukuran alat",
+                ID_KATALOG_ALAT: "Silahkan pilih katalog alat",
+                ID_LEMARI: "Silahkan pilih lemari lokasi alat",
+                ID_MERK_TIPE: "Silahkan pilih merk/tipe alat",
+                JUMLAH_BAGUS: {
+                    "required" : "Silahkan isi jumlah bagus",
+                    "min" : "Minimal jumlah bagus 0"
+                },
+                JUMLAH_RUSAK: {
+                    "required" : "Silahkan isi jumlah rusak",
+                    "min" : "Minimal jumlah rusak 0"
+                },
             },
             errorElement : 'div',
             errorClass: "invalid-feedback animated fadeInUp",
