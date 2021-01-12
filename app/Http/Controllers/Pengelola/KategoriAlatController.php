@@ -4,21 +4,21 @@ namespace App\Http\Controllers\Pengelola;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Lemari;
+use App\Models\KategoriAlat;
 use App\Models\Laboratorium;
 use DB;
 
-class LemariController extends Controller
+class KategoriAlatController extends Controller
 {
     public function index()
     {
-        $page_title = 'Data Lemari';
-        $page_description = 'Menampilkan seluruh data lemari';
+        $page_title = 'Data Kategori Alat';
+        $page_description = 'Menampilkan seluruh data kategori alat';
         $action = 'table_datatable_basic';
         $id_lab = 1;
-        $lemari = Lemari::where('ID_LABORATORIUM',$id_lab)->get();
+        $kategori = KategoriAlat::where('ID_LABORATORIUM',$id_lab)->get();
         $lab = Laboratorium::find($id_lab);
-        return view('pengelola.lemari', compact('page_title', 'page_description','action','lemari','lab'));
+        return view('pengelola.kategori-alat', compact('page_title', 'page_description','action','kategori','lab'));
     }
 
     /**
@@ -31,16 +31,16 @@ class LemariController extends Controller
     {
         $request->validate([
             'ID_LABORATORIUM' => 'required|exists:App\Models\Laboratorium,ID_LABORATORIUM',
-            'NAMA_LEMARI' => 'required',
+            'NAMA_KATEGORI' => 'required',
         ]);
 
         DB::transaction(function() use($request){
-            Lemari::insert([
+            KategoriAlat::insert([
                 "ID_LABORATORIUM" => $request->ID_LABORATORIUM,
-                "NAMA_LEMARI" => $request->NAMA_LEMARI,
+                "NAMA_KATEGORI" => $request->NAMA_KATEGORI,
             ]);
         });
-        return redirect()->route('pengelola.lemari.index')->with('created','Data berhasil dibuat');
+        return redirect()->route('pengelola.kategori-alat.index')->with('created','Data berhasil dibuat');
     }
 
     /**
@@ -54,16 +54,23 @@ class LemariController extends Controller
     {
         $request->validate([
             'ID_LABORATORIUM' => 'required|exists:App\Models\Laboratorium,ID_LABORATORIUM',
-            'NAMA_LEMARI' => 'required',
         ]);
 
-        $ruanglab = Lemari::find($id);
-        $ruanglab->update([
+        $kategori = KategoriAlat::find($id);
+
+        if($kategori->NAMA_KATEGORI != $request->NAMA_KATEGORI)
+        {
+            $request->validate([
+                'NAMA_KATEGORI' => 'required',
+            ]);
+        }
+
+        $kategori->update([
             "ID_LABORATORIUM" => $request->ID_LABORATORIUM,
-            "NAMA_LEMARI" => $request->NAMA_LEMARI,
+            "NAMA_KATEGORI" => $request->NAMA_KATEGORI,
         ]);
         
-        return redirect()->route('pengelola.lemari.index')->with('updated','Data berhasil diubah');
+        return redirect()->route('pengelola.kategori-alat.index')->with('updated','Data berhasil diubah');
     }
 
     /**
@@ -74,7 +81,7 @@ class LemariController extends Controller
      */
     public function destroy($id)
     {
-        Lemari::find($id)->delete();
-        return redirect()->route('pengelola.lemari.index')->with('deleted','Data berhasil dihapus');
+        KategoriAlat::find($id)->delete();
+        return redirect()->route('pengelola.kategori-alat.index')->with('deleted','Data berhasil dihapus');
     }
 }

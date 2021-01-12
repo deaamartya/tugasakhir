@@ -12,8 +12,9 @@
                             <span class="nav-text">Data Pengguna</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="{!! route('admin.user.index'); !!}">Data User</a></li>
+                            <li><a href="{!! route('admin.lab.index'); !!}">Data Laboratorium</a></li>
                             <li><a href="{!! route('admin.tipe-user.index'); !!}">Data Tipe User</a></li>
+                            <li><a href="{!! route('admin.user.index'); !!}">Data User</a></li>
                         </ul>
                     </li>
                     <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
@@ -59,9 +60,9 @@
                             <span class="nav-text">Data Master</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="{!! route('pengelola.lab.index'); !!}">Data Laboratorium</a></li>
                             <li><a href="{!! route('pengelola.ruang-lab.index'); !!}">Data Ruang Laboratorium</a></li>
                             <li><a href="{!! route('pengelola.lemari.index'); !!}">Data Lemari</a></li>
+                            <li><a href="{!! route('pengelola.kategori-alat.index'); !!}">Data Kategori Alat</a></li>
                             <li><a href="{!! route('pengelola.katalog-alat.index'); !!}">Data Katalog Alat</a></li>
                             <li><a href="{!! route('pengelola.alat.index'); !!}">Data Alat</a></li>
                             <li><a href="{!! route('pengelola.bahan-kimia.index'); !!}">Data Bahan Kimia</a></li>

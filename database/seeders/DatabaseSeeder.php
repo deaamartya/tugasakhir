@@ -13,7 +13,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $this->call(LaboratoriumTableSeeder::class);
         $this->call(TipeUserTableSeeder::class);
+        $this->call(RuangLaboratoriumTableSeeder::class);
+        $this->call(LemariTableSeeder::class);
         $this->call(AlatTableSeeder::class);
         $this->call(AlatBahanPraktikumTableSeeder::class);
         $this->call(BahanTableSeeder::class);
@@ -24,14 +27,13 @@ class DatabaseSeeder extends Seeder
         $this->call(KatalogBahanTableSeeder::class);
         $this->call(KategoriAlatTableSeeder::class);
         $this->call(KelasTableSeeder::class);
-        $this->call(LaboratoriumTableSeeder::class);
-        $this->call(LemariTableSeeder::class);
+        
         $this->call(MataPelajaranTableSeeder::class);
         $this->call(MerkTipeAlatTableSeeder::class);
         $this->call(PeminjamanAlatBahanTableSeeder::class);
         $this->call(PerubahanJadwalPeminjamanTableSeeder::class);
         $this->call(PraktikumTableSeeder::class);
-        $this->call(RuangLaboratoriumTableSeeder::class);
+        
         $this->call(TahunAkademikTableSeeder::class);
         $this->call(TipeTableSeeder::class);
         $this->call(UsersTableSeeder::class);

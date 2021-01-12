@@ -33,4 +33,9 @@ class TipeUser extends Model
 	{
 		return $this->hasMany(User::class, 'ID_TIPE_USER');
 	}
+
+	public function laboratorium()
+	{
+		return $this->belongsTo(Laboratorium::class, 'ID_LABORATORIUM');
+	}
 }

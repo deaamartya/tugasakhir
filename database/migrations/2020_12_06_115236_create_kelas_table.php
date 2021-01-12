@@ -38,6 +38,7 @@ class CreateKelasTable extends Migration
      */
     public function down()
     {
+        DB::unprepared('DROP TRIGGER `auto_id_kelas`');
         Schema::dropIfExists('kelas');
     }
 }

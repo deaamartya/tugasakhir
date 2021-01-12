@@ -23,6 +23,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('tipe-user','App\Http\Controllers\Admin\TipeUserController');
     Route::resource('user','App\Http\Controllers\Admin\UserController');
     Route::resource('guru','App\Http\Controllers\Admin\GuruController');
+    Route::resource('lab','App\Http\Controllers\Admin\LaboratoriumController');
 });
 
 Route::prefix('guru')->name('guru.')->group(function () {
@@ -34,10 +35,10 @@ Route::prefix('guru')->name('guru.')->group(function () {
 Route::prefix('pengelola')->name('pengelola.')->group(function () {
     Route::get('/', 'App\Http\Controllers\PengelolaController@dashboard')->name('dashboard');
 
-    Route::resource('lab','App\Http\Controllers\Pengelola\LaboratoriumController');
     Route::resource('ruang-lab','App\Http\Controllers\Pengelola\RuangLaboratoriumController');
     Route::resource('lemari','App\Http\Controllers\Pengelola\LemariController');
     Route::resource('katalog-alat','App\Http\Controllers\Pengelola\KatalogAlatController');
+    Route::resource('kategori-alat','App\Http\Controllers\Pengelola\KategoriAlatController');
     Route::resource('alat','App\Http\Controllers\Pengelola\AlatController');
     Route::resource('bahan-kimia','App\Http\Controllers\Pengelola\BahanKimiaController');
     Route::resource('bahan','App\Http\Controllers\Pengelola\BahanController');
