@@ -33,8 +33,10 @@ class KatalogAlat extends Model
 	];
 
 	protected $fillable = [
+		'ID_KATALOG_ALAT',
 		'ID_KATEGORI_ALAT',
-		'NAMA_ALAT'
+		'NAMA_ALAT',
+		'UKURAN'
 	];
 
 	public function kategori_alat()

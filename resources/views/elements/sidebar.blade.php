@@ -64,6 +64,7 @@
                             <li><a href="{!! route('pengelola.lemari.index'); !!}">Data Lemari</a></li>
                             <li><a href="{!! route('pengelola.kategori-alat.index'); !!}">Data Kategori Alat</a></li>
                             <li><a href="{!! route('pengelola.katalog-alat.index'); !!}">Data Katalog Alat</a></li>
+                            <li><a href="{!! route('pengelola.tipe.index'); !!}">Data Merk/Tipe</a></li>
                             <li><a href="{!! route('pengelola.alat.index'); !!}">Data Alat</a></li>
                             <li><a href="{!! route('pengelola.bahan-kimia.index'); !!}">Data Bahan Kimia</a></li>
                             <li><a href="{!! route('pengelola.bahan.index'); !!}">Data Bahan</a></li>

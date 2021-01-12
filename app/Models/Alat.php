@@ -43,7 +43,6 @@ class Alat extends Model
 		'ID_KATALOG_ALAT',
 		'ID_LEMARI',
 		'ID_MERK_TIPE',
-		'UKURAN',
 		'JUMLAH_BAGUS',
 		'JUMLAH_RUSAK'
 	];

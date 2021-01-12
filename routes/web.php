@@ -38,7 +38,11 @@ Route::prefix('pengelola')->name('pengelola.')->group(function () {
     Route::resource('ruang-lab','App\Http\Controllers\Pengelola\RuangLaboratoriumController');
     Route::resource('lemari','App\Http\Controllers\Pengelola\LemariController');
     Route::resource('katalog-alat','App\Http\Controllers\Pengelola\KatalogAlatController');
+    Route::post('katalog-alat/update','App\Http\Controllers\Pengelola\KatalogAlatController@update')->name('katalog-alat.update');
+    Route::post('katalog-alat/destroy','App\Http\Controllers\Pengelola\KatalogAlatController@destroy')->name('katalog-alat.destroy');
+
     Route::resource('kategori-alat','App\Http\Controllers\Pengelola\KategoriAlatController');
+    Route::resource('tipe','App\Http\Controllers\Pengelola\MerkTipeController');
     Route::resource('alat','App\Http\Controllers\Pengelola\AlatController');
     Route::resource('bahan-kimia','App\Http\Controllers\Pengelola\BahanKimiaController');
     Route::resource('bahan','App\Http\Controllers\Pengelola\BahanController');

@@ -18,7 +18,6 @@ class CreateAlatTable extends Migration
             $table->string('ID_KATALOG_ALAT', 15)->index('FK_BAGIAN_DARI_6');
             $table->integer('ID_LEMARI')->index('FK_DISIMPAN_DALAM');
             $table->integer('ID_MERK_TIPE')->index('FK_MEMILIKI_7');
-            $table->string('UKURAN', 20);
             $table->integer('JUMLAH_BAGUS');
             $table->integer('JUMLAH_RUSAK');
         });
