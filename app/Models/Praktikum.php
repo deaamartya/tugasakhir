@@ -54,9 +54,9 @@ class Praktikum extends Model
 		return $this->belongsTo(MataPelajaran::class, 'ID_MAPEL');
 	}
 
-	public function kela()
+	public function kelas()
 	{
-		return $this->belongsTo(Kela::class, 'ID_KELAS');
+		return $this->belongsTo(Kelas::class, 'ID_KELAS');
 	}
 
 	public function alat_bahan_praktikums()

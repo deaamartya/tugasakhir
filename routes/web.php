@@ -45,6 +45,9 @@ Route::prefix('pengelola')->name('pengelola.')->group(function () {
     Route::post('bahan-kimia/destroy','App\Http\Controllers\Pengelola\BahanKimiaController@destroy')->name('bahan-kimia.destroy');
 
     Route::resource('bahan','App\Http\Controllers\Pengelola\BahanController');
+    Route::post('bahan/update','App\Http\Controllers\Pengelola\BahanController@update')->name('bahan.update');
+    Route::post('bahan/destroy','App\Http\Controllers\Pengelola\BahanController@destroy')->name('bahan.destroy');
+
     Route::resource('praktikum','App\Http\Controllers\Pengelola\PraktikumController');
 
     Route::get('jadwal-praktikum','App\Http\Controllers\Pengelola\JadwalPraktikumController@index');

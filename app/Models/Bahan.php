@@ -27,12 +27,15 @@ class Bahan extends Model
 	public $timestamps = false;
 
 	protected $casts = [
-		'ID_LEMARI' => 'int'
+		'ID_LEMARI' => 'int',
+		'JUMLAH' => 'int'
 	];
 
 	protected $fillable = [
 		'ID_LEMARI',
-		'NAMA_BAHAN'
+		'NAMA_BAHAN',
+		'ID_BAHAN',
+		'JUMLAH'
 	];
 
 	public function lemari()

@@ -36,7 +36,7 @@ class MataPelajaranController extends Controller
         ]);
         DB::transaction(function() use($request){
             MataPelajaran::insert([
-                "NAMA_MAPEL" => ucwords(strtolower(trim($request->mata_pelajaran)))
+                "NAMA_MAPEL" => $request->mata_pelajaran
             ]);
         });
         return redirect()->route('admin.mata-pelajaran.index')->with('created','Data berhasil dibuat');
@@ -60,7 +60,7 @@ class MataPelajaranController extends Controller
                 ]);
             }
             $mataPelajaran->update([
-                "NAMA_MAPEL" => ucwords(strtolower(trim($request->mata_pelajaran)))
+                "NAMA_MAPEL" => $request->mata_pelajaran
             ]);
         });
         return redirect()->route('admin.mata-pelajaran.index')->with('updated','Data berhasil diubah');

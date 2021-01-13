@@ -27,17 +27,17 @@
     <div class="row page-titles mx-0">
         <div class="col-sm-6 p-md-0">
             <div class="welcome-text">
-                <h4>Hi, @auth {{ Auth::user()->NAMA_LENGKAP }} @endif</h4>
+                <h4>Hi, @auth {{ Auth::user()->NAMA_KATALOG_ALAT }} @endif</h4>
             </div>
         </div>
         <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="javascript:void(0)">Akademik</a></li>
-                <li class="breadcrumb-item active"><a href="javascript:void(0)">Data Kelas</a></li>
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Data Master</a></li>
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">Data Bahan</a></li>
             </ol>
         </div>
     </div>
-    <!-- row -->
+    
     @if(Session::has('created') || Session::has('updated') || Session::has('deleted') || Session::has('error'))
     <div class="alert 
         @if(Session::has('created') || Session::has('updated'))
@@ -63,15 +63,16 @@
         <div class="alert alert-danger">Data tidak berhasil disimpan. Cek kembali form</div>
     @endif
 
+    <!-- row -->
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Kelas</h4>
+                    <h4 class="card-title">Bahan</h4>
                     <button type="button" class="btn btn-rounded btn-info" data-toggle="modal" data-target="#create-modal">
                         <span class="btn-icon-left text-info">
                             <i class="fa fa-plus color-info"></i>
-                        </span>Buat Kelas Baru
+                        </span>Buat Bahan Baru
                     </button>
                 </div>
                 <div class="card-body">
@@ -79,27 +80,26 @@
                         <table id="example5" class="display" style="min-width: 845px">
                             <thead>
                                 <tr>
-                                    <th>ID Kelas</th>
-                                    <th>Nama Kelas</th>
-                                    <th>Tahun Akademik</th>
-                                    <th>Guru</th>
-                                    <th>Mata Pelajaran</th>
+                                    <th>ID Bahan</th>
+                                    <th>Lab. - Lemari</th>
+                                    <th>Nama Bahan</th>
+                                    <th>Jumlah(pcs)</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($kelas as $d)
+                                @foreach($bahan as $d)
                                 <tr>
-                                    <td>{{ $d->ID_KELAS }}</td>
-                                    <td>{{ $d->jenis_kelas->NAMA_JENIS_KELAS }}</td>
-                                    <td>{{ $d->tahun_akademik->TAHUN_AKADEMIK }}</td>
-                                    <td>{{ $d->user->NAMA_LENGKAP }}</td>	
-                                    <td>{{ $d->mapel->NAMA_MAPEL }}</td>
+                                    <td> {{ $d->ID_BAHAN }} </td>
+                                    <td> {{ $d->lemari->laboratorium->NAMA_LABORATORIUM }} - {{ $d->lemari->NAMA_LEMARI }} </td>
+                                    <td> {{ $d->NAMA_BAHAN }} </td>
+                                    <td> {{ $d->JUMLAH }}pcs </td>
                                     <td>
                                         <div class="d-flex">
-                                            <button type="button" class="btn btn-primary shadow btn-xs sharp mr-1" data-toggle="modal" data-target="#modal-edit-{{ $d->ID_KELAS }}"><i class="fa fa-pencil"></i></button>
+                                            <button type="button" class="btn btn-primary shadow btn-xs sharp mr-1" data-toggle="modal" data-target="#modal-edit-{{ $loop->index }}"><i class="fa fa-pencil"></i></button>
+                                            <button type="button" class="btn btn-danger shadow btn-xs sharp" data-toggle="modal" data-target="#modal-delete-{{ $loop->index }}"><i class="fa fa-trash"></i></button>
                                         </div>												
-                                    </td>								
+                                    </td>											
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -116,46 +116,50 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Buat Kelas Baru</h5>
+                <h5 class="modal-title">Buat Bahan Baru</h5>
                 <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <div class="form-validation">
-                    <form id="create-kelas" action="{{ route('admin.kelas.store') }}" name="create-kelas" method="POST">
-                    @csrf
+                    <form id="create-bahan" action="{{ route('pengelola.bahan.store') }}" name="create-bahan" method="POST">
+                        @csrf
                         <div class="form-group">
-                            <label>Jenis Kelas</label>
-                            <select class="form-control select2" name="ID_JENIS_KELAS" id="ID_JENIS_KELAS">
-                                @foreach($jeniskelas as $t)
-                                    <option value="{{ $t->ID_JENIS_KELAS }}">{{ $t->NAMA_JENIS_KELAS }}</option>
+                            <label>Lemari</label>
+                            <select class="form-control select2 @error('ID_LEMARI') is-invalid @enderror" name="ID_LEMARI" id="ID_LEMARI">
+                                @foreach($lemari as $t)
+                                    <option value="{{ $t->ID_LEMARI }}">{{ $t->laboratorium->NAMA_LABORATORIUM }} - {{ $t->NAMA_LEMARI }}</option>
                                 @endforeach
                             </select>
+                            <div class="invalid-feedback animated fadeInUp">
+                                Silahkan pilih lemari
+                            </div>
                         </div>
+
                         <div class="form-group">
-                            <label>Tahun Akademik</label>
-                            <select class="form-control select2" name="ID_TAHUN_AKADEMIK" id="ID_TAHUN_AKADEMIK">
-                                @foreach($tahunakademik as $t)
-                                    <option value="{{ $t->ID_TAHUN_AKADEMIK }}">{{ $t->TAHUN_AKADEMIK }}</option>
-                                @endforeach
-                            </select>
+                            <label>ID Bahan</label>
+                            <input type="text" class="form-control @error('ID_BAHAN') is-invalid @enderror" id="ID_BAHAN" name="ID_BAHAN" value="{{ @old('ID_BAHAN') }}">
+                            <div class="invalid-feedback animated fadeInUp">
+                                ID Bahan harus diisi dan unik
+                            </div>
                         </div>
+
                         <div class="form-group">
-                            <label>Guru</label>
-                            <select class="form-control select2" name="ID_USER" id="ID_USER">
-                                @foreach($guru as $t)
-                                    <option value="{{ $t->ID_USER }}">{{ $t->NAMA_LENGKAP }}</option>
-                                @endforeach
-                            </select>
+                            <label>Nama Bahan</label>
+                            <input type="text" class="form-control @error('NAMA_BAHAN') is-invalid @enderror" id="NAMA_BAHAN" name="NAMA_BAHAN" value="{{ @old('NAMA_BAHAN') }}">
+                            <div class="invalid-feedback animated fadeInUp">
+                                Nama Bahan harus diisi
+                            </div>
                         </div>
+
                         <div class="form-group">
-                            <label>Mata Pelajaran</label>
-                            <select class="form-control select2" name="ID_MAPEL" id="ID_MAPEL">
-                                @foreach($mapel as $t)
-                                    <option value="{{ $t->ID_MAPEL }}">{{ $t->NAMA_MAPEL }}</option>
-                                @endforeach
-                            </select>
+                            <label>Jumlah(pcs)</label>
+                            <input type="number" class="form-control @error('JUMLAH') is-invalid @enderror" id="JUMLAH" name="JUMLAH" value="{{ @old('JUMLAH') }}">
+                            <div class="invalid-feedback animated fadeInUp">
+                                Jumlah harus diisi minimal 0
+                            </div>
                         </div>
+
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-danger light" data-dismiss="modal">Batal</button>
                             <button type="submit" class="btn btn-primary submit-btn">Simpan</button>
@@ -168,55 +172,61 @@
 </div>
 {{-- End of Create Modal --}}
 
-@foreach($kelas as $d)
+@foreach($bahan as $d)
 {{-- Edit Modal --}}
-<div id="modal-edit-{{ $d->ID_KELAS }}" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+<div id="modal-edit-{{ $loop->index }}" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Edit Kelas #{{ $d->ID_KELAS }}</h5>
+                <h5 class="modal-title">Edit Bahan #{{ $d->ID_BAHAN }}</h5>
                 <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form class="form-valide" action="{{ route('admin.kelas.update',$d->ID_KELAS) }}" name="edit-kelas" method="POST" enctype="multipart/form-data" id="form-edit-{{ $d->ID_KELAS }}">
-                @method('PUT')
-                @csrf
-                <div class="form-group">
-                    <label>Jenis Kelas</label>
-                    <select class="form-control select2" name="ID_JENIS_KELAS" id="ID_JENIS_KELAS">
-                        @foreach($jeniskelas as $t)
-                            <option value="{{ $t->ID_JENIS_KELAS }}" @if($d->ID_JENIS_KELAS == $t->ID_JENIS_KELAS) selected @endif >{{ $t->NAMA_JENIS_KELAS }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Tahun Akademik</label>
-                    <select class="form-control select2" name="ID_TAHUN_AKADEMIK" id="ID_TAHUN_AKADEMIK">
-                        @foreach($tahunakademik as $t)
-                            <option value="{{ $t->ID_TAHUN_AKADEMIK }}" @if($d->ID_TAHUN_AKADEMIK == $t->ID_TAHUN_AKADEMIK) selected @endif >{{ $t->TAHUN_AKADEMIK }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Guru</label>
-                    <select class="form-control select2" name="ID_USER" id="ID_USER">
-                        @foreach($guru as $t)
-                            <option value="{{ $t->ID_USER }}" @if($d->ID_USER == $t->ID_USER) selected @endif >{{ $t->NAMA_LENGKAP }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Mata Pelajaran</label>
-                    <select class="form-control select2" name="ID_MAPEL" id="ID_MAPEL">
-                        @foreach($mapel as $t)
-                            <option value="{{ $t->ID_MAPEL }}" @if($d->ID_MAPEL == $t->ID_MAPEL) selected @endif >{{ $t->NAMA_MAPEL }}</option>
-                        @endforeach
-                    </select>
-                </div>
+                <form class="form-valide" action="{{ route('pengelola.bahan.update') }}" name="edit-bahan" method="POST" id="form-edit-{{ $loop->index }}">
+                    @method('PUT')
+                    @csrf
+                    <input type="hidden" name="ID_BAHAN_LAMA" value="{{ $d->ID_BAHAN }}">
+
+                    <div class="form-group">
+                        <label>Lemari</label>
+                        <select class="form-control select2 @error('ID_LEMARI') is-invalid @enderror" name="ID_LEMARI" id="ID_LEMARI">
+                            @foreach($lemari as $t)
+                                <option value="{{ $t->ID_LEMARI }}" @if($d->ID_LEMARI == $t->ID_LEMARI) selected @endif >{{ $t->laboratorium->NAMA_LABORATORIUM }} - {{ $t->NAMA_LEMARI }}</option>
+                            @endforeach
+                        </select>
+                        <div class="invalid-feedback animated fadeInUp">
+                            Silahkan pilih lemari
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>ID Bahan</label>
+                        <input type="text" class="form-control @error('ID_BAHAN') is-invalid @enderror" id="ID_BAHAN" name="ID_BAHAN" value="{{ $d->ID_BAHAN }}">
+                        <div class="invalid-feedback animated fadeInUp">
+                            ID Bahan harus diisi dan unik
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Nama Bahan</label>
+                        <input type="text" class="form-control @error('NAMA_BAHAN') is-invalid @enderror" id="NAMA_BAHAN" name="NAMA_BAHAN" value="{{ $d->NAMA_BAHAN }}">
+                        <div class="invalid-feedback animated fadeInUp">
+                            Nama Bahan harus diisi
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Jumlah(pcs)</label>
+                        <input type="number" class="form-control @error('JUMLAH') is-invalid @enderror" id="JUMLAH" name="JUMLAH" value="{{ $d->JUMLAH }}">
+                        <div class="invalid-feedback animated fadeInUp">
+                            Jumlah harus diisi minimal 0
+                        </div>
+                    </div>
+
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-danger light" data-dismiss="modal">Batal</button>
-                        <button type="submit" class="btn btn-primary submit-btn">Simpan</button>
+                        <button type="submit" class="btn btn-primary submit-btn" id="{{ $d->ID_BAHAN }}">Simpan</button>
                     </div>
                 </form>
             </div>
@@ -226,19 +236,20 @@
 {{-- End of Edit Modal --}}
 
 {{-- Delete Modal --}}
-<div class="modal fade" id="modal-delete-{{ $d->ID_KELAS }}">
+<div class="modal fade" id="modal-delete-{{ $loop->index }}">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Delete Kelas #{{ $d->ID_KELAS }}</h5>
+                <h5 class="modal-title">Delete Bahan #{{ $d->ID_BAHAN }}</h5>
                 <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('admin.kelas.destroy',$d->ID_KELAS) }}" method="POST">
+                <form action="{{ route('pengelola.bahan.destroy') }}" method="POST">
                     @method('DELETE')
                     @csrf
-                    Apakah anda yakin ingin menghapus Kelas {{ $d->ID_KELAS }} ?
+                    Apakah anda yakin ingin menghapus bahan {{ $d->NAMA_BAHAN }} ?
+                    <input type="hidden" name="ID_BAHAN_LAMA" value="{{ $d->ID_BAHAN }}">
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger light" data-dismiss="modal">Tidak, batalkan.</button>
                         <button type="submit" class="btn btn-primary">Ya</button>
@@ -261,6 +272,11 @@
 			<script src="{{ asset($script) }}" type="text/javascript"></script>
 	@endforeach
 @endif
+@if(!empty(config('dz.public.pagelevel.js.uc_select2')))
+	@foreach(config('dz.public.pagelevel.js.uc_select2') as $script)
+			<script src="{{ asset($script) }}" type="text/javascript"></script>
+	@endforeach
+@endif
 @if(!empty(config('dz.public.pagelevel.js.form_validation_jquery')))
 	@foreach(config('dz.public.pagelevel.js.form_validation_jquery') as $script)
 			<script src="{{ asset($script) }}" type="text/javascript"></script>
@@ -268,27 +284,30 @@
 @endif
 <script>
 $(document).ready(function(){
-    $("#create-kelas").validate({
+    $("#create-bahan").validate({
         rules: {
-            ID_JENIS_KELAS: {
+            ID_LEMARI: {
+                required: true
+            },
+            ID_BAHAN: {
                 required: true,
             },
-            ID_TAHUN_AKADEMIK: {
+            NAMA_BAHAN: {
                 required: true,
             },
-            ID_USER: {
+            JUMLAH: {
                 required: true,
+                min: 0,
             },
-            ID_MAPEL: {
-                required: true,
-            }
         },
         messages: {
-            ID_JENIS_KELAS: "Silahkan pilih jenis kelas",
-            ID_TAHUN_AKADEMIK: "Silahkan pilih tahun akademik",
-            ID_USER: "Silahkan pilih guru",
-            ID_MAPEL: "Silahkan pilih mata pelajaran",
-
+            ID_LEMARI: "Silahkan pilih lemari lokasi bahan",
+            ID_BAHAN: "Silahkan isi id bahan. Pastikan id unik.",
+            NAMA_BAHAN: "Silahkan isi nama bahan",
+            JUMLAH: {
+                "required" : "Silahkan isi jumlah bahan",
+                "min" : "Minimal jumlah bahan 0"
+            },
         },
         errorElement : 'div',
         errorClass: "invalid-feedback animated fadeInUp",
@@ -310,25 +329,28 @@ $(document).ready(function(){
     $(".form-valide").each(function(){
         $(this).validate({
             rules: {
-                ID_JENIS_KELAS: {
+                ID_LEMARI: {
+                    required: true
+                },
+                ID_BAHAN: {
                     required: true,
                 },
-                ID_TAHUN_AKADEMIK: {
+                NAMA_BAHAN: {
                     required: true,
                 },
-                ID_USER: {
+                JUMLAH: {
                     required: true,
+                    min: 0,
                 },
-                ID_MAPEL: {
-                    required: true,
-                }
             },
             messages: {
-                ID_JENIS_KELAS: "Silahkan pilih jenis kelas",
-                ID_TAHUN_AKADEMIK: "Silahkan pilih tahun akademik",
-                ID_USER: "Silahkan pilih guru",
-                ID_MAPEL: "Silahkan pilih mata pelajaran",
-
+                ID_LEMARI: "Silahkan pilih lemari lokasi bahan",
+                ID_BAHAN: "Silahkan isi id bahan. Pastikan id unik.",
+                NAMA_BAHAN: "Silahkan isi nama bahan",
+                JUMLAH: {
+                    "required" : "Silahkan isi jumlah bahan",
+                    "min" : "Minimal jumlah bahan 0"
+                },
             },
             errorElement : 'div',
             errorClass: "invalid-feedback animated fadeInUp",

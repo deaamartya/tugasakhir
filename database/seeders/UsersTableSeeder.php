@@ -59,6 +59,24 @@ class UsersTableSeeder extends Seeder
             'PATH_FOTO' => null,
             'NAMA_LENGKAP' => 'Nama Guru Kimia',
         ]);
+
+        //user Guru
+        \DB::table('users')->insert([
+            'ID_TIPE_USER' => 5,
+            'USERNAME' => "gurufisika",
+            'PASSWORD' => bcrypt('admin'),
+            'PATH_FOTO' => null,
+            'NAMA_LENGKAP' => 'Nama Guru Fisika',
+        ]);
+
+        //user Guru
+        \DB::table('users')->insert([
+            'ID_TIPE_USER' => 5,
+            'USERNAME' => "gurubiologi",
+            'PASSWORD' => bcrypt('admin'),
+            'PATH_FOTO' => null,
+            'NAMA_LENGKAP' => 'Nama Guru Biologi',
+        ]);
         
     }
 }

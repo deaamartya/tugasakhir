@@ -73,7 +73,7 @@ class KelasController extends Controller
             'ID_MAPEL' => 'required|exists:App\Models\MataPelajaran,ID_MAPEL',
         ]);
 
-        DB::transaction(function() use($request){
+        DB::transaction(function() use($request,$id){
             $kelas = Kelas::find($id)->update([
                 "ID_USER" => $request->ID_USER,
                 "ID_TAHUN_AKADEMIK" => $request->ID_TAHUN_AKADEMIK,
@@ -82,17 +82,5 @@ class KelasController extends Controller
             ]);
         });
         return redirect()->route('admin.kelas.index')->with('updated','Data berhasil diubah');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Kelas  $kelas
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        Kelas::find($id)->delete();
-        return redirect()->route('admin.user.index')->with('deleted','Data berhasil dihapus');
     }
 }
