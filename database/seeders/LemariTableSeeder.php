@@ -1,5 +1,4 @@
 <?php
-
 namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 
@@ -71,6 +70,12 @@ class LemariTableSeeder extends Seeder
                 'ID_LEMARI' => 9,
                 'ID_LABORATORIUM' => 2,
                 'NAMA_LEMARI' => 'A7',
+            ),
+            9 => 
+            array (
+                'ID_LEMARI' => 10,
+                'ID_LABORATORIUM' => 1,
+                'NAMA_LEMARI' => 'A5',
             ),
         ));
         

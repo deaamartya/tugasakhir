@@ -17,6 +17,18 @@ class BahanKimiaTableSeeder extends Seeder
 
         \DB::table('bahan_kimia')->delete();
         
+        \DB::table('bahan_kimia')->insert(array (
+            0 => 
+            array (
+                'ID_BAHAN_KIMIA' => 'BN/011',
+                'ID_KATALOG_BAHAN' => 'BN/01',
+                'ID_LEMARI' => 10,
+                'RUMUS' => 'Na',
+                'WUJUD' => 'Padat',
+                'JUMLAH_BAHAN_KIMIA' => 50.0,
+                'SPESIFIKASI_BAHAN' => 1,
+            ),
+        ));
         
         
     }

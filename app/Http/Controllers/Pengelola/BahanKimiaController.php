@@ -20,7 +20,7 @@ class BahanKimiaController extends Controller
         $id_lab = 1;
         $lab = Laboratorium::find($id_lab);
         $lemari = Lemari::where('ID_LABORATORIUM',$id_lab)->get();
-        $katalogbahan = KatalogBahan::where('ID_LABORATORIUM',$id_lab);
+        $katalogbahan = KatalogBahan::where('ID_LABORATORIUM',$id_lab)->get();
         $bahankimia = BahanKimia::join('lemari as le','le.ID_LEMARI','bahan_kimia.ID_LEMARI')->join('laboratorium as l','l.ID_LABORATORIUM','le.ID_LABORATORIUM')->where('l.ID_LABORATORIUM',$id_lab)->get();
         return view('pengelola.bahan-kimia', compact('page_title', 'page_description','action','bahankimia','lemari','katalogbahan'));
     }
@@ -41,6 +41,8 @@ class BahanKimiaController extends Controller
             'JUMLAH_BAHAN_KIMIA' => 'required',
             'SPESIFIKASI_BAHAN' => 'required',
         ]);
+
+        $request->SPESIFIKASI_BAHAN = ($request->SPESIFIKASI_BAHAN == "true") ? true : false;
 
         DB::transaction(function() use($request){
             BahanKimia::insert([
@@ -72,6 +74,8 @@ class BahanKimiaController extends Controller
             'JUMLAH_BAHAN_KIMIA' => 'required',
             'SPESIFIKASI_BAHAN' => 'required',
         ]);
+
+        $request->SPESIFIKASI_BAHAN = ($request->SPESIFIKASI_BAHAN == "true") ? true : false;
 
         $bahankimia = BahanKimia::find($request->ID_BAHAN_KIMIA);
         $bahankimia->update([

@@ -81,9 +81,10 @@
                             <thead>
                                 <tr>
                                     <th>ID Bahan</th>
-                                    <th>Lab.</th>
-                                    <th>Lemari</th>
-                                    <th>Nama Bahan Kimia</th>
+                                    <th>Lab. - Lemari</th>
+                                    <th>Bahan Kimia</th>
+                                    <th>Spek.</th>
+                                    <th>Jumlah(gr)</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -91,8 +92,14 @@
                                 @foreach($bahankimia as $d)
                                 <tr>
                                     <td> {{ $d->ID_BAHAN_KIMIA }} </td>
-                                    <td> {{ $d->laboratorium->NAMA_LABORATORIUM }} </td>
-                                    <td> {{ $d->NAMA_KATALOG_BAHAN }} </td>
+                                    <td> {{ $d->lemari->laboratorium->NAMA_LABORATORIUM }} - {{ $d->lemari->NAMA_LEMARI }} </td>
+                                    <td> {{ $d->katalog_bahan->NAMA_KATALOG_BAHAN }} ({{ $d->RUMUS }}) - {{ $d->WUJUD }}</td>
+                                    <td> @if($d->SPESIFIKASI_BAHAN == "1")
+                                    TEK
+                                    @elseif($d->SPESIFIKASI_BAHAN == "0")
+                                    PA
+                                    @endif </td>
+                                    <td> {{ $d->JUMLAH_BAHAN_KIMIA }} </td>
                                     <td>
                                         <div class="d-flex">
                                             <button type="button" class="btn btn-primary shadow btn-xs sharp mr-1" data-toggle="modal" data-target="#modal-edit-{{ $loop->index }}"><i class="fa fa-pencil"></i></button>
@@ -130,21 +137,59 @@
                                     <option value="{{ $t->ID_LEMARI }}">{{ $t->laboratorium->NAMA_LABORATORIUM }} - {{ $t->NAMA_LEMARI }}</option>
                                 @endforeach
                             </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label>ID Bahan Kimia</label>
-                            <input type="text" class="form-control @error('ID_BAHAN_KIMIA') is-invalid @enderror" id="ID_BAHAN_KIMIA" name="ID_BAHAN_KIMIA" value="{{ @old('ID_BAHAN_KIMIA') }}">
                             <div class="invalid-feedback animated fadeInUp">
-                                ID Bahan Kimia harus diisi
+                                Lemari harus diisi
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label>Nama Bahan</label>
-                            <input type="text" class="form-control @error('NAMA_KATALOG_BAHAN') is-invalid @enderror" id="NAMA_KATALOG_BAHAN" name="NAMA_KATALOG_BAHAN" value="{{ @old('NAMA_KATALOG_BAHAN') }}">
+                            <label>Bahan</label>
+                            <select class="form-control select2" name="ID_KATALOG_BAHAN" id="ID_KATALOG_BAHAN">
+                                @foreach($katalogbahan as $t)
+                                    <option value="{{ $t->ID_KATALOG_BAHAN }}">{{ $t->ID_KATALOG_BAHAN }} - {{ $t->NAMA_KATALOG_BAHAN }}</option>
+                                @endforeach
+                            </select>
                             <div class="invalid-feedback animated fadeInUp">
-                                Nama Bahan harus diisi
+                                Bahan harus diisi
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Rumus</label>
+                            <input type="text" class="form-control @error('RUMUS') is-invalid @enderror" id="RUMUS" name="RUMUS" value="{{ @old('RUMUS') }}">
+                            <div class="invalid-feedback animated fadeInUp">
+                                Rumus harus diisi
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="form-row ml-1">
+                                <label>Spesifikasi</label>
+                            </div>
+                            <label class="radio-inline mr-3"><input class="mr-2" type="radio" name="SPESIFIKASI_BAHAN" value="true" checked>TEK (Teknis)</label>
+                            <label class="radio-inline mr-3"><input class="mr-2" type="radio" name="SPESIFIKASI_BAHAN" value="false">PA (Pro Analis)</label>
+                            <div class="invalid-feedback animated fadeInUp">
+                                Spesifikasi harus diisi
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="form-row ml-1">
+                                <label>Wujud</label>
+                            </div>
+                            <label class="radio-inline mr-3"><input class="mr-2" type="radio" name="WUJUD" value="Padat" checked>Padat</label>
+                            <label class="radio-inline mr-3"><input class="mr-2" type="radio" name="WUJUD" value="Cair">Cair</label>
+                            <label class="radio-inline mr-3"><input class="mr-2" type="radio" name="WUJUD" value="Gas">Gas</label>
+                            <div class="invalid-feedback animated fadeInUp">
+                                Wujud harus diisi
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Jumlah (gr)</label>
+                            <input type="number" class="form-control @error('JUMLAH_BAHAN_KIMIA') is-invalid @enderror" id="JUMLAH_BAHAN_KIMIA" name="JUMLAH_BAHAN_KIMIA" value="{{ @old('JUMLAH_BAHAN_KIMIA') }}">
+                            <div class="invalid-feedback animated fadeInUp">
+                                Jumlah bahan kimia harus diisi
                             </div>
                         </div>
 
@@ -177,25 +222,59 @@
                     <input type="hidden" name="ID_BAHAN_KIMIA" value="{{ $d->ID_BAHAN_KIMIA }}">
 
                     <div class="form-group">
-                        <label>Laboratorium</label>
+                        <label>Lemari</label>
                         <select class="form-control select2" name="ID_LEMARI" id="ID_LEMARI">
-                            <option value="{{ $lab->ID_LEMARI }}" selected>{{ $lab->NAMA_LABORATORIUM }}</option>
+                            @foreach($lemari as $t)
+                                <option value="{{ $t->ID_LEMARI }}" @if($d->ID_LEMARI == $t->ID_LEMARI) selected @endif>{{ $t->laboratorium->NAMA_LABORATORIUM }} - {{ $t->NAMA_LEMARI }}</option>
+                            @endforeach
                         </select>
                     </div>
 
                     <div class="form-group">
-                        <label>ID Bahan Kimia</label>
-                        <input type="text" class="form-control @error('ID_BAHAN_KIMIA') is-invalid @enderror" id="ID_BAHAN_KIMIA" name="ID_BAHAN_KIMIA" value="{{ $d->ID_BAHAN_KIMIA }}">
+                        <label>Bahan</label>
+                        <select class="form-control select2" name="ID_KATALOG_BAHAN" id="ID_KATALOG_BAHAN">
+                            @foreach($katalogbahan as $t)
+                                <option value="{{ $t->ID_KATALOG_BAHAN }}" @if($d->ID_KATALOG_BAHAN == $t->ID_KATALOG_BAHAN) selected @endif >{{ $t->ID_KATALOG_BAHAN }} - {{ $t->NAMA_KATALOG_BAHAN }}</option>
+                            @endforeach
+                        </select>
                         <div class="invalid-feedback animated fadeInUp">
-                            ID Bahan Kimia harus diisi
+                            Bahan harus diisi
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label>Nama Bahan</label>
-                        <input type="text" class="form-control @error('NAMA_KATALOG_BAHAN') is-invalid @enderror" id="NAMA_KATALOG_BAHAN" name="NAMA_KATALOG_BAHAN" value="{{ $d->NAMA_KATALOG_BAHAN }}">
+                        <label>Rumus</label>
+                        <input type="text" class="form-control @error('RUMUS') is-invalid @enderror" id="RUMUS" name="RUMUS" value="{{ $d->RUMUS }}">
                         <div class="invalid-feedback animated fadeInUp">
-                            Nama Bahan harus diisi
+                            Rumus harus diisi
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="form-row ml-1">
+                            <label>Spesifikasi</label>
+                        </div>
+                        <label class="radio-inline mr-3"><input class="mr-2" type="radio" name="SPESIFIKASI_BAHAN" value="true" @if($d->SPESIFIKASI_BAHAN == 1) checked @endif >TEK (Teknis)</label>
+                        <label class="radio-inline mr-3"><input class="mr-2" type="radio" name="SPESIFIKASI_BAHAN" value="false" @if($d->SPESIFIKASI_BAHAN == 0) checked @endif >PA (Pro Analis)</label>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="form-row ml-1">
+                            <label>Wujud</label>
+                        </div>
+                        <label class="radio-inline mr-3"><input class="mr-2" type="radio" name="WUJUD" value="Padat" @if($d->WUJUD == "Padat") checked @endif >Padat</label>
+                        <label class="radio-inline mr-3"><input class="mr-2" type="radio" name="WUJUD" value="Cair" @if($d->WUJUD == "Cair") checked @endif >Cair</label>
+                        <label class="radio-inline mr-3"><input class="mr-2" type="radio" name="WUJUD" value="Gas" @if($d->WUJUD == "Gas") checked @endif >Gas</label>
+                        <div class="invalid-feedback animated fadeInUp">
+                            Wujud harus diisi
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Jumlah (gr)</label>
+                        <input type="number" class="form-control @error('JUMLAH_BAHAN_KIMIA') is-invalid @enderror" id="JUMLAH_BAHAN_KIMIA" name="JUMLAH_BAHAN_KIMIA" value="{{ $d->JUMLAH_BAHAN_KIMIA }}">
+                        <div class="invalid-feedback animated fadeInUp">
+                            Jumlah bahan kimia harus diisi
                         </div>
                     </div>
 
@@ -264,17 +343,26 @@ $(document).ready(function(){
             ID_LEMARI: {
                 required: true
             },
-            NAMA_KATALOG_BAHAN: {
+            RUMUS: {
                 required: true,
             },
-            ID_BAHAN_KIMIA: {
+            SPESIFIKASI_BAHAN: {
                 required: true,
+            },
+            WUJUD: {
+                required: true,
+            },
+            JUMLAH_BAHAN_KIMIA: {
+                required: true,
+                min: 0,
             },
         },
         messages: {
-            ID_LEMARI: "Silahkan pilih laboratorium",
-            NAMA_KATALOG_BAHAN: "Silahkan isi nama katalog bahan",
-            ID_BAHAN_KIMIA: "Silahkan isi katalog bahan",
+            ID_LEMARI: "Silahkan pilih lemari",
+            RUMUS: "Silahkan isi nama rumus bahan",
+            SPESIFIKASI_BAHAN: "Silahkan pilih spesifikasi bahan",
+            WUJUD: "Silahkan pilih wujud bahan",
+            JUMLAH_BAHAN_KIMIA: "Silahkan isi jumlah(gr) bahan",
         },
         errorElement : 'div',
         errorClass: "invalid-feedback animated fadeInUp",
@@ -299,17 +387,26 @@ $(document).ready(function(){
                 ID_LEMARI: {
                     required: true
                 },
-                NAMA_KATALOG_BAHAN: {
+                RUMUS: {
                     required: true,
                 },
-                ID_BAHAN_KIMIA: {
+                SPESIFIKASI_BAHAN: {
                     required: true,
+                },
+                WUJUD: {
+                    required: true,
+                },
+                JUMLAH_BAHAN_KIMIA: {
+                    required: true,
+                    min: 0,
                 },
             },
             messages: {
-                ID_LEMARI: "Silahkan pilih laboratorium",
-                NAMA_KATALOG_BAHAN: "Silahkan isi nama katalog bahan",
-                ID_BAHAN_KIMIA: "Silahkan isi katalog bahan",
+                ID_LEMARI: "Silahkan pilih lemari",
+                RUMUS: "Silahkan isi nama rumus bahan",
+                SPESIFIKASI_BAHAN: "Silahkan pilih spesifikasi bahan",
+                WUJUD: "Silahkan pilih wujud bahan",
+                JUMLAH_BAHAN_KIMIA: "Silahkan isi jumlah(gr) bahan",
             },
             errorElement : 'div',
             errorClass: "invalid-feedback animated fadeInUp",
