@@ -25,7 +25,7 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @package App\Models
  */
-class BahanKimium extends Model
+class BahanKimia extends Model
 {
 	protected $table = 'bahan_kimia';
 	protected $primaryKey = 'ID_BAHAN_KIMIA';
@@ -41,7 +41,6 @@ class BahanKimium extends Model
 	protected $fillable = [
 		'ID_KATALOG_BAHAN',
 		'ID_LEMARI',
-		'NAMA_BAHAN_KIMIA',
 		'RUMUS',
 		'WUJUD',
 		'JUMLAH_BAHAN_KIMIA',

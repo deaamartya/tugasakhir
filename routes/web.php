@@ -2,17 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Models\User;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
  
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/', 'App\Http\Controllers\AdminController@dashboard')->name('dashboard');
@@ -46,6 +35,10 @@ Route::prefix('pengelola')->name('pengelola.')->group(function () {
     Route::resource('alat','App\Http\Controllers\Pengelola\AlatController');
     Route::post('alat/update','App\Http\Controllers\Pengelola\AlatController@update')->name('alat.update');
     Route::post('alat/destroy','App\Http\Controllers\Pengelola\AlatController@destroy')->name('alat.destroy');
+
+    Route::resource('katalog-bahan','App\Http\Controllers\Pengelola\KatalogBahanController');
+    Route::post('katalog-bahan/update','App\Http\Controllers\Pengelola\KatalogBahanController@update')->name('katalog-bahan.update');
+    Route::post('katalog-bahan/destroy','App\Http\Controllers\Pengelola\KatalogBahanController@destroy')->name('katalog-bahan.destroy');
 
     Route::resource('bahan-kimia','App\Http\Controllers\Pengelola\BahanKimiaController');
     Route::resource('bahan','App\Http\Controllers\Pengelola\BahanController');

@@ -17,7 +17,6 @@ class CreateBahanKimiaTable extends Migration
             $table->string('ID_BAHAN_KIMIA', 10)->primary();
             $table->string('ID_KATALOG_BAHAN', 20)->index('FK_BAGIAN_DARI_7');
             $table->integer('ID_LEMARI')->index('FK_DISIMPAN3');
-            $table->string('NAMA_BAHAN_KIMIA', 30);
             $table->string('RUMUS', 40);
             $table->string('WUJUD', 30);
             $table->float('JUMLAH_BAHAN_KIMIA', 10, 0);

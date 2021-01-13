@@ -55,6 +55,6 @@ class Lemari extends Model
 
 	public function bahan_kimia()
 	{
-		return $this->hasMany(BahanKimium::class, 'ID_LEMARI');
+		return $this->hasMany(BahanKimia::class, 'ID_LEMARI');
 	}
 }

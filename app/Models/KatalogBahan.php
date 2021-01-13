@@ -34,7 +34,8 @@ class KatalogBahan extends Model
 
 	protected $fillable = [
 		'ID_LABORATORIUM',
-		'NAMA_KATALOG_BAHAN'
+		'NAMA_KATALOG_BAHAN',
+		'ID_KATALOG_BAHAN'
 	];
 
 	public function laboratorium()
@@ -44,6 +45,6 @@ class KatalogBahan extends Model
 
 	public function bahan_kimia()
 	{
-		return $this->hasMany(BahanKimium::class, 'ID_KATALOG_BAHAN');
+		return $this->hasMany(BahanKimia::class, 'ID_KATALOG_BAHAN');
 	}
 }
