@@ -22,7 +22,16 @@
 		@foreach(config('dz.public.global.css') as $style)
 			<link href="{{ asset($style) }}" rel="stylesheet" type="text/css"/>
 		@endforeach
-	@endif	
+	@endif
+
+    <style>
+        .form-control {
+            color: black !important;
+        }
+        body {
+            color: black !important;
+        }
+    </style>
 
     @yield('tambahan-style')
 

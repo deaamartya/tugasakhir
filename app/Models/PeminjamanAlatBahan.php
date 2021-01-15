@@ -43,7 +43,9 @@ class PeminjamanAlatBahan extends Model
 		'ID_RUANG_LABORATORIUM',
 		'ID_PRAKTIKUM',
 		'TANGGAL_PEMINJAMAN',
-		'STATUS_PEMINJAMAN'
+		'STATUS_PEMINJAMAN',
+		'JAM_MULAI',
+		'JAM_SELESAI'
 	];
 
 	public function praktikum()

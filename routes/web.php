@@ -50,7 +50,7 @@ Route::prefix('pengelola')->name('pengelola.')->group(function () {
 
     Route::resource('praktikum','App\Http\Controllers\Pengelola\PraktikumController');
 
-    Route::get('jadwal-praktikum','App\Http\Controllers\Pengelola\JadwalPraktikumController@index');
+    Route::resource('jadwal-praktikum','App\Http\Controllers\Pengelola\JadwalPraktikumController');
 
     Route::get('penjadwalan-ulang','App\Http\Controllers\Pengelola\PenjadwalanUlangController@index');
 

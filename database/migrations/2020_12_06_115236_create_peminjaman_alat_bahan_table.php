@@ -18,6 +18,8 @@ class CreatePeminjamanAlatBahanTable extends Migration
             $table->integer('ID_RUANG_LABORATORIUM')->index('FK_MENGGUNAKAN');
             $table->char('ID_PRAKTIKUM', 10)->index('FK_MEMILIKI');
             $table->date('TANGGAL_PEMINJAMAN');
+            $table->string('JAM_MULAI',5);
+            $table->string('JAM_SELESAI',5);
             $table->string('STATUS_PEMINJAMAN', 30);
         });
 

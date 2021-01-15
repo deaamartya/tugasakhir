@@ -71,7 +71,6 @@ return [
 							'https://cdn.lineicons.com/2.0/LineIcons.css',
 				],
 				'app_calender' => [
-							'vendor/bootstrap-select/dist/css/bootstrap-select.min.css',
 							'vendor/fullcalendar/css/fullcalendar.min.css',
 							'css/icomoon.css',
 				],
@@ -136,7 +135,6 @@ return [
               'vendor/bootstrap-select/dist/css/bootstrap-select.min.css',
 				],
 				'form_pickers' => [
-              'vendor/bootstrap-select/dist/css/bootstrap-select.min.css',
 							'vendor/bootstrap-daterangepicker/daterangepicker.css',
 							'vendor/clockpicker/css/bootstrap-clockpicker.min.css',
 							'vendor/jquery-asColorPicker/css/asColorPicker.min.css',
@@ -289,7 +287,6 @@ return [
               'js/deznav-init.js',
 				],
 				'app_calender' => [
-							'vendor/bootstrap-select/dist/js/bootstrap-select.min.js',
 							'vendor/chart.js/Chart.bundle.min.js',
 							'vendor/apexchart/apexchart.js',
 							'vendor/jqueryui/js/jquery-ui.min.js',
@@ -462,7 +459,6 @@ return [
               'js/deznav-init.js',
 				],
 				'form_pickers' => [
-              'vendor/bootstrap-select/dist/js/bootstrap-select.min.js',
               'vendor/chart.js/Chart.bundle.min.js',
               'vendor/apexchart/apexchart.js',
 							'vendor/moment/moment.min.js',

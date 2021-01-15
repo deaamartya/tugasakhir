@@ -83,7 +83,8 @@
                                     <th>No</th>
                                     <th>Nama Lab.</th>
                                     <th>Nama Praktikum</th>
-                                    <th>Nama Kelas</th>
+                                    <th>Kelas</th>
+                                    <th>Guru</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -92,8 +93,9 @@
                                 <tr>
                                     <td> {{ $loop->iteration }} </td>
                                     <td> {{ $d->laboratorium->NAMA_LABORATORIUM }} </td>
-                                    <td> {{ $d->kelas->jenis_kelas->NAMA_JENIS_KELAS }} </td>
                                     <td> {{ $d->NAMA_PRAKTIKUM }} </td>
+                                    <td> {{ $d->kelas->jenis_kelas->NAMA_JENIS_KELAS }} </td>
+                                    <td> {{ $d->kelas->user->NAMA_LENGKAP }} </td>
                                     <td>
                                         <div class="d-flex">
                                             <button type="button" class="btn btn-primary shadow btn-xs sharp mr-1" data-toggle="modal" data-target="#modal-edit-{{ $d->ID_PRAKTIKUM }}"><i class="fa fa-pencil"></i></button>
@@ -163,7 +165,7 @@
 
                         <div class="form-group">
                             <label>Nama Praktikum</label>
-                            <input type="text" class="form-control @error('NAMA_PRAKTIKUM') is-invalid @enderror" id="NAMA_PRAKTIKUM" name="NAMA_PRAKTIKUM" value="{{ @old('NAMA_LEMARI') }}">
+                            <input type="text" class="form-control @error('NAMA_PRAKTIKUM') is-invalid @enderror" id="NAMA_PRAKTIKUM" name="NAMA_PRAKTIKUM" value="{{ @old('NAMA_PRAKTIKUM') }}">
                             <div class="invalid-feedback animated fadeInUp">
                                 Nama Praktikum harus diisi
                             </div>
@@ -207,9 +209,9 @@
 
                     <div class="form-group">
                         <label>Mata Pelajaran</label>
-                        <select class="form-control select2" name="ID_MAPEL" id="ID_MAPEL">
+                        <select class="form-control" name="ID_MAPEL" id="ID_MAPEL">
                             @foreach($matapelajaran as $t)
-                                <option value="{{ $t->ID_MAPEL }}" selected>{{ $t->NAMA_MAPEL }}</option>
+                                <option value="{{ $t->ID_MAPEL }}" @if($d->ID_MAPEL == $t->ID_MAPEL) selected @endif >{{ $t->NAMA_MAPEL }}</option>
                             @endforeach
                         </select>
                         <div class="invalid-feedback animated fadeInUp">
@@ -219,9 +221,9 @@
 
                     <div class="form-group">
                         <label>Kelas</label>
-                        <select class="form-control select2" name="ID_KELAS" id="ID_KELAS">
+                        <select class="form-control" name="ID_KELAS" id="ID_KELAS">
                             @foreach($kelas as $t)
-                                <option value="{{ $t->ID_KELAS }}" selected>{{ $t->jenis_kelas->NAMA_JENIS_KELAS }}</option>
+                                <option value="{{ $t->ID_KELAS }}" @if($d->ID_KELAS == $t->ID_KELAS) selected @endif>{{ $t->jenis_kelas->NAMA_JENIS_KELAS }}</option>
                             @endforeach
                         </select>
                         <div class="invalid-feedback animated fadeInUp">
@@ -231,7 +233,7 @@
 
                     <div class="form-group">
                         <label>Nama Praktikum</label>
-                        <input type="text" class="form-control @error('NAMA_PRAKTIKUM') is-invalid @enderror" id="NAMA_PRAKTIKUM" name="NAMA_PRAKTIKUM" value="{{ @old('NAMA_LEMARI') }}">
+                        <input type="text" class="form-control @error('NAMA_PRAKTIKUM') is-invalid @enderror" id="NAMA_PRAKTIKUM" name="NAMA_PRAKTIKUM" value="{{ $d->NAMA_PRAKTIKUM }}">
                         <div class="invalid-feedback animated fadeInUp">
                             Nama Praktikum harus diisi
                         </div>
