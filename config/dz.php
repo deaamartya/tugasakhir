@@ -143,7 +143,6 @@ return [
 							'vendor/pickadate/themes/default.date.css',
 				],
 				'form_validation_jquery' => [
-              'vendor/bootstrap-select/dist/css/bootstrap-select.min.css',
 				],
 				'form_wizard' => [
               'vendor/bootstrap-select/dist/css/bootstrap-select.min.css',
@@ -480,7 +479,6 @@ return [
               'js/deznav-init.js',
 				],
 				'form_validation_jquery' => [
-              'vendor/bootstrap-select/dist/js/bootstrap-select.min.js',
               'vendor/chart.js/Chart.bundle.min.js',
               'vendor/apexchart/apexchart.js',
 							'vendor/jquery-validation/jquery.validate.min.js',

@@ -44,18 +44,23 @@ class JadwalPraktikumController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'ID_KATALOG_BAHAN' => 'required|unique:App\Models\KatalogBahan,ID_KATALOG_BAHAN',
-            'ID_LABORATORIUM' => 'required|exists:App\Models\Laboratorium,ID_LABORATORIUM',
-            'NAMA_KATALOG_BAHAN' => 'required',
+            'ID_RUANG_LABORATORIUM' => 'required|exists:App\Models\RuangLaboratorium,ID_RUANG_LABORATORIUM',
+            'ID_PRAKTIKUM' => 'required|exists:App\Models\Praktikum,ID_PRAKTIKUM',
+            'TANGGAL_PEMINJAMAN_submit' => 'required',
+            'JAM_MULAI' => 'required',
+            'JAM_SELESAI' => 'required',
         ]);
 
         DB::transaction(function() use($request){
             PeminjamanAlatBahan::insert([
-                "ID_KATALOG_BAHAN" => $request->ID_KATALOG_BAHAN,
-                "ID_LABORATORIUM" => $request->ID_LABORATORIUM,
-                "NAMA_KATALOG_BAHAN" => $request->NAMA_KATALOG_BAHAN,
+                "ID_RUANG_LABORATORIUM" => $request->ID_RUANG_LABORATORIUM,
+                "ID_PRAKTIKUM" => $request->ID_PRAKTIKUM,
+                "TANGGAL_PEMINJAMAN" => $request->TANGGAL_PEMINJAMAN_submit,
+                "JAM_MULAI" => $request->JAM_MULAI,
+                "JAM_SELESAI" => $request->JAM_SELESAI,
+                "STATUS_PEMINJAMAN" => "MENUNGGU KONFIRMASI",
             ]);
         });
-        return redirect()->route('pengelola.katalog-bahan.index')->with('created','Data berhasil dibuat');
+        return redirect()->route('pengelola.jadwal-praktikum.create')->with('created','Data berhasil dibuat');
     }
 }
