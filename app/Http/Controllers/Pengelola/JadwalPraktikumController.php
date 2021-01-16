@@ -21,7 +21,7 @@ class JadwalPraktikumController extends Controller
         $page_description = 'Menampilkan seluruh data praktikum';
         $action = 'app_calender';
         $id_lab = 1;
-        $praktikum = PeminjamanAlatBahan::join('ruang_laboratorium as r','r.ID_RUANG_LABORATORIUM','peminjaman_alat_bahan.ID_RUANG_LABORATORIUM')->where('r.ID_LABORATORIUM','=',$id_lab)->get();
+        $praktikum = PeminjamanAlatBahan::join('ruang_laboratorium as r','r.ID_RUANG_LABORATORIUM','peminjaman_alat_bahan.ID_RUANG_LABORATORIUM')->where('r.ID_LABORATORIUM','=',$id_lab)->orderBy('ID_PEMINJAMAN','DESC')->get();
         $lab = strrchr(Laboratorium::find($id_lab)->value('NAMA_LABORATORIUM'),' ');
         $lab = str_replace(" ","",$lab);
         $matapelajaran = MataPelajaran::select('mata_pelajaran.*')->where('NAMA_MAPEL','LIKE',"%".$lab."%")->get();
@@ -62,5 +62,88 @@ class JadwalPraktikumController extends Controller
             ]);
         });
         return redirect()->route('pengelola.jadwal-praktikum.create')->with('created','Data berhasil dibuat');
+    }
+
+    public function seluruhJadwal()
+    {
+        $data = [];
+        $id_lab = 1;
+        $peminjaman = PeminjamanAlatBahan::join('ruang_laboratorium as r','r.ID_RUANG_LABORATORIUM','peminjaman_alat_bahan.ID_RUANG_LABORATORIUM')->where('r.ID_LABORATORIUM','=',$id_lab)->get();
+        $i = 0;
+        foreach($peminjaman as $p)
+        {
+            $obj = new \StdClass();
+            $kelas = $p->praktikum->kelas->jenis_kelas->NAMA_JENIS_KELAS;
+            $obj->title = $p->praktikum->NAMA_PRAKTIKUM." ".$kelas;
+
+            $jammulai = $p->TANGGAL_PEMINJAMAN." ".$p->JAM_MULAI;
+            $jamselesai = $p->TANGGAL_PEMINJAMAN." ".$p->JAM_SELESAI;
+
+            $date_start = date_create_from_format('Y-m-d H:i', $jammulai);
+            $date_end = date_create_from_format('Y-m-d H:i', $jamselesai);
+
+            $obj->start = date_format($date_start, 'Y-m-d H:i');
+            $obj->end = date_format($date_end, 'Y-m-d H:i');
+
+            if(strpos($kelas, 'X MIPA') !== false)
+            {
+                $obj->className = "bg-primary";
+            }
+            elseif(strpos($kelas, 'XI MIPA') !== false)
+            {
+                $obj->className = "bg-success";
+            }
+            elseif(strpos($kelas, 'XII MIPA') !== false)
+            {
+                $obj->className = "bg-danger";
+            }
+
+            $data[$i] = $obj;
+            $i++;
+        }
+
+        return $data;
+    }
+
+    public function seluruhJadwalNama(Request $request)
+    {
+        $data = [];
+        $praktikum = Praktikum::find($request->prakt);
+        $id_lab = 1;
+        $peminjaman = PeminjamanAlatBahan::join('praktikum as p','p.ID_PRAKTIKUM','=','peminjaman_alat_bahan.ID_PRAKTIKUM')->join('ruang_laboratorium as r','r.ID_RUANG_LABORATORIUM','peminjaman_alat_bahan.ID_RUANG_LABORATORIUM')->where('r.ID_LABORATORIUM','=',$id_lab)->where('p.NAMA_PRAKTIKUM','LIKE',"%".$praktikum->NAMA_PRAKTIKUM."%")->get();
+        $i = 0;
+        foreach($peminjaman as $p)
+        {
+            $obj = new \StdClass();
+            $kelas = $p->praktikum->kelas->jenis_kelas->NAMA_JENIS_KELAS;
+            $obj->title = $p->praktikum->NAMA_PRAKTIKUM." ".$kelas;
+
+            $jammulai = $p->TANGGAL_PEMINJAMAN." ".$p->JAM_MULAI;
+            $jamselesai = $p->TANGGAL_PEMINJAMAN." ".$p->JAM_SELESAI;
+
+            $date_start = date_create_from_format('Y-m-d H:i', $jammulai);
+            $date_end = date_create_from_format('Y-m-d H:i', $jamselesai);
+
+            $obj->start = date_format($date_start, 'Y-m-d H:i');
+            $obj->end = date_format($date_end, 'Y-m-d H:i');
+
+            if(strpos($kelas, 'X MIPA') !== false)
+            {
+                $obj->className = "bg-primary";
+            }
+            elseif(strpos($kelas, 'XI MIPA') !== false)
+            {
+                $obj->className = "bg-success";
+            }
+            elseif(strpos($kelas, 'XII MIPA') !== false)
+            {
+                $obj->className = "bg-danger";
+            }
+
+            $data[$i] = $obj;
+            $i++;
+        }
+
+        return $data;
     }
 }

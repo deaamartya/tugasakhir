@@ -49,7 +49,7 @@ class Kelas extends Model
 		return $this->belongsTo(TahunAkademik::class, 'ID_TAHUN_AKADEMIK');
 	}
 
-	public function user()
+	public function guru()
 	{
 		return $this->belongsTo(User::class, 'ID_USER');
 	}

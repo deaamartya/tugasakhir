@@ -61,21 +61,13 @@
         <div class="col-xl-3">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-intro-title">Calendar</h4>
-
+                    <h4 class="card-intro-title">Jadwal Praktikum</h4>
                     <div class="">
                         <div id="external-events" class="my-3">
-                            <p>Drag and drop your event or click in the calendar</p>
-                            <div class="external-event" data-class="bg-primary"><i class="fa fa-move"></i>New Theme Release</div>
-                            <div class="external-event" data-class="bg-success"><i class="fa fa-move"></i>My Event
+                            <div class="external-event" data-class="bg-primary"><i class="fa fa-move"></i>X MIPA</div>
+                            <div class="external-event" data-class="bg-success"><i class="fa fa-move"></i>XI MIPA
                             </div>
-                            <div class="external-event" data-class="bg-warning"><i class="fa fa-move"></i>Meet manager</div>
-                            <div class="external-event" data-class="bg-dark"><i class="fa fa-move"></i>Create New theme</div>
-                        </div>
-                        <!-- checkbox -->
-                        <div class="checkbox custom-control checkbox-event custom-checkbox pt-3 pb-5">
-                            <input type="checkbox" class="custom-control-input" id="drop-remove">
-                            <label class="custom-control-label" for="drop-remove">Remove After Drop</label>
+                            <div class="external-event" data-class="bg-warning"><i class="fa fa-move"></i>XII MIPA</div>
                         </div>
                     </div>
                 </div>
@@ -88,59 +80,6 @@
                 </div>
             </div>
         </div>
-        <!-- BEGIN MODAL -->
-        <div class="modal fade none-border" id="event-modal">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title"><strong>Add New Event</strong></h4>
-                    </div>
-                    <div class="modal-body"></div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-success save-event waves-effect waves-light">Create
-                            event</button>
-
-                        <button type="button" class="btn btn-danger delete-event waves-effect waves-light" data-dismiss="modal">Delete</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Modal Add Category -->
-        <div class="modal fade none-border" id="add-category">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title"><strong>Add a category</strong></h4>
-                    </div>
-                    <div class="modal-body">
-                        <form>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label class="control-label">Category Name</label>
-                                    <input class="form-control form-white" placeholder="Enter name" type="text" name="category-name">
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="control-label">Choose Category Color</label>
-                                    <select class="form-control form-white" data-placeholder="Choose a color..." name="category-color">
-                                        <option value="success">Success</option>
-                                        <option value="danger">Danger</option>
-                                        <option value="info">Info</option>
-                                        <option value="pink">Pink</option>
-                                        <option value="primary">Primary</option>
-                                        <option value="warning">Warning</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-danger waves-effect waves-light save-category" data-dismiss="modal">Save</button>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 
     <div class="row">
@@ -148,30 +87,38 @@
             <div class="card">
                 <div class="card-header">
                     <h4 class="card-title">Praktikum</h4>
-                    <button type="button" class="btn btn-rounded btn-info" data-toggle="modal" data-target="#create-modal">
-                        <span class="btn-icon-left text-info">
-                            <i class="fa fa-plus color-info"></i>
-                        </span>Buat Praktikum Baru
-                    </button>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
                         <table id="example5" class="display" style="min-width: 845px">
                             <thead>
                                 <tr>
-                                    <th>ID Praktikum</th>
+                                    <th>No</th>
                                     <th>Nama Praktikum</th>
-                                    <th>Mata Pelajaran</th>
                                     <th>Kelas</th>
+                                    <th>Guru</th>
+                                    <th>Waktu Pelaksanaan</th>
+                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach($praktikum as $d)
                                 <tr>
-                                    <td>{{ $d->ID_PRAKTIKUM }}</td>
-                                    <td>{{ $d->NAMA_PRAKTIKUM }}</td>
-                                    <td>{{ $d->mapel->NAMA_MAPEL }}</td>
-                                    <td>{{ $d->kelas->jenis_kelas->NAMA_JENIS_KELAS }}</td>									
+                                    <td> {{ $loop->iteration }} </td>
+                                    <td> {{ $d->praktikum->NAMA_PRAKTIKUM }} </td>
+                                    <td> {{ $d->praktikum->kelas->jenis_kelas->NAMA_JENIS_KELAS }}</td>
+                                    <td> {{ $d->praktikum->kelas->guru->NAMA_LENGKAP }}</td>
+                                    <td> {{ $d->TANGGAL_PEMINJAMAN }} {{ $d->JAM_MULAI }} - {{ $d->JAM_SELESAI }} </td>	
+                                    <td>
+                                        <div class="d-flex">
+                                            <a href="{{ route('guru.penjadwalan-ulang',$d->ID_PRAKTIKUM) }}">
+                                                <button type="button" class="btn btn-primary shadow sharp mr-3"><i class="fa fa-pencil mr-2"></i>Jadwalkan Ulang</button>
+                                            </a>
+                                            <a href="{{ route('guru.penjadwalan-ulang.destroy',$d->ID_PRAKTIKUM) }}">
+                                                <button type="button" class="btn btn-danger shadow sharp" data-toggle="modal" data-target="#modal-delete-{{ $d->ID_PRAKTIKUM }}"><i class="fa fa-trash mr-2"></i>Batalkan</button>
+                                            </a>
+                                        </div>												
+                                    </td>		
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -196,4 +143,29 @@
 			<script src="{{ asset($script) }}" type="text/javascript"></script>
     @endforeach
 @endif
+<script>
+    $('document').ready( function(){
+        var a;
+        $.get('datapraktikum',function(result){
+            a = result;
+            var calendar = $("#calendar").fullCalendar({
+                slotDuration: "00:15:00",
+                minTime: "06:00:00",
+                maxTime: "19:00:00",
+                defaultView: "month",
+                header: {
+                    left: "prev,next today",
+                    center: "title",
+                    right: "month,agendaWeek,agendaDay"
+                },
+                height: $(window).height() - 100,
+                events: a,
+                editable: false,
+                droppable: false,
+                eventLimit: false,
+                selectable: false,
+            });
+        });
+    });
+</script>
 @endsection

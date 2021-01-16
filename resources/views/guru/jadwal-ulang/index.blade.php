@@ -17,7 +17,6 @@
 
 {{-- Content --}}
 @section('content')
-
 <div class="container-fluid">
     <div class="row page-titles mx-0">
         <div class="col-sm-6 p-md-0">
@@ -27,12 +26,12 @@
         </div>
         <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="javascript:void(0)">Data Praktikum</a></li>
-                <li class="breadcrumb-item active"><a href="javascript:void(0)">Jadwal Praktikum</a></li>
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Akademik</a></li>
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">Data Praktikum Kelas Saya</a></li>
             </ol>
         </div>
     </div>
-    
+    <!-- row -->
     @if(Session::has('created') || Session::has('updated') || Session::has('deleted') || Session::has('error'))
     <div class="alert 
         @if(Session::has('created') || Session::has('updated'))
@@ -83,19 +82,11 @@
         </div>
     </div>
 
-    <!-- row -->
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
                     <h4 class="card-title">Praktikum</h4>
-                    <a href="{{ route('pengelola.jadwal-praktikum.create') }}">
-                        <button type="button" class="btn btn-rounded btn-info">
-                            <span class="btn-icon-left text-info">
-                                <i class="fa fa-plus color-info"></i>
-                            </span>Buat Jadwal Praktikum Baru
-                        </button>
-                    </a>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -116,7 +107,7 @@
                                     <td> {{ $d->praktikum->NAMA_PRAKTIKUM }} </td>
                                     <td> {{ $d->praktikum->kelas->jenis_kelas->NAMA_JENIS_KELAS }}</td>
                                     <td> {{ $d->praktikum->kelas->guru->NAMA_LENGKAP }}</td>
-                                    <td> {{ $d->TANGGAL_PEMINJAMAN }} {{ $d->JAM_MULAI }} - {{ $d->JAM_SELESAI }} </td>							
+                                    <td> {{ $d->TANGGAL_PEMINJAMAN }} {{ $d->JAM_MULAI }} - {{ $d->JAM_SELESAI }} </td>
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -134,21 +125,18 @@
 @if(!empty(config('dz.public.pagelevel.js.ui_modal')))
 	@foreach(config('dz.public.pagelevel.js.ui_modal') as $script)
 			<script src="{{ asset($script) }}" type="text/javascript"></script>
-	@endforeach
+    @endforeach
 @endif
 @if(!empty(config('dz.public.pagelevel.js.table_datatable_basic')))
 	@foreach(config('dz.public.pagelevel.js.table_datatable_basic') as $script)
 			<script src="{{ asset($script) }}" type="text/javascript"></script>
     @endforeach
 @endif
-
 <script>
     $('document').ready( function(){
-        var now = new Date();
         var a;
         $.get('datapraktikum',function(result){
             a = result;
-            console.log(a);
             var calendar = $("#calendar").fullCalendar({
                 slotDuration: "00:15:00",
                 minTime: "06:00:00",
@@ -169,5 +157,4 @@
         });
     });
 </script>
-
 @endsection

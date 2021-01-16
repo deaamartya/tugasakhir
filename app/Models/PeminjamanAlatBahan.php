@@ -35,10 +35,6 @@ class PeminjamanAlatBahan extends Model
 		'ID_RUANG_LABORATORIUM' => 'int'
 	];
 
-	protected $dates = [
-		'TANGGAL_PEMINJAMAN'
-	];
-
 	protected $fillable = [
 		'ID_RUANG_LABORATORIUM',
 		'ID_PRAKTIKUM',

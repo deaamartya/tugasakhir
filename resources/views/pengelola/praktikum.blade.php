@@ -95,7 +95,7 @@
                                     <td> {{ $d->laboratorium->NAMA_LABORATORIUM }} </td>
                                     <td> {{ $d->NAMA_PRAKTIKUM }} </td>
                                     <td> {{ $d->kelas->jenis_kelas->NAMA_JENIS_KELAS }} </td>
-                                    <td> {{ $d->kelas->user->NAMA_LENGKAP }} </td>
+                                    <td> {{ $d->kelas->guru->NAMA_LENGKAP }} </td>
                                     <td>
                                         <div class="d-flex">
                                             <button type="button" class="btn btn-primary shadow btn-xs sharp mr-1" data-toggle="modal" data-target="#modal-edit-{{ $d->ID_PRAKTIKUM }}"><i class="fa fa-pencil"></i></button>

@@ -19,6 +19,9 @@ Route::prefix('guru')->name('guru.')->group(function () {
     Route::get('/', 'App\Http\Controllers\GuruController@dashboard')->name('dashboard');
     Route::resource('praktikum','App\Http\Controllers\Guru\PraktikumController');
     Route::resource('penjadwalan-ulang','App\Http\Controllers\Guru\PenjadwalanUlangController');
+
+    Route::get('datapraktikum','App\Http\Controllers\Guru\PraktikumController@seluruhJadwal');
+    Route::post('jadwal-praktikum/datapraktikum-nama','App\Http\Controllers\Pengelola\JadwalPraktikumController@seluruhJadwalNama');
 });
 
 Route::prefix('pengelola')->name('pengelola.')->group(function () {
@@ -51,6 +54,8 @@ Route::prefix('pengelola')->name('pengelola.')->group(function () {
     Route::resource('praktikum','App\Http\Controllers\Pengelola\PraktikumController');
 
     Route::resource('jadwal-praktikum','App\Http\Controllers\Pengelola\JadwalPraktikumController');
+    Route::get('datapraktikum','App\Http\Controllers\Pengelola\JadwalPraktikumController@seluruhJadwal');
+    Route::post('jadwal-praktikum/datapraktikum-nama','App\Http\Controllers\Pengelola\JadwalPraktikumController@seluruhJadwalNama');
 
     Route::get('penjadwalan-ulang','App\Http\Controllers\Pengelola\PenjadwalanUlangController@index');
 

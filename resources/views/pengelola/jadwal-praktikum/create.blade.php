@@ -25,15 +25,10 @@
 
 <div class="container-fluid">
     <div class="row page-titles mx-0">
-        <div class="col-sm-6 p-md-0">
-            <div class="welcome-text">
-                <h4>Hi, @auth {{ Auth::user()->NAMA_LENGKAP }} @endif</h4>
-            </div>
-        </div>
         <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="javascript:void(0)">Data Master</a></li>
-                <li class="breadcrumb-item active"><a href="javascript:void(0)">Data Praktikum</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('pengelola.jadwal-praktikum.index') }}">Jadwal Praktikum</a></li>
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">Buat Jadwal Praktikum</a></li>
             </ol>
         </div>
     </div>
@@ -65,42 +60,14 @@
 
     <!-- row -->
     <div class="row">
-        <div class="col-6">
+        <div class="col-xl-6 col-12">
             <div class="card">
                 <div class="card-body">
                     <div id="calendar" class="app-fullcalendar"></div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-xl-3">
-                    <div class="card">
-                        <div class="card-body">
-                            <h4 class="card-intro-title">Calendar</h4>
-
-                            <div class="">
-                                <div id="external-events" class="my-3">
-                                    <p>Drag and drop your event or click in the calendar</p>
-                                    <div class="external-event" data-class="bg-primary"><i class="fa fa-move"></i>New Theme Release</div>
-                                    <div class="external-event" data-class="bg-success"><i class="fa fa-move"></i>My Event
-                                    </div>
-                                    <div class="external-event" data-class="bg-warning"><i class="fa fa-move"></i>Meet manager</div>
-                                    <div class="external-event" data-class="bg-dark"><i class="fa fa-move"></i>Create New theme</div>
-                                </div>
-                                <!-- checkbox -->
-                                <div class="checkbox custom-control checkbox-event custom-checkbox pt-3 pb-5">
-                                    <input type="checkbox" class="custom-control-input" id="drop-remove">
-                                    <label class="custom-control-label" for="drop-remove">Remove After Drop</label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="">
-                    
-                </div>
-            </div>
         </div>
-        <div class="col-6">
+        <div class="col-xl-6 col-12">
             <div class="card">
                 <div class="card-header">
                     <h4 class="card-title">Jadwal Praktikum</h4>
@@ -117,9 +84,10 @@
                                     @endforeach
                                 </select>
                                 <div class="invalid-feedback animated fadeInUp">
-                                    Silahkan pilih praktikum
+                                    Silahkan pilih ruang laboratorium
                                 </div>
                             </div>
+                            
                             <div class="form-group">
                                 <label>Praktikum</label>
                                 <select class="select2-single @error('ID_PRAKTIKUM') is-invalid @enderror" name="ID_PRAKTIKUM" id="ID_PRAKTIKUM">
@@ -235,35 +203,38 @@ $(document).ready(function(){
             form.submit();
         },
     });
-    var now = new Date();
-    var a = [{
-            title: "Chicken Burger",
-            start: new Date(now),
-            end: new Date(now + 150000000),
-            className: "bg-success"
-        },{
-            title: "Hot dog",
-            start: new Date(now),
-            end: new Date(now + 338e6),
-            className: "bg-primary"
-        }];
-    console.log(now);
-    var calendar = $("#calendar").fullCalendar({
-        slotDuration: "00:15:00",
-        minTime: "08:00:00",
-        maxTime: "19:00:00",
-        defaultView: "month",
-        header: {
-            left: "prev,next today",
-            center: "title",
-            right: "month,agendaWeek,agendaDay"
-        },
-        height: $(window).height() - 100,
-        events: a,
-        editable: false,
-        droppable: false,
-        eventLimit: false,
-        selectable: false,
+
+    var url = "{{ url('/pengelola/datapraktikum') }}";
+
+    $.get(url,function(result){
+        a = result;
+        console.log(a);
+        $("#calendar").fullCalendar({
+            slotDuration: "00:15:00",
+            minTime: "06:00:00",
+            maxTime: "19:00:00",
+            defaultView: "month",
+            header: {
+                left: "prev,next today",
+                center: "title",
+                right: "month,agendaWeek,agendaDay"
+            },
+            height: $(window).height() - 100,
+            events: a,
+            editable: false,
+            droppable: false,
+            eventLimit: false,
+            selectable: false,
+        });
+    });
+
+    $("#ID_PRAKTIKUM").on('change',function(){
+        $.post('datapraktikum-nama',{ _token: "{{ csrf_token() }}", prakt: $(this).val() },function(result){
+            a = result;
+            console.log(a);
+            $("#calendar").fullCalendar('removeEvents');
+            $("#calendar").fullCalendar('addEventSource', a);
+        });
     });
 });
     
