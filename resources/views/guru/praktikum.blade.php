@@ -111,11 +111,8 @@
                                     <td> {{ $d->TANGGAL_PEMINJAMAN }} {{ $d->JAM_MULAI }} - {{ $d->JAM_SELESAI }} </td>	
                                     <td>
                                         <div class="d-flex">
-                                            <a href="{{ route('guru.penjadwalan-ulang',$d->ID_PRAKTIKUM) }}">
+                                            <a href="{{ url('guru/penjadwalan-ulang/'.$d->ID_PEMINJAMAN) }}">
                                                 <button type="button" class="btn btn-primary shadow sharp mr-3"><i class="fa fa-pencil mr-2"></i>Jadwalkan Ulang</button>
-                                            </a>
-                                            <a href="{{ route('guru.penjadwalan-ulang.destroy',$d->ID_PRAKTIKUM) }}">
-                                                <button type="button" class="btn btn-danger shadow sharp" data-toggle="modal" data-target="#modal-delete-{{ $d->ID_PRAKTIKUM }}"><i class="fa fa-trash mr-2"></i>Batalkan</button>
                                             </a>
                                         </div>												
                                     </td>		

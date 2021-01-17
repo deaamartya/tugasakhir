@@ -470,7 +470,7 @@ return [
 							'vendor/pickadate/picker.time.js',
 							'vendor/pickadate/picker.date.js',
 							// 'js/plugins-init/bs-daterange-picker-init.js',
-							// 'js/plugins-init/clock-picker-init.js',
+							'js/plugins-init/clock-picker-init.js',
 							// 'js/plugins-init/jquery-asColorPicker.init.js',
 							// 'js/plugins-init/material-date-picker-init.js',
 							'js/plugins-init/pickadate-init.js',

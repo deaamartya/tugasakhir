@@ -29,6 +29,7 @@ class PeminjamanAlatBahan extends Model
 {
 	protected $table = 'peminjaman_alat_bahan';
 	protected $primaryKey = 'ID_PEMINJAMAN';
+	public $incrementing = false;
 	public $timestamps = false;
 
 	protected $casts = [

@@ -32,7 +32,9 @@ class PenjadwalanUlangController extends Controller
     {
         $page_title = 'Data Praktikum';
         $page_description = 'Menampilkan seluruh data praktikum';
-        $action = 'app_calender';
-        return view('guru.jadwal-ulang.index', compact('page_title', 'page_description','action','praktikum','kelas','matapelajaran','lab'));
+        $action = 'uc_select2';
+        $peminjaman = PeminjamanAlatBahan::find($id);
+        // print_r($peminjaman);
+        return view('guru.jadwal-ulang.create', compact('page_title', 'page_description','action','peminjaman'));
     }
 }
