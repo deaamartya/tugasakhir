@@ -16,8 +16,8 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->integer('ID_USER', true);
             $table->integer('ID_TIPE_USER')->index('FK_MERUPAKAN');
-            $table->string('USERNAME', 16)->unique();
-            $table->string('PASSWORD');
+            $table->string('username', 16)->unique();
+            $table->string('password');
             $table->string('PATH_FOTO')->nullable();
             $table->string('NAMA_LENGKAP', 60);
         });

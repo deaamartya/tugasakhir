@@ -90,7 +90,7 @@
                             <div class="form-group">
                                 <label>Praktikum</label>
                                 <select disabled class="select2-single @error('ID_PRAKTIKUM') is-invalid @enderror" name="ID_PRAKTIKUM" id="ID_PRAKTIKUM">
-                                        <option value="{{ $peminjaman->ID_PRAKTIKUM }}" selected>{{ $peminjaman->praktikum->NAMA_PRAKTIKUM }} - {{ $peminjaman->praktikum->kelas->jenis_kelas->NAMA_JENIS_KELAS }}</option>
+                                    <option value="{{ $peminjaman->ID_PRAKTIKUM }}" selected>{{ $peminjaman->praktikum->NAMA_PRAKTIKUM }} - {{ $peminjaman->praktikum->kelas->jenis_kelas->NAMA_JENIS_KELAS }}</option>
                                 </select>
                                 <div class="invalid-feedback animated fadeInUp">
                                     Silahkan pilih praktikum
@@ -113,7 +113,6 @@
                                 </div>
                             </div>
                             
-
                             <div class="form-group">
                                 <label>Permintaan Jam Mulai Baru (opsional)</label>
                                 <div class="input-group clockpicker" data-placement="bottom" data-align="top" data-autoclose="true">
@@ -147,6 +146,37 @@
         </div>
     </div>
 </div>
+@foreach($peminjaman as $p)
+<div class="modal fade" id="modal-peminjaman-{{ $p->ID_PEMINJAMAN }}">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Detail Peminjaman #{{ $p->ID_PEMINJAMAN }}</h5>
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-4">Nama Prakt.</div>
+                    <div class="col-8">{{ $p->praktikum->NAMA_PRAKTIKUM }}</div>
+                </div>
+                <div class="row">
+                    <div class="col-4">Jadwal Prakt.</div>
+                    <div class="col-8">{{ $p->TANGGAL_PEMINJAMAN }} {{$p->JAM_MULAI}} - {{ $p->JAM_SELESAI }}</div>
+                </div>
+                <div class="row">
+                    <div class="col-4">Kelas</div>
+                    <div class="col-8">{{ $p->praktikum->kelas->jenis_kelas->NAMA_JENIS_KELAS }}</div>
+                </div>
+                <div class="row">
+                    <div class="col-4">Guru</div>
+                    <div class="col-8">{{ $p->praktikum->kelas->guru->NAMA_LENGKAP }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endforeach
 @endsection
 
 {{-- Tambahan Script --}}
@@ -220,6 +250,9 @@ $(document).ready(function(){
             droppable: false,
             eventLimit: false,
             selectable: false,
+            eventClick: function(calEvent, jsEvent, view) {
+                $("#modal-peminjaman-"+calEvent.id_peminjaman).modal('toggle');
+            }
         });
     });
 });

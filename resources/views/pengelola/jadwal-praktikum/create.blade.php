@@ -18,6 +18,7 @@
                 <link href="{{ asset($style) }}" rel="stylesheet" type="text/css"/>
         @endforeach
     @endif
+    
 @endsection
 
 {{-- Content --}}
@@ -75,7 +76,8 @@
                 <div class="card-body">
                     <div class="table-responsive">
                         <form id="create-jadwal" action="{{ route('pengelola.jadwal-praktikum.store') }}" name="create-praktikum" method="POST">
-                        @csrf
+                            @csrf
+
                             <div class="form-group">
                                 <label>Ruang Laboratorium</label>
                                 <select class="select2-single @error('ID_RUANG_LABORATORIUM') is-invalid @enderror" name="ID_RUANG_LABORATORIUM" id="ID_RUANG_LABORATORIUM">
@@ -136,20 +138,56 @@
         </div>
     </div>
 </div>
+
+@foreach($peminjaman as $p)
+<div class="modal fade" id="modal-peminjaman-{{ $p->ID_PEMINJAMAN }}">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Detail Peminjaman #{{ $p->ID_PEMINJAMAN }}</h5>
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-4">Nama Prakt.</div>
+                    <div class="col-8">{{ $p->praktikum->NAMA_PRAKTIKUM }}</div>
+                </div>
+                <div class="row">
+                    <div class="col-4">Jadwal Prakt.</div>
+                    <div class="col-8">{{ $p->TANGGAL_PEMINJAMAN }} {{$p->JAM_MULAI}} - {{ $p->JAM_SELESAI }}</div>
+                </div>
+                <div class="row">
+                    <div class="col-4">Kelas</div>
+                    <div class="col-8">{{ $p->praktikum->kelas->jenis_kelas->NAMA_JENIS_KELAS }}</div>
+                </div>
+                <div class="row">
+                    <div class="col-4">Guru</div>
+                    <div class="col-8">{{ $p->praktikum->kelas->guru->NAMA_LENGKAP }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endforeach
+
 @endsection
 
 {{-- Tambahan Script --}}
 @section('tambahan-script')
+
 @if(!empty(config('dz.public.pagelevel.js.app_calender')))
 	@foreach(config('dz.public.pagelevel.js.app_calender') as $script)
 			<script src="{{ asset($script) }}" type="text/javascript"></script>
     @endforeach
 @endif
+
 @if(!empty(config('dz.public.pagelevel.js.form_pickers')))
 	@foreach(config('dz.public.pagelevel.js.form_pickers') as $script)
 			<script src="{{ asset($script) }}" type="text/javascript"></script>
     @endforeach
 @endif
+
 @if(!empty(config('dz.public.pagelevel.js.form_validation_jquery')))
 	@foreach(config('dz.public.pagelevel.js.form_validation_jquery') as $script)
 			<script src="{{ asset($script) }}" type="text/javascript"></script>
@@ -225,6 +263,9 @@ $(document).ready(function(){
             droppable: false,
             eventLimit: false,
             selectable: false,
+            eventClick: function(calEvent, jsEvent, view) {
+                $("#modal-peminjaman-"+calEvent.id_peminjaman).modal('toggle');
+            }
         });
     });
 

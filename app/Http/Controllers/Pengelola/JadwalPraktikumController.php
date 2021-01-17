@@ -38,7 +38,8 @@ class JadwalPraktikumController extends Controller
         $id_lab = 1;
         $praktikum = Praktikum::where('ID_LABORATORIUM',$id_lab)->get();
         $ruanglaboratorium = RuangLaboratorium::where('ID_LABORATORIUM',$id_lab)->get();
-        return view('pengelola.jadwal-praktikum.create', compact('page_title','page_description','action','praktikum','ruanglaboratorium'));
+        $peminjaman = PeminjamanAlatBahan::join('ruang_laboratorium as r','r.ID_RUANG_LABORATORIUM','peminjaman_alat_bahan.ID_RUANG_LABORATORIUM')->where('r.ID_LABORATORIUM','=',$id_lab)->get();
+        return view('pengelola.jadwal-praktikum.create', compact('page_title','page_description','action','praktikum','ruanglaboratorium','peminjaman'));
     }
 
     public function store(Request $request)
@@ -84,6 +85,8 @@ class JadwalPraktikumController extends Controller
 
             $obj->start = date_format($date_start, 'Y-m-d H:i');
             $obj->end = date_format($date_end, 'Y-m-d H:i');
+
+            $obj->id_peminjaman = $p->ID_PEMINJAMAN;
 
             if(strpos($kelas, 'X MIPA') !== false)
             {
