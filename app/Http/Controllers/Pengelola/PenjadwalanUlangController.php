@@ -27,7 +27,7 @@ class PenjadwalanUlangController extends Controller
     {
         $page_title = 'Ubah Jadwal Praktikum';
         $page_description = 'Menampilkan seluruh data praktikum';
-        $action = 'app_calender';
+        $action = 'uc_select2';
 
         $id_lab = 1;
         $praktikum = PeminjamanAlatBahan::join('praktikum as p','p.ID_PRAKTIKUM','peminjaman_alat_bahan.ID_PRAKTIKUM')
@@ -36,6 +36,32 @@ class PenjadwalanUlangController extends Controller
         ->get();
         $jadwalulang = PerubahanJadwalPeminjaman::find($id);
 
-        return view('pengelola.jadwal-ulang.edit', compact('page_title', 'page_description','action','jadwalulang','peminjaman'));
+        return view('pengelola.jadwal-ulang.edit', compact('page_title', 'page_description','action','jadwalulang','praktikum'));
+    }
+
+    public function update(Request $request,$id)
+    {
+        $request->validate([
+            'TANGGAL_PEMINJAMAN' => 'required',
+            'JAM_MULAI' => 'required',
+            'JAM_SELESAI' => 'required'
+        ]);
+        
+        PeminjamanAlatBahan::find($id)->update([
+            'TANGGAL_PEMINJAMAN' => $request->TANGGAL_PEMINJAMAN_submit,
+            'JAM_MULAI' => $request->JAM_MULAI,
+            'JAM_SELESAI' => $request->JAM_SELESAI
+        ]);
+
+        $perubahan = PerubahanJadwalPeminjaman::where('ID_PEMINJAMAN',$id)->first();
+
+        $user = User::find($perubahan->ID_USER);
+
+        $perubahan->update([
+            'STATUS_PERUBAHAN' => 1,
+        ]);
+
+        Notification::send($user, new SuccessPenjadwalanUlang($id));
+        return redirect()->route('pengelola.penjadwalan-ulang.index')->with('updated','Data berhasil diubah');
     }
 }

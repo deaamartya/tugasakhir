@@ -74,31 +74,42 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <form id="edit-jadwal" action="{{ route('pengelola.penjadwalan-ulang.store') }}" name="edit-jadwal" method="POST">
+                        <form id="edit-jadwal" action="{{ route('pengelola.penjadwalan-ulang.update',$jadwalulang->peminjaman_alat_bahan->ID_PEMINJAMAN) }}" name="edit-jadwal" method="POST">
+                        @method('PUT')
                         @csrf
-                            <input type="hidden" name="ID_PEMINJAMAN" value="{{ $peminjaman->ID_PEMINJAMAN }}">
+                            <input type="hidden" name="ID_PEMINJAMAN" value="{{ $jadwalulang->peminjaman_alat_bahan->ID_PEMINJAMAN }}">
 
-                            <div class="row">
-                                <div class="col-4">Guru</div>
-                                <div class="col-8">{{ $jadwalulang->guru->NAMA_LENGKAP }}</div>
+                            <div class="form-group px-2">
+                                <div>Guru : </div>
+                                <div>{{ $jadwalulang->guru->NAMA_LENGKAP }}</div>
                             </div>
-                            <div class="row">
-                                <div class="col-4">Permintaan Tanggal Baru</div>
-                                <div class="col-8">@if($jadwalulang->TANGGAL_BARU != null){{ $jadwalulang->TANGGAL_BARU }} @else - @endif</div>
+
+                            <div class="form-group px-2">
+                                <div>Permintaan Tanggal Baru :</div>
+                                <div>@if($jadwalulang->TANGGAL_BARU != null){{ $jadwalulang->TANGGAL_BARU }} @else - @endif</div>
                             </div>
-                            <div class="row">
-                                <div class="col-4">Permintaan Tanggal Baru</div>
-                                <div class="col-8">@if($jadwalulang->JAM_MULAI_BARU != null){{ $jadwalulang->JAM_MULAI_BARU }} @else - @endif</div>
+
+                            <div class="form-group px-2">
+                                <div>Permintaan Jam Mulai :</div>
+                                <div>@if($jadwalulang->JAM_MULAI_BARU != null){{ $jadwalulang->JAM_MULAI_BARU }} @else - @endif</div>
                             </div>
-                            <div class="row">
-                                <div class="col-4">Permintaan Tanggal Baru</div>
-                                <div class="col-8">@if($jadwalulang->JAM_SELESAI_BARU != null){{ $jadwalulang->JAM_SELESAI_BARU }} @else - @endif</div>
+
+                            <div class="form-group px-2">
+                                <div>Permintaan Jam Selesai :</div>
+                                <div>@if($jadwalulang->JAM_SELESAI_BARU != null){{ $jadwalulang->JAM_SELESAI_BARU }} @else - @endif</div>
                             </div>
+
+                            <div class="form-group px-2">
+                                <div>Pesan :</div>
+                                <div>@if($jadwalulang->PESAN != null){{ $jadwalulang->PESAN }} @else - @endif</div>
+                            </div>
+
+                            <hr></hr>
 
                             <div class="form-group">
                                 <label>Ruang Laboratorium</label>
                                 <select disabled class="select2-single @error('ID_RUANG_LABORATORIUM') is-invalid @enderror" name="ID_RUANG_LABORATORIUM" id="ID_RUANG_LABORATORIUM">
-                                        <option value="{{ $jadwalulang->peminjaman->ID_RUANG_LABORATORIUM }}" selected>{{ $jadwalulang->peminjaman->ruang_laboratorium->NAMA_RUANG_LABORATORIUM }}</option>
+                                        <option value="{{ $jadwalulang->peminjaman_alat_bahan->ID_RUANG_LABORATORIUM }}" selected>{{ $jadwalulang->peminjaman_alat_bahan->ruang_laboratorium->NAMA_RUANG_LABORATORIUM }}</option>
                                 </select>
                                 <div class="invalid-feedback animated fadeInUp">
                                     Silahkan pilih ruang laboratorium
@@ -108,7 +119,7 @@
                             <div class="form-group">
                                 <label>Praktikum</label>
                                 <select disabled class="select2-single @error('ID_PRAKTIKUM') is-invalid @enderror" name="ID_PRAKTIKUM" id="ID_PRAKTIKUM">
-                                    <option value="{{ $peminjaman->ID_PRAKTIKUM }}" selected>{{ $peminjaman->praktikum->NAMA_PRAKTIKUM }} - {{ $peminjaman->praktikum->kelas->jenis_kelas->NAMA_JENIS_KELAS }}</option>
+                                    <option value="{{ $jadwalulang->peminjaman_alat_bahan->ID_PRAKTIKUM }}" selected>{{ $jadwalulang->peminjaman_alat_bahan->praktikum->NAMA_PRAKTIKUM }} - {{ $jadwalulang->peminjaman_alat_bahan->praktikum->kelas->jenis_kelas->NAMA_JENIS_KELAS }}</option>
                                 </select>
                                 <div class="invalid-feedback animated fadeInUp">
                                     Silahkan pilih praktikum
@@ -117,24 +128,16 @@
 
                             <div class="form-group">
                                 <label>Tanggal Baru</label>
-                                <input class="datepicker-default form-control" value="{{ $jadwalulang->peminjaman->TANGGAL_PEMINJAMAN }}" disabled>
+                                <input class="datepicker-default form-control" name="TANGGAL_PEMINJAMAN">
                                 <div class="invalid-feedback animated fadeInUp">
                                     Tanggal Peminjaman harus diisi
                                 </div>
                             </div>
-
-                            <div class="form-group">
-                                <label>Permintaan Tanggal Baru (opsional)</label>
-                                <input name="TANGGAL_BARU" class="datepicker-default form-control @error('TANGGAL_BARU') is-invalid @enderror" id="TANGGAL_BARU">
-                                <div class="invalid-feedback animated fadeInUp">
-                                    Tanggal Praktikum harus diisi
-                                </div>
-                            </div>
                             
                             <div class="form-group">
-                                <label>Permintaan Jam Mulai Baru (opsional)</label>
+                                <label>Jam Mulai Baru</label>
                                 <div class="input-group clockpicker" data-placement="bottom" data-align="top" data-autoclose="true">
-                                    <input type="text" class="form-control @error('JAM_MULAI_BARU') is-invalid @enderror" name="JAM_MULAI_BARU" id="JAM_MULAI_BARU">
+                                    <input type="text" class="form-control @error('JAM_MULAI') is-invalid @enderror" name="JAM_MULAI" id="JAM_MULAI" value="{{ $jadwalulang->peminjaman_alat_bahan->JAM_MULAI }}">
                                 </div>
                                 <div class="invalid-feedback animated fadeInUp">
                                 Jam Mulai Praktikum harus diisi
@@ -142,21 +145,17 @@
                             </div>
 
                             <div class="form-group">
-                                <label>Permintaan Jam Selesai Baru (opsional)</label>
+                                <label>Jam Selesai Baru</label>
                                 <div class="input-group clockpicker" data-placement="bottom" data-align="top" data-autoclose="true">
-                                    <input type="text" class="form-control @error('JAM_SELESAI_BARU') is-invalid @enderror" name="JAM_SELESAI_BARU" id="JAM_SELESAI_BARU"> 
+                                    <input type="text" class="form-control @error('JAM_SELESAI') is-invalid @enderror" name="JAM_SELESAI" id="JAM_SELESAI" value="{{ $jadwalulang->peminjaman_alat_bahan->JAM_SELESAI }}">
                                 </div>
                                 <div class="invalid-feedback animated fadeInUp">
                                 Jam Selesai Praktikum harus diisi
                                 </div>
                             </div>
 
-                            <div class="form-group">
-                                <label>Pesan</label>
-                                <textarea id="PESAN" name="PESAN" class="form-control"></textarea>
-                            </div>
-
                             <button type="submit" class="btn btn-primary submit-btn">Simpan</button>
+
                         </form>
                     </div>
                 </div>

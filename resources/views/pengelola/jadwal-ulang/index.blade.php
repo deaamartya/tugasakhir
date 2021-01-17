@@ -83,9 +83,11 @@
                                     <td> {{ $d->peminjaman_alat_bahan->praktikum->kelas->jenis_kelas->NAMA_JENIS_KELAS }} </td>
                                     <td> @if($d->STATUS_PERUBAHAN == 0) Belum dirubah @else Sudah dirubah @endif </td>
                                     <td> 
+                                        @if($d->STATUS_PERUBAHAN == 0)
                                         <a href="{{ route('pengelola.penjadwalan-ulang.edit',$d->ID_PERUBAHAN_JADWAL) }}">
                                             <button class="btn btn-success">Ubah Jadwal</button>
                                         </a>
+                                        @endif
                                     </td>
                                 </tr>
                                 @endforeach
