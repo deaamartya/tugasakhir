@@ -29,6 +29,7 @@ class PerubahanJadwalPeminjaman extends Model
 {
 	protected $table = 'perubahan_jadwal_peminjaman';
 	protected $primaryKey = 'ID_PERUBAHAN_JADWAL';
+	public $incrementing = false;
 	public $timestamps = false;
 
 	protected $casts = [
@@ -47,7 +48,7 @@ class PerubahanJadwalPeminjaman extends Model
 		'STATUS_PERUBAHAN'
 	];
 
-	public function user()
+	public function guru()
 	{
 		return $this->belongsTo(User::class, 'ID_USER');
 	}

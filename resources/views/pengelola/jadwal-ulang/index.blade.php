@@ -57,31 +57,6 @@
         <div class="alert alert-danger">Data tidak berhasil disimpan. Cek kembali form</div>
     @endif
 
-    <!-- <div class="row">
-        <div class="col-xl-3">
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="card-intro-title">Jadwal Praktikum</h4>
-                    <div class="">
-                        <div id="external-events" class="my-3">
-                            <div class="external-event" data-class="bg-primary"><i class="fa fa-move"></i>X MIPA</div>
-                            <div class="external-event" data-class="bg-success"><i class="fa fa-move"></i>XI MIPA
-                            </div>
-                            <div class="external-event" data-class="bg-warning"><i class="fa fa-move"></i>XII MIPA</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xl-9">
-            <div class="card">
-                <div class="card-body">
-                    <div id="calendar" class="app-fullcalendar"></div>
-                </div>
-            </div>
-        </div>
-    </div> -->
-
     <div class="row">
         <div class="col-12">
             <div class="card">
@@ -97,6 +72,7 @@
                                     <th>Nama Praktikum</th>
                                     <th>Kelas</th>
                                     <th>Status</th>
+                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -106,6 +82,11 @@
                                     <td> {{ $d->peminjaman_alat_bahan->praktikum->NAMA_PRAKTIKUM }} </td>
                                     <td> {{ $d->peminjaman_alat_bahan->praktikum->kelas->jenis_kelas->NAMA_JENIS_KELAS }} </td>
                                     <td> @if($d->STATUS_PERUBAHAN == 0) Belum dirubah @else Sudah dirubah @endif </td>
+                                    <td> 
+                                        <a href="{{ route('pengelola.penjadwalan-ulang.edit',$d->ID_PERUBAHAN_JADWAL) }}">
+                                            <button class="btn btn-success">Ubah Jadwal</button>
+                                        </a>
+                                    </td>
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -116,37 +97,6 @@
         </div>
     </div>
 </div>
-@foreach($praktikum as $p)
-<div class="modal fade" id="modal-peminjaman-{{ $p->ID_PEMINJAMAN }}">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Detail Peminjaman #{{ $p->ID_PEMINJAMAN }}</h5>
-                <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-4">Nama Prakt.</div>
-                    <div class="col-8">{{ $p->praktikum->NAMA_PRAKTIKUM }}</div>
-                </div>
-                <div class="row">
-                    <div class="col-4">Jadwal Prakt.</div>
-                    <div class="col-8">{{ $p->TANGGAL_PEMINJAMAN }} {{$p->JAM_MULAI}} - {{ $p->JAM_SELESAI }}</div>
-                </div>
-                <div class="row">
-                    <div class="col-4">Kelas</div>
-                    <div class="col-8">{{ $p->praktikum->kelas->jenis_kelas->NAMA_JENIS_KELAS }}</div>
-                </div>
-                <div class="row">
-                    <div class="col-4">Guru</div>
-                    <div class="col-8">{{ $p->praktikum->kelas->guru->NAMA_LENGKAP }}</div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-@endforeach
 
 @endsection
 

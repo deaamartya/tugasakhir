@@ -10,6 +10,9 @@ use App\Models\MataPelajaran;
 use App\Models\Kelas;
 use DB;
 use App\Models\PerubahanJadwalPeminjaman;
+use App\Notifications\RequestPenjadwalanUlang;
+use App\Models\User;
+use Notification;
 
 class PenjadwalanUlangController extends Controller
 {
@@ -19,14 +22,17 @@ class PenjadwalanUlangController extends Controller
         $page_description = 'Menampilkan seluruh data praktikum';
         $action = 'app_calender';
         $id_lab = 1;
-        $guru = 
+        $guru = 6;
         $praktikum = PeminjamanAlatBahan::join('ruang_laboratorium as r','r.ID_RUANG_LABORATORIUM','peminjaman_alat_bahan.ID_RUANG_LABORATORIUM')->where('r.ID_LABORATORIUM','=',$id_lab)->orderBy('ID_PEMINJAMAN','DESC')->get();
         $lab = strrchr(Laboratorium::find($id_lab)->value('NAMA_LABORATORIUM'),' ');
         $lab = str_replace(" ","",$lab);
         $matapelajaran = MataPelajaran::select('mata_pelajaran.*')->where('NAMA_MAPEL','LIKE',"%".$lab."%")->get();
         $kelas = Kelas::join('mata_pelajaran as m','m.ID_MAPEL','=','kelas.ID_MAPEL')->where('m.NAMA_MAPEL','LIKE',"%".$lab."%")->get();
         $lab = Laboratorium::find($id_lab);
-        return view('guru.jadwal-ulang.index', compact('page_title', 'page_description','action','praktikum','kelas','matapelajaran','lab'));
+
+        $jadwalulang = PerubahanJadwalPeminjaman::where('ID_USER','=',$guru)->get();
+
+        return view('guru.jadwal-ulang.index', compact('page_title', 'page_description','action','praktikum','kelas','matapelajaran','lab','jadwalulang'));
     }
 
     public function show($id)
@@ -42,16 +48,22 @@ class PenjadwalanUlangController extends Controller
 
     public function store(Request $request)
     {
-        DB::transaction(function() use($request){
+        $id_pengelola = 3;
+        $id_guru = 6;
+        DB::transaction(function() use($request,$id_guru,$id_pengelola){
+
             PerubahanJadwalPeminjaman::insert([
                 'ID_PEMINJAMAN' => $request->ID_PEMINJAMAN,
-                'ID_USER' => 6,
-                'TANGGAL_BARU' => $request->TANGGAL_BARU,
+                'ID_USER' => $id_guru,
+                'TANGGAL_BARU' => $request->TANGGAL_BARU_submit,
                 'JAM_MULAI_BARU' => $request->JAM_MULAI_BARU,
                 'JAM_SELESAI_BARU' => $request->JAM_SELESAI_BARU,
                 'PESAN' => $request->PESAN,
-                'STATUS_PERUBAHAN' => false,
+                'STATUS_PERUBAHAN' => 0,
             ]);
+
+            $user = User::find($id_pengelola);
+            Notification::send($user, new RequestPenjadwalanUlang($request->ID_PEMINJAMAN));    
         });
 
         return redirect()->route('guru.penjadwalan-ulang.index')->with('created','Data berhasil dibuat');

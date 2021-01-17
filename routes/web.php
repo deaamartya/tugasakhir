@@ -57,7 +57,7 @@ Route::prefix('pengelola')->name('pengelola.')->group(function () {
     Route::get('datapraktikum','App\Http\Controllers\Pengelola\JadwalPraktikumController@seluruhJadwal');
     Route::post('jadwal-praktikum/datapraktikum-nama','App\Http\Controllers\Pengelola\JadwalPraktikumController@seluruhJadwalNama');
 
-    Route::get('penjadwalan-ulang','App\Http\Controllers\Pengelola\PenjadwalanUlangController@index');
+    Route::resource('penjadwalan-ulang','App\Http\Controllers\Pengelola\PenjadwalanUlangController');
 
     Route::get('peminjaman','App\Http\Controllers\Pengelola\PeminjamanController@index');
 
