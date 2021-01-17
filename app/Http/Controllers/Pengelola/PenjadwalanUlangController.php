@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use App\Models\PerubahanJadwalPeminjaman;
 use DB;
 use App\Models\PeminjamanAlatBahan;
+use App\Models\User;
+use Notification;
+use App\Notifications\SuccessPenjadwalanUlang;
 
 class PenjadwalanUlangController extends Controller
 {

@@ -10,15 +10,16 @@ use Illuminate\Notifications\Notification;
 class SuccessPenjadwalanUlang extends Notification
 {
     use Queueable;
+    private $data;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($penjadwalanulang)
     {
-        //
+        $this->data = $penjadwalanulang;
     }
 
     /**
@@ -29,21 +30,7 @@ class SuccessPenjadwalanUlang extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail'];
-    }
-
-    /**
-     * Get the mail representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return \Illuminate\Notifications\Messages\MailMessage
-     */
-    public function toMail($notifiable)
-    {
-        return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+        return ['database'];
     }
 
     /**
@@ -55,7 +42,7 @@ class SuccessPenjadwalanUlang extends Notification
     public function toArray($notifiable)
     {
         return [
-            //
+            'ID_PEMINJAMAN' => $this->data
         ];
     }
 }

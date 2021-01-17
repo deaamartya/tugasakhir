@@ -24,7 +24,12 @@ class PraktikumController extends Controller
         $matapelajaran = MataPelajaran::select('mata_pelajaran.*')->where('NAMA_MAPEL','LIKE',"%".$lab."%")->get();
         $kelas = Kelas::join('mata_pelajaran as m','m.ID_MAPEL','=','kelas.ID_MAPEL')->where('m.NAMA_MAPEL','LIKE',"%".$lab."%")->get();
         $lab = Laboratorium::find($id_lab);
-        return view('pengelola.praktikum', compact('page_title', 'page_description','action','praktikum','kelas','matapelajaran','lab'));
+        return view('pengelola.praktikum.index', compact('page_title', 'page_description','action','praktikum','kelas','matapelajaran','lab'));
+    }
+
+    public function create()
+    {
+        return view('pengelola.praktikum.create');
     }
 
     /**
