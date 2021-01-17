@@ -76,7 +76,7 @@
                     <div class="table-responsive">
                         <form id="create-jadwal" action="{{ route('guru.penjadwalan-ulang.store') }}" name="create-praktikum" method="POST">
                         @csrf
-                        <input type="hidden" name="ID_PEMINJAMAN" value="{{ $peminjaman->ID_PEMINJAMAN }}">
+                            <input type="hidden" name="ID_PEMINJAMAN" value="{{ $peminjaman->ID_PEMINJAMAN }}">
                             <div class="form-group">
                                 <label>Ruang Laboratorium</label>
                                 <select disabled class="select2-single @error('ID_RUANG_LABORATORIUM') is-invalid @enderror" name="ID_RUANG_LABORATORIUM" id="ID_RUANG_LABORATORIUM">
@@ -116,7 +116,7 @@
                             <div class="form-group">
                                 <label>Permintaan Jam Mulai Baru (opsional)</label>
                                 <div class="input-group clockpicker" data-placement="bottom" data-align="top" data-autoclose="true">
-                                    <input type="text" class="form-control @error('JAM_MULAI') is-invalid @enderror" name="JAM_MULAI" id="JAM_MULAI">
+                                    <input type="text" class="form-control @error('JAM_MULAI_BARU') is-invalid @enderror" name="JAM_MULAI_BARU" id="JAM_MULAI_BARU">
                                 </div>
                                 <div class="invalid-feedback animated fadeInUp">
                                 Jam Mulai Praktikum harus diisi
@@ -126,7 +126,7 @@
                             <div class="form-group">
                                 <label>Permintaan Jam Selesai Baru (opsional)</label>
                                 <div class="input-group clockpicker" data-placement="bottom" data-align="top" data-autoclose="true">
-                                    <input type="text" class="form-control @error('JAM_SELESAI') is-invalid @enderror" name="JAM_SELESAI" id="JAM_SELESAI"> 
+                                    <input type="text" class="form-control @error('JAM_SELESAI_BARU') is-invalid @enderror" name="JAM_SELESAI_BARU" id="JAM_SELESAI_BARU"> 
                                 </div>
                                 <div class="invalid-feedback animated fadeInUp">
                                 Jam Selesai Praktikum harus diisi
@@ -146,7 +146,7 @@
         </div>
     </div>
 </div>
-@foreach($peminjaman as $p)
+@foreach($praktikum as $p)
 <div class="modal fade" id="modal-peminjaman-{{ $p->ID_PEMINJAMAN }}">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -177,6 +177,7 @@
     </div>
 </div>
 @endforeach
+
 @endsection
 
 {{-- Tambahan Script --}}

@@ -44,6 +44,7 @@ class BahanController extends Controller
                 'JUMLAH' => $request->JUMLAH,
             ]);
         });
+        
         return redirect()->route('pengelola.bahan.index')->with('created','Data berhasil dibuat');
     }
 

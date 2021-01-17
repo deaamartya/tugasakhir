@@ -118,7 +118,7 @@
         </div>
     </div>
 </div>
-@foreach($peminjaman as $p)
+@foreach($praktikum as $p)
 <div class="modal fade" id="modal-peminjaman-{{ $p->ID_PEMINJAMAN }}">
     <div class="modal-dialog" role="document">
         <div class="modal-content">

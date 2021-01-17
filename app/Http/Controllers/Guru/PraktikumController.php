@@ -60,6 +60,8 @@ class PraktikumController extends Controller
                 $obj->className = "bg-danger";
             }
 
+            $obj->id_peminjaman = $p->ID_PEMINJAMAN;
+
             $data[$i] = $obj;
             $i++;
         }
@@ -108,6 +110,8 @@ class PraktikumController extends Controller
             {
                 $obj->className = "bg-danger";
             }
+
+            $obj->id_peminjaman = $p->ID_PEMINJAMAN;
 
             $data[$i] = $obj;
             $i++;

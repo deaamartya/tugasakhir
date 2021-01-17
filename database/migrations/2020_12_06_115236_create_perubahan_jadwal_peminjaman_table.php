@@ -17,9 +17,10 @@ class CreatePerubahanJadwalPeminjamanTable extends Migration
             $table->string('ID_PERUBAHAN_JADWAL', 15)->primary();
             $table->string('ID_PEMINJAMAN')->index('FK_PERUBAHAN_JADWAL');
             $table->integer('ID_USER')->index('FK_DIPROSES');
-            $table->date('TANGGAL_LAMA');
-            $table->date('TANGGAL_BARU');
-            $table->text('PESAN');
+            $table->date('TANGGAL_BARU')->nullable();
+            $table->string('JAM_MULAI_BARU')->nullable();
+            $table->string('JAM_SELESAI_BARU')->nullable();
+            $table->text('PESAN')->nullable();
             $table->boolean('STATUS_PERUBAHAN');
         });
 

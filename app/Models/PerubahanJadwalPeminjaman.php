@@ -37,16 +37,12 @@ class PerubahanJadwalPeminjaman extends Model
 		'STATUS_PERUBAHAN' => 'bool'
 	];
 
-	protected $dates = [
-		'TANGGAL_LAMA',
-		'TANGGAL_BARU'
-	];
-
 	protected $fillable = [
 		'ID_PEMINJAMAN',
 		'ID_USER',
-		'TANGGAL_LAMA',
 		'TANGGAL_BARU',
+		'JAM_MULAI_BARU',
+		'JAM_SELESAI_BARU',
 		'PESAN',
 		'STATUS_PERUBAHAN'
 	];
