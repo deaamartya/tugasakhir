@@ -23,7 +23,7 @@ class AlatTableSeeder extends Seeder
                 'ID_KATALOG_ALAT' => 'KGE11/050',
                 'ID_LEMARI' => 1,
                 'ID_MERK_TIPE' => 1,
-                'JUMLAH_BAGUS' => 8,
+                'JUMLAH_BAGUS' => 100,
                 'JUMLAH_RUSAK' => 0,
             ),
             1 => 
@@ -32,7 +32,7 @@ class AlatTableSeeder extends Seeder
                 'ID_KATALOG_ALAT' => 'KGE11/050',
                 'ID_LEMARI' => 1,
                 'ID_MERK_TIPE' => 2,
-                'JUMLAH_BAGUS' => 8,
+                'JUMLAH_BAGUS' => 100,
                 'JUMLAH_RUSAK' => 0,
             ),
             2 => 
@@ -41,7 +41,7 @@ class AlatTableSeeder extends Seeder
                 'ID_KATALOG_ALAT' => 'KGE11/050',
                 'ID_LEMARI' => 1,
                 'ID_MERK_TIPE' => 3,
-                'JUMLAH_BAGUS' => 8,
+                'JUMLAH_BAGUS' => 100,
                 'JUMLAH_RUSAK' => 0,
             ),
         ));

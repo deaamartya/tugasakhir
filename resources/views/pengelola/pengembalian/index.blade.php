@@ -82,9 +82,9 @@
                                     <td> {{ $d->praktikum->kelas->guru->NAMA_LENGKAP }}</td>
                                     <td> {{ $d->TANGGAL_PEMINJAMAN }} {{ $d->JAM_MULAI }} - {{ $d->JAM_SELESAI }} </td>
                                     <td>
-                                    @if($d->STATUS_PEMINJAMAN == "MENUNGGU KONFIRMASI")
-                                        <a href="{{ route('pengelola.peminjaman.konfirmasi',$d->ID_PEMINJAMAN) }}">
-                                            <button type="button" class="btn btn-primary">Konfirmasi</button>
+                                    @if($d->STATUS_PEMINJAMAN == "SUDAH DIKONFIRMASI")
+                                        <a href="{{ route('pengelola.pengembalian.edit',[$d->ID_PEMINJAMAN]) }}">
+                                            <button type="button" class="btn btn-primary">Pengembalian</button>
                                         </a>
                                     @else
                                     SUDAH DIKONFIRMASI

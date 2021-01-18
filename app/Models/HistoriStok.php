@@ -38,7 +38,6 @@ class HistoriStok extends Model
 		'JUMLAH_MASUK' => 'int',
 		'JUMLAH_KELUAR' => 'int',
 		'KONDISI' => 'bool',
-		'STOK' => 'int'
 	];
 
 	protected $dates = [
@@ -48,11 +47,9 @@ class HistoriStok extends Model
 	protected $fillable = [
 		'ID_TIPE',
 		'ID_ALAT_BAHAN',
-		'TIMESTAMP',
 		'JUMLAH_MASUK',
 		'JUMLAH_KELUAR',
 		'KONDISI',
-		'STOK',
 		'KETERANGAN'
 	];
 

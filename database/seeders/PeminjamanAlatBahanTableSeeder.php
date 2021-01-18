@@ -23,20 +23,10 @@ class PeminjamanAlatBahanTableSeeder extends Seeder
                 'ID_PEMINJAMAN' => 'P00000000000001',
                 'ID_PRAKTIKUM' => 'P100000001',
                 'ID_RUANG_LABORATORIUM' => 2,
-                'JAM_MULAI' => '08:00',
-                'JAM_SELESAI' => '09:40',
+                'JAM_MULAI' => '08:40',
+                'JAM_SELESAI' => '09:00',
                 'STATUS_PEMINJAMAN' => 'MENUNGGU KONFIRMASI',
                 'TANGGAL_PEMINJAMAN' => '2021-01-25',
-            ),
-            1 => 
-            array (
-                'ID_PEMINJAMAN' => 'P00000000000002',
-                'ID_PRAKTIKUM' => 'P100000003',
-                'ID_RUANG_LABORATORIUM' => 2,
-                'JAM_MULAI' => '09:30',
-                'JAM_SELESAI' => '10:00',
-                'STATUS_PEMINJAMAN' => 'MENUNGGU KONFIRMASI',
-                'TANGGAL_PEMINJAMAN' => '2021-01-18',
             ),
         ));
         

@@ -62,7 +62,7 @@ Route::prefix('pengelola')->name('pengelola.')->group(function () {
     Route::resource('peminjaman','App\Http\Controllers\Pengelola\PeminjamanController');
     Route::get('peminjaman/konfirmasi/{id}','App\Http\Controllers\Pengelola\PeminjamanController@konfirmasi')->name('peminjaman.konfirmasi');
 
-    Route::get('pengembalian','App\Http\Controllers\Pengelola\PengembalianController@index');
+    Route::resource('pengembalian','App\Http\Controllers\Pengelola\PengembalianController');
 
     Route::get('simulasi','App\Http\Controllers\Pengelola\SimulasiController@index');
     
