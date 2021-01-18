@@ -165,20 +165,17 @@
 
                             <hr></hr>
 
-                            <table class="table" id="table-alat">
+                            <table class="table alatbahan-table" id="table-alat">
                                 <thead>
                                     <th>Alat</th>
-                                    <th>Jumlah Pinjam per Kelompok</th>
+                                    <th>Jumlah Pinjam per Kelompok (pcs)</th>
+                                    <th></th>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>Iwaki Pyrex - Gelas Kimia Kaca 50 ml</td>
-                                        <td>1</td>
-                                    </tr>
                                 </tbody>
                             </table>
 
-                            <table class="table" id="table-bahan">
+                            <table class="table alatbahan-table" id="table-bahan">
                                 <thead>
                                     <th>Bahan</th>
                                     <th>Jumlah Pinjam per Kelompok</th>
@@ -191,7 +188,7 @@
                                 </tbody>
                             </table>
 
-                            <table class="table" id="table-bahan-kimia">
+                            <table class="table alatbahan-table" id="table-bahan-kimia">
                                 <thead>
                                     <th>Bahan Kimia</th>
                                     <th>Jumlah Pinjam per Kelompok</th>
@@ -203,6 +200,19 @@
                                     </tr>
                                 </tbody>
                             </table>
+
+                            <div class="row">
+                                <p>Total Alat : </p><p class="ml-3" id="total-alat">0</p>
+                                <input type="hidden" id="total-alat-input" name="total-alat">
+                            </div>
+                            <div class="row">
+                                <p>Total Bahan : </p><p class="ml-3" id="total-bahan">0</p>
+                                <input type="hidden" id="total-bahan-input" name="total-bahan">
+                            </div>
+                            <div class="row">
+                                <p>Total Bahan Kimia : </p><p class="ml-3" id="total-bahan-kimia">0</p>
+                                <input type="hidden" id="total-bahan-kimia-input" name="total-bahan-kimia">
+                            </div>
 
                             <button type="submit" class="btn btn-primary submit-btn">Simpan</button>
                         </form>
@@ -224,6 +234,45 @@
 <script>
 $(document).ready(function(){
     $(".select2").select2();
+    $(".alatbahan-table").hide();
+
+    var alat = <?php echo json_encode($alat); ?>;
+    var bahan = <?php echo json_encode($bahan); ?>;
+    var bahan_kimia = <?php echo json_encode($bahan_kimia); ?>;
+
+    function getIndexAlat(id_alat)
+    {
+        for(var i=0;i<alat.length;i++)
+        {
+            if(alat[i]['ID_ALAT'] == id_alat)
+            {
+                return i;
+            }
+        }
+    }
+
+    function getIndexBahan(id_bahan)
+    {
+        for(var i=0;i<bahan.length;i++)
+        {
+            if(bahan[i]['ID_BAHAN'] == id_bahan)
+            {
+                return i;
+            }
+        }
+    }
+
+    function getIndexBahanKimia(id_bahan_kimia)
+    {
+        for(var i=0;i<bahan_kimia.length;i++)
+        {
+            if(bahan_kimia[i]['ID_BAHAN_KIMIA'] == id_bahan_kimia)
+            {
+                return i;
+            }
+        }
+    }
+
     $("#create-praktikum").validate({
         rules: {
             ID_LABORATORIUM: {
@@ -262,6 +311,78 @@ $(document).ready(function(){
             form.submit();
         },
     });
+
+    $("#add_row_alat").on('click',function(){
+        var id_alat = $("#ID_ALAT").val();
+        var index = getIndexAlat(id_alat);
+        if($("#table-alat tbody tr#alat-"+index).length == 1){
+            var qty = $("#qtyalat-"+index).val();
+            qty = Number(qty)+1;
+            $("#qtyalat-"+index).val(qty);
+            hitungTotalAlat();
+        }
+        else{
+            var nama_alat = alat[index]['NAMA_MERK_TIPE'] +" "+ alat[index]['NAMA_ALAT']+" "+ alat[index]['UKURAN'];
+            var markup =
+            "<tr id='alat-"+index+"'>"+
+                "<td>"+nama_alat+"<input type='hidden' name='id_alat["+index+"]' value='"+id_alat+"'></td>"+
+                "<td><input type='number' name='jumlah_alat["+index+"]' value='1' class='jumlah_alat' id='qtyalat-"+index+"'></td>"+
+                "<td><button type='button' class='btn btn-danger shadow btn-xs sharp mr-1 delete-alat' id='"+index+"'><i class='fa fa-trash'></i></button></td>"
+            "</tr>";
+            $("#table-alat tbody").append(markup);
+            $("#table-alat").show();
+        }
+    });
+
+    $("#add_row_bahan").on('click',function(){
+        var id_bahan = $("#ID_BAHAN").val();
+        var index = getIndexAlat(id_bahan);
+        if($("#table-bahan tbody tr#bahan-"+index).length == 1){
+            var qty = $("#qtybahan-"+index).val();
+            qty = Number(qty)+1;
+            $("#qtybahan-"+index).val(qty);
+            hitungTotalAlat();
+        }
+        else{
+            var nama_bahan = bahan[index]['NAMA_BAHAN'];
+            var markup =
+            "<tr id='bahan-"+index+"'>"+
+                "<td>"+nama_bahan+"<input type='hidden' name='id_bahan["+index+"]' value='"+id_bahan+"'></td>"+
+                "<td><input type='number' name='jumlah_bahan["+index+"]' value='1' class='jumlah_bahan' id='qtybahan-"+index+"'></td>"+
+                "<td><button type='button' class='btn btn-danger shadow btn-xs sharp mr-1 delete-bahan' id='"+index+"'><i class='fa fa-trash'></i></button></td>"
+            "</tr>";
+            $("#table-bahan tbody").append(markup);
+            $("#table-bahan").show();
+        }
+    });
+
+    $(document).on('input','.jumlah_alat',function(){
+        if($(this).val() >= 1){
+            hitungTotalAlat();
+        }
+        else{
+            $(this).val(1);
+        }
+    });
+
+    function hitungTotalAlat()
+    {
+        var total = 0;
+        $(".jumlah_alat").each(function(){
+            total = total+Number($(this).val());
+        });
+        $("#total-alat").html(total);
+        $("#total-alat-input").val(total);
+    }
+
+    $(document).on('click','.delete-alat',function(){
+        $("#table-alat tbody tr#alat-"+$(this).attr('id')).remove();
+        hitungTotalAlat();
+        if($("#table-alat tbody tr").length < 1){
+            $("#table-alat").hide();
+        }
+    });
+    
 });
     
 </script>
