@@ -22,7 +22,7 @@ class PenjadwalanUlangController extends Controller
         $page_description = 'Menampilkan seluruh data praktikum';
         $action = 'app_calender';
         $id_lab = 1;
-        $guru = 6;
+        $guru = Auth::user()->ID_USER;
         $praktikum = PeminjamanAlatBahan::join('ruang_laboratorium as r','r.ID_RUANG_LABORATORIUM','peminjaman_alat_bahan.ID_RUANG_LABORATORIUM')->where('r.ID_LABORATORIUM','=',$id_lab)->orderBy('ID_PEMINJAMAN','DESC')->get();
         $lab = strrchr(Laboratorium::find($id_lab)->value('NAMA_LABORATORIUM'),' ');
         $lab = str_replace(" ","",$lab);
@@ -49,7 +49,7 @@ class PenjadwalanUlangController extends Controller
     public function store(Request $request)
     {
         $id_pengelola = 3;
-        $id_guru = 6;
+        $id_guru = Auth::user()->ID_USER;
         DB::transaction(function() use($request,$id_guru,$id_pengelola){
 
             PerubahanJadwalPeminjaman::insert([

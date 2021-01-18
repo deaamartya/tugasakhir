@@ -14,7 +14,7 @@ class PraktikumController extends Controller
         $page_title = 'Praktikum Kelas Saya';
         $page_description = 'Data praktikum guru';
         $action = 'app_calender';
-        $id_guru = 6;
+        $id_guru = Auth::user()->ID_USER;
         $praktikum = PeminjamanAlatBahan::join('praktikum as pr','pr.ID_PRAKTIKUM','=','peminjaman_alat_bahan.ID_PRAKTIKUM')
         ->join('kelas as k','k.ID_KELAS','=','pr.ID_KELAS')
         ->where('k.ID_USER','=',$id_guru)->get();
@@ -25,7 +25,7 @@ class PraktikumController extends Controller
     {
         $data = [];
         $id_lab = 1;
-        $id_guru = 6;
+        $id_guru = Auth::user()->ID_USER;
         $peminjaman = PeminjamanAlatBahan::join('ruang_laboratorium as r','r.ID_RUANG_LABORATORIUM','peminjaman_alat_bahan.ID_RUANG_LABORATORIUM')
         ->join('praktikum as p','p.ID_PRAKTIKUM','=','peminjaman_alat_bahan.ID_PRAKTIKUM')
         ->join('kelas as k','p.ID_KELAS','=','k.ID_KELAS')
@@ -74,7 +74,7 @@ class PraktikumController extends Controller
         $data = [];
         $praktikum = Praktikum::find($request->prakt);
         $id_lab = 1;
-        $id_guru = 6;
+        $id_guru = Auth::user()->ID_USER;
         $peminjaman = PeminjamanAlatBahan::join('praktikum as p','p.ID_PRAKTIKUM','=','peminjaman_alat_bahan.ID_PRAKTIKUM')
         ->join('ruang_laboratorium as r','r.ID_RUANG_LABORATORIUM','peminjaman_alat_bahan.ID_RUANG_LABORATORIUM')
         ->join('praktikum as p','p.ID_PRAKTIKUM','=','peminjaman_alat_bahan.ID_PRAKTIKUM')

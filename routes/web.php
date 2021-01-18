@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Models\User;
  
-Route::prefix('admin')->name('admin.')->group(function () {
+Route::middleware(['auth','cekAdmin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/', 'App\Http\Controllers\AdminController@dashboard')->name('dashboard');
     Route::resource('jenis-kelas','App\Http\Controllers\Admin\JenisKelasController');
     Route::resource('kelas','App\Http\Controllers\Admin\KelasController');
@@ -15,7 +15,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('lab','App\Http\Controllers\Admin\LaboratoriumController');
 });
 
-Route::prefix('guru')->name('guru.')->group(function () {
+Route::middleware(['auth','cekGuru'])->prefix('guru')->name('guru.')->group(function () {
     Route::get('/', 'App\Http\Controllers\GuruController@dashboard')->name('dashboard');
     Route::resource('praktikum','App\Http\Controllers\Guru\PraktikumController');
     Route::resource('penjadwalan-ulang','App\Http\Controllers\Guru\PenjadwalanUlangController');
@@ -24,7 +24,7 @@ Route::prefix('guru')->name('guru.')->group(function () {
     Route::post('jadwal-praktikum/datapraktikum-nama','App\Http\Controllers\Pengelola\JadwalPraktikumController@seluruhJadwalNama');
 });
 
-Route::prefix('pengelola')->name('pengelola.')->group(function () {
+Route::middleware(['auth','cekPengelola'])->prefix('pengelola')->name('pengelola.')->group(function () {
     Route::get('/', 'App\Http\Controllers\PengelolaController@dashboard')->name('dashboard');
 
     Route::resource('ruang-lab','App\Http\Controllers\Pengelola\RuangLaboratoriumController');
@@ -77,7 +77,15 @@ Route::get('cekusername/{username}', function($username){
     return response()->json($hasil);
 });
 
-// Route::get('/', 'AlatController@index');
+Auth::routes();
+
+Route::get('logout', function(){
+    Auth::logout();
+    Session::flush();
+    return redirect()->route('login');
+});
+
+Route::get('home','App\Http\Controllers\HomeController@index')->name('home');
 
 Route::get('/', 'App\Http\Controllers\DavuradminController@dashboard_1');
 Route::get('/index', 'App\Http\Controllers\DavuradminController@dashboard_1');
@@ -144,3 +152,4 @@ Route::get('/ui-progressbar', 'App\Http\Controllers\DavuradminController@ui_prog
 Route::get('/ui-tab', 'App\Http\Controllers\DavuradminController@ui_tab');
 Route::get('/ui-typography', 'App\Http\Controllers\DavuradminController@ui_typography');
 Route::get('/widget-basic', 'App\Http\Controllers\DavuradminController@widget_basic');
+
