@@ -66,7 +66,7 @@
                 </div>
                 <div class="card-body">
                     <div class="form-validation">
-                        <form id="create-praktikum" action="{{ route('pengelola.peminjaman.update',$peminjaman->ID_PEMINJAMAN) }}" name="create-praktikum" method="POST">
+                        <form id="create-praktikum" action="{{ route('pengelola.pengembalian.update',$peminjaman->ID_PEMINJAMAN) }}" name="create-praktikum" method="POST">
                         @method('PUT')
                         @csrf
                             <div class="row">
@@ -107,26 +107,28 @@
                             </div>
 
                             <div class="form-group">
-                                <label>Kebutuhan Praktikum :</label>
+                                <label>Pinjaman Praktikum :</label>
                             </div>
 
                             <table class="table text-black" id="table-alat">
                                 <thead>
                                     <th>Nama Alat</th>
-                                    <th>Stok Tersedia</th>
                                     <th>Jumlah Pinjam</th>
-                                    <th>Total Pinjam</th>
+                                    <th>Jumlah Bagus</th>
+                                    <th>Jumlah Rusak</th>
+                                    <th>Keterangan (jika ada rusak)</th>
                                 </thead>
                                 <tbody>
-                                    @foreach($peminjaman->praktikum->alat_bahan_praktikums as $a)
+                                    @foreach($peminjaman->detail_peminjamans as $a)
                                         @php $i = 1; @endphp
                                         @if($a->ID_TIPE == 1)
                                         <tr>
-                                            <td width="50%">{{ $a->alat->ID_ALAT }} {{ $a->alat->merk_tipe_alat->NAMA_MERK_TIPE }} {{ $a->alat->katalog_alat->NAMA_ALAT }} {{ $a->alat->katalog_alat->UKURAN }}</td>
-                                            <td width="20%">{{ $a->alat->JUMLAH_BAGUS }}pcs</td>
+                                            <td width="30%">{{ $a->alat->ID_ALAT }} {{ $a->alat->merk_tipe_alat->NAMA_MERK_TIPE }} {{ $a->alat->katalog_alat->NAMA_ALAT }} {{ $a->alat->katalog_alat->UKURAN }}</td>
                                             <input type="hidden" value="{{ $a->alat->ID_ALAT }}" name="id_alat[{{$i}}]">
-                                            <td width="15%"><input style="width:100%" type="number" value="{{ $a->JUMLAH }}" class="jumlah_alat"></td>
-                                            <td width="15%"><input style="width:100%" type="number" name="jumlah_alat[{{$i}}]" class="total_alat" id="t_alat-{{$i}}" readonly></td>
+                                            <td width="15%">{{ $a->JUMLAH_PINJAM }}pcs</td>
+                                            <td width="15%"><input style="width:100%" type="number" name="jumlah_bagus[{{$i}}]" id="jumlah_bagus-{{$i}}" value="{{ $a->JUMLAH_PINJAM }}"></td>
+                                            <td width="15%"><input style="width:100%" type="number" name="jumlah_rusak[{{$i}}]" id="jumlah_rusak-{{$i}}" value="0"></td>
+                                            <td width="15%"><textarea name="keterangan_rusak[{{$i}}]" class="form-control"></textarea></td>
                                         </tr>
                                         @php $i++; @endphp
                                         @endif
@@ -137,20 +139,18 @@
                             <table class="table text-black" id="table-bahan">
                                 <thead>
                                     <th>Nama Bahan</th>
-                                    <th>Stok Tersedia</th>
                                     <th>Jumlah Pinjam</th>
-                                    <th>Total Pinjam</th>
+                                    <th>Sisa</th>
                                 </thead>
                                 <tbody>
-                                    @foreach($peminjaman->praktikum->alat_bahan_praktikums as $a)
+                                    @foreach($peminjaman->detail_peminjamans as $a)
                                         @php $i = 1; @endphp
                                         @if($a->ID_TIPE == 2)
                                         <tr>
                                             <td width="50%">{{ $a->bahan->ID_BAHAN }} {{ $a->bahan->NAMA_BAHAN }}</td>
                                             <input type="hidden" value="{{ $a->bahan->ID_BAHAN }}" name="id_bahan[{{$i}}]">
-                                            <td width="20%">{{ $a->bahan->JUMLAH }}pcs</td>
-                                            <td width="15%"><input type="number" style="width:100%" value="{{ $a->JUMLAH }}" class="jumlah_bahan"></td>
-                                            <td width="15%"><input style="width:100%" type="number" name="jumlah_bahan[{{$i}}]" class="total_bahan_kimia" id="t_bahan-{{$i}}" readonly></td>
+                                            <td width="20%">{{ $a->JUMLAH_PINJAM }}pcs</td>
+                                            <td width="15%"><input type="number" style="width:100%" value="0" name="jumlah_bahan[{{$i}}]"></td>
                                         </tr>
                                         @php $i++; @endphp
                                         @endif
@@ -161,70 +161,26 @@
                             <table class="table text-black" id="table-bahan-kimia">
                                 <thead>
                                     <th>Nama Bahan Kimia</th>
-                                    <th>Stok Tersedia</th>
                                     <th>Jumlah Pinjam</th>
-                                    <th>Total Pinjam</th>
+                                    <th>Sisa</th>
                                 </thead>
                                 <tbody>
-                                    @foreach($peminjaman->praktikum->alat_bahan_praktikums as $a)
+                                    @foreach($peminjaman->detail_peminjamans as $a)
                                         @php $i = 1; @endphp
                                         @if($a->ID_TIPE == 3)
                                             <tr>
                                                 <td width="50%">{{ $a->bahan_kimia->ID_BAHAN_KIMIA }} {{ $a->bahan_kimia->katalog_bahan->NAMA_KATALOG_BAHAN }}</td>
-                                                <td width="20%">{{ $a->bahan_kimia->JUMLAH_BAHAN_KIMIA }}gr</td>
+                                                <td width="20%">{{ $a->JUMLAH_PINJAM }}gr</td>
                                                 <input type="hidden" value="{{ $a->bahan_kimia->ID_BAHAN_KIMIA }}" name="id_bahan_kimia[{{$i}}]">
                                                 <td width="15%">
-                                                <input style="width:100%" type="number" value="{{ $a->JUMLAH }}" class="jumlah_bahan_kimia"></td>
-                                                <td width="15%">
-                                                <input style="width:100%" type="number" name="jumlah_bahan_kimia[{{$i}}]" class="total_bahan_kimia" id="t_bahan_kimia-{{$i}}" readonly></td>
+                                                <input style="width:100%" type="number" value="0" class="jumlah_bahan_kimia" name="jumlah_bahan_kimia[{{$i}}]"></td>
                                             </tr>
                                         @php $i++; @endphp
                                         @endif
                                     @endforeach
                                 </tbody>
                             </table>
-
-                            <div class="row justify-content-end">
-                                <div class="col-9 text-right">
-                                    <div class="row justify-content-end">
-                                        <div class="col-4">
-                                            <p class="text-left">Total Alat : </p>
-                                        </div>
-                                        <div class="col-3">
-                                            <span class="ml-3 text-right" id="total-alat">0</span>
-                                        </div>
-                                        <input type="hidden" name="total_alat" id="total_alat">
-                                    </div>
-                                    <div class="row justify-content-end">
-                                        <div class="col-4">
-                                            <p class="text-left">Total Bahan : </p>
-                                        </div>
-                                        <div class="col-3">
-                                            <span class="ml-3 text-right" id="total-bahan">0</span>
-                                        </div>
-                                        <input type="hidden" name="total_bahan" id="total_bahan">
-                                    </div>
-                                    <div class="row justify-content-end">
-                                        <div class="col-4">
-                                            <p class="text-left">Total Bahan Kimia : </p>
-                                        </div>
-                                        <div class="col-3">
-                                            <span class="ml-3 text-right" id="total-bahan-kimia">0</span>
-                                        </div>
-                                        <input type="hidden" name="total_bahan_kimia" id="total_bahan_kimia">
-                                    </div>
-                                    <div class="row justify-content-end">
-                                        <div class="col-4">
-                                            <p class="text-left">Total Keseluruhan : </p>
-                                        </div>
-                                        <div class="col-3">
-                                            <span class="ml-3 text-right" id="total-keseluruhan">0</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <button type="submit" class="btn btn-success submit-btn btn-md">Konfirmasi Peminjaman</button>
+                            <button type="submit" class="btn btn-success submit-btn btn-lg">Konfirmasi Pengembalian</button>
                         </form>
                     </div>
                 </div>

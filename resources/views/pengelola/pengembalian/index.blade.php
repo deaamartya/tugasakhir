@@ -23,7 +23,7 @@
         <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="javascript:void(0)">Data Praktikum</a></li>
-                <li class="breadcrumb-item active"><a href="javascript:void(0)">Peminjaman Alat dan Bahan Praktikum</a></li>
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">Pengembalian Alat dan Bahan Praktikum</a></li>
             </ol>
         </div>
     </div>
@@ -58,7 +58,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Peminjaman Alat dan Bahan Praktikum</h4>
+                    <h4 class="card-title">Pengembalian Alat dan Bahan Praktikum</h4>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -87,9 +87,47 @@
                                             <button type="button" class="btn btn-primary">Pengembalian</button>
                                         </a>
                                     @else
-                                    SUDAH DIKONFIRMASI
+                                        SUDAH DIKEMBALIKAN
                                     @endif
                                     </td>			
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">History Pengembalian</h4>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="example5" class="display" style="min-width: 845px">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Nama Praktikum</th>
+                                    <th>Kelas</th>
+                                    <th>Guru</th>
+                                    <th>Jadwal</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($pengembalian as $d)
+                                <tr>
+                                    <td> {{ $loop->iteration }} </td>
+                                    <td> {{ $d->praktikum->NAMA_PRAKTIKUM }} </td>
+                                    <td> {{ $d->praktikum->kelas->jenis_kelas->NAMA_JENIS_KELAS }}</td>
+                                    <td> {{ $d->praktikum->kelas->guru->NAMA_LENGKAP }}</td>
+                                    <td> {{ $d->TANGGAL_PEMINJAMAN }} {{ $d->JAM_MULAI }} - {{ $d->JAM_SELESAI }} </td>
+                                    <td> {{$d->STATUS_PEMINJAMAN}} </td>			
                                 </tr>
                                 @endforeach
                             </tbody>

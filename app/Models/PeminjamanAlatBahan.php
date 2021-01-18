@@ -59,4 +59,9 @@ class PeminjamanAlatBahan extends Model
 	{
 		return $this->hasMany(PerubahanJadwalPeminjaman::class, 'ID_PEMINJAMAN');
 	}
+
+	public function detail_peminjamans()
+	{
+		return $this->hasMany(DetailPeminjamanAlatBahan::class, 'ID_PEMINJAMAN');
+	}
 }

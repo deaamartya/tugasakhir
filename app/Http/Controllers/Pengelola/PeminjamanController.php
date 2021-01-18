@@ -12,6 +12,7 @@ use App\Models\BahanKimia;
 use App\Models\Laboratorium;
 use App\Models\AlatBahanPraktikum;
 use App\Models\HistoriStok;
+use App\Models\DetailPeminjamanAlatBahan;
 
 class PeminjamanController extends Controller
 {
@@ -62,6 +63,7 @@ class PeminjamanController extends Controller
         $id_praktikum = PeminjamanAlatBahan::find($id_peminjaman)->value('ID_PRAKTIKUM');
         $data_stok = [];
         $data_stok_alat = [];
+        $data_detail = [];
         if($request->total_alat > 0){
             $i=1;
             foreach($request->id_alat as $key){
@@ -72,6 +74,12 @@ class PeminjamanController extends Controller
                     'JUMLAH_MASUK' => 0,
                     'KONDISI' => 1,
                     'KETERANGAN' => "Stok keluar untuk praktikum"
+                ];
+                $data_detail[] = [
+                    'ID_TIPE' => 1,
+                    'ID_ALAT_BAHAN' => $request->id_alat[$i],
+                    'JUMLAH_PINJAM' => $request->jumlah_alat[$i],
+                    'ID_PEMINJAMAN' => $id_peminjaman,
                 ];
                 $i++;
             }
@@ -86,6 +94,12 @@ class PeminjamanController extends Controller
                     'JUMLAH_MASUK' => 0,
                     'KETERANGAN' => "Stok keluar untuk praktikum"
                 ];
+                $data_detail[] = [
+                    'ID_TIPE' => 2,
+                    'ID_ALAT_BAHAN' => $request->id_bahan[$i],
+                    'JUMLAH_PINJAM' => $request->jumlah_bahan[$i],
+                    'ID_PEMINJAMAN' => $id_peminjaman,
+                ];
                 $i++;
             }
         }
@@ -99,12 +113,23 @@ class PeminjamanController extends Controller
                     'JUMLAH_MASUK' => 0,
                     'KETERANGAN' => "Stok keluar untuk praktikum"
                 ];
+                $data_detail[] = [
+                    'ID_TIPE' => 3,
+                    'ID_ALAT_BAHAN' => $request->id_bahan_kimia[$i],
+                    'JUMLAH_PINJAM' => $request->jumlah_bahan_kimia[$i],
+                    'ID_PEMINJAMAN' => $id_peminjaman,
+                ];
                 $i++;
             }
         }
-        HistoriStok::insert($data_stok);
-        HistoriStok::insert($data_stok_alat);
-        PeminjamanAlatBahan::find($id_peminjaman)->update(["STATUS_PEMINJAMAN" => "SUDAH DIKONFIRMASI"]);
+
+        DB::transaction(function() use($data_stok,$data_stok_alat,$data_detail,$id_peminjaman){
+            HistoriStok::insert($data_stok);
+            HistoriStok::insert($data_stok_alat);
+            DetailPeminjamanAlatBahan::insert($data_detail);
+            PeminjamanAlatBahan::find($id_peminjaman)->update(["STATUS_PEMINJAMAN" => "SUDAH DIKONFIRMASI"]);
+        });
+        
         return redirect()->route('pengelola.peminjaman.index')->with('created','Data berhasil disimpan');
     }
 
