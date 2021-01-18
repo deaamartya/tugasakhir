@@ -698,6 +698,12 @@ return [
             'js/custom.min.js',
             'js/deznav-init.js',
 				],
+			'ui_modal_tanpaselect' => [
+				'vendor/chart.js/Chart.bundle.min.js',
+				'vendor/apexchart/apexchart.js',
+				'js/custom.min.js',
+				'js/deznav-init.js',
+					],
 				'ui_pagination' => [
             'vendor/bootstrap-select/dist/js/bootstrap-select.min.js',
             'vendor/chart.js/Chart.bundle.min.js',

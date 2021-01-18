@@ -3,11 +3,6 @@
 
 {{-- Tambahan Style Admin --}}
 @section('tambahan-style')
-    @if(!empty(config('dz.public.pagelevel.css.ui_modal'))) 
-        @foreach(config('dz.public.pagelevel.css.ui_modal') as $style)
-                <link href="{{ asset($style) }}" rel="stylesheet" type="text/css"/>
-        @endforeach
-    @endif
     @if(!empty(config('dz.public.pagelevel.css.form_validation_jquery'))) 
         @foreach(config('dz.public.pagelevel.css.form_validation_jquery') as $style)
                 <link href="{{ asset($style) }}" rel="stylesheet" type="text/css"/>
@@ -118,43 +113,94 @@
                                 </div>
                             </div>
 
-                            <div class="form-row">
+                            <hr></hr>
+
                             <div class="form-group">
                                 <label>Alat Praktikum</label>
-                                <select class="form-control select2" id="ID_ALAT">
-                                    @foreach($alat as $t)
-                                    <option value="{{ $t->ID_ALAT }}"> {{ $t->merk_tipe_alat->NAMA_MERK_TIPE }} - {{ $t->katalog_alat->NAMA_ALAT }} {{ $t->katalog_alat->UKURAN }} </option>
-                                    @endforeach
-                                </select>
-                                
+                                <div class="form-row">
+                                    <div class="col-9">
+                                        <select class="form-control select2" id="ID_ALAT">
+                                            @foreach($alat as $t)
+                                            <option value="{{ $t->ID_ALAT }}"> {{ $t->merk_tipe_alat->NAMA_MERK_TIPE }} - {{ $t->katalog_alat->NAMA_ALAT }} {{ $t->katalog_alat->UKURAN }} </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-3">
+                                        <button type="button" id="add_row_alat" class="btn btn-primary btn-sm" >+ Alat</button>
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="form-group">
                                 <label>Bahan Praktikum</label>
-                                <select class="form-control select2" id="ID_BAHAN">
-                                    @foreach($bahan as $t)
-                                    <option value="{{ $t->ID_BAHAN }}"> {{ $t->NAMA_BAHAN }} </option>
-                                    @endforeach
-                                </select> 
+                                <div class="form-row">
+                                    <div class="col-9">
+                                        <select class="form-control select2" id="ID_BAHAN">
+                                            @foreach($bahan as $t)
+                                            <option value="{{ $t->ID_BAHAN }}"> {{ $t->NAMA_BAHAN }} </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-3">
+                                        <button type="button" id="add_row_bahan" class="btn btn-primary btn-sm">+ Bahan</button>
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="form-group">
                                 <label>Bahan Kimia Praktikum</label>
-                                <select class="form-control select2" id="ID_BAHAN_KIMIA">
-                                    @foreach($bahan_kimia as $t)
-                                    <option value="{{ $t->ID_BAHAN_KIMIA }}"> {{ $t->katalog_bahan->NAMA_KATALOG_BAHAN }} </option>
-                                    @endforeach
-                                </select> 
+                                <div class="form-row">
+                                    <div class="col-9">
+                                        <select class="form-control select2" id="ID_BAHAN_KIMIA">
+                                            @foreach($bahan_kimia as $t)
+                                            <option value="{{ $t->ID_BAHAN_KIMIA }}"> {{ $t->katalog_bahan->NAMA_KATALOG_BAHAN }} </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-3">
+                                        <button type="button" id="add_row_bahan_kimia" class="btn btn-primary btn-sm">+ Bahan Kimia</button>
+                                    </div>
+                                </div>
                             </div>
 
-                            
+                            <hr></hr>
 
                             <table class="table" id="table-alat">
                                 <thead>
-                                    <th>Nama Alat</th>
+                                    <th>Alat</th>
                                     <th>Jumlah Pinjam per Kelompok</th>
                                 </thead>
                                 <tbody>
+                                    <tr>
+                                        <td>Iwaki Pyrex - Gelas Kimia Kaca 50 ml</td>
+                                        <td>1</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <table class="table" id="table-bahan">
+                                <thead>
+                                    <th>Bahan</th>
+                                    <th>Jumlah Pinjam per Kelompok</th>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Kertas Milimeter</td>
+                                        <td>1</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <table class="table" id="table-bahan-kimia">
+                                <thead>
+                                    <th>Bahan Kimia</th>
+                                    <th>Jumlah Pinjam per Kelompok</th>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Natrium</td>
+                                        <td>10</td>
+                                    </tr>
                                 </tbody>
                             </table>
 
@@ -170,11 +216,6 @@
 
 {{-- Tambahan Script --}}
 @section('tambahan-script')
-@if(!empty(config('dz.public.pagelevel.js.ui_modal')))
-	@foreach(config('dz.public.pagelevel.js.ui_modal') as $script)
-			<script src="{{ asset($script) }}" type="text/javascript"></script>
-	@endforeach
-@endif
 @if(!empty(config('dz.public.pagelevel.js.form_validation_jquery')))
 	@foreach(config('dz.public.pagelevel.js.form_validation_jquery') as $script)
 			<script src="{{ asset($script) }}" type="text/javascript"></script>
@@ -182,6 +223,7 @@
 @endif
 <script>
 $(document).ready(function(){
+    $(".select2").select2();
     $("#create-praktikum").validate({
         rules: {
             ID_LABORATORIUM: {
