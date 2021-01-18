@@ -15,9 +15,7 @@ class AlatBahanPraktikumTableSeeder extends Seeder
     {
         
 
-        \DB::table('alat_bahan_praktikum')->delete();
-        
-        
+        \DB::table('alat_bahan_praktikum')->delete();        
         
     }
 }

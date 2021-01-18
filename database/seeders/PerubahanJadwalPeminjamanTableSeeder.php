@@ -23,11 +23,11 @@ class PerubahanJadwalPeminjamanTableSeeder extends Seeder
                 'ID_PEMINJAMAN' => 'P00000000000001',
                 'ID_PERUBAHAN_JADWAL' => 'PJ0000000000001',
                 'ID_USER' => 6,
-                'JAM_MULAI_BARU' => '08:30',
-                'JAM_SELESAI_BARU' => '09:00',
-                'PESAN' => 'Minta dimundurkan 1 minggu',
-                'STATUS_PERUBAHAN' => 0,
-                'TANGGAL_BARU' => '0000-00-00',
+                'JAM_MULAI_BARU' => NULL,
+                'JAM_SELESAI_BARU' => NULL,
+                'PESAN' => 'Diundur 1 minggu karena materi belum sampai',
+                'STATUS_PERUBAHAN' => 1,
+                'TANGGAL_BARU' => '2021-01-25',
             ),
         ));
         

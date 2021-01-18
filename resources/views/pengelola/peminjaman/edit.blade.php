@@ -62,62 +62,41 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Buat Praktikum Baru</h4>
+                    <h4 class="card-title">Konfirmasi Pelaksanaan Praktikum</h4>
                 </div>
                 <div class="card-body">
                     <div class="form-validation">
-                        <form id="create-praktikum" action="{{ route('pengelola.praktikum.store') }}" name="create-praktikum" method="POST">
+                        <form id="create-praktikum" action="{{ route('pengelola.peminjaman.store') }}" name="create-praktikum" method="POST">
                         @csrf
-                        <div class="row">
-                            <div class="col-6">
-                                <div class="form-group">
-                                    <label>Laboratorium</label>
-                                    <select class="form-control select2" name="ID_LABORATORIUM" id="ID_LABORATORIUM" readonly>
-                                        <option value="{{ $lab->ID_LABORATORIUM }}" selected>{{ $lab->NAMA_LABORATORIUM }}</option>
-                                    </select>
-                                    <div class="invalid-feedback animated fadeInUp">
-                                        Silahkan pilih lab
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label>Laboratorium</label>
+                                        <div>{{ $peminjaman->praktikum->laboratorium->NAMA_LABORATORIUM }}</div>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label>Mata Pelajaran</label>
+                                        <div>{{ $peminjaman->praktikum->mata_pelajaran->NAMA_MAPEL }}</div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-6">
-                                <div class="form-group">
-                                    <label>Mata Pelajaran</label>
-                                    <select class="form-control select2" name="ID_MAPEL" id="ID_MAPEL">
-                                        @foreach($matapelajaran as $t)
-                                            <option value="{{ $t->ID_MAPEL }}">{{ $t->NAMA_MAPEL }}</option>
-                                        @endforeach
-                                    </select>
-                                    <div class="invalid-feedback animated fadeInUp">
-                                        Silahkan pilih mata pelajaran
+
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label>Kelas</label>
+                                        <div>{{ $peminjaman->praktikum->kelas->jenis_kelas->NAMA_JENIS_KELAS }}</div>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label>Nama Praktikum</label>
+                                        <div>{{ $peminjaman->praktikum->NAMA_PRAKTIKUM }}</div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-
-                            <div class="form-group">
-                                <label>Kelas</label>
-                                <select class="form-control select2" name="ID_KELAS" id="ID_KELAS">
-                                    <option value="X" selected>Seluruh kelas X MIPA</option>
-                                    <option value="XI">Seluruh kelas XI MIPA</option>
-                                    <option value="XII">Seluruh kelas XII MIPA</option>
-                                    @foreach($kelas as $t)
-                                        <option value="{{ $t->ID_KELAS }}">{{ $t->jenis_kelas->NAMA_JENIS_KELAS }}</option>
-                                    @endforeach
-                                </select>
-                                <div class="invalid-feedback animated fadeInUp">
-                                    Silahkan pilih mata pelajaran
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label>Nama Praktikum</label>
-                                <input type="text" class="form-control @error('NAMA_PRAKTIKUM') is-invalid @enderror" id="NAMA_PRAKTIKUM" name="NAMA_PRAKTIKUM" value="{{ @old('NAMA_PRAKTIKUM') }}">
-                                <div class="invalid-feedback animated fadeInUp">
-                                    Nama Praktikum harus diisi
-                                </div>
-                            </div>
-
                             <hr></hr>
 
                             <div class="form-group">
@@ -170,38 +149,69 @@
 
                             <hr></hr>
 
-                            <table class="table alatbahan-table" id="table-alat">
-                                <thead>
-                                    <th>Alat</th>
-                                    <th>Jumlah Pinjam per Kelompok (pcs)</th>
-                                    <th></th>
-                                </thead>
-                                <tbody>
-                                </tbody>
-                            </table>
-                            
+                            <div class="form-group">
+                                <label>Kebutuhan Tiap Kelompok :</label>
+                            </div>
 
-                            <table class="table alatbahan-table" id="table-bahan">
+                            <table class="table text-black" id="table-alat">
                                 <thead>
-                                    <th>Bahan</th>
-                                    <th>Jumlah Pinjam per Kelompok (pcs)</th>
-                                    <th></th>
+                                    <th>Nama Bahan</th>
+                                    <th>Stok Tersedia</th>
+                                    <th>Jumlah Pinjam per kelompok</th>
                                 </thead>
                                 <tbody>
+                                    @foreach($peminjaman->praktikum->alat_bahan_praktikums as $a)
+                                        @if($a->ID_TIPE == 1)
+                                        <tr>
+                                            <td width="80%">{{ $a->alat->ID_ALAT }} {{ $a->alat->merk_tipe_alat->NAMA_MERK_TIPE }} {{ $a->alat->katalog_alat->NAMA_ALAT }} {{ $a->alat->katalog_alat->UKURAN }}</td>
+                                            <td width="10%">{{ $a->alat->JUMLAH_BAGUS }}pcs</td>
+                                            <input type="hidden" value="{{ $a->ID_ALAT }}" name="id_alat[]">
+                                            <td width="10%"><input type="number" value="{{ $a->JUMLAH }}" name="jumlah_alat[]" class="jumlah_alat"></td>
+                                        </tr>
+                                        @endif
+                                    @endforeach
                                 </tbody>
                             </table>
-                            
 
-                            <table class="table alatbahan-table" id="table-bahan-kimia">
+                            <table class="table text-black" id="table-bahan">
                                 <thead>
-                                    <th>Bahan Kimia</th>
-                                    <th>Jumlah Pinjam per Kelompok (gr)</th>
-                                    <th></th>
+                                    <th>Nama Bahan</th>
+                                    <th>Stok Tersedia</th>
+                                    <th>Kebutuhan Praktikum</th>
                                 </thead>
                                 <tbody>
+                                    @foreach($peminjaman->praktikum->alat_bahan_praktikums as $a)
+                                        @if($a->ID_TIPE == 2)
+                                        <tr>
+                                            <td width="70%">{{ $a->bahan->ID_BAHAN }} {{ $a->bahan->NAMA_BAHAN }}</td>
+                                            <input type="hidden" value="{{ $a->ID_BAHAN }}" name="id_bahan[]">
+                                            <td width="10%">{{ $a->bahan->JUMLAH }}pcs</td>
+                                            <td width="10%"><input type="number" value="{{ $a->JUMLAH }}" name="jumlah_bahan[]" class="jumlah_bahan"></td>
+                                        </tr>
+                                        @endif
+                                    @endforeach
                                 </tbody>
                             </table>
-                            <hr></hr>
+
+                            <table class="table text-black" id="table-bahan-kimia">
+                                <thead>
+                                    <th>Nama Bahan Kimia</th>
+                                    <th>Stok Tersedia</th>
+                                    <th>Kebutuhan Praktikum</th>
+                                </thead>
+                                <tbody>
+                                    @foreach($peminjaman->praktikum->alat_bahan_praktikums as $a)
+                                        @if($a->ID_TIPE == 3)
+                                            <tr>
+                                                <td width="80%">{{ $a->bahan_kimia->ID_BAHAN_KIMIA }} {{ $a->bahan_kimia->katalog_bahan->NAMA_KATALOG_BAHAN }}</td>
+                                                <td width="10%">{{ $a->bahan_kimia->JUMLAH_BAHAN_KIMIA }}gr</td>
+                                                <input type="hidden" value="{{ $a->ID_BAHAN_KIMIA }}" name="id_bahan_kimia[]">
+                                                <td width="10%"><input type="number" value="{{ $a->JUMLAH }}" name="jumlah_bahan_kimia[]" class="jumlah_bahan_kimia"></td>
+                                            </tr>
+                                        @endif
+                                    @endforeach
+                                </tbody>
+                            </table>
 
                             <div class="row justify-content-end">
                                 <div class="col-9 text-right">
@@ -212,7 +222,6 @@
                                         <div class="col-3">
                                             <span class="ml-3 text-right" id="total-alat">0</span>
                                         </div>
-                                        <input type="hidden" id="total-alat-input" name="total_alat">
                                     </div>
                                     <div class="row justify-content-end">
                                         <div class="col-4">
@@ -221,7 +230,6 @@
                                         <div class="col-3">
                                             <span class="ml-3 text-right" id="total-bahan">0</span>
                                         </div>
-                                        <input type="hidden" id="total-bahan-input" name="total_bahan">
                                     </div>
                                     <div class="row justify-content-end">
                                         <div class="col-4">
@@ -230,7 +238,6 @@
                                         <div class="col-3">
                                             <span class="ml-3 text-right" id="total-bahan-kimia">0</span>
                                         </div>
-                                        <input type="hidden" id="total-bahan-kimia-input" name="total_bahan_kimia">
                                     </div>
                                     <div class="row justify-content-end">
                                         <div class="col-4">
@@ -239,12 +246,11 @@
                                         <div class="col-3">
                                             <span class="ml-3 text-right" id="total-keseluruhan">0</span>
                                         </div>
-                                        <input type="hidden" id="total-keseluruhan-input" name="total_keseluruhan">
                                     </div>
                                 </div>
                             </div>
 
-                            <button type="submit" class="btn btn-success submit-btn btn-lg">Simpan</button>
+                            <button type="submit" class="btn btn-success submit-btn btn-lg">Konfirmasi Peminjaman</button>
                         </form>
                     </div>
                 </div>
@@ -254,17 +260,10 @@
 </div>
 @endsection
 
-{{-- Tambahan Script --}}
 @section('tambahan-script')
-@if(!empty(config('dz.public.pagelevel.js.form_validation_jquery')))
-	@foreach(config('dz.public.pagelevel.js.form_validation_jquery') as $script)
-			<script src="{{ asset($script) }}" type="text/javascript"></script>
-	@endforeach
-@endif
-<script>
+<script type="text/javascript">
 $(document).ready(function(){
     $(".select2").select2();
-    $(".alatbahan-table").hide();
 
     var alat = <?php echo json_encode($alat); ?>;
     var bahan = <?php echo json_encode($bahan); ?>;
@@ -303,45 +302,6 @@ $(document).ready(function(){
         }
     }
 
-    $("#create-praktikum").validate({
-        rules: {
-            ID_LABORATORIUM: {
-                required: true
-            },
-            ID_MAPEL: {
-                required: true,
-            },
-            ID_KELAS: {
-                required: true,
-            },
-            NAMA_PRAKTIKUM: {
-                required: true,
-            },
-        },
-        messages: {
-            ID_LABORATORIUM: "Silahkan pilih laboratorium",
-            ID_MAPEL: "Silahkan pilih mata pelajaran",
-            ID_KELAS: "Silahkan pilih kelas",
-            NAMA_PRAKTIKUM: "Silahkan isi nama praktikum",
-        },
-        errorElement : 'div',
-        errorClass: "invalid-feedback animated fadeInUp",
-        errorPlacement: function(error, element) {
-            if(!$(element).hasClass("is-invalid")){
-                $(element).after(error)
-            }  
-        },
-        highlight: function(e) {
-            $(e).closest(".form-group").removeClass("is-invalid").addClass("is-invalid")
-        },
-        success: function(e) {
-            $(e).closest(".form-group").removeClass("is-invalid"), jQuery(e).remove()
-        },
-        submitHandler: function(form) {
-            form.submit();
-        },
-    });
-
     $("#add_row_alat").on('click',function(){
         var id_alat = $("#ID_ALAT").val();
         var index = getIndexAlat(id_alat);
@@ -355,8 +315,8 @@ $(document).ready(function(){
             var nama_alat = alat[index]['ID_ALAT']+" "+ alat[index]['NAMA_MERK_TIPE'] +" "+ alat[index]['NAMA_ALAT']+" "+ alat[index]['UKURAN'];
             var markup =
             "<tr id='alat-"+index+"'>"+
-                "<td width='60%'>"+nama_alat+"<input type='hidden' name='id_alat["+index+"]' value='"+id_alat+"'><input type='hidden' name='index_alat["+index+"]' value='"+index+"'></td>"+
-                "<td width='30%'><input type='number' name='jumlah_alat["+index+"]' value='1' class='jumlah_alat' id='qtyalat-"+index+"'></td>"+
+                "<td width='60%'>"+nama_alat+"<input type='hidden' name='id_alat[]' value='"+id_alat+"'><input type='hidden' name='index_alat["+index+"]' value='"+index+"'></td>"+
+                "<td width='30%'><input type='number' name='jumlah_alat[]' value='1' class='jumlah_alat' id='qtyalat-"+index+"'></td>"+
                 "<td width='10%'><button type='button' class='btn btn-danger shadow btn-xs sharp mr-1 delete-alat' id='"+index+"'><i class='fa fa-trash'></i></button></td>"
             "</tr>";
             $("#table-alat tbody").append(markup);
@@ -378,8 +338,8 @@ $(document).ready(function(){
             var nama_bahan = bahan[index]['ID_BAHAN'] +" "+ bahan[index]['NAMA_BAHAN'];
             var markup =
             "<tr id='bahan-"+index+"'>"+
-                "<td width='60%'>"+nama_bahan+"<input type='hidden' name='id_bahan["+index+"]' value='"+id_bahan+"'><input type='hidden' name='index_bahan["+index+"]' value='"+index+"'></td>"+
-                "<td width='30%'><input type='number' name='jumlah_bahan["+index+"]' value='1' class='jumlah_bahan' id='qtybahan-"+index+"'></td>"+
+                "<td width='60%'>"+nama_bahan+"<input type='hidden' name='id_bahan[]' value='"+id_bahan+"'><input type='hidden' name='index_bahan["+index+"]' value='"+index+"'></td>"+
+                "<td width='30%'><input type='number' name='jumlah_bahan[]' value='1' class='jumlah_bahan' id='qtybahan-"+index+"'></td>"+
                 "<td width='10%'><button type='button' class='btn btn-danger shadow btn-xs sharp mr-1 delete-bahan' id='"+index+"'><i class='fa fa-trash'></i></button></td>"
             "</tr>";
             $("#table-bahan tbody").append(markup);
@@ -401,8 +361,8 @@ $(document).ready(function(){
             var nama_bahan = bahan_kimia[index]['ID_BAHAN_KIMIA'] +" "+ bahan_kimia[index]['NAMA_KATALOG_BAHAN'];
             var markup =
             "<tr id='bahan-kimia-"+index+"'>"+
-                "<td width='60%'>"+nama_bahan+"<input type='hidden' name='id_bahan_kimia["+index+"]' value='"+id_bahan_kimia+"'><input type='hidden' name='index_bahan_kimia["+index+"]' value='"+index+"'></td>"+
-                "<td width='30%'><input type='number' name='jumlah_bahan_kimia["+index+"]' value='1' class='jumlah_bahan_kimia' id='qtybahan-kimia-"+index+"'></td>"+
+                "<td width='60%'>"+nama_bahan+"<input type='hidden' name='id_bahan_kimia[]' value='"+id_bahan_kimia+"'><input type='hidden' name='index_bahan_kimia["+index+"]' value='"+index+"'></td>"+
+                "<td width='30%'><input type='number' name='jumlah_bahan_kimia[]' value='1' class='jumlah_bahan_kimia' id='qtybahan-kimia-"+index+"'></td>"+
                 "<td width='10%'><button type='button' class='btn btn-danger shadow btn-xs sharp mr-1 delete-bahan-kimia' id='"+index+"'><i class='fa fa-trash'></i></button></td>"
             "</tr>";
             $("#table-bahan-kimia tbody").append(markup);
@@ -410,6 +370,60 @@ $(document).ready(function(){
             hitungTotalBahanKimia();
         }
     });
+
+    function hitungTotalAlat()
+    {
+        var total = 0;
+        $(".jumlah_alat").each(function(){
+            total = total+Number($(this).val());
+        });
+        $("#total-alat").html(total);
+        hitungTotalKeseluruhan();
+        console.log("total alat "+total);
+    }
+
+    function hitungTotalBahan()
+    {
+        var total = 0;
+        $(".jumlah_bahan").each(function(){
+            total = total+Number($(this).val());
+        });
+        $("#total-bahan").html(total);
+        hitungTotalKeseluruhan();
+        console.log("total bahan "+total);
+    }
+
+    function hitungTotalBahanKimia()
+    {
+        var total = 0;
+        $(".jumlah_bahan_kimia").each(function(){
+            total = total+Number($(this).val());
+        });
+        $("#total-bahan-kimia").html(total);
+        hitungTotalKeseluruhan();
+        console.log("total bahan kimia "+total);
+    }
+
+    function hitungTotalKeseluruhan()
+    {
+        var total = 0;
+        $(".jumlah_bahan_kimia").each(function(){
+            total = total+Number($(this).val());
+        });
+        $(".jumlah_bahan").each(function(){
+            total = total+Number($(this).val());
+        });
+        $(".jumlah_alat").each(function(){
+            total = total+Number($(this).val());
+        });
+        $("#total-keseluruhan").html(total);
+        console.log("total keseluruhan "+total);
+    }
+
+    hitungTotalAlat();
+    hitungTotalBahan();
+    hitungTotalBahanKimia();
+    hitungTotalKeseluruhan();
 
     $(document).on('input','.jumlah_alat',function(){
         if($(this).val() >= 1){
@@ -438,55 +452,6 @@ $(document).ready(function(){
         }
     });
 
-    function hitungTotalAlat()
-    {
-        var total = 0;
-        $(".jumlah_alat").each(function(){
-            total = total+Number($(this).val());
-        });
-        $("#total-alat").html(total);
-        $("#total-alat-input").val(total);
-        hitungTotalKeseluruhan()
-    }
-
-    function hitungTotalBahan()
-    {
-        var total = 0;
-        $(".jumlah_bahan").each(function(){
-            total = total+Number($(this).val());
-        });
-        $("#total-bahan").html(total);
-        $("#total-bahan-input").val(total);
-        hitungTotalKeseluruhan()
-    }
-
-    function hitungTotalBahanKimia()
-    {
-        var total = 0;
-        $(".jumlah_bahan_kimia").each(function(){
-            total = total+Number($(this).val());
-        });
-        $("#total-bahan-kimia").html(total);
-        $("#total-bahan-kimia-input").val(total);
-        hitungTotalKeseluruhan()
-    }
-
-    function hitungTotalKeseluruhan()
-    {
-        var total = 0;
-        $(".jumlah_bahan_kimia").each(function(){
-            total = total+Number($(this).val());
-        });
-        $(".jumlah_bahan").each(function(){
-            total = total+Number($(this).val());
-        });
-        $(".jumlah_alat").each(function(){
-            total = total+Number($(this).val());
-        });
-        $("#total-keseluruhan").html(total);
-        $("#total-keseluruhan-input").val(total);
-    }
-
     $(document).on('click','.delete-alat',function(){
         $("#table-alat tbody tr#alat-"+$(this).attr('id')).remove();
         hitungTotalAlat();
@@ -510,8 +475,6 @@ $(document).ready(function(){
             $("#table-bahan-kimia").hide();
         }
     });
-    
 });
-    
 </script>
 @endsection

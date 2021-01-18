@@ -93,7 +93,7 @@
                                     <td>{{ $d->ID_KELAS }}</td>
                                     <td>{{ $d->jenis_kelas->NAMA_JENIS_KELAS }}</td>
                                     <td>{{ $d->tahun_akademik->TAHUN_AKADEMIK }}</td>
-                                    <td>{{ $d->user->NAMA_LENGKAP }}</td>	
+                                    <td>{{ $d->guru->NAMA_LENGKAP }}</td>	
                                     <td>{{ $d->mapel->NAMA_MAPEL }}</td>
                                     <td>
                                         <div class="d-flex">

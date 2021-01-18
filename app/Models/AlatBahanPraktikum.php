@@ -34,7 +34,9 @@ class AlatBahanPraktikum extends Model
 
 	protected $fillable = [
 		'ID_TIPE',
-		'JUMLAH'
+		'JUMLAH',
+		'ID_ALAT_BAHAN',
+		'ID_PRAKTIKUM'
 	];
 
 	public function praktikum()
@@ -45,5 +47,20 @@ class AlatBahanPraktikum extends Model
 	public function tipe()
 	{
 		return $this->belongsTo(Tipe::class, 'ID_TIPE');
+	}
+
+	public function alat()
+	{
+		return $this->belongsTo(Alat::class, 'ID_ALAT_BAHAN');
+	}
+
+	public function bahan()
+	{
+		return $this->belongsTo(Bahan::class, 'ID_ALAT_BAHAN');
+	}
+
+	public function bahan_kimia()
+	{
+		return $this->belongsTo(BahanKimia::class, 'ID_ALAT_BAHAN');
 	}
 }

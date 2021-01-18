@@ -83,20 +83,24 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Nama Lab.</th>
-                                    <th>Nama Praktikum</th>
+                                    <th>Nama Prakt.</th>
                                     <th>Kelas</th>
                                     <th>Guru</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach($praktikum as $d)
                                 <tr>
                                     <td> {{ $loop->iteration }} </td>
-                                    <td> {{ $d->laboratorium->NAMA_LABORATORIUM }} </td>
                                     <td> {{ $d->NAMA_PRAKTIKUM }} </td>
                                     <td> {{ $d->kelas->jenis_kelas->NAMA_JENIS_KELAS }} </td>
                                     <td> {{ $d->kelas->guru->NAMA_LENGKAP }} </td>
+                                    <td>
+                                        <div class="d-flex">
+                                            <button type="button" class="btn btn-primary shadow sharp mr-1" data-toggle="modal" data-target="#modal-detail-{{ $loop->iteration }}">Detail</button>
+                                        </div>												
+                                    </td>
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -107,6 +111,105 @@
         </div>
     </div>
 </div>
+@foreach($praktikum as $d)
+{{-- Detail Modal --}}
+<div id="modal-detail-{{ $loop->iteration }}" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Detail Praktikum #{{ $d->ID_PRAKTIKUM }}</h5>
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div class="form-group px-2">
+                    <div>Judul Praktikum : </div>
+                    <div>{{ $d->NAMA_PRAKTIKUM }}</div>
+                </div>
+
+                <div class="form-group px-2">
+                    <div>Guru : </div>
+                    <div>{{ $d->kelas->guru->NAMA_LENGKAP }}</div>
+                </div>
+
+                <div class="form-group px-2">
+                    <div>Kelas : </div>
+                    <div>{{ $d->kelas->jenis_kelas->NAMA_JENIS_KELAS }}</div>
+                </div>
+
+                <hr></hr>
+
+                <div class="form-group px-2">
+                    <div>Kebutuhan Alat dan Bahan per kelompok : </div>
+                </div>
+
+                <div class="form-group px-2">
+                    <table class="table text-black">
+                        <thead>
+                            <th>Nama Alat</th>
+                            <th>Jumlah</th>
+                        </thead>
+                        <tbody>
+                            @foreach($d->alat_bahan_praktikums as $a)
+                                @if($a->ID_TIPE == 1)
+                                <tr>
+                                    <td width="80%">{{ $a->alat->katalog_alat->NAMA_ALAT }}</td>
+                                    <td width="20%">{{ $a->JUMLAH }}pcs</td>
+                                </tr>
+                                @endif
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+
+                
+
+                <div class="form-group px-2">
+                    <table class="table text-black">
+                        <thead>
+                            <th>Nama Bahan</th>
+                            <th>Jumlah</th>
+                        </thead>
+                        <tbody>
+                            @foreach($d->alat_bahan_praktikums as $a)
+                                @if($a->ID_TIPE == 2)
+                                <tr>
+                                    <td width="80%">{{ $a->bahan->NAMA_BAHAN }}</td>
+                                    <td width="20%">{{ $a->JUMLAH }}pcs</td>
+                                </tr>
+                                @endif
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="form-group px-2">
+                    <table class="table text-black">
+                        <thead>
+                            <th>Nama Bahan Kimia</th>
+                            <th>Jumlah</th>
+                        </thead>
+                        <tbody>
+                            @foreach($d->alat_bahan_praktikums as $a)
+                                @if($a->ID_TIPE == 3)
+                                    <tr>
+                                        <td width="80%">{{ $a->bahan_kimia->katalog_bahan->NAMA_KATALOG_BAHAN }}</td>
+                                        <td width="20%">{{ $a->JUMLAH }}gr</td>
+                                    </tr>
+                                @endif
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+{{-- End of Edit Modal --}}
+@endforeach
+
 @endsection
 
 {{-- Tambahan Script --}}

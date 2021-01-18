@@ -41,5 +41,6 @@ class DatabaseSeeder extends Seeder
         $this->call(PerubahanJadwalPeminjamanTableSeeder::class);
 
         $this->call(HistoriStokTableSeeder::class);
+        $this->call(NotificationsTableSeeder::class);
     }
 }

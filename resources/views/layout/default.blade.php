@@ -31,6 +31,9 @@
         body {
             color: black !important;
         }
+        [data-sidebar-style="full"][data-layout="vertical"] .deznav .metismenu > li > a {
+            font-size: 15px !important;
+        }
     </style>
 
     @yield('tambahan-style')

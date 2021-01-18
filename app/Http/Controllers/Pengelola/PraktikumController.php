@@ -12,6 +12,7 @@ use DB;
 use App\Models\Alat;
 use App\Models\Bahan;
 use App\Models\BahanKimia;
+use App\Models\AlatBahanPraktikum;
 
 class PraktikumController extends Controller
 {
@@ -45,9 +46,9 @@ class PraktikumController extends Controller
 
         $alat = Alat::select('m.*','alat.*','l.*','k.*')->join('merk_tipe_alat as m','m.ID_MERK_TIPE','alat.ID_MERK_TIPE')->join('lemari as l','l.ID_LEMARI','alat.ID_LEMARI')->join('katalog_alat as k','k.ID_KATALOG_ALAT','alat.ID_KATALOG_ALAT')->where('l.ID_LABORATORIUM',$id_lab)->get();
 
-        $bahan = Bahan::join('lemari as l','l.ID_LEMARI','bahan.ID_LEMARI')->where('l.ID_LABORATORIUM',$id_lab)->get();
+        $bahan = Bahan::select('l.*','bahan.*')->join('lemari as l','l.ID_LEMARI','bahan.ID_LEMARI')->where('l.ID_LABORATORIUM',$id_lab)->get();
 
-        $bahan_kimia = BahanKimia::join('katalog_bahan as k','k.ID_KATALOG_BAHAN','bahan_kimia.ID_KATALOG_BAHAN')->where('k.ID_LABORATORIUM',$id_lab)->get();
+        $bahan_kimia = BahanKimia::select('k.*','bahan_kimia.*')->join('katalog_bahan as k','k.ID_KATALOG_BAHAN','bahan_kimia.ID_KATALOG_BAHAN')->where('k.ID_LABORATORIUM',$id_lab)->get();
 
         $lab = Laboratorium::find($id_lab);
 
@@ -87,6 +88,53 @@ class PraktikumController extends Controller
                 }
 
                 Praktikum::insert($data);
+                $id_praktikums = [];
+
+                foreach($kelas as $k){
+                    $id_praktikums[] = Praktikum::where([
+                        'ID_LABORATORIUM' => $request->ID_LABORATORIUM,
+                        'ID_MAPEL' => $request->ID_MAPEL,
+                        'ID_KELAS' => $k->ID_KELAS,
+                        'NAMA_PRAKTIKUM' => $request->NAMA_PRAKTIKUM,
+                    ])->value('ID_PRAKTIKUM');
+                }
+
+                $data_alat_bahan = [];
+
+                foreach($id_praktikums as $id_praktikum)
+                {
+                    if($request->total_alat > 0){
+                        foreach($request->index_alat as $key){
+                            $data_alat_bahan[] = [
+                                'ID_TIPE' => 1,
+                                'JUMLAH' => $request->jumlah_alat[$key],
+                                'ID_ALAT_BAHAN' => $request->id_alat[$key],
+                                'ID_PRAKTIKUM' => $id_praktikum
+                            ];
+                        }
+                    }
+                    if($request->total_bahan > 0){
+                        foreach($request->index_bahan as $key){
+                            $data_alat_bahan[] = [
+                                'ID_TIPE' => 2,
+                                'JUMLAH' => $request->jumlah_bahan[$key],
+                                'ID_ALAT_BAHAN' => $request->id_bahan[$key],
+                                'ID_PRAKTIKUM' => $id_praktikum
+                            ];
+                        }
+                    }
+                    if($request->total_bahan_kimia > 0){
+                        foreach($request->index_bahan_kimia as $key){
+                            $data_alat_bahan[] = [
+                                'ID_TIPE' => 3,
+                                'JUMLAH' => $request->jumlah_bahan_kimia[$key],
+                                'ID_ALAT_BAHAN' => $request->id_bahan_kimia[$key],
+                                'ID_PRAKTIKUM' => $id_praktikum
+                            ];
+                        }
+                    }
+                }
+                AlatBahanPraktikum::insert($data_alat_bahan);
             }
             else{
                 $request->validate([
@@ -99,6 +147,50 @@ class PraktikumController extends Controller
                     'ID_KELAS' => $request->ID_KELAS,
                     'NAMA_PRAKTIKUM' => $request->NAMA_PRAKTIKUM,
                 ]);
+
+                $id_praktikum = Praktikum::where([
+                    'ID_LABORATORIUM' => $request->ID_LABORATORIUM,
+                    'ID_MAPEL' => $request->ID_MAPEL,
+                    'ID_KELAS' => $request->ID_KELAS,
+                    'NAMA_PRAKTIKUM' => $request->NAMA_PRAKTIKUM,
+                ])->value('ID_PRAKTIKUM');
+
+                $data_alat_bahan = [];
+
+                if($request->total_alat > 0){
+                    foreach($request->index_alat as $key){
+                        $data_alat_bahan[] = [
+                            'ID_TIPE' => 1,
+                            'JUMLAH' => $request->jumlah_alat[$key],
+                            'ID_ALAT_BAHAN' => $request->id_alat[$key],
+                            'ID_PRAKTIKUM' => $id_praktikum
+                        ];
+                    }
+                }
+
+                if($request->total_bahan > 0){
+                    foreach($request->index_bahan as $key){
+                        $data_alat_bahan[] = [
+                            'ID_TIPE' => 2,
+                            'JUMLAH' => $request->jumlah_bahan[$key],
+                            'ID_ALAT_BAHAN' => $request->id_bahan[$key],
+                            'ID_PRAKTIKUM' => $id_praktikum
+                        ];
+                    }
+                }
+
+                if($request->total_bahan_kimia > 0){
+                    foreach($request->index_bahan_kimia as $key){
+                        $data_alat_bahan[] = [
+                            'ID_TIPE' => 3,
+                            'JUMLAH' => $request->jumlah_bahan_kimia[$key],
+                            'ID_ALAT_BAHAN' => $request->id_bahan_kimia[$key],
+                            'ID_PRAKTIKUM' => $id_praktikum
+                        ];
+                    }
+                }
+                
+                AlatBahanPraktikum::insert($data_alat_bahan);
             }
             
         });

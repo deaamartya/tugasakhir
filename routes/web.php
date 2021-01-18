@@ -60,6 +60,7 @@ Route::prefix('pengelola')->name('pengelola.')->group(function () {
     Route::resource('penjadwalan-ulang','App\Http\Controllers\Pengelola\PenjadwalanUlangController');
 
     Route::resource('peminjaman','App\Http\Controllers\Pengelola\PeminjamanController');
+    Route::get('peminjaman/konfirmasi/{id}','App\Http\Controllers\Pengelola\PeminjamanController@konfirmasi')->name('peminjaman.konfirmasi');
 
     Route::get('pengembalian','App\Http\Controllers\Pengelola\PengembalianController@index');
 

@@ -58,7 +58,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Atur Peminjaman Alat dan Bahan Praktikum</h4>
+                    <h4 class="card-title">Peminjaman Alat dan Bahan Praktikum</h4>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -69,7 +69,8 @@
                                     <th>Nama Praktikum</th>
                                     <th>Kelas</th>
                                     <th>Guru</th>
-                                    <th>Waktu Pelaksanaan</th>
+                                    <th>Jadwal</th>
+                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -79,7 +80,11 @@
                                     <td> {{ $d->praktikum->NAMA_PRAKTIKUM }} </td>
                                     <td> {{ $d->praktikum->kelas->jenis_kelas->NAMA_JENIS_KELAS }}</td>
                                     <td> {{ $d->praktikum->kelas->guru->NAMA_LENGKAP }}</td>
-                                    <td> {{ $d->TANGGAL_PEMINJAMAN }} {{ $d->JAM_MULAI }} - {{ $d->JAM_SELESAI }} </td>							
+                                    <td> {{ $d->TANGGAL_PEMINJAMAN }} {{ $d->JAM_MULAI }} - {{ $d->JAM_SELESAI }} </td>			<td>
+                                        <a href="{{ route('pengelola.peminjaman.konfirmasi',$d->ID_PEMINJAMAN) }}">
+                                            <button type="button" class="btn btn-primary">Konfirmasi</button>
+                                        </a>
+                                    </td>			
                                 </tr>
                                 @endforeach
                             </tbody>
