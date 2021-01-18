@@ -8,11 +8,6 @@
                 <link href="{{ asset($style) }}" rel="stylesheet" type="text/css"/>
         @endforeach
     @endif
-    @if(!empty(config('dz.public.pagelevel.css.uc_select2'))) 
-        @foreach(config('dz.public.pagelevel.css.uc_select2') as $style)
-                <link href="{{ asset($style) }}" rel="stylesheet" type="text/css"/>
-        @endforeach
-    @endif
     @if(!empty(config('dz.public.pagelevel.css.form_validation_jquery'))) 
         @foreach(config('dz.public.pagelevel.css.form_validation_jquery') as $style)
                 <link href="{{ asset($style) }}" rel="stylesheet" type="text/css"/>
@@ -63,83 +58,120 @@
         <div class="alert alert-danger">Data tidak berhasil disimpan. Cek kembali form</div>
     @endif
     
-    <div id="create-modal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Buat Praktikum Baru</h5>
-                <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="form-validation">
-                    <form id="create-praktikum" action="{{ route('pengelola.praktikum.store') }}" name="create-praktikum" method="POST">
-                    @csrf
-                        <div class="form-group">
-                            <label>Laboratorium</label>
-                            <select class="form-control select2" name="ID_LABORATORIUM" id="ID_LABORATORIUM">
-                                <option value="{{ $lab->ID_LABORATORIUM }}" selected>{{ $lab->NAMA_LABORATORIUM }}</option>
-                            </select>
-                            <div class="invalid-feedback animated fadeInUp">
-                                Silahkan pilih lab
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Buat Praktikum Baru</h4>
+                </div>
+                <div class="card-body">
+                    <div class="form-validation">
+                        <form id="create-praktikum" action="{{ route('pengelola.praktikum.store') }}" name="create-praktikum" method="POST">
+                        @csrf
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label>Laboratorium</label>
+                                    <select class="form-control select2" name="ID_LABORATORIUM" id="ID_LABORATORIUM" readonly>
+                                        <option value="{{ $lab->ID_LABORATORIUM }}" selected>{{ $lab->NAMA_LABORATORIUM }}</option>
+                                    </select>
+                                    <div class="invalid-feedback animated fadeInUp">
+                                        Silahkan pilih lab
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label>Mata Pelajaran</label>
+                                    <select class="form-control select2" name="ID_MAPEL" id="ID_MAPEL">
+                                        @foreach($matapelajaran as $t)
+                                            <option value="{{ $t->ID_MAPEL }}">{{ $t->NAMA_MAPEL }}</option>
+                                        @endforeach
+                                    </select>
+                                    <div class="invalid-feedback animated fadeInUp">
+                                        Silahkan pilih mata pelajaran
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <label>Mata Pelajaran</label>
-                            <select class="form-control select2" name="ID_MAPEL" id="ID_MAPEL">
-                                @foreach($matapelajaran as $t)
-                                    <option value="{{ $t->ID_MAPEL }}">{{ $t->NAMA_MAPEL }}</option>
-                                @endforeach
-                            </select>
-                            <div class="invalid-feedback animated fadeInUp">
-                                Silahkan pilih mata pelajaran
+                            <div class="form-group">
+                                <label>Kelas</label>
+                                <select class="form-control select2" name="ID_KELAS" id="ID_KELAS">
+                                    <option value="X" selected>Seluruh kelas X MIPA</option>
+                                    <option value="XI">Seluruh kelas XI MIPA</option>
+                                    <option value="XII">Seluruh kelas XII MIPA</option>
+                                    @foreach($kelas as $t)
+                                        <option value="{{ $t->ID_KELAS }}">{{ $t->jenis_kelas->NAMA_JENIS_KELAS }}</option>
+                                    @endforeach
+                                </select>
+                                <div class="invalid-feedback animated fadeInUp">
+                                    Silahkan pilih mata pelajaran
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="form-group">
-                            <label>Kelas</label>
-                            <select class="form-control select2" name="ID_KELAS" id="ID_KELAS">
-                                <option value="X" selected>Seluruh kelas X MIPA</option>
-                                <option value="XI">Seluruh kelas XI MIPA</option>
-                                <option value="XII">Seluruh kelas XII MIPA</option>
-                                @foreach($kelas as $t)
-                                    <option value="{{ $t->ID_KELAS }}">{{ $t->jenis_kelas->NAMA_JENIS_KELAS }}</option>
-                                @endforeach
-                            </select>
-                            <div class="invalid-feedback animated fadeInUp">
-                                Silahkan pilih mata pelajaran
+                            <div class="form-group">
+                                <label>Nama Praktikum</label>
+                                <input type="text" class="form-control @error('NAMA_PRAKTIKUM') is-invalid @enderror" id="NAMA_PRAKTIKUM" name="NAMA_PRAKTIKUM" value="{{ @old('NAMA_PRAKTIKUM') }}">
+                                <div class="invalid-feedback animated fadeInUp">
+                                    Nama Praktikum harus diisi
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="form-group">
-                            <label>Nama Praktikum</label>
-                            <input type="text" class="form-control @error('NAMA_PRAKTIKUM') is-invalid @enderror" id="NAMA_PRAKTIKUM" name="NAMA_PRAKTIKUM" value="{{ @old('NAMA_PRAKTIKUM') }}">
-                            <div class="invalid-feedback animated fadeInUp">
-                                Nama Praktikum harus diisi
+                            <div class="form-row">
+                            <div class="form-group">
+                                <label>Alat Praktikum</label>
+                                <select class="form-control select2" id="ID_ALAT">
+                                    @foreach($alat as $t)
+                                    <option value="{{ $t->ID_ALAT }}"> {{ $t->merk_tipe_alat->NAMA_MERK_TIPE }} - {{ $t->katalog_alat->NAMA_ALAT }} {{ $t->katalog_alat->UKURAN }} </option>
+                                    @endforeach
+                                </select>
+                                
                             </div>
-                        </div>
 
-                        <div class="modal-footer">
-                            <button type="submit" class="btn btn-danger light" data-dismiss="modal">Batal</button>
+                            <div class="form-group">
+                                <label>Bahan Praktikum</label>
+                                <select class="form-control select2" id="ID_BAHAN">
+                                    @foreach($bahan as $t)
+                                    <option value="{{ $t->ID_BAHAN }}"> {{ $t->NAMA_BAHAN }} </option>
+                                    @endforeach
+                                </select> 
+                            </div>
+
+                            <div class="form-group">
+                                <label>Bahan Kimia Praktikum</label>
+                                <select class="form-control select2" id="ID_BAHAN_KIMIA">
+                                    @foreach($bahan_kimia as $t)
+                                    <option value="{{ $t->ID_BAHAN_KIMIA }}"> {{ $t->katalog_bahan->NAMA_KATALOG_BAHAN }} </option>
+                                    @endforeach
+                                </select> 
+                            </div>
+
+                            
+
+                            <table class="table" id="table-alat">
+                                <thead>
+                                    <th>Nama Alat</th>
+                                    <th>Jumlah Pinjam per Kelompok</th>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+
                             <button type="submit" class="btn btn-primary submit-btn">Simpan</button>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+@endsection
 
 {{-- Tambahan Script --}}
 @section('tambahan-script')
 @if(!empty(config('dz.public.pagelevel.js.ui_modal')))
 	@foreach(config('dz.public.pagelevel.js.ui_modal') as $script)
-			<script src="{{ asset($script) }}" type="text/javascript"></script>
-	@endforeach
-@endif
-@if(!empty(config('dz.public.pagelevel.js.uc_select2')))
-	@foreach(config('dz.public.pagelevel.js.uc_select2') as $script)
 			<script src="{{ asset($script) }}" type="text/javascript"></script>
 	@endforeach
 @endif

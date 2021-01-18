@@ -9,6 +9,9 @@ use App\Models\Kelas;
 use App\Models\MataPelajaran;
 use App\Models\Laboratorium;
 use DB;
+use App\Models\Alat;
+use App\Models\Bahan;
+use App\Models\BahanKimia;
 
 class PraktikumController extends Controller
 {
@@ -29,7 +32,26 @@ class PraktikumController extends Controller
 
     public function create()
     {
-        return view('pengelola.praktikum.create');
+        $page_title = 'Data Praktikum';
+        $page_description = 'Menampilkan seluruh data praktikum';
+        $action = 'uc_select2';
+
+        $id_lab = 1;
+        $praktikum = Praktikum::where('ID_LABORATORIUM',$id_lab)->get();
+        $lab = strrchr(Laboratorium::find($id_lab)->value('NAMA_LABORATORIUM'),' ');
+        $lab = str_replace(" ","",$lab);
+        $matapelajaran = MataPelajaran::select('mata_pelajaran.*')->where('NAMA_MAPEL','LIKE',"%".$lab."%")->get();
+        $kelas = Kelas::join('mata_pelajaran as m','m.ID_MAPEL','=','kelas.ID_MAPEL')->where('m.NAMA_MAPEL','LIKE',"%".$lab."%")->get();
+
+        $alat = Alat::join('lemari as l','l.ID_LEMARI','alat.ID_LEMARI')->join('katalog_alat as k','k.ID_KATALOG_ALAT','alat.ID_KATALOG_ALAT')->where('l.ID_LABORATORIUM',$id_lab)->get();
+
+        $bahan = Bahan::join('lemari as l','l.ID_LEMARI','bahan.ID_LEMARI')->where('l.ID_LABORATORIUM',$id_lab)->get();
+
+        $bahan_kimia = BahanKimia::join('katalog_bahan as k','k.ID_KATALOG_BAHAN','bahan_kimia.ID_KATALOG_BAHAN')->where('k.ID_LABORATORIUM',$id_lab)->get();
+
+        $lab = Laboratorium::find($id_lab);
+
+        return view('pengelola.praktikum.create', compact('page_title', 'page_description','action','bahan','alat','bahan_kimia','lab','praktikum','matapelajaran','kelas'));
     }
 
     /**
