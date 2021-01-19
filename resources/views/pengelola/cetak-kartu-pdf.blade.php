@@ -3,7 +3,7 @@
     <link rel="stylesheet" href="{{ $_SERVER['DOCUMENT_ROOT'].'/vendor/bootstrap/dist/css/bootstrap.min.css' }}">
 </head>
 <body>
-    <table width="100%">
+    <table width="100%" style="font-family:'Times New Roman';font-weight:bold">
         <tr>
             <td><img src="{{ $_SERVER['DOCUMENT_ROOT'].'/images/logo/sman3.png' }}" height="60" class="float-left"></td>
             <td colspan="10" style="line-height:1.5;text-align:center">
@@ -23,25 +23,25 @@
 
     <hr></hr>
 
-    <div style="margin-left:-30px;width:100%;line-height:1.5;text-align:center;margin-top:50px;font-size:18pt;font-weight:bold;">KARTU STOK</div>
+    <div style="margin-left:-30px;width:100%;line-height:1.5;text-align:center;margin-top:50px;font-size:18pt;font-weight:bold;">KARTU STOK {{ strtoupper($tahunakademik->TAHUN_AKADEMIK) }}</div>
 
     <table class="table table-bordered mt-3 table-sm">
         <tr>
-            <td>NAMA ALAT</td>
+            <td class="font-weight-bold">NAMA ALAT</td>
             <td>{{ $alat->katalog_alat->NAMA_ALAT }}</td>
-            <td>NO. KATALOG</td>
+            <td class="font-weight-bold">NO. KATALOG</td>
             <td>{{ $alat->katalog_alat->ID_KATALOG_ALAT }}</td>
         </tr>
         <tr>
-            <td>UKURAN</td>
+            <td class="font-weight-bold">UKURAN</td>
             <td>{{ $alat->katalog_alat->UKURAN }}</td>
-            <td>KATEGORI ALAT</td>
+            <td class="font-weight-bold">KATEGORI ALAT</td>
             <td>{{ $alat->katalog_alat->kategori_alat->NAMA_KATEGORI }}</td>
         </tr>
         <tr>
-            <td>MERK/TYPE</td>
+            <td class="font-weight-bold">MERK/TYPE</td>
             <td>{{ $alat->merk_tipe_alat->NAMA_MERK_TIPE }}</td>
-            <td>TEMPAT PENYIMPANAN</td>
+            <td class="font-weight-bold">TEMPAT PENYIMPANAN</td>
             <td>{{ $alat->lemari->NAMA_LEMARI }}</td>
         </tr>
     </table>
@@ -79,24 +79,7 @@
                 <td>@if(isset($histori_rusak[$loop->index]->STOK)) {{ $histori_rusak[$loop->index]->STOK }} @else 0 @endif</td>
                 <td>@if(isset($histori_rusak[$loop->index]->KETERANGAN)) {{ $histori_rusak[$loop->index]->KETERANGAN }} @else {{ $d->KETERANGAN }}@endif</td>
             </tr>
-            test
             @endforeach
         </tbody>
     </table>
-
-    <!-- <table class="table table-bordered float-right w-60 table-sm">
-        <tr>
-            <td>NO. KATALOG :</td>
-            <td>{{ $alat->katalog_alat->ID_KATALOG_ALAT }}</td>
-        </tr>
-        <tr>
-            <td>KATEGORI ALAT :</td>
-            <td>{{ $alat->katalog_alat->kategori_alat->NAMA_KATEGORI }}</td>
-        </tr>
-        <tr>
-            <td>TEMPAT PENYIMPANAN :</td>
-            <td>{{ $alat->lemari->NAMA_LEMARI }}</td>
-        </tr>
-    </table> -->
-
 </body>

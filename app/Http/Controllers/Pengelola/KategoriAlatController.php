@@ -15,7 +15,7 @@ class KategoriAlatController extends Controller
         $page_title = 'Data Kategori Alat';
         $page_description = 'Menampilkan seluruh data kategori alat';
         $action = 'table_datatable_basic';
-        $id_lab = 1;
+        $id_lab = Auth::user()->tipe_user->ID_LABORATORIUM;
         $kategori = KategoriAlat::where('ID_LABORATORIUM',$id_lab)->get();
         $lab = Laboratorium::find($id_lab);
         return view('pengelola.kategori-alat', compact('page_title', 'page_description','action','kategori','lab'));

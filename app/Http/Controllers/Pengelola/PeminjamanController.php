@@ -22,7 +22,7 @@ class PeminjamanController extends Controller
         $page_description = 'Menampilkan seluruh data penjadwalan ulang';
         $action = 'table_datatable_basic';
 
-        $id_lab = 1;
+        $id_lab = Auth::user()->tipe_user->ID_LABORATORIUM;
         
         $peminjaman = PeminjamanAlatBahan::join('ruang_laboratorium as r','r.ID_RUANG_LABORATORIUM','peminjaman_alat_bahan.ID_RUANG_LABORATORIUM')->where('r.ID_LABORATORIUM','=',$id_lab)->orderBy('ID_PEMINJAMAN','DESC')->get();
 
@@ -35,7 +35,7 @@ class PeminjamanController extends Controller
         $page_description = 'Menampilkan seluruh data penjadwalan ulang';
         $action = 'uc_select2';
 
-        $id_lab = 1;
+        $id_lab = Auth::user()->tipe_user->ID_LABORATORIUM;
         
         $peminjaman = PeminjamanAlatBahan::find($id);
 

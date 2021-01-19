@@ -22,8 +22,8 @@
         </div>
         <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="javascript:void(0)">Cetak Katalog Lemari</a></li>
-                <li class="breadcrumb-item active"><a href="javascript:void(0)">Pilih Lemari</a></li>
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Cetak Kartu Stok</a></li>
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">Pilih Alat dan Tahun Akademik</a></li>
             </ol>
         </div>
     </div>
@@ -58,24 +58,24 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Pilih Lemari</h4>
+                    <h4 class="card-title">Kartu Stok</h4>
                 </div>
                 <div class="card-body">
                     <div class="form-validation">
-                        <form id="create-lemari" action="{{ url('pengelola/cetak/katalog-lemari') }}" name="create-lemari" method="POST">
+                        <form id="create-stok" action="{{ url('pengelola/cetak/alat-rusak') }}" name="create-stok" method="POST">
                             @csrf
                             <div class="form-group">
-                                <label>Lemari</label>
-                                <select class="form-control select2 @error('ID_LEMARI') is-invalid @enderror" name="ID_LEMARI" id="ID_LEMARI">
-                                    @foreach($lemari as $t)
-                                        <option value="{{ $t->ID_LEMARI }}">{{ $t->laboratorium->NAMA_LABORATORIUM }} - {{ $t->NAMA_LEMARI }}</option>
+                                <label>Tahun Akademik</label>
+                                <select class="form-control select2 @error('ID_TAHUN_AKADEMIK') is-invalid @enderror" name="ID_TAHUN_AKADEMIK" id="ID_TAHUN_AKADEMIK">
+                                    @foreach($tahunakademik as $t)
+                                        <option value="{{ $t->ID_TAHUN_AKADEMIK }}">{{ $t->TAHUN_AKADEMIK}}</option>
                                     @endforeach
                                 </select>
                                 <div class="invalid-feedback animated fadeInUp">
                                     Silahkan pilih lemari
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-primary submit-btn">Cetak Katalog Lemari</button>
+                            <button type="submit" class="btn btn-primary submit-btn">Cetak Daftar Alat Rusak</button>
                         </form>
                     </div>
                 </div>
@@ -94,15 +94,15 @@
 @endif
 <script>
 $(document).ready(function(){
-    $("#ID_LEMARI").select2();
-    $("#create-lemari").validate({
+    $(".select2").select2();
+    $("#create-stok").validate({
         rules: {
-            ID_LEMARI: {
+            ID_TAHUN_AKADEMIK: {
                 required: true
             },
         },
         messages: {
-            ID_LEMARI: "Silahkan pilih lemari",
+            ID_TAHUN_AKADEMIK: "Silahkan pilih tahun ajaran",
         },
         errorElement : 'div',
         errorClass: "invalid-feedback animated fadeInUp",

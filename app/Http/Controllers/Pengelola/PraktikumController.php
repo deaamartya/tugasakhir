@@ -21,7 +21,7 @@ class PraktikumController extends Controller
         $page_title = 'Data Praktikum';
         $page_description = 'Menampilkan seluruh data praktikum';
         $action = 'table_datatable_basic';
-        $id_lab = 1;
+        $id_lab = Auth::user()->tipe_user->ID_LABORATORIUM;
         $praktikum = Praktikum::where('ID_LABORATORIUM',$id_lab)->get();
         $lab = strrchr(Laboratorium::find($id_lab)->value('NAMA_LABORATORIUM'),' ');
         $lab = str_replace(" ","",$lab);
@@ -37,7 +37,7 @@ class PraktikumController extends Controller
         $page_description = 'Menampilkan seluruh data praktikum';
         $action = 'uc_select2';
 
-        $id_lab = 1;
+        $id_lab = Auth::user()->tipe_user->ID_LABORATORIUM;
         $praktikum = Praktikum::where('ID_LABORATORIUM',$id_lab)->get();
         $lab = strrchr(Laboratorium::find($id_lab)->value('NAMA_LABORATORIUM'),' ');
         $lab = str_replace(" ","",$lab);

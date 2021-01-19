@@ -105,7 +105,7 @@
                         <ul aria-expanded="false">
                             <li><a href="{!! url('pengelola/cetak/kartu-stok'); !!}">Data Kartu Stok</a></li>
                             <li><a href="{!! url('pengelola/cetak/katalog-lemari'); !!}">Data Katalog Lemari</a></li>
-                            <li><a href="{!! url('pengelola/cetak/barang-rusak'); !!}">Data Laporan Barang Rusak</a></li>
+                            <li><a href="{!! url('pengelola/cetak/alat-rusak'); !!}">Data Laporan Barang Rusak</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -249,7 +249,7 @@
                     </li>
                 </ul>
                 @endif
-				<div class="copyright">
+				<div class="copyright mt-3">
 					<p><strong>Davur - Restaurant Admin Dashboard</strong> © 2020 All Rights Reserved</p>
 					<p>Made with <i class="fa fa-heart"></i> by DexignZone</p>
 				</div>

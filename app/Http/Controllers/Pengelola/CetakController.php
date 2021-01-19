@@ -33,20 +33,16 @@ class CetakController extends Controller
                 $tgl_genap_end = date('Y-m-d',strtotime($tahun_2."-06-30"));
 
                 if($waktu == "Gasal"){
-                    $histori_bagus = HistoriStok::where('KONDISI',1)->where('ID_ALAT_BAHAN',$request->ID_ALAT)->whereBetween('TIMESTAMP', [$tgl_ganjil_start, $tgl_ganjil_end])->get();
-                    $histori_rusak = HistoriStok::where('KONDISI',0)->where('ID_ALAT_BAHAN',$request->ID_ALAT)->whereBetween('TIMESTAMP', [$tgl_ganjil_start, $tgl_ganjil_end])->get();
+                    $histori_bagus = HistoriStok::where('KONDISI',1)->where('ID_ALAT_BAHAN',$request->ID_ALAT)
+                    ->whereBetween(DB::raw('DATE(TIMESTAMP)'), [$tgl_ganjil_start, $tgl_ganjil_end])->get();
+                    $histori_rusak = HistoriStok::where('KONDISI','=',0)->where('ID_ALAT_BAHAN',$request->ID_ALAT)
+                    ->whereBetween(DB::raw('DATE(TIMESTAMP)'), [$tgl_ganjil_start, $tgl_ganjil_end])->get();
                 }
                 else{
                     $histori_bagus = HistoriStok::where('KONDISI',1)->where('ID_ALAT_BAHAN',$request->ID_ALAT)
                     ->whereBetween(DB::raw('DATE(TIMESTAMP)'), [$tgl_genap_start, $tgl_genap_end])->get();
                     $histori_rusak = HistoriStok::where('KONDISI','=',0)->where('ID_ALAT_BAHAN',$request->ID_ALAT)
                     ->whereBetween(DB::raw('DATE(TIMESTAMP)'), [$tgl_genap_start, $tgl_genap_end])->get();
-                    // print_r($tgl_genap_start);
-                    // print_r($tgl_genap_end);
-                    // print_r($histori_bagus);
-                    // echo "<pre>";
-                    // print_r($histori_rusak);
-                    // echo "</pre>";
                 }
 
                 $alat = Alat::find($request->ID_ALAT);
@@ -59,7 +55,7 @@ class CetakController extends Controller
                 $page_description = 'Menampilkan kartu stok';
                 $action = 'uc_select2';
 
-                $id_lab = 1;
+                $id_lab = Auth::user()->tipe_user->ID_LABORATORIUM;
 
                 $tahunakademik = TahunAkademik::get();
                 $alat = Alat::select('*')->join('lemari as l','l.ID_LEMARI','alat.ID_LEMARI')->where('l.ID_LABORATORIUM',$id_lab)->get();
@@ -87,7 +83,7 @@ class CetakController extends Controller
                 $page_description = 'Menampilkan seluruh katalog lemari';
                 $action = 'uc_select2';
 
-                $id_lab = 1;
+                $id_lab = Auth::user()->tipe_user->ID_LABORATORIUM;
                 $lemari = Lemari::where('ID_LABORATORIUM',$id_lab)->get();
 
                 return view('pengelola.cetak-lemari', compact('page_title', 'page_description','action','lemari'));
@@ -97,8 +93,56 @@ class CetakController extends Controller
         }
     }
 
-    public function barangRusak()
+    public function alatRusak(Request $request)
     {
-        
+        switch ($request->method()) {
+            case 'POST':
+                $request->validate([
+                    "ID_TAHUN_AKADEMIK" => 'required|exists:App\Models\TahunAkademik,ID_TAHUN_AKADEMIK',
+                ]);
+
+                $tahunakademik = TahunAkademik::find($request->ID_TAHUN_AKADEMIK);
+                $tahun_1 = substr($tahunakademik->TAHUN_AKADEMIK,0,4);
+                $tahun_2 = substr($tahunakademik->TAHUN_AKADEMIK,5,4);
+                $waktu = substr($tahunakademik->TAHUN_AKADEMIK,10,6);
+
+                $tgl_ganjil_start = date('Y-m-d',strtotime($tahun_1."-07-01"));
+                $tgl_ganjil_end = date('Y-m-d',strtotime($tahun_1."-12-31"));
+                $tgl_genap_start = date('Y-m-d',strtotime($tahun_2."-01-01"));
+                $tgl_genap_end = date('Y-m-d',strtotime($tahun_2."-06-30"));
+
+                if($waktu == "Gasal"){
+                    $histori_rusak = HistoriStok::join('alat as a','a.ID_ALAT','histori_stok.ID_ALAT_BAHAN')
+                    ->join('katalog_alat as ka','ka.ID_KATALOG_ALAT','a.ID_KATALOG_ALAT')
+                    ->where('ID_TIPE',1)
+                    ->where('KONDISI','=',0)
+                    ->where('JUMLAH_MASUK','>',0)
+                    ->whereBetween(DB::raw('DATE(TIMESTAMP)'), [$tgl_ganjil_start, $tgl_ganjil_end])->get();
+                }
+                else{
+                    $histori_rusak = HistoriStok::join('alat as a','a.ID_ALAT','histori_stok.ID_ALAT_BAHAN')
+                    ->join('katalog_alat as ka','ka.ID_KATALOG_ALAT','a.ID_KATALOG_ALAT')
+                    ->where('ID_TIPE',1)
+                    ->where('KONDISI','=',0)
+                    ->where('JUMLAH_MASUK','>',0)
+                    ->whereBetween(DB::raw('DATE(TIMESTAMP)'), [$tgl_genap_start, $tgl_genap_end])->get();
+                }
+
+                $pdf = PDF::loadView('pengelola.cetak-rusak-pdf',compact('tahunakademik','histori_rusak'));
+                return $pdf->stream('Daftar Alat Rusak');
+                // return view('pengelola.cetak-kartu-pdf',compact('tahunakademik','alat','histori'));
+            case 'GET':
+                $page_title = 'Cetak Kartu Daftar Alat Rusak';
+                $page_description = 'Menampilkan pilihan tahun akademik';
+                $action = 'uc_select2';
+
+                $id_lab = Auth::user()->tipe_user->ID_LABORATORIUM;
+
+                $tahunakademik = TahunAkademik::get();
+
+                return view('pengelola.cetak-rusak', compact('page_title', 'page_description','action','tahunakademik'));
+            default:
+                break;
+        }
     }
 }

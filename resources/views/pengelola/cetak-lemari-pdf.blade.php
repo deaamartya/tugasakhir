@@ -5,10 +5,10 @@
 <body>
     <table width="100%">
         <tr>
-            <td style="font-size:72pt;text-align:center;padding-left:0px;padding-right:0px">{{ $lemari->NAMA_LEMARI }}</td>
-            <td colspan="3" style="line-height:1.5;text-align:left">
-                Daftar Inventaris
-                <br>Laboratorium {{ Auth::user()->tipe_user->laboratorium->lab() }}
+            <td width="30%" style="font-size:68pt;text-align:center;padding-left:0px;padding-right:0px">{{ $lemari->NAMA_LEMARI }}</td>
+            <td width="50%" style="line-height:1.5;text-align:left;font-family:'Times New Roman';font-weight:bold">
+                DAFTAR INVENTARIS
+                <br>LABORATORIUM {{ strtoupper(Auth::user()->tipe_user->laboratorium->lab()) }}
                 <br>SMA NEGERI 3 SIDOARJO
             </td>
             <td><img src="{{ $_SERVER['DOCUMENT_ROOT'].'/images/logo/sman3.png' }}" height="60"></td>
@@ -17,7 +17,7 @@
     </table>
 
     @if(count($lemari->alats) != 0)
-    <table class="table table-bordered" width="100%">
+    <table class="table table-bordered table-sm" width="100%">
         <thead>
             <tr>
                 <th class="text-left">NO.</th>
@@ -42,7 +42,7 @@
     @endif
 
     @if(count($lemari->bahans) != 0)
-    <table class="table table-bordered" width="100%">
+    <table class="table table-bordered table-sm" width="100%">
         <thead>
             <tr>
                 <th class="text-left">NO.</th>
@@ -65,7 +65,7 @@
     @endif
 
     @if(count($lemari->bahan_kimia) != 0)
-    <table class="table table-bordered" width="100%">
+    <table class="table table-bordered table-sm" width="100%">
         <thead>
             <tr>
                 <th class="text-left">NO.</th>

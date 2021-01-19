@@ -81,7 +81,7 @@ class LemariTableSeeder extends Seeder
             array (
                 'ID_LEMARI' => 11,
                 'ID_LABORATORIUM' => 1,
-                'NAMA_LEMARI' => 'A5',
+                'NAMA_LEMARI' => 'A7',
             ),
         ));
         

@@ -9,7 +9,7 @@
 	
 	<meta name="description" content="@yield('page_description', $page_description ?? '')"/>
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('images/favicon.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('images/logo/sman3.png') }}">
 	
 	@if(!empty(config('dz.public.pagelevel.css.'.$action))) 
 		@foreach(config('dz.public.pagelevel.css.'.$action) as $style)
@@ -69,7 +69,7 @@
 			@if(!empty($logo))
 				<img class="logo-abbr" src="{{ asset($logo) }}" alt="">
 			@else
-                <img class="logo-abbr" src="{{ asset('images/logo.png') }}" alt="">
+                <img class="logo-abbr" src="{{ asset('images/logo/sman3.png') }}" alt="">
 			@endif
 			@if(!empty($logoText))
                 <img class="logo-compact" src="{{ asset($logoText) }}" alt="">

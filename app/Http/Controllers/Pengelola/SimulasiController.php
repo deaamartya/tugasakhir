@@ -19,7 +19,7 @@ class SimulasiController extends Controller
         $page_description = 'Menampilkan seluruh simulasi praktikum';
         $action = 'uc_select2';
 
-        $id_lab = 1;
+        $id_lab = Auth::user()->tipe_user->ID_LABORATORIUM;
         $praktikum = Praktikum::where('ID_LABORATORIUM',$id_lab)->get();
         $lab = strrchr(Laboratorium::find($id_lab)->value('NAMA_LABORATORIUM'),' ');
         $lab = str_replace(" ","",$lab);

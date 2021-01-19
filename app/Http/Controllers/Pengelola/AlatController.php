@@ -8,7 +8,7 @@ use App\Models\KatalogAlat;
 use App\Models\Lemari;
 use App\Models\MerkTipeAlat;
 use App\Models\Alat;
-
+use Auth;
 use DB;
 
 class AlatController extends Controller
@@ -18,7 +18,7 @@ class AlatController extends Controller
         $page_title = 'Data Alat';
         $page_description = 'Menampilkan seluruh data alat';
         $action = 'table_datatable_basic';
-        $id_lab = 1;
+        $id_lab = Auth::user()->tipe_user->ID_LABORATORIUM;
         $lemari = Lemari::where('ID_LABORATORIUM',$id_lab)->get();
         $katalog = KatalogAlat::all();
         $tipe = MerkTipeAlat::all();

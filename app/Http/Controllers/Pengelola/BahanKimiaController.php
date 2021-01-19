@@ -17,7 +17,7 @@ class BahanKimiaController extends Controller
         $page_title = 'Data Bahan Kimia';
         $page_description = 'Menampilkan seluruh data bahan kimia';
         $action = 'table_datatable_basic';
-        $id_lab = 1;
+        $id_lab = Auth::user()->tipe_user->ID_LABORATORIUM;
         $lab = Laboratorium::find($id_lab);
         $lemari = Lemari::where('ID_LABORATORIUM',$id_lab)->get();
         $katalogbahan = KatalogBahan::where('ID_LABORATORIUM',$id_lab)->get();

@@ -16,7 +16,7 @@ class RuangLaboratoriumController extends Controller
         $page_title = 'Data Ruang Laboratorium';
         $page_description = 'Menampilkan seluruh data ruang laboratorium';
         $action = 'table_datatable_basic';
-        $id_lab = 1;
+        $id_lab = Auth::user()->tipe_user->ID_LABORATORIUM;
         $ruanglab = RuangLaboratorium::where('ID_LABORATORIUM',$id_lab)->get();
         $lab = Laboratorium::find($id_lab);
         return view('pengelola.ruang-lab', compact('page_title', 'page_description','action','ruanglab','lab'));

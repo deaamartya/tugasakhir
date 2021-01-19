@@ -19,7 +19,7 @@ class PenjadwalanUlangController extends Controller
         $page_description = 'Menampilkan seluruh data penjadwalan ulang';
         $action = 'app_calender';
 
-        $id_lab = 1;
+        $id_lab = Auth::user()->tipe_user->ID_LABORATORIUM;
         
         $jadwalulang = PerubahanJadwalPeminjaman::join('peminjaman_alat_bahan as p','p.ID_PEMINJAMAN','perubahan_jadwal_peminjaman.ID_PEMINJAMAN')->join('ruang_laboratorium as r','r.ID_RUANG_LABORATORIUM','p.ID_RUANG_LABORATORIUM')->where('r.ID_LABORATORIUM','=',$id_lab)->orderBy('perubahan_jadwal_peminjaman.ID_PEMINJAMAN','DESC')->get();
 
@@ -32,7 +32,7 @@ class PenjadwalanUlangController extends Controller
         $page_description = 'Menampilkan seluruh data praktikum';
         $action = 'uc_select2';
 
-        $id_lab = 1;
+        $id_lab = Auth::user()->tipe_user->ID_LABORATORIUM;
         $praktikum = PeminjamanAlatBahan::join('praktikum as p','p.ID_PRAKTIKUM','peminjaman_alat_bahan.ID_PRAKTIKUM')
         ->join('laboratorium as l','l.ID_LABORATORIUM','p.ID_LABORATORIUM')
         ->where('l.ID_LABORATORIUM','=',$id_lab)
