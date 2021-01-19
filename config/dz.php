@@ -72,7 +72,7 @@ return [
 				],
 				'app_calender' => [
 							'vendor/fullcalendar/css/fullcalendar.min.css',
-							'css/icomoon.css',
+							'icons/icomoon/icomoon.css',
 				],
 				'app_profile' => [
 							'vendor/bootstrap-select/dist/css/bootstrap-select.min.css',

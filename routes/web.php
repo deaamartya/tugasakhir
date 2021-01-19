@@ -64,10 +64,15 @@ Route::middleware(['auth','cekPengelola'])->prefix('pengelola')->name('pengelola
 
     Route::resource('pengembalian','App\Http\Controllers\Pengelola\PengembalianController');
 
-    Route::get('simulasi','App\Http\Controllers\Pengelola\SimulasiController@index');
+    Route::resource('simulasi','App\Http\Controllers\Pengelola\SimulasiController');
+    Route::post('getStokAlat','App\Http\Controllers\Pengelola\SimulasiController@getStokAlat');
+    Route::post('getStokBahan','App\Http\Controllers\Pengelola\SimulasiController@getStokBahan');
+    Route::post('getStokBahanKimia','App\Http\Controllers\Pengelola\SimulasiController@getStokBahanKimia');
     
     Route::get('cetak/kartu-stok','App\Http\Controllers\Pengelola\CetakController@kartuStok');
+    Route::post('cetak/kartu-stok','App\Http\Controllers\Pengelola\CetakController@kartuStok');
     Route::get('cetak/katalog-lemari','App\Http\Controllers\Pengelola\CetakController@katalogLemari');
+    Route::post('cetak/katalog-lemari','App\Http\Controllers\Pengelola\CetakController@katalogLemari');
     Route::get('cetak/barang-rusak','App\Http\Controllers\Pengelola\CetakController@barangRusak');
 
 });
@@ -86,8 +91,11 @@ Route::get('logout', function(){
 });
 
 Route::get('home','App\Http\Controllers\HomeController@index')->name('home');
+Route::get('/',function(){
+    return redirect('home');
+});
 
-Route::get('/', 'App\Http\Controllers\DavuradminController@dashboard_1');
+Route::get('/dashboard-1', 'App\Http\Controllers\DavuradminController@dashboard_1');
 Route::get('/index', 'App\Http\Controllers\DavuradminController@dashboard_1');
 Route::get('/page-analytics', 'App\Http\Controllers\DavuradminController@analytics');
 Route::get('/page-order', 'App\Http\Controllers\DavuradminController@order');

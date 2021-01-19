@@ -17,7 +17,7 @@ class CreateHistoriStokTable extends Migration
             $table->string('ID_HISTORI', 15)->primary();
             $table->integer('ID_TIPE')->index('FK_MERUPAKAN_4');
             $table->string('ID_ALAT_BAHAN', 20)->nullable();
-            $table->dateTime('TIMESTAMP')->useCurrent();
+            $table->date('TIMESTAMP')->useCurrent();
             $table->integer('JUMLAH_MASUK');
             $table->integer('JUMLAH_KELUAR');
             $table->boolean('KONDISI')->nullable();
@@ -53,6 +53,8 @@ class CreateHistoriStokTable extends Migration
                     SET new.STOK = @stok+new.JUMLAH_MASUK-new.JUMLAH_KELUAR;
                     UPDATE `bahan_kimia` SET `JUMLAH_BAHAN_KIMIA` = @stok+new.JUMLAH_MASUK-new.JUMLAH_KELUAR WHERE `ID_BAHAN_KIMIA` = new.ID_ALAT_BAHAN;
                 END IF;
+
+                SET new.TIMESTAMP = SYSDATE();
             END");
     }
 
