@@ -35,9 +35,8 @@
             font-size: 15px !important;
         }
     </style>
-
     @yield('tambahan-style')
-
+    
 </head>
 
 <body>
