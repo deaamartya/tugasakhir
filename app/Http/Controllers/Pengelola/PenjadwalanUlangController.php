@@ -22,7 +22,9 @@ class PenjadwalanUlangController extends Controller
 
         $id_lab = Auth::user()->tipe_user->ID_LABORATORIUM;
         
-        $jadwalulang = PerubahanJadwalPeminjaman::join('peminjaman_alat_bahan as p','p.ID_PEMINJAMAN','perubahan_jadwal_peminjaman.ID_PEMINJAMAN')->join('ruang_laboratorium as r','r.ID_RUANG_LABORATORIUM','p.ID_RUANG_LABORATORIUM')->where('r.ID_LABORATORIUM','=',$id_lab)->orderBy('perubahan_jadwal_peminjaman.ID_PEMINJAMAN','DESC')->get();
+        // $jadwalulang = PerubahanJadwalPeminjaman::join('peminjaman_alat_bahan as p','p.ID_PEMINJAMAN','perubahan_jadwal_peminjaman.ID_PEMINJAMAN')->join('ruang_laboratorium as r','r.ID_RUANG_LABORATORIUM','p.ID_RUANG_LABORATORIUM')->where('r.ID_LABORATORIUM','=',$id_lab)->orderBy('perubahan_jadwal_peminjaman.ID_PEMINJAMAN','DESC')->get();
+
+        $jadwalulang = PerubahanJadwalPeminjaman::join('peminjaman_alat_bahan as p','p.ID_PEMINJAMAN','perubahan_jadwal_peminjaman.ID_PEMINJAMAN')->join('praktikum as pr','pr.ID_PRAKTIKUM','p.ID_PRAKTIKUM')->join('kelas as k','k.ID_KELAS','pr.ID_KELAS')->join('jenis_kelas as j','j.ID_JENIS_KELAS','k.ID_JENIS_KELAS')->where('pr.ID_LABORATORIUM',$id_lab)->get();
 
         return view('pengelola.jadwal-ulang.index', compact('page_title', 'page_description','action','jadwalulang'));
     }
@@ -34,11 +36,13 @@ class PenjadwalanUlangController extends Controller
         $action = 'uc_select2';
 
         $id_lab = Auth::user()->tipe_user->ID_LABORATORIUM;
+
         $praktikum = PeminjamanAlatBahan::join('praktikum as p','p.ID_PRAKTIKUM','peminjaman_alat_bahan.ID_PRAKTIKUM')
         ->join('laboratorium as l','l.ID_LABORATORIUM','p.ID_LABORATORIUM')
         ->where('l.ID_LABORATORIUM','=',$id_lab)
         ->get();
-        $jadwalulang = PerubahanJadwalPeminjaman::find($id);
+
+        $jadwalulang = PerubahanJadwalPeminjaman::join('peminjaman_alat_bahan as p','p.ID_PEMINJAMAN','perubahan_jadwal_peminjaman.ID_PEMINJAMAN')->where('ID_PERUBAHAN_JADWAL',$id)->first();
 
         return view('pengelola.jadwal-ulang.edit', compact('page_title', 'page_description','action','jadwalulang','praktikum'));
     }

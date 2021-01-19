@@ -33,7 +33,6 @@ class PerubahanJadwalPeminjaman extends Model
 	public $timestamps = false;
 
 	protected $casts = [
-		'ID_PEMINJAMAN' => 'int',
 		'ID_USER' => 'int',
 		'STATUS_PERUBAHAN' => 'bool'
 	];

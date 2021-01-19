@@ -79,8 +79,8 @@
                                 @foreach($jadwalulang as $d)
                                 <tr>
                                     <td> {{ $loop->iteration }} </td>
-                                    <td> {{ $d->peminjaman_alat_bahan->praktikum->NAMA_PRAKTIKUM }} </td>
-                                    <td> {{ $d->peminjaman_alat_bahan->praktikum->kelas->jenis_kelas->NAMA_JENIS_KELAS }} </td>
+                                    <td> {{ $d->NAMA_PRAKTIKUM }} </td>
+                                    <td> {{ $d->NAMA_JENIS_KELAS }} </td>
                                     <td> @if($d->STATUS_PERUBAHAN == 0) Belum dirubah @else Sudah dirubah @endif </td>
                                     <td> 
                                         @if($d->STATUS_PERUBAHAN == 0)

@@ -57,7 +57,7 @@ class PeminjamanAlatBahan extends Model
 
 	public function perubahan_jadwal_peminjamen()
 	{
-		return $this->hasMany(PerubahanJadwalPeminjaman::class, 'ID_PEMINJAMAN');
+		return $this->hasOne(PerubahanJadwalPeminjaman::class, 'ID_PEMINJAMAN');
 	}
 
 	public function detail_peminjamans()

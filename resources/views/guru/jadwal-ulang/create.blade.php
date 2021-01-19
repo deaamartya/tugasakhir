@@ -230,7 +230,7 @@ $(document).ready(function(){
         },
     });
 
-    var url = "{{ url('/pengelola/datapraktikum') }}";
+    var url = "{{ url('/guru/datapraktikum') }}";
 
     $.get(url,function(result){
         a = result;
@@ -245,7 +245,7 @@ $(document).ready(function(){
                 center: "title",
                 right: "month,agendaWeek,agendaDay"
             },
-            height: $(window).height() - 350,
+            height: $(window).height() - 100,
             events: a,
             editable: false,
             droppable: false,
