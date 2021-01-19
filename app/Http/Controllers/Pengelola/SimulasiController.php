@@ -10,6 +10,7 @@ use App\Models\Bahan;
 use App\Models\BahanKimia;
 use App\Models\Laboratorium;
 use App\Models\Alat;
+use Auth;
 
 class SimulasiController extends Controller
 {

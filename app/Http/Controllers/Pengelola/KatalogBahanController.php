@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\KatalogBahan;
 use App\Models\Laboratorium;
 use DB;
+use Auth;
 
 class KatalogBahanController extends Controller
 {

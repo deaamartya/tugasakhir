@@ -13,6 +13,7 @@ use App\Models\Laboratorium;
 use App\Models\AlatBahanPraktikum;
 use App\Models\HistoriStok;
 use App\Models\DetailPeminjamanAlatBahan;
+use Auth;
 
 class PeminjamanController extends Controller
 {

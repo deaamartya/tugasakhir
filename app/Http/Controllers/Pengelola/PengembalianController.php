@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\PeminjamanAlatBahan;
 use App\Models\HistoriStok;
+use Auth;
 
 class PengembalianController extends Controller
 {
@@ -42,6 +43,7 @@ class PengembalianController extends Controller
         $id_praktikum = PeminjamanAlatBahan::find($id_peminjaman)->value('ID_PRAKTIKUM');
         $data_stok = [];
         $data_stok_alat = [];
+        $data_pengembalian = [];
         if($request->id_alat != null){
             $i=1;
             foreach($request->id_alat as $key){
@@ -61,6 +63,12 @@ class PengembalianController extends Controller
                     'KONDISI' => 0,
                     'KETERANGAN' => $request->keterangan_rusak[$i]
                 ];
+                $data_pengembalian[] = [
+                    'ID_TIPE' => 1,
+                    'ID_ALAT_BAHAN' => $request->id_alat[$i],
+                    'JUMLAH_KEMBALI' => intval($request->jumlah_rusak[$i]) + intval($request->jumlah_bagus[$i]),
+                    'ID_PEMINJAMAN' => $id_peminjaman
+                ];
                 $i++;
             }
         }
@@ -73,6 +81,12 @@ class PengembalianController extends Controller
                     'JUMLAH_KELUAR' => 0,
                     'JUMLAH_MASUK' => $request->jumlah_bahan[$i],
                     'KETERANGAN' => "Stok masuk sisa dari praktikum"
+                ];
+                $data_pengembalian[] = [
+                    'ID_TIPE' => 2,
+                    'ID_ALAT_BAHAN' => $request->id_bahan[$i],
+                    'JUMLAH_KEMBALI' => $request->jumlah_bahan[$i],
+                    'ID_PEMINJAMAN' => $id_peminjaman
                 ];
                 $i++;
             }
@@ -87,12 +101,22 @@ class PengembalianController extends Controller
                     'JUMLAH_MASUK' => $request->jumlah_bahan_kimia[$i],
                     'KETERANGAN' => "Stok masuk sisa dari praktikum"
                 ];
+                $data_pengembalian[] = [
+                    'ID_TIPE' => 3,
+                    'ID_ALAT_BAHAN' => $request->id_bahan_kimia[$i],
+                    'JUMLAH_KEMBALI' => $request->jumlah_bahan_kimia[$i],
+                    'ID_PEMINJAMAN' => $id_peminjaman
+                ];
                 $i++;
             }
         }
-        HistoriStok::insert($data_stok);
-        HistoriStok::insert($data_stok_alat);
-        PeminjamanAlatBahan::find($id_peminjaman)->update(["STATUS_PEMINJAMAN" => "SUDAH DIKEMBALIKAN"]);
+        DB::transaction(function() use($data_stok,$data_stok_alat,$data_pengembalian,$id_peminjaman){
+            HistoriStok::insert($data_stok);
+            HistoriStok::insert($data_stok_alat);
+            PeminjamanAlatBahan::find($id_peminjaman)->update(["STATUS_PEMINJAMAN" => "SUDAH DIKEMBALIKAN"]);
+            DetailPengembalian::insert($data_pengembalian);
+        });
+        
         return redirect()->route('pengelola.pengembalian.index')->with('created','Data berhasil disimpan');
     }
 

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\KatalogAlat;
 use App\Models\KategoriAlat;
 use DB;
+use Auth;
 
 class KatalogAlatController extends Controller
 {

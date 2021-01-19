@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\KategoriAlat;
 use App\Models\Laboratorium;
 use DB;
+use Auth;
 
 class KategoriAlatController extends Controller
 {

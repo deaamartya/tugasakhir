@@ -13,6 +13,7 @@ use App\Models\Alat;
 use App\Models\Bahan;
 use App\Models\BahanKimia;
 use App\Models\AlatBahanPraktikum;
+use Auth;
 
 class PraktikumController extends Controller
 {

@@ -10,6 +10,7 @@ use App\Models\PeminjamanAlatBahan;
 use App\Models\User;
 use Notification;
 use App\Notifications\SuccessPenjadwalanUlang;
+use Auth;
 
 class PenjadwalanUlangController extends Controller
 {

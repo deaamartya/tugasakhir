@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\MerkTipeAlat;
 use DB;
+use Auth;
 
 class MerkTipeController extends Controller
 {

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Lemari;
 use App\Models\Laboratorium;
 use DB;
+use Auth;
 
 class LemariController extends Controller
 {

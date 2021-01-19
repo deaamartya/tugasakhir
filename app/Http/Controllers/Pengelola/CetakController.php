@@ -10,6 +10,7 @@ use App\Models\TahunAkademik;
 use App\Models\Alat;
 use App\Models\HistoriStok;
 use DB;
+use Auth;
 
 class CetakController extends Controller
 {

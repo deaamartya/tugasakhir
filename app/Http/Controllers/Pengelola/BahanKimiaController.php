@@ -9,6 +9,7 @@ use App\Models\KatalogBahan;
 use App\Models\BahanKimia;
 use App\Models\Laboratorium;
 use DB;
+use Auth;
 
 class BahanKimiaController extends Controller
 {

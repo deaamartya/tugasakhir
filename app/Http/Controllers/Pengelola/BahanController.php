@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Bahan;
 use App\Models\Lemari;
 use DB;
+use Auth;
 
 class BahanController extends Controller
 {
