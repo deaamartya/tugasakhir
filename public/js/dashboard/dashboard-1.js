@@ -307,8 +307,8 @@
 			
 			load:function(){
 				activityBar();		
-				donutChart();	
-				chartBar();
+				// donutChart();	
+				// chartBar();
 				counterBar();
 			},
 			

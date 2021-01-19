@@ -34,4 +34,16 @@ class HomeController extends Controller
             return redirect()->route('pengelola.dashboard');
         }
     }
+
+    public function changePassword(Request $request)
+    {
+        $user = Auth::user()->ID_USER;
+        $passuser = User::find($user)->value('password');
+        if(bcrypt($request->old_password) == $passuser){
+            User::find($user)->update([
+                'password' => bcrypt($request->new_password)
+            ]);
+        }
+        return redirect('/');
+    }
 }

@@ -10,6 +10,7 @@ use App\Models\PeminjamanAlatBahan;
 use App\Models\Praktikum;
 use App\Models\HistoriStok;
 use Auth;
+use DB;
 
 class PengelolaController extends Controller
 {
