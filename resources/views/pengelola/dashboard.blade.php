@@ -93,19 +93,19 @@
 								<div class="row">
 									<div class="col-sm-4 mb-4">
 										<div class="border px-3 py-3 rounded-xl">
-											<h2 class="fs-32 font-w600 counter">25</h2>
+											<h2 class="fs-32 font-w600 counter">{{ $menunggu_penjadwalan }}</h2>
 											<p class="fs-16 mb-0">Menunggu Penjadwalan</p>
 										</div>
 									</div>
 									<div class="col-sm-4 mb-4">
 										<div class="border px-3 py-3 rounded-xl">
-											<h2 class="fs-32 font-w600 counter">60</h2>
+											<h2 class="fs-32 font-w600 counter">{{ $sedang_pinjam }}</h2>
 											<p class="fs-16 mb-0">Sedang Pinjam</p>
 										</div>
 									</div>
 									<div class="col-sm-4 mb-4">
 										<div class="border px-3 py-3 rounded-xl">
-											<h2 class="fs-32 font-w600 counter">7</h2>
+											<h2 class="fs-32 font-w600 counter">{{ $dikembalikan }}</h2>
 											<p class="fs-16 mb-0">Dikembalikan</p>
 										</div>
 									</div>
@@ -117,13 +117,13 @@
 										</div>	
 										<div class="col-xl-9 col-lg-10 col-xxl-8 col-sm-9 col-md-9">
 											<div class="d-flex align-items-center mb-3">
-												<p class="mb-0 fs-14 mr-2 col-4 col-xxl-5 px-0">Belum Pinjam (24%)</p>
+												<p class="mb-0 fs-14 mr-2 col-4 col-xxl-5 px-0">Belum Pinjam ({{ intval(($menunggu_penjadwalan/$total_peminjaman)*100) }}%)</p>
 												<div class="progress mb-0" style="height:8px; width:100%;">
-													<div class="progress-bar bg-warning progress-animated" style="width:85%; height:8px;" role="progressbar">
-														<span class="sr-only">60% Complete</span>
+													<div class="progress-bar bg-warning progress-animated" style="width:{{ intval(($menunggu_penjadwalan/$total_peminjaman)*100) }}%; height:8px;" role="progressbar">
+														<span class="sr-only">{{ intval(($menunggu_penjadwalan/$total_peminjaman)*100) }}% Complete</span>
 													</div>
 												</div>	
-												<span class="pull-right ml-auto col-1 col-xxl-2 px-0 text-right">25</span>
+												<span class="pull-right ml-auto col-1 col-xxl-2 px-0 text-right">{{ intval(($menunggu_penjadwalan/$total_peminjaman)*100) }}</span>
 											</div>
 											<div class="d-flex align-items-center  mb-3">
 												<p class="mb-0 fs-14 mr-2 col-4 col-xxl-5 px-0">Sedang Pinjam (41%)</p>
