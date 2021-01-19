@@ -64,6 +64,7 @@ class PeminjamanController extends Controller
         $data_stok = [];
         $data_stok_alat = [];
         $data_detail = [];
+        $data_stok_alat_rusak = [];
         if($request->total_alat > 0){
             $i=1;
             foreach($request->id_alat as $key){
@@ -74,6 +75,13 @@ class PeminjamanController extends Controller
                     'JUMLAH_MASUK' => 0,
                     'KONDISI' => 1,
                     'KETERANGAN' => "Stok keluar untuk praktikum"
+                ];
+                $data_stok_alat_rusak[] = [
+                    'ID_TIPE' => 1,
+                    'ID_ALAT_BAHAN' => $request->id_alat[$i],
+                    'JUMLAH_KELUAR' => 0,
+                    'JUMLAH_MASUK' => 0,
+                    'KONDISI' => 0,
                 ];
                 $data_detail[] = [
                     'ID_TIPE' => 1,
@@ -123,9 +131,10 @@ class PeminjamanController extends Controller
             }
         }
 
-        DB::transaction(function() use($data_stok,$data_stok_alat,$data_detail,$id_peminjaman){
+        DB::transaction(function() use($data_stok,$data_stok_alat,$data_detail,$id_peminjaman,$data_stok_alat_rusak){
             HistoriStok::insert($data_stok);
             HistoriStok::insert($data_stok_alat);
+            HistoriStok::insert($data_stok_alat_rusak);
             DetailPeminjamanAlatBahan::insert($data_detail);
             PeminjamanAlatBahan::find($id_peminjaman)->update(["STATUS_PEMINJAMAN" => "SUDAH DIKONFIRMASI"]);
         });

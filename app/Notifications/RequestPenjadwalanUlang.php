@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Auth;
 
 class RequestPenjadwalanUlang extends Notification
 {
@@ -42,7 +43,8 @@ class RequestPenjadwalanUlang extends Notification
     public function toArray($notifiable)
     {
         return [
-            'ID_PEMINJAMAN' => $this->data
+            'ID_PEMINJAMAN' => $this->data,
+            'ID_USER' => Auth::user()->ID_USER
         ];
     }
 }

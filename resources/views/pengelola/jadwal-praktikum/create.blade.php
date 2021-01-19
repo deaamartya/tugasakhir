@@ -257,7 +257,7 @@ $(document).ready(function(){
                 center: "title",
                 right: "month,agendaWeek,agendaDay"
             },
-            height: $(window).height() - 100,
+            height: $(window).height() - 350,
             events: a,
             editable: false,
             droppable: false,
@@ -269,14 +269,14 @@ $(document).ready(function(){
         });
     });
 
-    $("#ID_PRAKTIKUM").on('change',function(){
-        $.post('datapraktikum-nama',{ _token: "{{ csrf_token() }}", prakt: $(this).val() },function(result){
-            a = result;
-            console.log(a);
-            $("#calendar").fullCalendar('removeEvents');
-            $("#calendar").fullCalendar('addEventSource', a);
-        });
-    });
+    // $("#ID_PRAKTIKUM").on('change',function(){
+    //     $.post('datapraktikum-nama',{ _token: "{{ csrf_token() }}", prakt: $(this).val() },function(result){
+    //         a = result;
+    //         console.log(a);
+    //         $("#calendar").fullCalendar('removeEvents');
+    //         $("#calendar").fullCalendar('addEventSource', a);
+    //     });
+    // });
 });
     
 </script>

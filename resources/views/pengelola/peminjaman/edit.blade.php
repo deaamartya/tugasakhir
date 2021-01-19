@@ -224,7 +224,7 @@
                                 </div>
                             </div>
 
-                            <button type="submit" class="btn btn-success submit-btn btn-md">Konfirmasi Peminjaman</button>
+                            <button type="submit" class="btn btn-success submit-btn">Konfirmasi Peminjaman</button>
                         </form>
                     </div>
                 </div>

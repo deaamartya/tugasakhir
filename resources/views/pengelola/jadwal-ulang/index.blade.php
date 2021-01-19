@@ -26,8 +26,8 @@
         </div>
         <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="javascript:void(0)">Akademik</a></li>
-                <li class="breadcrumb-item active"><a href="javascript:void(0)">Data Praktikum Kelas Saya</a></li>
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Data Praktikum</a></li>
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">Penjadwalan Ulang</a></li>
             </ol>
         </div>
     </div>

@@ -9,6 +9,7 @@ use App\Models\Lemari;
 use App\Models\TahunAkademik;
 use App\Models\Alat;
 use App\Models\HistoriStok;
+use DB;
 
 class CetakController extends Controller
 {
@@ -26,18 +27,26 @@ class CetakController extends Controller
                 $tahun_2 = substr($tahunakademik->TAHUN_AKADEMIK,5,4);
                 $waktu = substr($tahunakademik->TAHUN_AKADEMIK,10,6);
 
-                $tgl_ganjil_start = date('d-m-Y',strtotime("01-07-".$tahun_1));
-                $tgl_ganjil_end = date('d-m-Y',strtotime("31-12-".$tahun_1));
-                $tgl_genap_start = date('d-m-Y',strtotime("01-01-".$tahun_2));
-                $tgl_genap_end = date('d-m-Y',strtotime("30-06-".$tahun_2));
+                $tgl_ganjil_start = date('Y-m-d',strtotime($tahun_1."-07-01"));
+                $tgl_ganjil_end = date('Y-m-d',strtotime($tahun_1."-12-31"));
+                $tgl_genap_start = date('Y-m-d',strtotime($tahun_2."-01-01"));
+                $tgl_genap_end = date('Y-m-d',strtotime($tahun_2."-06-30"));
 
                 if($waktu == "Gasal"){
                     $histori_bagus = HistoriStok::where('KONDISI',1)->where('ID_ALAT_BAHAN',$request->ID_ALAT)->whereBetween('TIMESTAMP', [$tgl_ganjil_start, $tgl_ganjil_end])->get();
                     $histori_rusak = HistoriStok::where('KONDISI',0)->where('ID_ALAT_BAHAN',$request->ID_ALAT)->whereBetween('TIMESTAMP', [$tgl_ganjil_start, $tgl_ganjil_end])->get();
                 }
                 else{
-                    $histori_bagus = HistoriStok::where('KONDISI',1)->where('ID_ALAT_BAHAN',$request->ID_ALAT)->whereBetween('TIMESTAMP', [$tgl_genap_start, $tgl_genap_end])->get();
-                    $histori_rusak = HistoriStok::where('KONDISI',0)->where('ID_ALAT_BAHAN',$request->ID_ALAT)->whereBetween('TIMESTAMP', [$tgl_genap_start, $tgl_genap_end])->get();
+                    $histori_bagus = HistoriStok::where('KONDISI',1)->where('ID_ALAT_BAHAN',$request->ID_ALAT)
+                    ->whereBetween(DB::raw('DATE(TIMESTAMP)'), [$tgl_genap_start, $tgl_genap_end])->get();
+                    $histori_rusak = HistoriStok::where('KONDISI','=',0)->where('ID_ALAT_BAHAN',$request->ID_ALAT)
+                    ->whereBetween(DB::raw('DATE(TIMESTAMP)'), [$tgl_genap_start, $tgl_genap_end])->get();
+                    // print_r($tgl_genap_start);
+                    // print_r($tgl_genap_end);
+                    // print_r($histori_bagus);
+                    // echo "<pre>";
+                    // print_r($histori_rusak);
+                    // echo "</pre>";
                 }
 
                 $alat = Alat::find($request->ID_ALAT);

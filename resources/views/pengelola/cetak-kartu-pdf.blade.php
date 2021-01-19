@@ -1,8 +1,6 @@
 <head>
     <title>Katalog Lemari</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{{ $_SERVER['DOCUMENT_ROOT'].'/vendor/bootstrap/dist/css/bootstrap.min.css' }}">
 </head>
 <body>
     <table width="100%">
@@ -49,30 +47,39 @@
     </table>
 
     <table class="table table-bordered mt-3 table-sm">
-        <thead>
+        <thead class="text-center">
             <tr>
-                <th>Tanggal</th>
-                <th>Masuk</th>
-                <th>Keluar</th>
-                <th>Masuk</th>
-                <th>Keluar</th>
-                <th>Masuk</th>
-                <th>Keluar</th>
-                <th>Keterangan</th>
+                <th rowspan="3" class="align-middle" width="20%">Tanggal</th>
+                <th colspan="6" width="60%">Keadaan</th>
+                <th rowspan="3" class="align-middle" width="20%">Keterangan</th>
+            </tr>
+            <tr>
+                <th colspan="2">Masuk</th>
+                <th colspan="2">Keluar</th>
+                <th colspan="2">Persediaan</th>
+            </tr>
+            <tr>
+                <th>Baik</th>
+                <th>Rusak</th>
+                <th>Baik</th>
+                <th>Rusak</th>
+                <th>Baik</th>
+                <th>Rusak</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody class="text-center align-middle">
             @foreach($histori_bagus as $d)
             <tr>
-                <td>{{ $d->TANGGAL }}</td>
-                <td>{{ $d->JUMLAH_MASUK }}</td>
-                <td>{{ $d->JUMLAH_KELUAR }}</td>
-                <td>{{ $histori_rusak[$loop->index]->JUMLAH_MASUK }}</td>
-                <td>{{ $histori_rusak[$loop->index]->JUMLAH_KELUAR }}</td>
+                <td>{{ $d->TIMESTAMP }}</td>
+                <td>@if($d->JUMLAH_MASUK != null){{ $d->JUMLAH_MASUK }} @else 0 @endif</td>
+                <td>@if(isset($histori_rusak[$loop->index]->JUMLAH_MASUK)) {{ $histori_rusak[$loop->index]->JUMLAH_MASUK }} @else 0 @endif</td>
+                <td>@if($d->JUMLAH_KELUAR != null){{ $d->JUMLAH_KELUAR }} @else 0 @endif</td>
+                <td>@if(isset($histori_rusak[$loop->index]->JUMLAH_KELUAR))  {{ $histori_rusak[$loop->index]->JUMLAH_KELUAR }} @else 0 @endif</td>
                 <td>{{ $d->STOK }}</td>
-                <td>{{ $histori_rusak[$loop->index]->STOK }}</td>
-                <td>{{ $histori_rusak[$loop->index]->KETERANGAN }}</td>
+                <td>@if(isset($histori_rusak[$loop->index]->STOK)) {{ $histori_rusak[$loop->index]->STOK }} @else 0 @endif</td>
+                <td>@if(isset($histori_rusak[$loop->index]->KETERANGAN)) {{ $histori_rusak[$loop->index]->KETERANGAN }} @else {{ $d->KETERANGAN }}@endif</td>
             </tr>
+            test
             @endforeach
         </tbody>
     </table>

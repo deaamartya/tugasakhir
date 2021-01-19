@@ -103,7 +103,7 @@
 
                             <div class="form-group">
                                 <label>Jumlah Kelompok</label>
-                                <input type="number" value="5" name="jumlah_kelompok" id="jumlah_kelompok" class="form-control">
+                                <input type="number" value="5" name="jumlah_kelompok" id="jumlah_kelompok" class="form-control" readonly>
                             </div>
 
                             <div class="form-group">

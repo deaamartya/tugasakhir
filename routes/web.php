@@ -22,6 +22,7 @@ Route::middleware(['auth','cekGuru'])->prefix('guru')->name('guru.')->group(func
 
     Route::get('datapraktikum','App\Http\Controllers\Guru\PraktikumController@seluruhJadwal');
     Route::post('jadwal-praktikum/datapraktikum-nama','App\Http\Controllers\Pengelola\JadwalPraktikumController@seluruhJadwalNama');
+    Route::get('notification/{id}','App\Http\Controllers\NotificationController@guru');
 });
 
 Route::middleware(['auth','cekPengelola'])->prefix('pengelola')->name('pengelola.')->group(function () {
@@ -75,7 +76,10 @@ Route::middleware(['auth','cekPengelola'])->prefix('pengelola')->name('pengelola
     Route::post('cetak/katalog-lemari','App\Http\Controllers\Pengelola\CetakController@katalogLemari');
     Route::get('cetak/barang-rusak','App\Http\Controllers\Pengelola\CetakController@barangRusak');
 
+    Route::get('notification/{id}','App\Http\Controllers\NotificationController@pengelola');
 });
+
+Route::get('notifications','App\Http\Controllers\NotificationController@index')->name('notification.index');
 
 Route::get('cekusername/{username}', function($username){
     $hasil = User::where('username',$username)->exists() ? true : false;

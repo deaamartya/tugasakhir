@@ -110,11 +110,19 @@
                                     <td> {{ $d->praktikum->kelas->guru->NAMA_LENGKAP }}</td>
                                     <td> {{ $d->TANGGAL_PEMINJAMAN }} {{ $d->JAM_MULAI }} - {{ $d->JAM_SELESAI }} </td>	
                                     <td>
+                                        @if(count($d->perubahan_jadwal_peminjamen) == 0)
                                         <div class="d-flex">
                                             <a href="{{ url('guru/penjadwalan-ulang/'.$d->ID_PEMINJAMAN) }}">
                                                 <button type="button" class="btn btn-primary shadow sharp mr-3"><i class="fa fa-pencil mr-2"></i>Jadwalkan Ulang</button>
                                             </a>
-                                        </div>												
+                                        </div>	
+                                        @else
+                                            @if($d->perubahan_jadwal_peminjamen[0]->STATUS_PERUBAHAN == 0)
+                                                JADWAL BELUM DIUBAH
+                                            @else
+                                                JADWAL SUDAH DIUBAH
+                                            @endif
+                                        @endif											
                                     </td>		
                                 </tr>
                                 @endforeach
@@ -187,7 +195,7 @@
                     center: "title",
                     right: "month,agendaWeek,agendaDay"
                 },
-                height: $(window).height() - 100,
+                height: $(window).height() - 350,
                 events: a,
                 editable: false,
                 droppable: false,

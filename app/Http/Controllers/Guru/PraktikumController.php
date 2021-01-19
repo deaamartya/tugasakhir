@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\PeminjamanAlatBahan;
 use DB;
+use Auth;
 
 class PraktikumController extends Controller
 {

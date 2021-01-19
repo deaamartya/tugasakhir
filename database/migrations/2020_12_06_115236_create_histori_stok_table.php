@@ -17,7 +17,7 @@ class CreateHistoriStokTable extends Migration
             $table->string('ID_HISTORI', 15)->primary();
             $table->integer('ID_TIPE')->index('FK_MERUPAKAN_4');
             $table->string('ID_ALAT_BAHAN', 20)->nullable();
-            $table->date('TIMESTAMP')->useCurrent();
+            $table->dateTime('TIMESTAMP')->useCurrent();
             $table->integer('JUMLAH_MASUK');
             $table->integer('JUMLAH_KELUAR');
             $table->boolean('KONDISI')->nullable();

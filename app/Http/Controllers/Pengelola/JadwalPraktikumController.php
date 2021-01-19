@@ -62,7 +62,7 @@ class JadwalPraktikumController extends Controller
                 "STATUS_PEMINJAMAN" => "MENUNGGU KONFIRMASI",
             ]);
         });
-        return redirect()->route('pengelola.jadwal-praktikum.create')->with('created','Data berhasil dibuat');
+        return redirect()->route('pengelola.jadwal-praktikum.index')->with('created','Data berhasil dibuat');
     }
 
     public function seluruhJadwal()
