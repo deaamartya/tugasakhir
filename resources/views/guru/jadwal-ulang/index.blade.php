@@ -26,8 +26,8 @@
         </div>
         <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="javascript:void(0)">Akademik</a></li>
-                <li class="breadcrumb-item active"><a href="javascript:void(0)">Data Praktikum Kelas Saya</a></li>
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Data Akademik</a></li>
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">Pengajuan Penjadwalan Ulang Saya</a></li>
             </ol>
         </div>
     </div>
@@ -103,8 +103,8 @@
                                 @foreach($jadwalulang as $d)
                                 <tr>
                                     <td> {{ $loop->iteration }} </td>
-                                    <td> {{ $d->peminjaman_alat_bahan->praktikum->NAMA_PRAKTIKUM }} </td>
-                                    <td> {{ $d->peminjaman_alat_bahan->praktikum->kelas->jenis_kelas->NAMA_JENIS_KELAS }} </td>
+                                    <td> {{ $d->NAMA_PRAKTIKUM }} </td>
+                                    <td> {{ $d->NAMA_JENIS_KELAS }} </td>
                                     <td> @if($d->STATUS_PERUBAHAN == 0) Belum dirubah @else Sudah dirubah @endif </td>
                                 </tr>
                                 @endforeach

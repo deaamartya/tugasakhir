@@ -74,10 +74,10 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <form id="edit-jadwal" action="{{ route('pengelola.penjadwalan-ulang.update',$jadwalulang->peminjaman_alat_bahan->ID_PEMINJAMAN) }}" name="edit-jadwal" method="POST">
+                        <form id="edit-jadwal" action="{{ route('pengelola.penjadwalan-ulang.update',$jadwalulang->ID_PEMINJAMAN) }}" name="edit-jadwal" method="POST">
                         @method('PUT')
                         @csrf
-                            <input type="hidden" name="ID_PEMINJAMAN" value="{{ $jadwalulang->peminjaman_alat_bahan->ID_PEMINJAMAN }}">
+                            <input type="hidden" name="ID_PEMINJAMAN" value="{{ $jadwalulang->ID_PEMINJAMAN }}">
 
                             <div class="form-group px-2">
                                 <div>Guru : </div>
@@ -262,7 +262,7 @@ $(document).ready(function(){
                 center: "title",
                 right: "month,agendaWeek,agendaDay"
             },
-            height: $(window).height() - 350,
+            height: $(window).height() - 100,
             events: a,
             editable: false,
             droppable: false,

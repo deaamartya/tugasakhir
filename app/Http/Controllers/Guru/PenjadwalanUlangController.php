@@ -25,13 +25,17 @@ class PenjadwalanUlangController extends Controller
         $id_lab = 1;
         $guru = Auth::user()->ID_USER;
         $praktikum = PeminjamanAlatBahan::join('ruang_laboratorium as r','r.ID_RUANG_LABORATORIUM','peminjaman_alat_bahan.ID_RUANG_LABORATORIUM')->where('r.ID_LABORATORIUM','=',$id_lab)->orderBy('ID_PEMINJAMAN','DESC')->get();
+
         $lab = strrchr(Laboratorium::find($id_lab)->value('NAMA_LABORATORIUM'),' ');
         $lab = str_replace(" ","",$lab);
+
         $matapelajaran = MataPelajaran::select('mata_pelajaran.*')->where('NAMA_MAPEL','LIKE',"%".$lab."%")->get();
+
         $kelas = Kelas::join('mata_pelajaran as m','m.ID_MAPEL','=','kelas.ID_MAPEL')->where('m.NAMA_MAPEL','LIKE',"%".$lab."%")->get();
+
         $lab = Laboratorium::find($id_lab);
 
-        $jadwalulang = PerubahanJadwalPeminjaman::where('ID_USER','=',$guru)->get();
+        $jadwalulang = PerubahanJadwalPeminjaman::join('peminjaman_alat_bahan as p','p.ID_PEMINJAMAN','perubahan_jadwal_peminjaman.ID_PEMINJAMAN')->join('praktikum as pr','pr.ID_PRAKTIKUM','p.ID_PRAKTIKUM')->join('kelas as k','k.ID_KELAS','pr.ID_KELAS')->join('jenis_kelas as j','j.ID_JENIS_KELAS','k.ID_JENIS_KELAS')->where('perubahan_jadwal_peminjaman.ID_USER','=',$guru)->get();
 
         return view('guru.jadwal-ulang.index', compact('page_title', 'page_description','action','praktikum','kelas','matapelajaran','lab','jadwalulang'));
     }

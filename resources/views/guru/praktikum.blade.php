@@ -197,7 +197,7 @@
                     center: "title",
                     right: "month,agendaWeek,agendaDay"
                 },
-                height: $(window).height(),
+                height: $(window).height() - 100,
                 events: a,
                 editable: false,
                 droppable: false,
