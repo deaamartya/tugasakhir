@@ -91,7 +91,7 @@
                                     <td>{{ $d->NAMA_LABORATORIUM }}</td>
                                     <td>
                                         <div class="d-flex">
-                                            <button type="button" class="btn btn-primary shadow btn-xs sharp mr-1" data-toggle="modal" data-target="#modal-edit-{{ $d->ID_LABORATORIUM }}"><i class="fa fa-pencil"></i></button>
+                                            <!-- <button type="button" class="btn btn-primary shadow btn-xs sharp mr-1" data-toggle="modal" data-target="#modal-edit-{{ $d->ID_LABORATORIUM }}"><i class="fa fa-pencil"></i></button> -->
                                         </div>												
                                     </td>											
                                 </tr>

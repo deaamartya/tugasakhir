@@ -41,9 +41,13 @@ class PenjadwalanUlangController extends Controller
         $page_title = 'Data Penjadwalan Ulang';
         $page_description = 'Menampilkan seluruh data praktikum';
         $action = 'uc_select2';
+
         $peminjaman = PeminjamanAlatBahan::find($id);
+        
         $id_lab = 1;
+
         $praktikum = PeminjamanAlatBahan::join('ruang_laboratorium as r','r.ID_RUANG_LABORATORIUM','peminjaman_alat_bahan.ID_RUANG_LABORATORIUM')->where('r.ID_LABORATORIUM','=',$id_lab)->orderBy('ID_PEMINJAMAN','DESC')->get();
+
         return view('guru.jadwal-ulang.create', compact('page_title', 'page_description','action','peminjaman','praktikum'));
     }
 

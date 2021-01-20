@@ -105,7 +105,7 @@
                         <ul aria-expanded="false">
                             <li><a href="{!! url('pengelola/cetak/kartu-stok'); !!}">Data Kartu Stok</a></li>
                             <li><a href="{!! url('pengelola/cetak/katalog-lemari'); !!}">Data Katalog Lemari</a></li>
-                            <li><a href="{!! url('pengelola/cetak/alat-rusak'); !!}">Data Laporan Barang Rusak</a></li>
+                            <li><a href="{!! url('pengelola/cetak/alat-rusak'); !!}">Daftar Alat Rusak</a></li>
                         </ul>
                     </li>
                 </ul>

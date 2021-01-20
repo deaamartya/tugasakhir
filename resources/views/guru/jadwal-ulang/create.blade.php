@@ -76,7 +76,9 @@
                     <div class="table-responsive">
                         <form id="create-jadwal" action="{{ route('guru.penjadwalan-ulang.store') }}" name="create-praktikum" method="POST">
                         @csrf
+                        
                             <input type="hidden" name="ID_PEMINJAMAN" value="{{ $peminjaman->ID_PEMINJAMAN }}">
+
                             <div class="form-group">
                                 <label>Ruang Laboratorium</label>
                                 <select disabled class="select2-single @error('ID_RUANG_LABORATORIUM') is-invalid @enderror" name="ID_RUANG_LABORATORIUM" id="ID_RUANG_LABORATORIUM">
@@ -230,7 +232,7 @@ $(document).ready(function(){
         },
     });
 
-    var url = "{{ url('/pengelola/datapraktikum') }}";
+    var url = "{{ url('/guru/datapraktikum') }}";
 
     $.get(url,function(result){
         a = result;
@@ -245,7 +247,7 @@ $(document).ready(function(){
                 center: "title",
                 right: "month,agendaWeek,agendaDay"
             },
-            height: $(window).height() - 350,
+            height: $(window).height() - 100,
             events: a,
             editable: false,
             droppable: false,

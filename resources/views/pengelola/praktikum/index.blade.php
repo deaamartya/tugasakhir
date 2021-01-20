@@ -163,8 +163,6 @@
                     </table>
                 </div>
 
-                
-
                 <div class="form-group px-2">
                     <table class="table text-black">
                         <thead>

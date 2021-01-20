@@ -183,7 +183,9 @@
 <script>
     $('document').ready( function(){
         var a;
-        $.get('datapraktikum',function(result){
+        var url = "{{ url('guru/datapraktikum') }}";
+
+        $.get(url,function(result){
             a = result;
             var calendar = $("#calendar").fullCalendar({
                 slotDuration: "00:15:00",
@@ -195,7 +197,7 @@
                     center: "title",
                     right: "month,agendaWeek,agendaDay"
                 },
-                height: $(window).height() - 350,
+                height: $(window).height(),
                 events: a,
                 editable: false,
                 droppable: false,

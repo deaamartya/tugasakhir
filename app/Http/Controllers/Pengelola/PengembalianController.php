@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\PeminjamanAlatBahan;
 use App\Models\HistoriStok;
 use Auth;
+use DB;
+use App\Models\DetailPengembalian;
 
 class PengembalianController extends Controller
 {

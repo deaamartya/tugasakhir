@@ -97,7 +97,7 @@
                                     <td><img class="rounded-circle" width="50" height="50" src="{{ asset('storage'.$d->PATH_FOTO) }}" alt="foto_profile" style="object-fit: cover;"></td>
                                     @endif
                                     <td> {{ $d->ID_USER }} </td>
-                                    <td> {{ $d->USERNAME }} </td>
+                                    <td> {{ $d->username }} </td>
                                     <td> {{ $d->NAMA_LENGKAP }} </td>
                                     <td>
                                         @if($d->tipe_user->NAMA_TIPE_USER == 'Admin')
@@ -119,7 +119,7 @@
                                     <td>
                                         <div class="d-flex">
                                             <button type="button" class="btn btn-primary shadow btn-xs sharp mr-1" data-toggle="modal" data-target="#modal-edit-{{ $d->ID_USER }}"><i class="fa fa-pencil"></i></button>
-                                            <button type="button" class="btn btn-danger shadow btn-xs sharp" data-toggle="modal" data-target="#modal-delete-{{ $d->ID_USER }}"><i class="fa fa-trash"></i></button>
+                                            <!-- <button type="button" class="btn btn-danger shadow btn-xs sharp" data-toggle="modal" data-target="#modal-delete-{{ $d->ID_USER }}"><i class="fa fa-trash"></i></button> -->
                                         </div>												
                                     </td>											
                                 </tr>
