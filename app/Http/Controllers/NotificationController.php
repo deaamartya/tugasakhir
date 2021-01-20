@@ -22,7 +22,7 @@ class NotificationController extends Controller
         $data = json_decode($notification->data);
         $id_jadwal = PeminjamanAlatBahan::find($data->ID_PEMINJAMAN);
         DB::table('notifications')->where('id','=',$id)->update(['read_at' => now()]);
-        return redirect()->route('pengelola.penjadwalan-ulang.edit',$id_jadwal->perubahan_jadwal_peminjamen[0]->ID_PERUBAHAN_JADWAL);
+        return redirect()->route('pengelola.penjadwalan-ulang.edit',$id_jadwal->perubahan_jadwal_peminjamen->ID_PERUBAHAN_JADWAL);
     }
 
     public function index()
