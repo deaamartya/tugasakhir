@@ -16,7 +16,6 @@ class CreateTipeUserTable extends Migration
         Schema::create('tipe_user', function (Blueprint $table) {
             $table->integer('ID_TIPE_USER', true);
             $table->string('NAMA_TIPE_USER', 50);
-            $table->integer('ID_LABORATORIUM')->index('FK_LABORATORIUM')->nullable();
         });
     }
 

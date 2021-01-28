@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('PATH_FOTO')->nullable();
             $table->string('NAMA_LENGKAP', 60);
-            $table->integer('ID_LABORATORIUM')->index('FK_LABORATORIUM');
+            $table->integer('ID_LABORATORIUM')->index('FK_LABORATORIUM')->nullable();
         });
     }
 

@@ -23,7 +23,8 @@ class UserController extends Controller
         $action = 'table_datatable_basic';
         $user = User::all()->sortByDesc("ID_USER");
         $tipeuser = TipeUser::all();
-        return view('admin.user', compact('page_title', 'page_description','action','user','tipeuser'));
+        $lab = Laboratorium::all();
+        return view('admin.user', compact('page_title', 'page_description','action','user','tipeuser','lab'));
     }
 
     /**
@@ -39,7 +40,8 @@ class UserController extends Controller
             'id_tipe_user' => 'required|exists:App\Models\TipeUser,ID_TIPE_USER',
             'nama_lengkap' => 'required|min:3',
             'username' => 'required|min:6|unique:App\Models\User,username',
-            'password' => 'required|min:6'
+            'password' => 'required|min:6',
+            'id_laboratorium' => 'required|exists:App\Models\Laboratorium,ID_LABORATORIUM',
         ]);
 
         DB::transaction(function() use($request){
@@ -59,6 +61,7 @@ class UserController extends Controller
                     "PATH_FOTO" => '/images/profile/'.$path,
                     "NAMA_LENGKAP" => ucwords(strtolower($request->nama_lengkap)),
                     "PASSWORD" => bcrypt($request->password),
+                    "ID_LABORATORIUM" => $request->id_laboratorium,
                 ]);
             }
             else
@@ -68,6 +71,7 @@ class UserController extends Controller
                     "USERNAME" => str_replace(" ","",strtolower($request->username)),
                     "ID_TIPE_USER" => $request->id_tipe_user,
                     "PASSWORD" => bcrypt($request->password),
+                    "ID_LABORATORIUM" => $request->id_laboratorium,
                 ]);
             }
         });
@@ -88,7 +92,8 @@ class UserController extends Controller
             'id_tipe_user' => 'required|exists:App\Models\TipeUser,ID_TIPE_USER',
             'nama_lengkap' => 'required|min:3',
             'username' => 'required|min:6',
-            'password' => 'min:6'
+            'password' => 'min:6',
+            'id_laboratorium' => 'required|exists:App\Models\Laboratorium,ID_LABORATORIUM',
         ]);
 
         $user = User::find($id);
@@ -111,6 +116,7 @@ class UserController extends Controller
                 "USERNAME" => str_replace(" ","",strtolower($request->username)),
                 "ID_TIPE_USER" => $request->id_tipe_user,
                 "PATH_FOTO" => '/images/profile/'.$path,
+                "ID_LABORATORIUM" => $request->id_laboratorium,
             ]);
         }
         else{
@@ -118,6 +124,7 @@ class UserController extends Controller
                 "NAMA_LENGKAP" => ucwords(strtolower($request->nama_lengkap)),
                 "USERNAME" => str_replace(" ","",strtolower($request->username)),
                 "ID_TIPE_USER" => $request->id_tipe_user,
+                "ID_LABORATORIUM" => $request->id_laboratorium,
             ]);
         }
         if($request->password != null)

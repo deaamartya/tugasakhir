@@ -85,6 +85,7 @@
                                     <th>Username</th>
                                     <th>Nama Lengkap</th>
                                     <th>Status</th>
+                                    <th>Laboratorium</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -116,6 +117,7 @@
                                             {{ $d->tipe_user->NAMA_TIPE_USER }}
                                         </span>
                                     </td>
+                                    <td> {{ $d->laboratorium->NAMA_LABORATORIUM }} </td>
                                     <td>
                                         <div class="d-flex">
                                             <button type="button" class="btn btn-primary shadow btn-xs sharp mr-1" data-toggle="modal" data-target="#modal-edit-{{ $d->ID_USER }}"><i class="fa fa-pencil"></i></button>
@@ -151,6 +153,15 @@
                             <select class="form-control select2" name="id_tipe_user" id="id_tipe_user">
                                 @foreach($tipeuser as $t)
                                     <option value="{{ $t->ID_TIPE_USER }}">{{ $t->NAMA_TIPE_USER }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Laboratorium</label>
+                            <select class="form-control select2" name="id_laboratorium" id="id_laboratorium">
+                                @foreach($lab as $t)
+                                    <option value="{{ $t->ID_LABORATORIUM }}">{{ $t->NAMA_LABORATORIUM }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -211,6 +222,15 @@
                         <select class="form-control select2" name="id_tipe_user" id="id_tipe_user">
                             @foreach($tipeuser as $t)
                                 <option value="{{ $t->ID_TIPE_USER }}" @if($d->ID_TIPE_USER == $t->ID_TIPE_USER) selected @endif>{{ $t->NAMA_TIPE_USER }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Laboratorium</label>
+                        <select class="form-control select2" name="id_laboratorium" id="id_laboratorium">
+                            @foreach($lab as $t)
+                                <option value="{{ $t->ID_LABORATORIUM }}" @if($d->ID_LABORATORIUM == $t->ID_LABORATORIUM) selected @endif>{{ $t->NAMA_LABORATORIUM }}</option>
                             @endforeach
                         </select>
                     </div>

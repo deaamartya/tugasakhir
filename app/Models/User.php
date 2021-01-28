@@ -42,12 +42,18 @@ class User extends Authenticatable
 		'USERNAME',
 		'PASSWORD',
 		'PATH_FOTO',
-		'NAMA_LENGKAP'
+		'NAMA_LENGKAP',
+		'ID_LABORATORIUM'
 	];
 
 	public function tipe_user()
 	{
 		return $this->belongsTo(TipeUser::class, 'ID_TIPE_USER');
+	}
+	
+	public function laboratorium()
+	{
+		return $this->belongsTo(Laboratorium::class, 'ID_LABORATORIUM');
 	}
 
 	public function kelas()
