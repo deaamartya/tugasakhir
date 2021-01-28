@@ -22,6 +22,7 @@ class UsersTableSeeder extends Seeder
             'PASSWORD' => bcrypt('admin'),
             'PATH_FOTO' => null,
             'NAMA_LENGKAP' => 'Admin',
+            'ID_LABORATORIUM' => null,
         ]);
         
         //user Pengelola Lab Kimia
@@ -31,6 +32,7 @@ class UsersTableSeeder extends Seeder
             'PASSWORD' => bcrypt('admin'),
             'PATH_FOTO' => null,
             'NAMA_LENGKAP' => 'Pengelola Lab Kimia',
+            'ID_LABORATORIUM' => 2,
         ]);
 
         //user Pengelola Lab Fisika
@@ -40,6 +42,7 @@ class UsersTableSeeder extends Seeder
             'PASSWORD' => bcrypt('admin'),
             'PATH_FOTO' => null,
             'NAMA_LENGKAP' => 'Pengelola Lab Fisika',
+            'ID_LABORATORIUM' => 1,
         ]);
 
         //user Pengelola Lab Biologi
@@ -49,6 +52,7 @@ class UsersTableSeeder extends Seeder
             'PASSWORD' => bcrypt('admin'),
             'PATH_FOTO' => null,
             'NAMA_LENGKAP' => 'Pengelola Lab Biologi',
+            'ID_LABORATORIUM' => 3,
         ]);
 
         //user Guru
@@ -58,6 +62,7 @@ class UsersTableSeeder extends Seeder
             'PASSWORD' => bcrypt('admin'),
             'PATH_FOTO' => null,
             'NAMA_LENGKAP' => 'Nama Guru Kimia',
+            'ID_LABORATORIUM' => 2,
         ]);
 
         //user Guru
@@ -67,6 +72,7 @@ class UsersTableSeeder extends Seeder
             'PASSWORD' => bcrypt('admin'),
             'PATH_FOTO' => null,
             'NAMA_LENGKAP' => 'Nama Guru Fisika',
+            'ID_LABORATORIUM' => 1,
         ]);
 
         //user Guru
@@ -76,6 +82,7 @@ class UsersTableSeeder extends Seeder
             'PASSWORD' => bcrypt('admin'),
             'PATH_FOTO' => null,
             'NAMA_LENGKAP' => 'Nama Guru Biologi',
+            'ID_LABORATORIUM' => 3,
         ]);
         
     }
