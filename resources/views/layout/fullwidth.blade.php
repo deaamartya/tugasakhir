@@ -23,4 +23,6 @@
     @include('elements.footer-scripts')
 </body>
 
+@yield('script')
+
 </html>
