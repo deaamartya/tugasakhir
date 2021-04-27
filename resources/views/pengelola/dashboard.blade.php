@@ -24,7 +24,7 @@
 						<div class="media-body">
 							<h3 class="mb-0 text-black"><span class="counter ml-0">{{ $total_alat_bagus }}</span></h3>
 							<p class="mb-0">Stok Alat Bagus</p>
-							<small>Lab. {{ Auth::user()->tipe_user->laboratorium->lab() }}</small>
+							<small>Lab. {{ Auth::user()->laboratorium->lab() }}</small>
 						</div>
 					</div>
 				</div>
@@ -41,7 +41,7 @@
 						<div class="media-body">
 							<h3 class="mb-0 text-black"><span class="counter ml-0">{{ $total_alat_rusak }}</span></h3>
 							<p class="mb-0">Stok Alat Rusak</p>
-							<small>Lab. {{ Auth::user()->tipe_user->laboratorium->lab() }}</small>
+							<small>Lab. {{ Auth::user()->laboratorium->lab() }}</small>
 						</div>
 					</div>
 				</div>
@@ -58,7 +58,7 @@
 						<div class="media-body">
 							<h3 class="mb-0 text-black"><span class="counter ml-0">{{ $total_bahan }}</span></h3>
 							<p class="mb-0">Stok Bahan</p>
-							<small>Lab. {{ Auth::user()->tipe_user->laboratorium->lab() }}</small>
+							<small>Lab. {{ Auth::user()->laboratorium->lab() }}</small>
 						</div>
 					</div>
 				</div>
@@ -75,7 +75,7 @@
 						<div class="media-body">
 							<h3 class="mb-0 text-black"><span class="counter ml-0">{{ $total_bahan_kimia }}</span></h3>
 							<p class="mb-0">Stok Bahan Kimia</p>
-							<small>Lab. {{ Auth::user()->tipe_user->laboratorium->lab() }}</small>
+							<small>Lab. {{ Auth::user()->laboratorium->lab() }}</small>
 						</div>
 					</div>
 				</div>
@@ -86,7 +86,7 @@
 				<div class="card-header border-0 pb-0 d-sm-flex d-block">
 					<div>
 						<h4 class="card-title mb-1">Peminjaman Alat dan Bahan</h4>
-						<small class="mb-0">Lab. {{ Auth::user()->tipe_user->laboratorium->lab() }}</small>
+						<small class="mb-0">Lab. {{ Auth::user()->laboratorium->lab() }}</small>
 					</div>
 				</div>
 				<div class="card-body orders-summary">
@@ -175,7 +175,7 @@
 				</div>
 			</div>
 		</div>
-		<!-- <div class="col-xl-6 col-xxl-6 col-lg-12 col-md-12">
+		{{-- <!-- <div class="col-xl-6 col-xxl-6 col-lg-12 col-md-12">
 			<div class="card">
 				<div class="card-header border-0 pb-0 d-sm-flex d-block">
 					<div>
@@ -252,7 +252,7 @@
 					</a>
 				</div>
 			</div>
-		</div> -->
+		</div> --> --}}
 		</div>
 </div>
 @endsection

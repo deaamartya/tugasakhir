@@ -8,7 +8,7 @@
             <td width="30%" style="font-size:68pt;text-align:center;padding-left:0px;padding-right:0px">{{ $lemari->NAMA_LEMARI }}</td>
             <td width="50%" style="line-height:1.5;text-align:left;font-family:'Times New Roman';font-weight:bold">
                 DAFTAR INVENTARIS
-                <br>LABORATORIUM {{ strtoupper(Auth::user()->tipe_user->laboratorium->lab()) }}
+                <br>LABORATORIUM {{ strtoupper(Auth::user()->laboratorium->lab()) }}
                 <br>SMA NEGERI 3 SIDOARJO
             </td>
             <td><img src="{{ $_SERVER['DOCUMENT_ROOT'].'/images/logo/sman3.png' }}" height="60"></td>
@@ -92,5 +92,7 @@
         </tbody>
     </table>
     @endif
+
+    <p>Dokumen ini dibuat pada {{ date('Y-m-d h:i:s') }}</p>
 
 </body>
