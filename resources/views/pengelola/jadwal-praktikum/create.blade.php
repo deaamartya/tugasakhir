@@ -75,7 +75,7 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <form id="create-jadwal" action="{{ route('pengelola.jadwal-praktikum.store') }}" name="create-praktikum" method="POST">
+                        <form id="create-jadwal" action="{{ route('pengelola.jadwal-praktikum.store') }}" name="create-praktikum" method="POST" class="overflow-hidden">
                             @csrf
 
                             <div class="form-group">
@@ -130,9 +130,11 @@
                                 </div>
                             </div>
 
-                            <div class="alert alert-danger" hidden id="alert-gagal"><i class="fa fa-exclamation-triangle mr-2"></i> Terdapat praktikum dengan ruang laboratorium pada tanggal dan jam diatas</div>
+                            <div class="form-row px-3">
+                                <div class="alert alert-danger animated pulse infinite" hidden id="alert-gagal"><i class="fa fa-exclamation-triangle mr-2"></i> Terdapat praktikum dengan ruang laboratorium pada tanggal dan jam diatas</div>
 
-                            <div class="alert alert-success" hidden id="alert-sukses"><i class="fa fa-check mr-2"></i>Ruang laboratorium dapat digunakan pada tanggal dan jam diatas</div>
+                                <div class="alert alert-success animated pulse" hidden id="alert-sukses"><i class="fa fa-check mr-2"></i>Ruang laboratorium dapat digunakan pada tanggal dan jam diatas</div>
+                            </div>
 
                             <button type="submit" class="btn btn-primary submit-btn" id="button-form-jadwal">Simpan</button>
                         </form>
@@ -211,7 +213,7 @@ $(document).ready(function(){
             ID_PRAKTIKUM: {
                 required: true,
             },
-            TANGGAL_PRAKTIKUM: {
+            TANGGAL_PEMINJAMAN: {
                 required: true,
             },
             JAM_MULAI: {
@@ -224,7 +226,7 @@ $(document).ready(function(){
         messages: {
             ID_LABORATORIUM: "Silahkan pilih ruang laboratorium",
             ID_MAPEL: "Silahkan pilih praktikum",
-            TANGGAL_PRAKTIKUM: "Silahkan isi tanggal praktikum",
+            TANGGAL_PEMINJAMAN: "Silahkan isi tanggal praktikum",
             JAM_MULAI: "Silahkan isi jam mulai praktikum",
             JAM_SELESAI: "Silahkan isi jam selesai praktikum",
         },
