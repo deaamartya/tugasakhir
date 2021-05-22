@@ -16,7 +16,7 @@ class BahanController extends Controller
         $page_title = 'Data Bahan';
         $page_description = 'Menampilkan seluruh data bahan';
         $action = 'table_datatable_basic';
-        $id_lab = Auth::user()->tipe_user->ID_LABORATORIUM;
+        $id_lab = Auth::user()->ID_LABORATORIUM;
         $lemari = Lemari::where('ID_LABORATORIUM',$id_lab)->get();
         $bahan = Bahan::join('lemari as le','le.ID_LEMARI','bahan.ID_LEMARI')->join('laboratorium as l','l.ID_LABORATORIUM','le.ID_LABORATORIUM')->where('l.ID_LABORATORIUM',$id_lab)->get();
         return view('pengelola.bahan', compact('page_title', 'page_description','action','bahan','lemari'));

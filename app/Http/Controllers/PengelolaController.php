@@ -20,7 +20,7 @@ class PengelolaController extends Controller
         $page_description = 'Some description for the page';
         $action = 'dashboard_1';
 
-        $id_lab = Auth::user()->tipe_user->ID_LABORATORIUM;
+        $id_lab = Auth::user()->ID_LABORATORIUM;
 
         $total_alat_bagus = Alat::join('katalog_alat as ka','ka.ID_KATALOG_ALAT','alat.ID_KATALOG_ALAT')->join('kategori_alat as kt','kt.ID_KATEGORI_ALAT','ka.ID_KATEGORI_ALAT')->where('kt.ID_LABORATORIUM',$id_lab)->sum('JUMLAH_BAGUS');
 

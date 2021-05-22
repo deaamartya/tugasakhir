@@ -56,7 +56,7 @@ class CetakController extends Controller
                 $page_description = 'Menampilkan kartu stok';
                 $action = 'uc_select2';
 
-                $id_lab = Auth::user()->tipe_user->ID_LABORATORIUM;
+                $id_lab = Auth::user()->ID_LABORATORIUM;
 
                 $tahunakademik = TahunAkademik::get();
                 $alat = Alat::select('*')->join('lemari as l','l.ID_LEMARI','alat.ID_LEMARI')->where('l.ID_LABORATORIUM',$id_lab)->get();
@@ -84,7 +84,7 @@ class CetakController extends Controller
                 $page_description = 'Menampilkan seluruh katalog lemari';
                 $action = 'uc_select2';
 
-                $id_lab = Auth::user()->tipe_user->ID_LABORATORIUM;
+                $id_lab = Auth::user()->ID_LABORATORIUM;
                 $lemari = Lemari::where('ID_LABORATORIUM',$id_lab)->get();
 
                 return view('pengelola.cetak-lemari', compact('page_title', 'page_description','action','lemari'));
@@ -137,7 +137,7 @@ class CetakController extends Controller
                 $page_description = 'Menampilkan pilihan tahun akademik';
                 $action = 'uc_select2';
 
-                $id_lab = Auth::user()->tipe_user->ID_LABORATORIUM;
+                $id_lab = Auth::user()->ID_LABORATORIUM;
 
                 $tahunakademik = TahunAkademik::get();
 
