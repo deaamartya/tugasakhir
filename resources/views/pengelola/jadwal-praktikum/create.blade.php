@@ -130,7 +130,11 @@
                                 </div>
                             </div>
 
-                            <button type="submit" class="btn btn-primary submit-btn">Simpan</button>
+                            <div class="alert alert-danger" hidden id="alert-gagal"><i class="fa fa-exclamation-triangle mr-2"></i> Terdapat praktikum dengan ruang laboratorium pada tanggal dan jam diatas</div>
+
+                            <div class="alert alert-success" hidden id="alert-sukses"><i class="fa fa-check mr-2"></i>Ruang laboratorium dapat digunakan pada tanggal dan jam diatas</div>
+
+                            <button type="submit" class="btn btn-primary submit-btn" id="button-form-jadwal">Simpan</button>
                         </form>
                     </div>
                 </div>
@@ -267,6 +271,37 @@ $(document).ready(function(){
                 $("#modal-peminjaman-"+calEvent.id_peminjaman).modal('toggle');
             }
         });
+    });
+
+    function checkRuang(tgl, id_ruang, jam_mulai, jam_selesai) {
+        $.get("{{ url('/pengelola/cekRuang') }}", { tgl: tgl, id_ruang: id_ruang, jam_mulai: jam_mulai, jam_selesai:jam_selesai }, function(result){
+            if(result){
+                $("#button-form-jadwal").attr('disabled',true);
+                $("#alert-gagal").attr('hidden',false);
+                $("#alert-sukses").attr('hidden',true);
+            } else {
+                $("#button-form-jadwal").attr('disabled',false);
+                $("#alert-gagal").attr('hidden',true);
+                $("#alert-sukses").attr('hidden',false);
+            }
+            console.log(result);
+        });
+    };
+
+    $("input").on('change', function(){
+        let tgl = $("input[name='TANGGAL_PEMINJAMAN_submit']").val();
+        let id_ruang = $("select[name='ID_RUANG_LABORATORIUM']").val();
+        let jam_mulai = $("input[name='JAM_MULAI']").val();
+        let jam_selesai = $("input[name='JAM_SELESAI']").val();
+        if((tgl != "" && id_ruang != "") && (jam_mulai != "" && jam_selesai != "")){
+            jam_mulai = jam_mulai.split(":");
+            jam_mulai =  parseInt(jam_mulai[0]*60)+parseInt(jam_mulai[1]);
+            jam_selesai = jam_selesai.split(":");
+            jam_selesai =  parseInt(jam_selesai[0]*60)+parseInt(jam_selesai[1]);
+            
+            checkRuang(tgl, id_ruang, jam_mulai, jam_selesai);
+        }
+        console.log(`tgl ${tgl}, id ruang ${id_ruang}, jam mulai ${jam_mulai}, jam selesai ${jam_selesai} `);
     });
 
     // $("#ID_PRAKTIKUM").on('change',function(){

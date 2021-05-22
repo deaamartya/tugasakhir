@@ -151,4 +151,32 @@ class JadwalPraktikumController extends Controller
 
         return $data;
     }
+
+    public function cekRuang(Request $request) {
+
+        $booked = PeminjamanAlatBahan::where([
+            'ID_RUANG_LABORATORIUM' => $request->id_ruang,
+            'TANGGAL_PEMINJAMAN' => $request->tgl
+        ])->get();
+
+        if(count($booked) > 0){
+            foreach($booked as $b){
+                $jam_mulai = $b->JAM_MULAI;
+                $jam_selesai = $b->JAM_SELESAI;
+
+                $jam_mulai = explode(":",$jam_mulai);
+                $jam_mulai = intval($jam_mulai[0]*60) + intval($jam_mulai[1]);
+
+                $jam_selesai = explode(":",$jam_selesai);
+                $jam_selesai = intval($jam_selesai[0]*60) + intval($jam_selesai[1]);
+
+                if($jam_mulai > $request->jam_selesai || $jam_selesai < $request->jam_mulai){
+                    return response()->json(false);
+                }
+            }
+        }
+        
+        return response()->json(true);
+
+    }
 }

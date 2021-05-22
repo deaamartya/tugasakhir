@@ -57,6 +57,7 @@ Route::middleware(['auth','cekPengelola'])->prefix('pengelola')->name('pengelola
     Route::resource('jadwal-praktikum','App\Http\Controllers\Pengelola\JadwalPraktikumController');
     Route::get('datapraktikum','App\Http\Controllers\Pengelola\JadwalPraktikumController@seluruhJadwal');
     Route::post('jadwal-praktikum/datapraktikum-nama','App\Http\Controllers\Pengelola\JadwalPraktikumController@seluruhJadwalNama');
+    Route::get('cekRuang','App\Http\Controllers\Pengelola\JadwalPraktikumController@cekRuang');
 
     Route::resource('penjadwalan-ulang','App\Http\Controllers\Pengelola\PenjadwalanUlangController');
 
