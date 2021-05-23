@@ -39,6 +39,7 @@ Route::middleware(['auth','cekPengelola'])->prefix('pengelola')->name('pengelola
     Route::resource('alat','App\Http\Controllers\Pengelola\AlatController');
     Route::post('alat/update','App\Http\Controllers\Pengelola\AlatController@update')->name('alat.update');
     Route::post('alat/destroy','App\Http\Controllers\Pengelola\AlatController@destroy')->name('alat.destroy');
+    Route::post('alat/updateStock','App\Http\Controllers\Pengelola\AlatController@updateStock')->name('alat.updateStock');
 
     Route::resource('katalog-bahan','App\Http\Controllers\Pengelola\KatalogBahanController');
     Route::post('katalog-bahan/update','App\Http\Controllers\Pengelola\KatalogBahanController@update')->name('katalog-bahan.update');

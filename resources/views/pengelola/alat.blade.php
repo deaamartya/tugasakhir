@@ -105,7 +105,7 @@
                                     <td>
                                         <div class="d-flex">
                                             <button type="button" class="btn btn-primary shadow btn-xs sharp mr-1" data-toggle="modal" data-target="#modal-edit-{{ $loop->index }}"><i class="fa fa-pencil"></i></button>
-                                            <!-- <button type="button" class="btn btn-danger shadow btn-xs sharp" data-toggle="modal" data-target="#modal-delete-{{ $loop->index }}"><i class="fa fa-trash"></i></button> -->
+                                            <button type="button" class="btn btn-danger shadow btn-xs sharp" data-toggle="modal" data-target="#modal-tambah-{{ $loop->index }}"><i class="fa fa-plus"></i></button>
                                         </div>												
                                     </td>											
                                 </tr>
@@ -259,20 +259,34 @@
 {{-- End of Edit Modal --}}
 
 {{-- Delete Modal --}}
-<div class="modal fade" id="modal-delete-{{ $loop->index }}">
+<div class="modal fade" id="modal-tambah-{{ $loop->index }}">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Delete Alat #{{ $d->ID_ALAT }}</h5>
+                <h5 class="modal-title">Tambah Stok Alat #{{ $d->ID_ALAT }}</h5>
                 <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('pengelola.alat.destroy') }}" method="POST">
-                    @method('DELETE')
+                <form action="{{ route('pengelola.alat.updateStock') }}" method="POST">
                     @csrf
-                    Apakah anda yakin ingin menghapus alat {{ $d->katalog_alat->NAMA_ALAT }} {{$d->katalog_alat->UKURAN}} ?
                     <input type="hidden" name="ID_ALAT_LAMA" value="{{ $d->ID_ALAT }}">
+                    <div class="form-group">
+                        <label>Jumlah Bagus</label>
+                        <input type="number" class="form-control @error('JUMLAH_BAGUS') is-invalid @enderror" id="JUMLAH_BAGUS" name="JUMLAH_BAGUS" min="0" value="0">
+                        <div class="invalid-feedback animated fadeInUp">
+                            Jumlah bagus harus diisi
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Jumlah Rusak</label>
+                        <input type="number" class="form-control @error('JUMLAH_RUSAK') is-invalid @enderror" id="JUMLAH_RUSAK" name="JUMLAH_RUSAK" min="0" value="0">
+                        <div class="invalid-feedback animated fadeInUp">
+                            Jumlah rusak harus diisi
+                        </div>
+                    </div>
+
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger light" data-dismiss="modal">Tidak, batalkan.</button>
                         <button type="submit" class="btn btn-primary">Ya</button>

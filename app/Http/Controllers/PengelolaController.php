@@ -11,6 +11,7 @@ use App\Models\Praktikum;
 use App\Models\HistoriStok;
 use Auth;
 use DB;
+use App\Models\PerubahanJadwalPeminjaman;
 
 class PengelolaController extends Controller
 {
@@ -39,7 +40,24 @@ class PengelolaController extends Controller
         $dikembalikan = PeminjamanAlatBahan::join('ruang_laboratorium as l','l.ID_RUANG_LABORATORIUM','peminjaman_alat_bahan.ID_RUANG_LABORATORIUM')->where('l.ID_LABORATORIUM',$id_lab)->where('STATUS_PEMINJAMAN','SUDAH DIKEMBALIKAN')->count('ID_PRAKTIKUM');
 
         $total_peminjaman = Praktikum::where('ID_LABORATORIUM',$id_lab)->count('ID_PRAKTIKUM');
+        $tahun = date('Y');
+        if(date('m') >= 6 ){
+            $tgl_awal_semester = $tahun.'-06-01';
+            $tgl_akhir_semester = $tahun.'-12-31';
+        }
+        else {
+            $tgl_awal_semester = $tahun.'-01-01';
+            $tgl_akhir_semester = $tahun.'-05-31';
+        }
+        $tgl_awal_tahun = $tahun.'-01-01';
+        $tgl_akhir_tahun = $tahun.'-12-31';
 
-        return view('pengelola.dashboard', compact('page_title', 'page_description','action','total_alat_bagus','total_alat_rusak','total_bahan','total_bahan_kimia','menunggu_penjadwalan','sedang_pinjam','dikembalikan','total_peminjaman'));
+        $beban_lab_semester = PeminjamanAlatBahan::join('ruang_laboratorium as l','l.ID_RUANG_LABORATORIUM','peminjaman_alat_bahan.ID_RUANG_LABORATORIUM')->where('l.ID_LABORATORIUM',$id_lab)->whereBetween(DB::raw('DATE(TANGGAL_PEMINJAMAN)'), [$tgl_awal_semester, $tgl_akhir_semester])->count('ID_PEMINJAMAN');
+
+        $beban_lab_tahun = PeminjamanAlatBahan::join('ruang_laboratorium as l','l.ID_RUANG_LABORATORIUM','peminjaman_alat_bahan.ID_RUANG_LABORATORIUM')->where('l.ID_LABORATORIUM',$id_lab)->whereBetween(DB::raw('DATE(TANGGAL_PEMINJAMAN)'), [$tgl_awal_tahun, $tgl_akhir_tahun])->count('ID_PEMINJAMAN');
+
+        $jadwal_ulang = PerubahanJadwalPeminjaman::join('peminjaman_alat_bahan as p','p.ID_PEMINJAMAN','perubahan_jadwal_peminjaman.ID_PEMINJAMAN')->join('ruang_laboratorium as l','l.ID_RUANG_LABORATORIUM','p.ID_RUANG_LABORATORIUM')->where('l.ID_LABORATORIUM',$id_lab)->where('STATUS_PERUBAHAN',0)->count('ID_PERUBAHAN_JADWAL');
+
+        return view('pengelola.dashboard', compact('page_title', 'page_description','action','total_alat_bagus','total_alat_rusak','total_bahan','total_bahan_kimia','menunggu_penjadwalan','sedang_pinjam','dikembalikan','total_peminjaman','beban_lab_semester','beban_lab_tahun','jadwal_ulang'));
     }
 }

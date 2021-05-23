@@ -10,6 +10,7 @@ use App\Models\MerkTipeAlat;
 use App\Models\Alat;
 use Auth;
 use DB;
+use App\Models\HistoriStok;
 
 class AlatController extends Controller
 {
@@ -18,7 +19,7 @@ class AlatController extends Controller
         $page_title = 'Data Alat';
         $page_description = 'Menampilkan seluruh data alat';
         $action = 'table_datatable_basic';
-        $id_lab = Auth::user()->tipe_user->ID_LABORATORIUM;
+        $id_lab = Auth::user()->ID_LABORATORIUM;
         $lemari = Lemari::where('ID_LABORATORIUM',$id_lab)->get();
         $katalog = KatalogAlat::all();
         $tipe = MerkTipeAlat::all();
@@ -67,8 +68,6 @@ class AlatController extends Controller
             'ID_LEMARI' => 'required|exists:App\Models\Lemari,ID_LEMARI',
             'ID_MERK_TIPE' => 'required|exists:App\Models\MerkTipeAlat,ID_MERK_TIPE',
             'ID_KATALOG_ALAT' => 'required|exists:App\Models\KatalogAlat,ID_KATALOG_ALAT',
-            'JUMLAH_BAGUS' => 'required',
-            'JUMLAH_RUSAK' => 'required'
         ]);
 
         $alat = Alat::find($request->ID_ALAT_LAMA);
@@ -79,6 +78,42 @@ class AlatController extends Controller
             'JUMLAH_BAGUS' => $request->JUMLAH_BAGUS,
             'JUMLAH_RUSAK' => $request->JUMLAH_RUSAK
         ]);
+        
+        return redirect()->route('pengelola.alat.index')->with('updated','Data berhasil diubah');
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function updateStock(Request $request)
+    {
+        $request->validate([
+            'JUMLAH_BAGUS' => 'required',
+            'JUMLAH_RUSAK' => 'required'
+        ]);
+        
+        $data_stok_alat[] = [
+            'ID_TIPE' => 1,
+            'ID_ALAT_BAHAN' => $request->ID_ALAT_LAMA,
+            'JUMLAH_KELUAR' => 0,
+            'JUMLAH_MASUK' => $request->JUMLAH_BAGUS,
+            'KONDISI' => 1,
+            'KETERANGAN' => "Stok dari pengadaan"
+        ];
+        $data_stok_alat[] = [
+            'ID_TIPE' => 1,
+            'ID_ALAT_BAHAN' => $request->ID_ALAT_LAMA,
+            'JUMLAH_KELUAR' => 0,
+            'JUMLAH_MASUK' => $request->JUMLAH_RUSAK,
+            'KONDISI' => 0,
+            'KETERANGAN' => "Stok dari pengadaan"
+        ];
+
+        HistoriStok::insert($data_stok_alat);
         
         return redirect()->route('pengelola.alat.index')->with('updated','Data berhasil diubah');
     }

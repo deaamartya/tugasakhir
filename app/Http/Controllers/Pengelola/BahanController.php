@@ -76,10 +76,35 @@ class BahanController extends Controller
             'ID_BAHAN' => $request->ID_BAHAN,
             'ID_LEMARI' => $request->ID_LEMARI,
             'NAMA_BAHAN' => $request->NAMA_BAHAN,
-            'JUMLAH' => $request->JUMLAH,
         ]);
         
         return redirect()->route('pengelola.bahan.index')->with('updated','Data berhasil diubah');
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function updateStock(Request $request)
+    {
+        $request->validate([
+            'JUMLAH' => 'required|min:1|integer',
+        ]);
+
+        $data_stok_bahan = [
+            'ID_TIPE' => 2,
+            'ID_ALAT_BAHAN' => $request->ID_BAHAN_LAMA,
+            'JUMLAH_KELUAR' => 0,
+            'JUMLAH_MASUK' => $request->JUMLAH,
+            'KETERANGAN' => "Stok dari pengadaan"
+        ];
+
+        HistoriStok::insert($data_stok_bahan);
+        
+        return redirect()->route('pengelola.alat.index')->with('updated','Data berhasil diubah');
     }
 
     /**
