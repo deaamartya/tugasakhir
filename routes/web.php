@@ -83,6 +83,7 @@ Route::middleware(['auth','cekPengelola'])->prefix('pengelola')->name('pengelola
 });
 
 Route::get('notifications','App\Http\Controllers\NotificationController@index')->name('notification.index');
+Route::get('notifications/unread','App\Http\Controllers\NotificationController@index')->name('notification.unread');
 
 Route::get('cekusername/{username}', function($username){
     $hasil = User::where('username',$username)->exists() ? true : false;

@@ -27,6 +27,15 @@ class NotificationController extends Controller
 
     public function index()
     {
+        $page_title = 'Email Inbox';
+        $page_description = 'Some description for the page';
+		
+		$action = 'email_inbox';
+        $notifications = Auth::user()->notifications()->paginate(15);
+        $unread = Auth::user()->unreadNotifications()->paginate(15);
 
+        // dd($unread);
+
+        return view('notifications',compact('page_title','page_description','action','notifications','unread'));
     }
 }
