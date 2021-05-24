@@ -14,7 +14,7 @@ class GuruController extends Controller
     public function dashboard()
     {
         $page_title = 'Dashboard';
-        $page_description = 'Some description for the page';
+        $page_description = 'Dashboard Guru';
         $action = 'dashboard_1';
 
         $id_lab = Auth::user()->ID_LABORATORIUM;

@@ -35,15 +35,21 @@ class PraktikumController extends Controller
 
     public function index()
     {
-        $page_title = 'Praktikum Kelas Saya';
+        $page_title = 'Data Praktikum';
         $page_description = 'Data praktikum guru';
         $action = 'app_calender';
-        $id_guru = Auth::user()->ID_USER;
-        $praktikum = PeminjamanAlatBahan::join('praktikum as pr','pr.ID_PRAKTIKUM','=','peminjaman_alat_bahan.ID_PRAKTIKUM')
-        ->join('kelas as k','k.ID_KELAS','=','pr.ID_KELAS')
-        ->where('k.ID_USER','=',$id_guru)
+
+        $praktikum = PeminjamanAlatBahan::
+        join('ruang_laboratorium as l','l.ID_RUANG_LABORATORIUM','peminjaman_alat_bahan.ID_RUANG_LABORATORIUM')
+        ->where('l.ID_LABORATORIUM',Auth::user()->ID_LABORATORIUM)
+        ->join('praktikum as p','p.ID_PRAKTIKUM','peminjaman_alat_bahan.ID_PRAKTIKUM')
+        ->join('kelas as k','k.ID_KELAS','p.ID_KELAS')
+        ->where('k.ID_USER',Auth::user()->ID_USER)
         ->where('k.ID_TAHUN_AKADEMIK',$this->tahun_akademik)
+        ->where('STATUS_PEMINJAMAN','MENUNGGU KONFIRMASI')
+        ->orderBy('TANGGAL_PEMINJAMAN','ASC')
         ->get();
+
         return view('guru.praktikum', compact('page_title', 'page_description','action','praktikum'));
     }
 
@@ -111,6 +117,7 @@ class PraktikumController extends Controller
         ->where('k.ID_TAHUN_AKADEMIK',$this->tahun_akademik)
         ->where('r.ID_LABORATORIUM','=',$id_lab)
         ->where('p.NAMA_PRAKTIKUM','LIKE',"%".$praktikum->NAMA_PRAKTIKUM."%")->get();
+        
         $i = 0;
         foreach($peminjaman as $p)
         {

@@ -21,14 +21,8 @@
     <div class="row page-titles mx-0">
         <div class="col-sm-6 p-md-0">
             <div class="welcome-text">
-                <h4>Hi, @auth {{ Auth::user()->NAMA_LENGKAP }} @endif</h4>
+                <h4>Data Praktikum Kelas Saya</h4>
             </div>
-        </div>
-        <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="javascript:void(0)">Akademik</a></li>
-                <li class="breadcrumb-item active"><a href="javascript:void(0)">Data Praktikum Kelas Saya</a></li>
-            </ol>
         </div>
     </div>
     <!-- row -->
@@ -86,7 +80,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Praktikum</h4>
+                    <h4 class="card-title">Praktikum Akan Datang</h4>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -118,7 +112,7 @@
                                         </div>	
                                         @else
                                             @if($d->perubahan_jadwal_peminjamen->STATUS_PERUBAHAN == 0)
-                                                JADWAL BELUM DIUBAH
+                                                MENUNGGU JAWABAN PENGELOLA
                                             @else
                                                 JADWAL SUDAH DIUBAH
                                             @endif
@@ -144,21 +138,29 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div class="row">
+                <div class="row mb-2">
                     <div class="col-4">Nama Prakt.</div>
-                    <div class="col-8">{{ $p->praktikum->NAMA_PRAKTIKUM }}</div>
+                    <div class="col-8">: {{ $p->praktikum->NAMA_PRAKTIKUM }}</div>
                 </div>
-                <div class="row">
+                <div class="row mb-2">
                     <div class="col-4">Jadwal Prakt.</div>
-                    <div class="col-8">{{ $p->TANGGAL_PEMINJAMAN }} {{$p->JAM_MULAI}} - {{ $p->JAM_SELESAI }}</div>
+                    <div class="col-8">: {{ $p->TANGGAL_PEMINJAMAN }} {{$p->JAM_MULAI}} - {{ $p->JAM_SELESAI }}</div>
                 </div>
-                <div class="row">
+                <div class="row mb-2">
                     <div class="col-4">Kelas</div>
-                    <div class="col-8">{{ $p->praktikum->kelas->jenis_kelas->NAMA_JENIS_KELAS }}</div>
+                    <div class="col-8">: {{ $p->praktikum->kelas->jenis_kelas->NAMA_JENIS_KELAS }}</div>
                 </div>
-                <div class="row">
+                <div class="row mb-2">
                     <div class="col-4">Guru</div>
-                    <div class="col-8">{{ $p->praktikum->kelas->guru->NAMA_LENGKAP }}</div>
+                    <div class="col-8">: {{ $p->praktikum->kelas->guru->NAMA_LENGKAP }}</div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-4">Tahun Akademik</div>
+                    <div class="col-8">: {{ $p->praktikum->kelas->tahun_akademik->TAHUN_AKADEMIK }}</div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-4">Status</div>
+                    <div class="col-8">: {{ $p->STATUS_PEMINJAMAN }}</div>
                 </div>
             </div>
         </div>
