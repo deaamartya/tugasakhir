@@ -7,9 +7,32 @@ use Illuminate\Http\Request;
 use App\Models\PeminjamanAlatBahan;
 use DB;
 use Auth;
+use App\Models\TahunAkademik;
 
 class PraktikumController extends Controller
 {
+    private $tahun;
+    private $tahunp1;
+    private $tahunm1;
+    private $tahun_akademik;
+
+    public function __construct()
+    {
+        $this->tahun = intval(date('Y'));
+        $this->tahunp1 = $this->tahun+1;
+        $this->tahunm1 = $this->tahun-1;
+
+        $tahun_akademik;
+        if(date('m') >= 6 ){
+            $tahun_akademik = $this->tahun.'/'.$this->tahunp1.' Ganjil';
+        }
+        else {
+            $tahun_akademik = $this->tahunm1.'/'.$this->tahun.' Genap';
+        }
+    
+        $this->tahun_akademik = TahunAkademik::where('TAHUN_AKADEMIK',$tahun_akademik)->value('ID_TAHUN_AKADEMIK');
+    }
+
     public function index()
     {
         $page_title = 'Praktikum Kelas Saya';
@@ -18,20 +41,24 @@ class PraktikumController extends Controller
         $id_guru = Auth::user()->ID_USER;
         $praktikum = PeminjamanAlatBahan::join('praktikum as pr','pr.ID_PRAKTIKUM','=','peminjaman_alat_bahan.ID_PRAKTIKUM')
         ->join('kelas as k','k.ID_KELAS','=','pr.ID_KELAS')
-        ->where('k.ID_USER','=',$id_guru)->get();
+        ->where('k.ID_USER','=',$id_guru)
+        ->where('k.ID_TAHUN_AKADEMIK',$this->tahun_akademik)
+        ->get();
         return view('guru.praktikum', compact('page_title', 'page_description','action','praktikum'));
     }
 
     public function seluruhJadwal()
     {
         $data = [];
-        $id_lab = 1;
+        $id_lab = Auth::user()->ID_LABORATORIUM;
         $id_guru = Auth::user()->ID_USER;
         $peminjaman = PeminjamanAlatBahan::join('ruang_laboratorium as r','r.ID_RUANG_LABORATORIUM','peminjaman_alat_bahan.ID_RUANG_LABORATORIUM')
         ->join('praktikum as p','p.ID_PRAKTIKUM','=','peminjaman_alat_bahan.ID_PRAKTIKUM')
         ->join('kelas as k','p.ID_KELAS','=','k.ID_KELAS')
         ->where('k.ID_USER','=',$id_guru)
+        ->where('k.ID_TAHUN_AKADEMIK',$this->tahun_akademik)
         ->where('r.ID_LABORATORIUM','=',$id_lab)->get();
+        
         $i = 0;
         foreach($peminjaman as $p)
         {
@@ -74,13 +101,14 @@ class PraktikumController extends Controller
     {
         $data = [];
         $praktikum = Praktikum::find($request->prakt);
-        $id_lab = 1;
+        $id_lab = Auth::user()->ID_LABORATORIUM;
         $id_guru = Auth::user()->ID_USER;
         $peminjaman = PeminjamanAlatBahan::join('praktikum as p','p.ID_PRAKTIKUM','=','peminjaman_alat_bahan.ID_PRAKTIKUM')
         ->join('ruang_laboratorium as r','r.ID_RUANG_LABORATORIUM','peminjaman_alat_bahan.ID_RUANG_LABORATORIUM')
         ->join('praktikum as p','p.ID_PRAKTIKUM','=','peminjaman_alat_bahan.ID_PRAKTIKUM')
         ->join('kelas as k','p.ID_KELAS','=','k.ID_KELAS')
         ->where('k.ID_USER','=',$id_guru)
+        ->where('k.ID_TAHUN_AKADEMIK',$this->tahun_akademik)
         ->where('r.ID_LABORATORIUM','=',$id_lab)
         ->where('p.NAMA_PRAKTIKUM','LIKE',"%".$praktikum->NAMA_PRAKTIKUM."%")->get();
         $i = 0;
