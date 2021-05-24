@@ -10,7 +10,6 @@
 	<meta name="description" content="@yield('page_description', $page_description ?? '')"/>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('images/logo.png') }}">
-	
 	@if(!empty(config('dz.public.pagelevel.css.'.$action))) 
 		@foreach(config('dz.public.pagelevel.css.'.$action) as $style)
 				<link href="{{ asset($style) }}" rel="stylesheet" type="text/css"/>
@@ -23,6 +22,7 @@
 			<link href="{{ asset($style) }}" rel="stylesheet" type="text/css"/>
 		@endforeach
 	@endif
+    <link href="{{ asset('vendor/aos/css/aos.min.css') }}" rel="stylesheet">
 
     <style>
         .form-control {
@@ -150,6 +150,10 @@
         Scripts
     ***********************************-->
 	@include('elements.footer-scripts')
+    <script src="{{ asset('vendor/aos/js/aos.min.js') }}"></script>
+    <script>
+        AOS.init();
+    </script>
     @yield('tambahan-script')
 </body>
 </html>
