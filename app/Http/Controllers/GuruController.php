@@ -50,7 +50,7 @@ class GuruController extends Controller
         ->join('kelas as k','k.ID_KELAS','p.ID_KELAS')
         ->where('k.ID_USER',Auth::user()->ID_USER)
         ->where('k.ID_TAHUN_AKADEMIK',$tahun_akademik->ID_TAHUN_AKADEMIK)
-        ->where('STATUS_PEMINJAMAN','MENUNGGU DIKONFIRMASI')
+        ->where('STATUS_PEMINJAMAN','MENUNGGU KONFIRMASI')
         ->count('ID_PEMINJAMAN');
 
         // Ambil semua praktikum guru dalam semester.
