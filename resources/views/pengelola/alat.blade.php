@@ -287,6 +287,14 @@
                         </div>
                     </div>
 
+                    <div class="form-group">
+                        <label>Keterangan</label>
+                        <input type="number" class="form-control @error('KETERANGAN') is-invalid @enderror" id="KETERANGAN" name="KETERANGAN" min="0" value="0">
+                        <div class="invalid-feedback animated fadeInUp">
+                            Keterangan harus diisi
+                        </div>
+                    </div>
+
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger light" data-dismiss="modal">Tidak, batalkan.</button>
                         <button type="submit" class="btn btn-primary">Ya</button>

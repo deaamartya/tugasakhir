@@ -51,6 +51,34 @@ class AlatController extends Controller
                 'JUMLAH_BAGUS' => $request->JUMLAH_BAGUS,
                 'JUMLAH_RUSAK' => $request->JUMLAH_RUSAK
             ]);
+
+            $id_alat = Alat::where([
+                'ID_LEMARI' => $request->ID_LEMARI,
+                'ID_MERK_TIPE' => $request->ID_MERK_TIPE,
+                'ID_KATALOG_ALAT' => $request->ID_KATALOG_ALAT,
+                'JUMLAH_BAGUS' => $request->JUMLAH_BAGUS,
+                'JUMLAH_RUSAK' => $request->JUMLAH_RUSAK
+            ])->value('ID_ALAT');
+
+            $data_stok_alat[] = [
+                'ID_TIPE' => 1,
+                'ID_ALAT_BAHAN' => $id_alat,
+                'JUMLAH_KELUAR' => 0,
+                'JUMLAH_MASUK' => $request->JUMLAH_BAGUS,
+                'KONDISI' => 1,
+                'KETERANGAN' => "Stok awal"
+            ];
+
+            $data_stok_alat[] = [
+                'ID_TIPE' => 1,
+                'ID_ALAT_BAHAN' => $id_alat,
+                'JUMLAH_KELUAR' => 0,
+                'JUMLAH_MASUK' => $request->JUMLAH_RUSAK,
+                'KONDISI' => 0,
+                'KETERANGAN' => "Stok awal"
+            ];
+    
+            HistoriStok::insert($data_stok_alat);
         });
         return redirect()->route('pengelola.alat.index')->with('created','Data berhasil dibuat');
     }
@@ -93,7 +121,8 @@ class AlatController extends Controller
     {
         $request->validate([
             'JUMLAH_BAGUS' => 'required',
-            'JUMLAH_RUSAK' => 'required'
+            'JUMLAH_RUSAK' => 'required',
+            'KETERANGAN' => 'required'
         ]);
         
         $data_stok_alat[] = [
@@ -102,7 +131,7 @@ class AlatController extends Controller
             'JUMLAH_KELUAR' => 0,
             'JUMLAH_MASUK' => $request->JUMLAH_BAGUS,
             'KONDISI' => 1,
-            'KETERANGAN' => "Stok dari pengadaan"
+            'KETERANGAN' => $request->KETERANGAN
         ];
         $data_stok_alat[] = [
             'ID_TIPE' => 1,
@@ -110,7 +139,7 @@ class AlatController extends Controller
             'JUMLAH_KELUAR' => 0,
             'JUMLAH_MASUK' => $request->JUMLAH_RUSAK,
             'KONDISI' => 0,
-            'KETERANGAN' => "Stok dari pengadaan"
+            'KETERANGAN' => $request->KETERANGAN
         ];
 
         HistoriStok::insert($data_stok_alat);
