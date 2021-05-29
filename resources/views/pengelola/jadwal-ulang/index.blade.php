@@ -81,7 +81,7 @@
                                     <td> {{ $loop->iteration }} </td>
                                     <td> {{ $d->NAMA_PRAKTIKUM }} </td>
                                     <td> {{ $d->NAMA_JENIS_KELAS }} </td>
-                                    <td> @if($d->STATUS_PERUBAHAN == 0) Belum dirubah @else Sudah dirubah @endif </td>
+                                    <td> @if($d->STATUS_PERUBAHAN == 0) Belum diubah @else Sudah diubah @endif </td>
                                     <td> 
                                         @if($d->STATUS_PERUBAHAN == 0)
                                         <a href="{{ route('pengelola.penjadwalan-ulang.edit',$d->ID_PERUBAHAN_JADWAL) }}">
