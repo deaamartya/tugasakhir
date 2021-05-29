@@ -1,6 +1,6 @@
 <div class="deznav">
     <div class="deznav-scroll">
-        @if(Request::segment(1) == "admin")
+        @if(Request::segment(1) == "admin" || Auth::user()->tipe_user->NAMA_TIPE_USER == 'Admin')
         <ul class="metismenu" id="menu">
             <li><a href="{!! route('admin.dashboard'); !!}" class="ai-icon" aria-expanded="false">
                     <i class="flaticon-381-settings-2"></i>
@@ -30,7 +30,7 @@
                 </ul>
             </li>
         </ul>
-        @elseif(Request::segment(1) == "guru")
+        @elseif(Request::segment(1) == "guru" || Auth::user()->tipe_user->NAMA_TIPE_USER == 'Guru')
         <ul class="metismenu" id="menu">
             <li><a href="{!! route('guru.dashboard'); !!}" class="ai-icon" aria-expanded="false">
                     <i class="flaticon-381-home-2"></i>
@@ -48,7 +48,7 @@
                 </a>
             </li>
         </ul>
-        @elseif(Request::segment(1) == "pengelola")
+        @elseif(Request::segment(1) == "pengelola" || (strpos(Auth::user()->tipe_user->NAMA_TIPE_USER,'Pengelola') > -1))
         <ul class="metismenu" id="menu">
             <li><a href="{!! route('pengelola.dashboard'); !!}" class="ai-icon" aria-expanded="false">
                     <i class="flaticon-381-settings-2"></i>
