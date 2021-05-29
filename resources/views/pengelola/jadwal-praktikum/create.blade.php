@@ -276,8 +276,8 @@ $(document).ready(function(){
     });
 
     function checkRuang(tgl, id_ruang, jam_mulai, jam_selesai) {
-        $.get("{{ url('/pengelola/cekRuang') }}", { tgl: tgl, id_ruang: id_ruang, jam_mulai: jam_mulai, jam_selesai:jam_selesai }, function(result){
-            if(result){
+        $.get("{{ url('/pengelola/cekRuang') }}", { tgl: tgl, id_ruang: id_ruang, jam_mulai: jam_mulai, jam_selesai:jam_selesai }, function(booked){
+            if(booked){
                 $("#button-form-jadwal").attr('disabled',true);
                 $("#alert-gagal").attr('hidden',false);
                 $("#alert-sukses").attr('hidden',true);
@@ -286,7 +286,7 @@ $(document).ready(function(){
                 $("#alert-gagal").attr('hidden',true);
                 $("#alert-sukses").attr('hidden',false);
             }
-            console.log(result);
+            console.log(booked);
         });
     };
 

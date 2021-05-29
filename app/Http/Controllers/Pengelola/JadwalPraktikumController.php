@@ -173,10 +173,12 @@ class JadwalPraktikumController extends Controller
                 if($jam_mulai > $request->jam_selesai || $jam_selesai < $request->jam_mulai){
                     return response()->json(false);
                 }
+                else {
+                    return response()->json(true);
+                }
             }
+        } else {
+            return response()->json(false);
         }
-        
-        return response()->json(true);
-
     }
 }
