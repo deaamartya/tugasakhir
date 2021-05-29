@@ -289,7 +289,7 @@
 
                     <div class="form-group">
                         <label>Keterangan</label>
-                        <input type="number" class="form-control @error('KETERANGAN') is-invalid @enderror" id="KETERANGAN" name="KETERANGAN" min="0" value="0">
+                        <input type="text" class="form-control @error('KETERANGAN') is-invalid @enderror" id="KETERANGAN" name="KETERANGAN" value="Stok tambahan dari pengadaan">
                         <div class="invalid-feedback animated fadeInUp">
                             Keterangan harus diisi
                         </div>
