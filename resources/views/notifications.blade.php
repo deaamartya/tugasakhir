@@ -43,9 +43,14 @@
                               <div class="row justify-content-between px-3 align-items-center">
                                 <div class="col-md-9 col-12 @if(!$n->read_at)text-black @else text-muted @endif">{{ $isi }}</div>
                                 @if(!$n->read_at)
-                                <div  class="col-md-3 col-12 text-underline mt-md-0 mt-2 text-right">
+                                <div class="col-md-3 col-12 text-underline mt-md-0 mt-2 text-right">
                                   <a href="{{ url($url) }}">
-                                    Jadwalkan Ulang<i class="la la-angle-right text-right ml-2"></i>
+                                    @php if(Auth::user()->ID_TIPE_USER != 5){ 
+                                      echo "Jadwalkan Ulang";
+                                    } else {
+                                      echo "Lihat Jadwal";
+                                    }
+                                    @endphp<i class="la la-angle-right text-right ml-2"></i>
                                   </a>
                                 </div>
                                 @endif
@@ -77,7 +82,12 @@
                                 @if(!$n->read_at)
                                 <div  class="col-md-3 col-12 text-underline mt-md-0 mt-2 text-right">
                                   <a href="{{ url($url) }}">
-                                    Jadwalkan Ulang<i class="la la-angle-right text-right ml-2"></i>
+                                    @php if(Auth::user()->ID_TIPE_USER != 5){ 
+                                      echo "Jadwalkan Ulang";
+                                    } else {
+                                      echo "Lihat Jadwal";
+                                    }
+                                    @endphp<i class="la la-angle-right text-right ml-2"></i>
                                   </a>
                                 </div>
                                 @endif

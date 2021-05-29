@@ -27,7 +27,7 @@ class NotificationController extends Controller
 
     public function index()
     {
-        $page_title = 'Email Inbox';
+        $page_title = 'Notifikasi';
         $page_description = 'Some description for the page';
 		
 		$action = 'email_inbox';
