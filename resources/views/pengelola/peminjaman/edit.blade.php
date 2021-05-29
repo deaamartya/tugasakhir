@@ -125,8 +125,8 @@
                                             <td width="50%">{{ $a->alat->ID_ALAT }} {{ $a->alat->merk_tipe_alat->NAMA_MERK_TIPE }} {{ $a->alat->katalog_alat->NAMA_ALAT }} {{ $a->alat->katalog_alat->UKURAN }}</td>
                                             <td width="20%">{{ $a->alat->JUMLAH_BAGUS }}pcs</td>
                                             <input type="hidden" value="{{ $a->alat->ID_ALAT }}" name="id_alat[{{$i}}]">
-                                            <td width="15%"><input style="width:100%" type="number" value="{{ $a->JUMLAH }}" class="jumlah_alat"></td>
-                                            <td width="15%"><input style="width:100%" type="number" name="jumlah_alat[{{$i}}]" class="total_alat" id="t_alat-{{$i}}" readonly></td>
+                                            <td width="15%"><input style="width:100%" type="number" value="{{ $a->JUMLAH }}" class="jumlah_alat border-0"></td>
+                                            <td width="15%"><input style="width:100%" type="number" name="jumlah_alat[{{$i}}]" class="total_alat border-0" id="t_alat-{{$i}}" readonly></td>
                                         </tr>
                                         @php $i++; @endphp
                                         @endif
@@ -149,8 +149,8 @@
                                             <td width="50%">{{ $a->bahan->ID_BAHAN }} {{ $a->bahan->NAMA_BAHAN }}</td>
                                             <input type="hidden" value="{{ $a->bahan->ID_BAHAN }}" name="id_bahan[{{$i}}]">
                                             <td width="20%">{{ $a->bahan->JUMLAH }}pcs</td>
-                                            <td width="15%"><input type="number" style="width:100%" value="{{ $a->JUMLAH }}" class="jumlah_bahan"></td>
-                                            <td width="15%"><input style="width:100%" type="number" name="jumlah_bahan[{{$i}}]" class="total_bahan_kimia" id="t_bahan-{{$i}}" readonly></td>
+                                            <td width="15%"><input type="number" style="width:100%" value="{{ $a->JUMLAH }}" class="jumlah_bahan border-0"></td>
+                                            <td width="15%"><input style="width:100%" type="number" name="jumlah_bahan[{{$i}}]" class="total_bahan_kimia border-0" id="t_bahan-{{$i}}" readonly></td>
                                         </tr>
                                         @php $i++; @endphp
                                         @endif
@@ -174,9 +174,9 @@
                                                 <td width="20%">{{ $a->bahan_kimia->JUMLAH_BAHAN_KIMIA }}gr</td>
                                                 <input type="hidden" value="{{ $a->bahan_kimia->ID_BAHAN_KIMIA }}" name="id_bahan_kimia[{{$i}}]">
                                                 <td width="15%">
-                                                <input style="width:100%" type="number" value="{{ $a->JUMLAH }}" class="jumlah_bahan_kimia"></td>
+                                                <input style="width:100%" type="number" value="{{ $a->JUMLAH }}" class="jumlah_bahan_kimia border-0"></td>
                                                 <td width="15%">
-                                                <input style="width:100%" type="number" name="jumlah_bahan_kimia[{{$i}}]" class="total_bahan_kimia" id="t_bahan_kimia-{{$i}}" readonly></td>
+                                                <input style="width:100%" type="number" name="jumlah_bahan_kimia[{{$i}}]" class="total_bahan_kimia border-0" id="t_bahan_kimia-{{$i}}" readonly></td>
                                             </tr>
                                         @php $i++; @endphp
                                         @endif
