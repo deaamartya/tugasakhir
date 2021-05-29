@@ -7,7 +7,7 @@
         <tr>
             <td><img src="{{ $_SERVER['DOCUMENT_ROOT'].'/images/logo/sman3.png' }}" height="60" class="float-left"></td>
             <td colspan="10" style="line-height:1.5;text-align:center">
-                LABORATORIUM {{ strtoupper(Auth::user()->tipe_user->laboratorium->lab()) }}
+                LABORATORIUM {{ strtoupper(Auth::user()->laboratorium->lab()) }}
             </td>
             <td><img src="{{ $_SERVER['DOCUMENT_ROOT'].'/images/logo/dispendik.png' }}" height="60" class="float-right"></td>
         </tr>

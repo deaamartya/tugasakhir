@@ -231,7 +231,7 @@
 				<div class="card-header border-0 pb-0 d-sm-flex d-block">
 					<div>
 						<h4 class="card-title mb-1">Total Alat Kembali</h4>
-						<small class="mb-0">Lab. {{ Auth::user()->tipe_user->laboratorium->lab() }}</small>
+						<small class="mb-0">Lab. {{ Auth::user()->laboratorium->lab() }}</small>
 					</div>
 				</div>
 				<div class="card-body revenue-chart px-3">
