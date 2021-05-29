@@ -93,6 +93,6 @@
     </table>
     @endif
 
-    <p>Dokumen ini dibuat pada {{ date('Y-m-d h:i:s') }}</p>
+    <small class="fixed-bottom">Dokumen ini dibuat pada {{ date('Y-m-d h:i:s') }}</small>
 
 </body>

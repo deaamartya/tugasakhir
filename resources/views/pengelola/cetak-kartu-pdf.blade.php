@@ -70,7 +70,7 @@
         <tbody class="text-center align-middle">
             @foreach($histori_bagus as $d)
             <tr>
-                <td>{{ $d->TIMESTAMP }}</td>
+                <td>{{ date('d/m/Y',strtotime($d->TIMESTAMP)) }}</td>
                 <td>@if($d->JUMLAH_MASUK != null){{ $d->JUMLAH_MASUK }} @else 0 @endif</td>
                 <td>@if(isset($histori_rusak[$loop->index]->JUMLAH_MASUK)) {{ $histori_rusak[$loop->index]->JUMLAH_MASUK }} @else 0 @endif</td>
                 <td>@if($d->JUMLAH_KELUAR != null){{ $d->JUMLAH_KELUAR }} @else 0 @endif</td>
