@@ -126,7 +126,7 @@
                                 </div>
                             </div>
 
-                            <hr></hr>
+                            <hr>
 
                             <div class="alert alert-success hasil-simulasi" id="simulasi-bisa">Praktikum dapat dilakukan.</div>
                             <div class="alert alert-danger hasil-simulasi" id="simulasi-tidakbisa">Praktikum tidak dapat dilakukan.</div>
@@ -140,8 +140,6 @@
                                 <tbody>
                                 </tbody>
                             </table>
-                            
-
                             <table class="table alatbahan-table" id="table-bahan">
                                 <thead>
                                     <th>Bahan</th>
@@ -151,8 +149,6 @@
                                 <tbody>
                                 </tbody>
                             </table>
-                            
-
                             <table class="table alatbahan-table" id="table-bahan-kimia">
                                 <thead>
                                     <th>Bahan Kimia</th>
@@ -162,10 +158,7 @@
                                 <tbody>
                                 </tbody>
                             </table>
-                            <hr></hr>
-
-                            
-
+                            <hr>
                             <button type="button" class="btn btn-success submit-btn btn-lg">Simulasi Praktikum</button>
                         </form>
                     </div>
@@ -192,6 +185,16 @@ $(document).ready(function(){
     var alat = <?php echo json_encode($alat); ?>;
     var bahan = <?php echo json_encode($bahan); ?>;
     var bahan_kimia = <?php echo json_encode($bahan_kimia); ?>;
+
+    var hasil_alat = true;
+    var hasil_bahan = true;
+    var hasil_bahan_kimia = true;
+    var flag_alat = false;
+    var flag_bahan = false;
+    var flag_bahan_kimia = false;
+    var text_alat = "";
+    var text_bahan = "";
+    var text_bahan_kimia = "";
 
     function getIndexAlat(id_alat)
     {
@@ -226,28 +229,103 @@ $(document).ready(function(){
         }
     }
 
+    function resetFlagHasil(){
+        hasil_alat = true;
+        hasil_bahan = true;
+        hasil_bahan_kimia = true;
+        flag_alat = false;
+        flag_bahan = false;
+        flag_bahan_kimia = false;
+        text_alat = "";
+        text_bahan = "";
+        text_bahan_kimia = "";
+    }
+
+    function alertBisa(){
+        $("#simulasi-bisa").show();
+        $("#simulasi-tidakbisa").hide();
+        resetFlagHasil();
+    }
+
+    function alertGagal(){
+        $("#simulasi-bisa").hide();
+        let text = "";
+        if(text_alat != "" && text_bahan != "" && text_bahan_kimia != ""){
+            text += text_alat+","+text_bahan+" dan"+text_bahan_kimia+" kurang";
+        } else if(text_alat != "" && text_bahan != ""){
+            text += text_alat+" dan"+text_bahan+" kurang";
+        } else if(text_alat != "" && text_bahan_kimia != ""){
+            text += text_alat+" dan"+text_bahan_kimia+" kurang";
+        } else if(text_bahan != "" && text_bahan_kimia != ""){
+            text += text_bahan+" dan"+text_bahan_kimia+" kurang";
+        } else if(text_alat != ""){
+            text += text_alat+" kurang";
+        } else if(text_bahan != ""){
+            text += text_bahan+" kurang";
+        } else if(text_bahan_kimia != ""){
+            text += text_bahan_kimia+" kurang";
+        }
+
+        $("#simulasi-tidakbisa").text("Praktikum tidak dapat dilakukan karena "+text);
+        $("#simulasi-tidakbisa").show();
+        resetFlagHasil();
+    }
+
+    function hasil(){
+        if( $("#table-alat > tbody > tr").length > 0 &&  $("#table-bahan > tbody > tr").length > 0 && $("#table-bahan-kimia > tbody > tr").length > 0){
+            if(flag_alat == true && flag_bahan == true && flag_bahan_kimia == true){
+                (hasil_bahan_kimia == true && hasil_bahan == true && hasil_alat == true) ? alertBisa() : alertGagal();
+            }
+            console.log("alat, bahan, bahan kimia");
+        } else if($("#table-alat > tbody > tr").length > 0 &&  $("#table-bahan > tbody > tr").length > 0) {
+            if(flag_alat == true && flag_bahan == true){
+                (hasil_bahan == true && hasil_alat == true) ? alertBisa() : alertGagal();
+            }
+            console.log("alat, bahan");
+        } else if( $("#table-alat > tbody > tr").length > 0  && $("#table-bahan-kimia > tbody > tr").length > 0){
+            if(flag_alat == true && flag_bahan_kimia == true){
+                (hasil_bahan_kimia == true  && hasil_alat == true) ? alertBisa() : alertGagal();
+            }
+            console.log("alat, bahan kimia");
+        } else if( $("#table-bahan > tbody > tr").length > 0 && $("#table-bahan-kimia > tbody > tr").length > 0){
+            if(flag_bahan == true && flag_bahan_kimia == true){
+                (hasil_bahan_kimia == true && hasil_bahan == true) ? alertBisa() : alertGagal();
+            }
+            console.log("bahan, bahan kimia");
+        } else if( $("#table-alat > tbody > tr").length > 0){
+            if(flag_alat == true){
+                (hasil_alat == true) ? alertBisa() : alertGagal();
+            }
+            console.log("alat");
+        } else if( $("#table-bahan > tbody > tr").length > 0 ){
+            if(flag_bahan == true){
+                (hasil_bahan == true) ? alertBisa() : alertGagal();
+            }
+            console.log("bahan");
+        } else if( $("#table-bahan-kimia > tbody > tr").length > 0){
+            if(flag_bahan_kimia == true){
+                (hasil_bahan_kimia == true) ? alertBisa() : alertGagal();
+            }
+            
+        }
+    }
+
     $(".submit-btn").on('click',function(e){
         e.preventDefault();
 
-        var hasil_alat = true;
-        var hasil_bahan = true;
-        var hasil_bahan_kimia = true;
+        $("#simulasi-bisa").hide();
+        $("#simulasi-tidakbisa").hide();
 
         $(".index_alat").each(function(){
             var index = $(this).val();
             var jumlah = $("#qtyalat-"+index).val();
             $.post('getStokAlat',{ _token: "{{ csrf_token() }}", id: $("#id_katalog_alat-"+index).val() },function(result){
-                console.log(Number(result));
-                console.log(Number(jumlah));
                 if(Number(result) < Number(jumlah)){
                     hasil_alat = false;
-                    $("#simulasi-bisa").hide();
-                    $("#simulasi-tidakbisa").show();
+                    text_alat = " stok alat";
                 }
-                if(hasil_bahan_kimia == true && hasil_bahan == true && hasil_alat == true){
-                    $("#simulasi-bisa").show();
-                    $("#simulasi-tidakbisa").hide();
-                }
+                flag_alat = true;
+                hasil();
             });
         });
 
@@ -257,13 +335,10 @@ $(document).ready(function(){
             $.post('getStokBahan',{_token: "{{ csrf_token() }}", id: $("#id_bahan-"+index).val()},function(result){
                 if(Number(result) < Number(jumlah)){
                     hasil_bahan = false;
-                    $("#simulasi-bisa").hide();
-                    $("#simulasi-tidakbisa").show();
+                    text_bahan = " stok bahan";
                 }
-                if(hasil_bahan_kimia == true && hasil_bahan == true && hasil_alat == true){
-                    $("#simulasi-bisa").show();
-                    $("#simulasi-tidakbisa").hide();
-                }
+                flag_bahan = true;
+                hasil();
             });
         });
 
@@ -271,17 +346,12 @@ $(document).ready(function(){
             var index = $(this).val();
             var jumlah = $("#qtybahan-kimia-"+index).val();
             $.post('getStokBahanKimia',{_token: "{{ csrf_token() }}", id: $("#id_bahan_kimia-"+index).val()},function(result){
-                console.log(Number(result));
-                console.log(Number(jumlah));
                 if(Number(result) < Number(jumlah)){
                     hasil_bahan_kimia = false;
-                    $("#simulasi-bisa").hide();
-                    $("#simulasi-tidakbisa").show();
+                    text_bahan_kimia = " stok bahan kimia";
                 }
-                if(hasil_bahan_kimia == true && hasil_bahan == true && hasil_alat == true){
-                    $("#simulasi-bisa").show();
-                    $("#simulasi-tidakbisa").hide();
-                }
+                flag_bahan_kimia = true;
+                hasil();
             });
         });
     });
@@ -300,7 +370,7 @@ $(document).ready(function(){
             var markup =
             "<tr id='alat-"+index+"'>"+
                 "<td width='60%'>"+nama_alat+"<input type='hidden' class='id_katalog_alat' id='id_katalog_alat-"+index+"' value='"+id_alat+"'><input type='hidden' class='index_alat' id='index_alat["+index+"]' value='"+index+"'></td>"+
-                "<td width='30%'><input type='number' name='jumlah_alat["+index+"]' value='1' class='jumlah_alat' id='qtyalat-"+index+"'></td>"+
+                "<td width='30%'><input type='number' name='jumlah_alat["+index+"]' value='1' class='jumlah_alat border-0' id='qtyalat-"+index+"'></td>"+
                 "<td width='10%'><button type='button' class='btn btn-danger shadow btn-xs sharp mr-1 delete-alat' id='"+index+"'><i class='fa fa-trash'></i></button></td>"
             "</tr>";
             $("#table-alat tbody").append(markup);
@@ -323,7 +393,7 @@ $(document).ready(function(){
             var markup =
             "<tr id='bahan-"+index+"'>"+
                 "<td width='60%'>"+nama_bahan+"<input type='hidden' class='id_bahan' id='id_bahan-"+index+"' value='"+id_bahan+"'><input type='hidden' class='index_bahan' id='index_bahan["+index+"]' value='"+index+"'></td>"+
-                "<td width='30%'><input type='number' name='jumlah_bahan["+index+"]' value='1' class='jumlah_bahan' id='qtybahan-"+index+"'></td>"+
+                "<td width='30%'><input type='number' name='jumlah_bahan["+index+"]' value='1' class='jumlah_bahan border-0' id='qtybahan-"+index+"'></td>"+
                 "<td width='10%'><button type='button' class='btn btn-danger shadow btn-xs sharp mr-1 delete-bahan' id='"+index+"'><i class='fa fa-trash'></i></button></td>"
             "</tr>";
             $("#table-bahan tbody").append(markup);
@@ -346,7 +416,7 @@ $(document).ready(function(){
             var markup =
             "<tr id='bahan-kimia-"+index+"'>"+
                 "<td width='60%'>"+nama_bahan+"<input type='hidden' class='id_bahan_kimia' id='id_bahan_kimia-"+index+"' value='"+id_bahan_kimia+"'><input type='hidden' class='index_bahan_kimia' name='index_bahan_kimia["+index+"]' value='"+index+"'></td>"+
-                "<td width='30%'><input type='number' name='jumlah_bahan_kimia["+index+"]' value='1' class='jumlah_bahan_kimia' id='qtybahan-kimia-"+index+"'></td>"+
+                "<td width='30%'><input type='number' name='jumlah_bahan_kimia["+index+"]' value='1' class='jumlah_bahan_kimia border-0' id='qtybahan-kimia-"+index+"'></td>"+
                 "<td width='10%'><button type='button' class='btn btn-danger shadow btn-xs sharp mr-1 delete-bahan-kimia' id='"+index+"'><i class='fa fa-trash'></i></button></td>"
             "</tr>";
             $("#table-bahan-kimia tbody").append(markup);

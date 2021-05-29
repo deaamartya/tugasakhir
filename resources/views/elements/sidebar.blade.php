@@ -3,7 +3,7 @@
         @if(Request::segment(1) == "admin" || Auth::user()->tipe_user->NAMA_TIPE_USER == 'Admin')
         <ul class="metismenu" id="menu">
             <li><a href="{!! route('admin.dashboard'); !!}" class="ai-icon" aria-expanded="false">
-                    <i class="flaticon-381-settings-2"></i>
+                    <i class="flaticon-381-home-2"></i>
                     <span class="nav-text">Dashboard</span>
                 </a>
             </li>
@@ -51,12 +51,12 @@
         @elseif(Request::segment(1) == "pengelola" || (strpos(Auth::user()->tipe_user->NAMA_TIPE_USER,'Pengelola') > -1))
         <ul class="metismenu" id="menu">
             <li><a href="{!! route('pengelola.dashboard'); !!}" class="ai-icon" aria-expanded="false">
-                    <i class="flaticon-381-settings-2"></i>
+                    <i class="flaticon-381-home-2"></i>
                     <span class="nav-text">Dashboard</span>
                 </a>
             </li>
             <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-                    <i class="flaticon-381-networking"></i>
+                    <i class="flaticon-381-file-1"></i>
                     <span class="nav-text">Data Master</span>
                 </a>
                 <ul aria-expanded="false">
@@ -73,34 +73,34 @@
                 </ul>
             </li>
             <li><a href="{!! url('pengelola/jadwal-praktikum'); !!}" class="ai-icon" aria-expanded="false">
-                    <i class="flaticon-381-settings-2"></i>
+                    <i class="flaticon-381-calendar-7"></i>
                     <span class="nav-text">Jadwal Praktikum</span>
                 </a>
             </li>
             <li><a href="{!! url('pengelola/penjadwalan-ulang'); !!}" class="ai-icon" aria-expanded="false">
-                    <i class="flaticon-381-settings-2"></i>
+                    <i class="flaticon-381-edit"></i>
                     <span class="nav-text">Penjadwalan Ulang</span>
                 </a>
             </li>
             <li><a href="{!! url('pengelola/peminjaman'); !!}" class="ai-icon" aria-expanded="false">
-                    <i class="flaticon-381-settings-2"></i>
+                    <i class="flaticon-381-list"></i>
                     <span class="nav-text">Peminjaman</span>
                 </a>
             </li>
             <li><a href="{!! url('pengelola/pengembalian'); !!}" class="ai-icon" aria-expanded="false">
-                    <i class="flaticon-381-settings-2"></i>
+                    <i class="flaticon-381-list-1"></i>
                     <span class="nav-text">Pengembalian</span>
                 </a>
             </li>
             <li><a href="{!! url('pengelola/simulasi'); !!}" class="ai-icon" aria-expanded="false">
-                    <i class="flaticon-381-settings-2"></i>
+                    <i class="flaticon-381-search-3"></i>
                     <span class="nav-text">Simulasi Praktikum</span>
                 </a>
             </li>
             <li>
                 <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-                    <i class="flaticon-381-networking"></i>
-                    <span class="nav-text">Cetak</span>
+                    <i class="flaticon-381-download"></i>
+                    <span class="nav-text">Laporan</span>
                 </a>
                 <ul aria-expanded="false">
                     <li><a href="{!! url('pengelola/cetak/kartu-stok'); !!}">Data Kartu Stok</a></li>
