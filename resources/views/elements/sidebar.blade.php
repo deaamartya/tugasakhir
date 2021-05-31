@@ -8,8 +8,8 @@
                 </a>
             </li>
             <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-                    <i class="flaticon-381-user-9"></i>
-                    <span class="nav-text">Data Pengguna</span>
+                    <i class="flaticon-381-box-2"></i>
+                    <span class="nav-text">Data Master</span>
                 </a>
                 <ul aria-expanded="false">
                     <li><a href="{!! route('admin.lab.index'); !!}">Data Laboratorium</a></li>
