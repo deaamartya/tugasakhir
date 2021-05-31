@@ -23,8 +23,8 @@ class PraktikumController extends Controller
         $this->tahunm1 = $this->tahun-1;
 
         $tahun_akademik;
-        if(date('m') >= 6 ){
-            $tahun_akademik = $this->tahun.'/'.$this->tahunp1.' Ganjil';
+        if(date('m') >= 7 ){
+            $tahun_akademik = $this->tahun.'/'.$this->tahunp1.' Gasal';
         }
         else {
             $tahun_akademik = $this->tahunm1.'/'.$this->tahun.' Genap';

@@ -33,8 +33,8 @@ class PengelolaController extends Controller
         $total_bahan_kimia = BahanKimia::join('lemari as l','l.ID_LEMARI','bahan_kimia.ID_LEMARI')->where('l.ID_LABORATORIUM',$id_lab)->sum('JUMLAH_BAHAN_KIMIA');
 
         $tahun = date('Y');
-        if(date('m') >= 6 ){
-            $tgl_awal_semester = $tahun.'-06-01';
+        if(date('m') >= 7 ){
+            $tgl_awal_semester = $tahun.'-07-01';
             $tgl_akhir_semester = $tahun.'-12-31';
         }
         else {
@@ -55,8 +55,8 @@ class PengelolaController extends Controller
         $tahun = intval(date('Y'));
         $tahunp1 = $tahun+1;
         $tahunm1 = $tahun-1;
-        if(date('m') >= 6 ){
-            $tahun_akademik = $tahun.'/'.$tahunp1.' Ganjil';
+        if(date('m') >= 7 ){
+            $tahun_akademik = $tahun.'/'.$tahunp1.' Gasal';
         }
         else {
             $tahun_akademik = $tahunm1.'/'.$tahun.' Genap';
@@ -130,14 +130,16 @@ class PengelolaController extends Controller
         $tahun = intval(date('Y'));
         $tahunp1 = $tahun+1;
         $tahunm1 = $tahun-1;
-        if(date('m') >= 6 ){
-            $tahun_akademik = $tahun.'/'.$tahunp1.' Ganjil';
+        
+        if(date('m') >= 7 ){
+            $tahun_akademik = $tahun.'/'.$tahunp1.' Gasal';
         }
         else {
             $tahun_akademik = $tahunm1.'/'.$tahun.' Genap';
         }
 
         $tahun_akademik = TahunAkademik::where('TAHUN_AKADEMIK',$tahun_akademik)->first();
+        
         $data = [];
         $id_lab = Auth::user()->ID_LABORATORIUM;
         $peminjaman = PeminjamanAlatBahan::join('ruang_laboratorium as r','r.ID_RUANG_LABORATORIUM','peminjaman_alat_bahan.ID_RUANG_LABORATORIUM')

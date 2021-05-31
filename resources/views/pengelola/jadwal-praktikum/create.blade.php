@@ -25,15 +25,6 @@
 @section('content')
 
 <div class="container-fluid">
-    <div class="row page-titles mx-0">
-        <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ route('pengelola.jadwal-praktikum.index') }}">Jadwal Praktikum</a></li>
-                <li class="breadcrumb-item active"><a href="javascript:void(0)">Buat Jadwal Praktikum</a></li>
-            </ol>
-        </div>
-    </div>
-    
     @if(Session::has('created') || Session::has('updated') || Session::has('deleted') || Session::has('error'))
     <div class="alert 
         @if(Session::has('created') || Session::has('updated'))

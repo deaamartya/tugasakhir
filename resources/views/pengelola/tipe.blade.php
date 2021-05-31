@@ -24,20 +24,6 @@
 @section('content')
 
 <div class="container-fluid">
-    <div class="row page-titles mx-0">
-        <div class="col-sm-6 p-md-0">
-            <div class="welcome-text">
-                <h4>Hi, @auth {{ Auth::user()->NAMA_LENGKAP }} @endif</h4>
-            </div>
-        </div>
-        <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="javascript:void(0)">Data Master</a></li>
-                <li class="breadcrumb-item active"><a href="javascript:void(0)">Data Merk/Tipe</a></li>
-            </ol>
-        </div>
-    </div>
-    
     @if(Session::has('created') || Session::has('updated') || Session::has('deleted') || Session::has('error'))
     <div class="alert 
         @if(Session::has('created') || Session::has('updated'))
@@ -93,7 +79,6 @@
                                     <td>
                                         <div class="d-flex">
                                             <button type="button" class="btn btn-primary shadow btn-xs sharp mr-1" data-toggle="modal" data-target="#modal-edit-{{ $d->ID_MERK_TIPE }}"><i class="fa fa-pencil"></i></button>
-                                            <button type="button" class="btn btn-danger shadow btn-xs sharp" data-toggle="modal" data-target="#modal-delete-{{ $d->ID_MERK_TIPE }}"><i class="fa fa-trash"></i></button>
                                         </div>												
                                     </td>											
                                 </tr>

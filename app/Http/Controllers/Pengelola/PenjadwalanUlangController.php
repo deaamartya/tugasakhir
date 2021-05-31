@@ -16,13 +16,11 @@ class PenjadwalanUlangController extends Controller
 {
     public function index()
     {
-        $page_title = 'Ubah Jadwal Praktikum';
+        $page_title = 'Penjadwalan Ulang Praktikum';
         $page_description = 'Menampilkan seluruh data penjadwalan ulang';
         $action = 'app_calender';
 
         $id_lab = Auth::user()->ID_LABORATORIUM;
-        
-        // $jadwalulang = PerubahanJadwalPeminjaman::join('peminjaman_alat_bahan as p','p.ID_PEMINJAMAN','perubahan_jadwal_peminjaman.ID_PEMINJAMAN')->join('ruang_laboratorium as r','r.ID_RUANG_LABORATORIUM','p.ID_RUANG_LABORATORIUM')->where('r.ID_LABORATORIUM','=',$id_lab)->orderBy('perubahan_jadwal_peminjaman.ID_PEMINJAMAN','DESC')->get();
 
         $jadwalulang = PerubahanJadwalPeminjaman::join('peminjaman_alat_bahan as p','p.ID_PEMINJAMAN','perubahan_jadwal_peminjaman.ID_PEMINJAMAN')->join('praktikum as pr','pr.ID_PRAKTIKUM','p.ID_PRAKTIKUM')->join('kelas as k','k.ID_KELAS','pr.ID_KELAS')->join('jenis_kelas as j','j.ID_JENIS_KELAS','k.ID_JENIS_KELAS')->where('pr.ID_LABORATORIUM',$id_lab)->get();
 

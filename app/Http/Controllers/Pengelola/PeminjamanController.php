@@ -25,9 +25,11 @@ class PeminjamanController extends Controller
 
         $id_lab = Auth::user()->ID_LABORATORIUM;
         
-        $peminjaman = PeminjamanAlatBahan::join('ruang_laboratorium as r','r.ID_RUANG_LABORATORIUM','peminjaman_alat_bahan.ID_RUANG_LABORATORIUM')->where('r.ID_LABORATORIUM','=',$id_lab)->orderBy('ID_PEMINJAMAN','DESC')->get();
+        $peminjaman = PeminjamanAlatBahan::join('ruang_laboratorium as r','r.ID_RUANG_LABORATORIUM','peminjaman_alat_bahan.ID_RUANG_LABORATORIUM')->where('r.ID_LABORATORIUM','=',$id_lab)->where('STATUS_PEMINJAMAN','MENUNGGU KONFIRMASI')->orderBy('TANGGAL_PEMINJAMAN','ASC')->get();
+        
+        $history_peminjaman = PeminjamanAlatBahan::join('ruang_laboratorium as r','r.ID_RUANG_LABORATORIUM','peminjaman_alat_bahan.ID_RUANG_LABORATORIUM')->where('r.ID_LABORATORIUM','=',$id_lab)->where('STATUS_PEMINJAMAN','!=','MENUNGGU KONFIRMASI')->orderBy('TANGGAL_PEMINJAMAN','ASC')->get();
 
-        return view('pengelola.peminjaman.index', compact('page_title', 'page_description','action','peminjaman'));
+        return view('pengelola.peminjaman.index', compact('page_title', 'page_description','action','peminjaman','history_peminjaman'));
     }
 
     public function konfirmasi($id)
@@ -69,10 +71,6 @@ class PeminjamanController extends Controller
         if($request->total_alat > 0){
             $i=1;
             foreach($request->id_alat as $key){
-                $request->validate([
-                    'id_alat['.$i.']' => 'required',
-                    'jumlah_alat['.$i.']' => 'required|min:1',
-                ]);
 
                 $data_stok_alat[] = [
                     'ID_TIPE' => 1,
@@ -101,10 +99,6 @@ class PeminjamanController extends Controller
         if($request->total_bahan > 0){
             $i=1;
             foreach($request->id_bahan as $key){
-                $request->validate([
-                    'id_bahan['.$i.']' => 'required',
-                    'jumlah_bahan['.$i.']' => 'required|min:1',
-                ]);
                 $data_stok[] = [
                     'ID_TIPE' => 2,
                     'ID_ALAT_BAHAN' => $request->id_bahan[$i],
@@ -124,10 +118,6 @@ class PeminjamanController extends Controller
         if($request->total_bahan_kimia > 0){
             $i=1;
             foreach($request->id_bahan_kimia as $key){
-                $request->validate([
-                    'id_bahan_kimia['.$i.']' => 'required',
-                    'jumlah_bahan_kimia['.$i.']' => 'required|min:1',
-                ]);
                 $data_stok[] = [
                     'ID_TIPE' => 3,
                     'ID_ALAT_BAHAN' => $request->id_bahan_kimia[$i],

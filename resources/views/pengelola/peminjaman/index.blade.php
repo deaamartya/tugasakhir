@@ -14,19 +14,6 @@
 @section('content')
 
 <div class="container-fluid">
-    <div class="row page-titles mx-0">
-        <div class="col-sm-6 p-md-0">
-            <div class="welcome-text">
-                <h4>Hi, @auth {{ Auth::user()->NAMA_LENGKAP }} @endif</h4>
-            </div>
-        </div>
-        <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="javascript:void(0)">Data Praktikum</a></li>
-                <li class="breadcrumb-item active"><a href="javascript:void(0)">Peminjaman Alat dan Bahan Praktikum</a></li>
-            </ol>
-        </div>
-    </div>
     
     @if(Session::has('created') || Session::has('updated') || Session::has('deleted') || Session::has('error'))
     <div class="alert 
@@ -58,7 +45,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Peminjaman Alat dan Bahan Praktikum</h4>
+                    <h4 class="card-title">Peminjaman Alat dan Bahan Laboratorium</h4>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -82,14 +69,46 @@
                                     <td> {{ $d->praktikum->kelas->guru->NAMA_LENGKAP }}</td>
                                     <td> {{ $d->TANGGAL_PEMINJAMAN }} {{ $d->JAM_MULAI }} - {{ $d->JAM_SELESAI }} </td>
                                     <td>
-                                    @if($d->STATUS_PEMINJAMAN == "MENUNGGU KONFIRMASI")
                                         <a href="{{ route('pengelola.peminjaman.konfirmasi',$d->ID_PEMINJAMAN) }}">
                                             <button type="button" class="btn btn-primary">Konfirmasi</button>
                                         </a>
-                                    @else
-                                    SUDAH DIKONFIRMASI
-                                    @endif
                                     </td>			
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Histori Peminjaman</h4>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="example5" class="display" style="min-width: 845px">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Nama Praktikum</th>
+                                    <th>Kelas</th>
+                                    <th>Guru</th>
+                                    <th>Jadwal</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($history_peminjaman as $d)
+                                <tr>
+                                    <td> {{ $loop->iteration }} </td>
+                                    <td> {{ $d->praktikum->NAMA_PRAKTIKUM }} </td>
+                                    <td> {{ $d->praktikum->kelas->jenis_kelas->NAMA_JENIS_KELAS }}</td>
+                                    <td> {{ $d->praktikum->kelas->guru->NAMA_LENGKAP }}</td>
+                                    <td> {{ $d->TANGGAL_PEMINJAMAN }} {{ $d->JAM_MULAI }} - {{ $d->JAM_SELESAI }} </td>			
                                 </tr>
                                 @endforeach
                             </tbody>

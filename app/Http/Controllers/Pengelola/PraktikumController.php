@@ -23,7 +23,7 @@ class PraktikumController extends Controller
         $page_description = 'Menampilkan seluruh data praktikum';
         $action = 'table_datatable_basic';
         $id_lab = Auth::user()->ID_LABORATORIUM;
-        $praktikum = Praktikum::where('ID_LABORATORIUM',$id_lab)->get();
+        $praktikum = Praktikum::where('ID_LABORATORIUM',$id_lab)->orderBy('ID_PRAKTIKUM','DESC')->get();
         $lab = strrchr(Laboratorium::find($id_lab)->value('NAMA_LABORATORIUM'),' ');
         $lab = str_replace(" ","",$lab);
         $matapelajaran = MataPelajaran::select('mata_pelajaran.*')->where('NAMA_MAPEL','LIKE',"%".$lab."%")->get();

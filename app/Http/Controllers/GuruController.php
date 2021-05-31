@@ -22,8 +22,8 @@ class GuruController extends Controller
         $tahun = intval(date('Y'));
         $tahunp1 = $tahun+1;
         $tahunm1 = $tahun-1;
-        if(date('m') >= 6 ){
-            $tahun_akademik = $tahun.'/'.$tahunp1.' Ganjil';
+        if(date('m') >= 7 ){
+            $tahun_akademik = $tahun.'/'.$tahunp1.' Gasal';
         }
         else {
             $tahun_akademik = $tahunm1.'/'.$tahun.' Genap';
