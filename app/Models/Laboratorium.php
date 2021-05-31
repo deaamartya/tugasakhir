@@ -58,6 +58,11 @@ class Laboratorium extends Model
 		return $this->hasMany(RuangLaboratorium::class, 'ID_LABORATORIUM');
 	}
 
+	public function users()
+	{
+		return $this->hasMany(User::class, 'ID_LABORATORIUM');
+	}
+
 	public function lab()
 	{
 		if($this->ID_LABORATORIUM == 1)

@@ -84,6 +84,7 @@
                                     <th>ID User</th>
                                     <th>Username</th>
                                     <th>Nama Lengkap</th>
+                                    <th>Tipe User</th>
                                     <th>Status</th>
                                     <th>Laboratorium</th>
                                     <th>Aksi</th>
@@ -102,11 +103,11 @@
                                     <td> {{ $d->NAMA_LENGKAP }} </td>
                                     <td>
                                         @if($d->tipe_user->NAMA_TIPE_USER == 'Admin')
+                                        <span class="badge light badge-danger">
+                                            <i class="fa fa-circle text-danger mr-1"></i>
+                                        @elseif (strpos($d->tipe_user->NAMA_TIPE_USER, 'Guru') !== false)
                                         <span class="badge light badge-info">
                                             <i class="fa fa-circle text-info mr-1"></i>
-                                        @elseif (strpos($d->tipe_user->NAMA_TIPE_USER, 'Guru') !== false)
-                                        <span class="badge light badge-success">
-                                            <i class="fa fa-circle text-success mr-1"></i>
                                         @elseif (strpos($d->tipe_user->NAMA_TIPE_USER, 'Pengelola') !== false)
                                         <span class="badge light badge-warning">
                                             <i class="fa fa-circle text-warning mr-1"></i>
@@ -117,7 +118,21 @@
                                             {{ $d->tipe_user->NAMA_TIPE_USER }}
                                         </span>
                                     </td>
-                                    <td> {{ $d->laboratorium->NAMA_LABORATORIUM }} </td>
+                                    <td>
+                                        @if($d->ONLINE == 1)
+                                        <span class="badge light badge-success">
+                                            <i class="fa fa-circle text-success mr-1"></i> Online
+                                        </span>
+                                        @else
+                                        Offline
+                                        @endif
+                                    </td>
+                                    <td>@isset($d->laboratorium)
+                                        {{ $d->laboratorium->lab() }}
+                                        @else
+                                        -
+                                        @endisset
+                                    </td>
                                     <td>
                                         <div class="d-flex">
                                             <button type="button" class="btn btn-primary shadow btn-xs sharp mr-1" data-toggle="modal" data-target="#modal-edit-{{ $d->ID_USER }}"><i class="fa fa-pencil"></i></button>

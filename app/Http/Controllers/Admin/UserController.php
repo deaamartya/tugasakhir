@@ -8,6 +8,7 @@ use App\Models\TipeUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use DB;
+use App\Models\Laboratorium;
 
 class UserController extends Controller
 {
