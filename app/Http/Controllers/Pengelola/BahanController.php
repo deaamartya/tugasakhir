@@ -8,6 +8,7 @@ use App\Models\Bahan;
 use App\Models\Lemari;
 use DB;
 use Auth;
+use App\Models\HistoriStok;
 
 class BahanController extends Controller
 {
@@ -91,20 +92,22 @@ class BahanController extends Controller
     public function updateStock(Request $request)
     {
         $request->validate([
-            'JUMLAH' => 'required|min:1|integer',
+            'JUMLAH_MASUK' => 'required|min:0|integer',
+            'JUMLAH_KELUAR' => 'required|min:0|integer',
+            'KETERANGAN' => 'required'
         ]);
 
         $data_stok_bahan = [
             'ID_TIPE' => 2,
             'ID_ALAT_BAHAN' => $request->ID_BAHAN_LAMA,
-            'JUMLAH_KELUAR' => 0,
-            'JUMLAH_MASUK' => $request->JUMLAH,
-            'KETERANGAN' => "Stok dari pengadaan"
+            'JUMLAH_KELUAR' => $request->JUMLAH_KELUAR,
+            'JUMLAH_MASUK' => $request->JUMLAH_MASUK,
+            'KETERANGAN' => $request->KETERANGAN
         ];
 
         HistoriStok::insert($data_stok_bahan);
         
-        return redirect()->route('pengelola.alat.index')->with('updated','Data berhasil diubah');
+        return redirect()->route('pengelola.bahan.index')->with('updated','Data berhasil diubah');
     }
 
     /**

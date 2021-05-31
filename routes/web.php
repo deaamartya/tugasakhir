@@ -73,10 +73,12 @@ Route::middleware(['auth','cekPengelola'])->prefix('pengelola')->name('pengelola
     Route::resource('bahan-kimia','App\Http\Controllers\Pengelola\BahanKimiaController');
     Route::post('bahan-kimia/update','App\Http\Controllers\Pengelola\BahanKimiaController@update')->name('bahan-kimia.update');
     Route::post('bahan-kimia/destroy','App\Http\Controllers\Pengelola\BahanKimiaController@destroy')->name('bahan-kimia.destroy');
+    Route::post('bahan-kimia/updateStock','App\Http\Controllers\Pengelola\BahanKimiaController@updateStock')->name('bahan-kimia.updateStock');
 
     Route::resource('bahan','App\Http\Controllers\Pengelola\BahanController');
     Route::post('bahan/update','App\Http\Controllers\Pengelola\BahanController@update')->name('bahan.update');
     Route::post('bahan/destroy','App\Http\Controllers\Pengelola\BahanController@destroy')->name('bahan.destroy');
+    Route::post('bahan/updateStock','App\Http\Controllers\Pengelola\BahanController@updateStock')->name('bahan.updateStock');
 
     Route::resource('praktikum','App\Http\Controllers\Pengelola\PraktikumController');
 

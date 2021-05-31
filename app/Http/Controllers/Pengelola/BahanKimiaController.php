@@ -10,6 +10,7 @@ use App\Models\BahanKimia;
 use App\Models\Laboratorium;
 use DB;
 use Auth;
+use App\Models\HistoriStok;
 
 class BahanKimiaController extends Controller
 {
@@ -101,5 +102,26 @@ class BahanKimiaController extends Controller
     {
         BahanKimia::find($request->ID_BAHAN_KIMIA)->delete();
         return redirect()->route('pengelola.bahan-kimia.index')->with('deleted','Data berhasil dihapus');
+    }
+
+    public function updateStock(Request $request)
+    {
+        $request->validate([
+            'JUMLAH_BAHAN_KIMIA_MASUK' => 'required|min:0|integer',
+            'JUMLAH_BAHAN_KIMIA_KELUAR' => 'required|min:0|integer',
+            'KETERANGAN' => 'required'
+        ]);
+
+        $data_stok_bahan = [
+            'ID_TIPE' => 3,
+            'ID_ALAT_BAHAN' => $request->ID_BAHAN_KIMIA,
+            'JUMLAH_KELUAR' => $request->JUMLAH_BAHAN_KIMIA_KELUAR,
+            'JUMLAH_MASUK' => $request->JUMLAH_BAHAN_KIMIA_MASUK,
+            'KETERANGAN' => $request->KETERANGAN
+        ];
+
+        HistoriStok::insert($data_stok_bahan);
+        
+        return redirect()->route('pengelola.bahan-kimia.index')->with('updated','Data berhasil diubah');
     }
 }

@@ -22,7 +22,6 @@
 
 {{-- Content --}}
 @section('content')
-
 <div class="container-fluid">
     <div class="row page-titles mx-0">
         <div class="col-sm-6 p-md-0">
@@ -103,7 +102,7 @@
                                     <td>
                                         <div class="d-flex">
                                             <button type="button" class="btn btn-primary shadow btn-xs sharp mr-1" data-toggle="modal" data-target="#modal-edit-{{ $loop->index }}"><i class="fa fa-pencil"></i></button>
-                                            <!-- <button type="button" class="btn btn-danger shadow btn-xs sharp" data-toggle="modal" data-target="#modal-delete-{{ $loop->index }}"><i class="fa fa-trash"></i></button> -->
+                                            <button type="button" class="btn btn-danger shadow btn-xs sharp" data-toggle="modal" data-target="#modal-tambah-{{ $loop->index }}"><i class="fa fa-plus"></i></button>
                                         </div>												
                                     </td>											
                                 </tr>
@@ -288,22 +287,44 @@
     </div>
 </div>
 {{-- End of Edit Modal --}}
-
 {{-- Delete Modal --}}
-<div class="modal fade" id="modal-delete-{{ $loop->index }}">
+<div class="modal fade" id="modal-tambah-{{ $loop->index }}">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Delete Bahan Kimia #{{ $d->ID_BAHAN_KIMIA }}</h5>
+                <h5 class="modal-title">Keluar Masuk Stok Bahan Kimia #{{ $d->ID_BAHAN_KIMIA }}</h5>
                 <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('pengelola.bahan-kimia.destroy') }}" method="POST">
-                    @method('DELETE')
+                <form action="{{ route('pengelola.bahan-kimia.updateStock') }}" method="POST">
                     @csrf
-                    Apakah anda yakin ingin menghapus katalog bahan {{ $d->NAMA_KATALOG_BAHAN }} ?
                     <input type="hidden" name="ID_BAHAN_KIMIA" value="{{ $d->ID_BAHAN_KIMIA }}">
+
+                    <div class="form-group">
+                        <label>Jumlah Masuk<small class="text-danger">*</small></label>
+                        <input type="number" class="form-control @error('JUMLAH_BAHAN_KIMIA_MASUK') is-invalid @enderror" id="JUMLAH_BAHAN_KIMIA_MASUK" name="JUMLAH_BAHAN_KIMIA_MASUK" min="0" value="0">
+                        <div class="invalid-feedback animated fadeInUp">
+                            Jumlah masuk harus diisi
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Jumlah Keluar<small class="text-danger">*</small></label>
+                        <input type="number" class="form-control @error('JUMLAH_BAHAN_KIMIA_KELUAR') is-invalid @enderror" id="JUMLAH_BAHAN_KIMIA_KELUAR" name="JUMLAH_BAHAN_KIMIA_KELUAR" min="0" value="0">
+                        <div class="invalid-feedback animated fadeInUp">
+                            Jumlah keluar harus diisi
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Keterangan<small class="text-danger">*</small></label>
+                        <input type="text" class="form-control @error('KETERANGAN') is-invalid @enderror" id="KETERANGAN" name="KETERANGAN" value="Stok tambahan dari pengadaan">
+                        <div class="invalid-feedback animated fadeInUp">
+                            Keterangan harus diisi
+                        </div>
+                    </div>
+
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger light" data-dismiss="modal">Tidak, batalkan.</button>
                         <button type="submit" class="btn btn-primary">Ya</button>

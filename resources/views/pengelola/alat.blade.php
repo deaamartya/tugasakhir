@@ -263,7 +263,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Tambah Stok Alat #{{ $d->ID_ALAT }}</h5>
+                <h5 class="modal-title">Keluar Masuk Stok Alat #{{ $d->ID_ALAT }}</h5>
                 <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
                 </button>
             </div>
@@ -272,24 +272,40 @@
                     @csrf
                     <input type="hidden" name="ID_ALAT_LAMA" value="{{ $d->ID_ALAT }}">
                     <div class="form-group">
-                        <label>Jumlah Bagus</label>
-                        <input type="number" class="form-control @error('JUMLAH_BAGUS') is-invalid @enderror" id="JUMLAH_BAGUS" name="JUMLAH_BAGUS" min="0" value="0">
+                        <label>Jumlah Masuk Alat Bagus<small class="text-danger">*</small></label>
+                        <input type="number" class="form-control @error('JUMLAH_BAGUS_MASUK') is-invalid @enderror" id="JUMLAH_BAGUS_MASUK" name="JUMLAH_BAGUS_MASUK" min="0" value="0">
                         <div class="invalid-feedback animated fadeInUp">
-                            Jumlah bagus harus diisi
+                            Jumlah masuk alat bagus harus diisi
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label>Jumlah Rusak</label>
-                        <input type="number" class="form-control @error('JUMLAH_RUSAK') is-invalid @enderror" id="JUMLAH_RUSAK" name="JUMLAH_RUSAK" min="0" value="0">
+                        <label>Jumlah Keluar Alat Bagus<small class="text-danger">*</small></label>
+                        <input type="number" class="form-control @error('JUMLAH_BAGUS_KELUAR') is-invalid @enderror" id="JUMLAH_BAGUS_KELUAR" name="JUMLAH_BAGUS_KELUAR" min="0" value="0">
                         <div class="invalid-feedback animated fadeInUp">
-                            Jumlah rusak harus diisi
+                            Jumlah keluar alat bagus harus diisi
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label>Keterangan</label>
-                        <input type="text" class="form-control @error('KETERANGAN') is-invalid @enderror" id="KETERANGAN" name="KETERANGAN" value="Stok tambahan dari pengadaan">
+                        <label>Jumlah Masuk Alat Rusak<small class="text-danger">*</small></label>
+                        <input type="number" class="form-control @error('JUMLAH_RUSAK_MASUK') is-invalid @enderror" id="JUMLAH_RUSAK_MASUK" name="JUMLAH_RUSAK_MASUK" min="0" value="0">
+                        <div class="invalid-feedback animated fadeInUp">
+                            Jumlah masuk alat rusak harus diisi
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Jumlah Keluar Alat Rusak<small class="text-danger">*</small></label>
+                        <input type="number" class="form-control @error('JUMLAH_RUSAK_KELUAR') is-invalid @enderror" id="JUMLAH_RUSAK_KELUAR" name="JUMLAH_RUSAK_KELUAR" min="0" value="0">
+                        <div class="invalid-feedback animated fadeInUp">
+                            Jumlah keluar alat rusak harus diisi
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Keterangan<small class="text-danger">*</small></label>
+                        <input type="text" class="form-control @error('KETERANGAN') is-invalid @enderror" id="KETERANGAN" name="KETERANGAN" value="Stok tambahan dari pengadaan" required>
                         <div class="invalid-feedback animated fadeInUp">
                             Keterangan harus diisi
                         </div>

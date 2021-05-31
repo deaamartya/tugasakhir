@@ -120,24 +120,26 @@ class AlatController extends Controller
     public function updateStock(Request $request)
     {
         $request->validate([
-            'JUMLAH_BAGUS' => 'required',
-            'JUMLAH_RUSAK' => 'required',
+            'JUMLAH_BAGUS_MASUK' => 'required|min:0|integer',
+            'JUMLAH_RUSAK_MASUK' => 'required|min:0|integer',
+            'JUMLAH_BAGUS_KELUAR' => 'required|min:0|integer',
+            'JUMLAH_RUSAK_KELUAR' => 'required|min:0|integer',
             'KETERANGAN' => 'required'
         ]);
         
         $data_stok_alat[] = [
             'ID_TIPE' => 1,
             'ID_ALAT_BAHAN' => $request->ID_ALAT_LAMA,
-            'JUMLAH_KELUAR' => 0,
-            'JUMLAH_MASUK' => $request->JUMLAH_BAGUS,
+            'JUMLAH_KELUAR' => $request->JUMLAH_BAGUS_KELUAR,
+            'JUMLAH_MASUK' => $request->JUMLAH_BAGUS_MASUK,
             'KONDISI' => 1,
             'KETERANGAN' => $request->KETERANGAN
         ];
         $data_stok_alat[] = [
             'ID_TIPE' => 1,
             'ID_ALAT_BAHAN' => $request->ID_ALAT_LAMA,
-            'JUMLAH_KELUAR' => 0,
-            'JUMLAH_MASUK' => $request->JUMLAH_RUSAK,
+            'JUMLAH_KELUAR' => $request->JUMLAH_RUSAK_KELUAR,
+            'JUMLAH_MASUK' => $request->JUMLAH_RUSAK_MASUK,
             'KONDISI' => 0,
             'KETERANGAN' => $request->KETERANGAN
         ];
