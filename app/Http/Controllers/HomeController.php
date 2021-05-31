@@ -24,7 +24,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        if (Auth::user()->tipe_user->NAMA_TIPE_USER == "Guru") {
+        if(Auth::user()->tipe_user->NAMA_TIPE_USER == "Guru") {
             return redirect()->route('guru.dashboard');
 
         } else if (Auth::user()->tipe_user->NAMA_TIPE_USER == "Admin") {

@@ -8,7 +8,7 @@
                 </a>
             </li>
             <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-                    <i class="flaticon-381-networking"></i>
+                    <i class="flaticon-381-user-9"></i>
                     <span class="nav-text">Data Pengguna</span>
                 </a>
                 <ul aria-expanded="false">
@@ -18,7 +18,7 @@
                 </ul>
             </li>
             <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-                    <i class="flaticon-381-networking"></i>
+                    <i class="flaticon-381-folder-6"></i>
                     <span class="nav-text">Data Akademik</span>
                 </a>
                 <ul aria-expanded="false">

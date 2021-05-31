@@ -35,6 +35,7 @@ Route::middleware(['auth','cekAdmin'])->prefix('admin')->name('admin.')->group(f
     Route::resource('user','App\Http\Controllers\Admin\UserController');
     Route::resource('guru','App\Http\Controllers\Admin\GuruController');
     Route::resource('lab','App\Http\Controllers\Admin\LaboratoriumController');
+    Route::get('datapraktikum','App\Http\Controllers\AdminController@seluruhJadwal');
 });
 
 // Route untuk Guru
