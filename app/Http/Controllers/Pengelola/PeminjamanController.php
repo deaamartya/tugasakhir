@@ -69,6 +69,11 @@ class PeminjamanController extends Controller
         if($request->total_alat > 0){
             $i=1;
             foreach($request->id_alat as $key){
+                $request->validate([
+                    'id_alat['.$i.']' => 'required',
+                    'jumlah_alat['.$i.']' => 'required|min:1',
+                ]);
+
                 $data_stok_alat[] = [
                     'ID_TIPE' => 1,
                     'ID_ALAT_BAHAN' => $request->id_alat[$i],
@@ -96,6 +101,10 @@ class PeminjamanController extends Controller
         if($request->total_bahan > 0){
             $i=1;
             foreach($request->id_bahan as $key){
+                $request->validate([
+                    'id_bahan['.$i.']' => 'required',
+                    'jumlah_bahan['.$i.']' => 'required|min:1',
+                ]);
                 $data_stok[] = [
                     'ID_TIPE' => 2,
                     'ID_ALAT_BAHAN' => $request->id_bahan[$i],
@@ -115,6 +124,10 @@ class PeminjamanController extends Controller
         if($request->total_bahan_kimia > 0){
             $i=1;
             foreach($request->id_bahan_kimia as $key){
+                $request->validate([
+                    'id_bahan_kimia['.$i.']' => 'required',
+                    'jumlah_bahan_kimia['.$i.']' => 'required|min:1',
+                ]);
                 $data_stok[] = [
                     'ID_TIPE' => 3,
                     'ID_ALAT_BAHAN' => $request->id_bahan_kimia[$i],

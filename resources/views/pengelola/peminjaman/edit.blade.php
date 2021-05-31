@@ -99,7 +99,7 @@
                                 </div>
                             </div>
 
-                            <hr></hr>
+                            <hr>
 
                             <div class="form-group">
                                 <label>Jumlah Kelompok</label>
@@ -125,8 +125,13 @@
                                             <td width="50%">{{ $a->alat->ID_ALAT }} {{ $a->alat->merk_tipe_alat->NAMA_MERK_TIPE }} {{ $a->alat->katalog_alat->NAMA_ALAT }} {{ $a->alat->katalog_alat->UKURAN }}</td>
                                             <td width="20%">{{ $a->alat->JUMLAH_BAGUS }}pcs</td>
                                             <input type="hidden" value="{{ $a->alat->ID_ALAT }}" name="id_alat[{{$i}}]">
-                                            <td width="15%"><input style="width:100%" type="number" value="{{ $a->JUMLAH }}" class="jumlah_alat border-0"></td>
-                                            <td width="15%"><input style="width:100%" type="number" name="jumlah_alat[{{$i}}]" class="total_alat border-0" id="t_alat-{{$i}}" readonly></td>
+                                            <td width="15%">
+                                                <input style="width:100%" type="number" value="{{ $a->JUMLAH }}" class="jumlah_alat border p-2">
+                                                <div class="text-danger animated fadeInUp" id="error_alat_{{ $i }}">
+                                                    Jumlah pinjam melebihi stok tersedia.
+                                                </div>
+                                            </td>
+                                            <td width="15%"><input style="width:100%" type="number" name="jumlah_alat[{{$i}}]" class="total_alat border p-2" id="t_alat-{{$i}}" readonly max="{{ $a->alat->JUMLAH_BAGUS }}"></td>
                                         </tr>
                                         @php $i++; @endphp
                                         @endif
@@ -149,8 +154,13 @@
                                             <td width="50%">{{ $a->bahan->ID_BAHAN }} {{ $a->bahan->NAMA_BAHAN }}</td>
                                             <input type="hidden" value="{{ $a->bahan->ID_BAHAN }}" name="id_bahan[{{$i}}]">
                                             <td width="20%">{{ $a->bahan->JUMLAH }}pcs</td>
-                                            <td width="15%"><input type="number" style="width:100%" value="{{ $a->JUMLAH }}" class="jumlah_bahan border-0"></td>
-                                            <td width="15%"><input style="width:100%" type="number" name="jumlah_bahan[{{$i}}]" class="total_bahan_kimia border-0" id="t_bahan-{{$i}}" readonly></td>
+                                            <td width="15%">
+                                                <input type="number" style="width:100%" value="{{ $a->JUMLAH }}" class="jumlah_bahan border p-2">
+                                                <div class="text-danger animated fadeInUp" id="error_bahan_{{ $i }}">
+                                                    Jumlah pinjam melebihi stok tersedia.
+                                                </div>
+                                            </td>
+                                            <td width="15%"><input style="width:100%" type="number" name="jumlah_bahan[{{$i}}]" class="total_bahan_kimia border p-2" id="t_bahan-{{$i}}" max="{{ $a->bahan->JUMLAH }}" readonly></td>
                                         </tr>
                                         @php $i++; @endphp
                                         @endif
@@ -174,9 +184,13 @@
                                                 <td width="20%">{{ $a->bahan_kimia->JUMLAH_BAHAN_KIMIA }}gr</td>
                                                 <input type="hidden" value="{{ $a->bahan_kimia->ID_BAHAN_KIMIA }}" name="id_bahan_kimia[{{$i}}]">
                                                 <td width="15%">
-                                                <input style="width:100%" type="number" value="{{ $a->JUMLAH }}" class="jumlah_bahan_kimia border-0"></td>
+                                                    <input style="width:100%" type="number" value="{{ $a->JUMLAH }}" class="jumlah_bahan_kimia border p-2">
+                                                    <div class="text-danger animated fadeInUp" id="error_bahan_kimia_{{ $i }}">
+                                                        Jumlah pinjam melebihi stok tersedia.
+                                                    </div>
+                                                </td>
                                                 <td width="15%">
-                                                <input style="width:100%" type="number" name="jumlah_bahan_kimia[{{$i}}]" class="total_bahan_kimia border-0" id="t_bahan_kimia-{{$i}}" readonly></td>
+                                                <input style="width:100%" type="number" name="jumlah_bahan_kimia[{{$i}}]" class="total_bahan_kimia border p-2" id="t_bahan_kimia-{{$i}}" max="{{ $a->bahan_kimia->JUMLAH_BAHAN_KIMIA }}" readonly></td>
                                             </tr>
                                         @php $i++; @endphp
                                         @endif
@@ -224,7 +238,7 @@
                                 </div>
                             </div>
 
-                            <button type="submit" class="btn btn-success submit-btn">Konfirmasi Peminjaman</button>
+                            <button type="submit" class="btn btn-success submit-btn float-right">Konfirmasi Peminjaman</button>
                         </form>
                     </div>
                 </div>
@@ -267,7 +281,6 @@ $(document).ready(function(){
     });
 
     $(document).on('input','#jumlah_kelompok',function(){
-        
         if($(this).val() >= 1){
             recountAll();
         }
@@ -282,11 +295,25 @@ $(document).ready(function(){
         var total = 0;
         var total_s = 0;
         var index = 1;
+        var total_sementara = 0;
+        var stok = 0;
         $(".jumlah_alat").each(function(){
-            $("#t_alat-"+index).val(Number($(this).val())*jumlah_kelompok);
-            total = total + Number($(this).val())*jumlah_kelompok;
+            total_sementara = Number($(this).val())*jumlah_kelompok;
+            stok = Number($("#t_alat-"+index).attr('max'));
+            if(total_sementara > stok){
+                $("#error_alat_"+index).show();
+                $(".submit-btn").attr('disabled',true);
+                total_sementara = 0;
+                total = 0;
+            } else{
+                $("#error_alat_"+index).hide();
+                $(".submit-btn").attr('disabled',false);
+                $("#t_alat-"+index).val(total_sementara);
+                total = total + total_sementara;
+            }
             index = index+1;
         });
+
         $("#total-alat").html(total);
         $("#total_alat").val(total);
         total_s = total_s + total;
@@ -294,8 +321,19 @@ $(document).ready(function(){
         total = 0;
         index = 1;
         $(".jumlah_bahan").each(function(){
-            $("#t_bahan-"+index).val(Number($(this).val())*jumlah_kelompok);
-            total = total + Number($(this).val())*jumlah_kelompok;
+            total_sementara = Number($(this).val())*jumlah_kelompok;
+            stok = Number($("#t_bahan-"+index).attr('max'));
+            if(total_sementara > stok){
+                $("#error_bahan_"+index).show();
+                $(".submit-btn").attr('disabled',true);
+                total_sementara = 0;
+                total = 0;
+            } else{
+                $("#error_bahan_"+index).hide();
+                $(".submit-btn").attr('disabled',false);
+                $("#t_bahan-"+index).val(total_sementara);
+                total = total + total_sementara;
+            }
             index = index+1;
         });
         $("#total-bahan").html(total);
@@ -305,8 +343,19 @@ $(document).ready(function(){
         total = 0;
         index = 1;
         $(".jumlah_bahan_kimia").each(function(){
-            $("#t_bahan_kimia-"+index).val(Number($(this).val())*jumlah_kelompok);
-            total = total + Number($(this).val())*jumlah_kelompok;
+            total_sementara = Number($(this).val())*jumlah_kelompok;
+            stok = Number($("#t_bahan_kimia-"+index).attr('max'));
+            if(total_sementara > stok){
+                $("#error_bahan_kimia_"+index).show();
+                $(".submit-btn").attr('disabled',true);
+                total_sementara = 0;
+                total = 0;
+            } else{
+                $("#error_bahan_kimia_"+index).hide();
+                $(".submit-btn").attr('disabled',false);
+                $("#t_bahan_kimia-"+index).val(total_sementara);
+                total = total + total_sementara;
+            }
             index = index+1;
         });
         $("#total-bahan-kimia").html(total);
