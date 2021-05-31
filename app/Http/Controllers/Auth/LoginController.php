@@ -48,11 +48,6 @@ class LoginController extends Controller
         ]); 
     }
 
-    public function loggingOut(Request $request)
-    {
-        
-    }
-
     public function username()
     {
         return 'username';
