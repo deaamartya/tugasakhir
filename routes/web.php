@@ -105,6 +105,7 @@ Route::middleware(['auth','cekPengelola'])->prefix('pengelola')->name('pengelola
     Route::post('cetak/alat-rusak','App\Http\Controllers\Pengelola\CetakController@alatRusak');
 
     Route::get('notification/{id}','App\Http\Controllers\NotificationController@pengelola');
+    Route::get('datapraktikum','App\Http\Controllers\PengelolaController@seluruhJadwal');
 });
 
 // Route untuk notifikasi

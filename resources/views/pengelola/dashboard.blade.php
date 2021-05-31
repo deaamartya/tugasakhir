@@ -1,6 +1,14 @@
 {{-- Extends layout --}}
 @extends('layout.default')
 
+@section('tambahan-style')
+	@if(!empty(config('dz.public.pagelevel.css.app_calender'))) 
+		@foreach(config('dz.public.pagelevel.css.app_calender') as $style)
+						<link href="{{ asset($style) }}" rel="stylesheet" type="text/css"/>
+		@endforeach
+	@endif
+@endsection
+
 {{-- Content --}}
 @section('content')
 <!-- row -->
@@ -196,13 +204,13 @@
 								@php
 								if(intval($total_peminjaman) == 0){ 
 									$persen_belum_pinjam = 0; 
-									}
+								}
 								else {
 									$persen_belum_pinjam = intval(($menunggu_penjadwalan/$total_peminjaman)*100);
 								}
 								@endphp
 									<p class="mb-0 fs-14 mr-2 col-4 col-xxl-5 px-0">
-									Belum Pinjam ({{$persen_belum_pinjam}} %)
+									Belum Pinjam ({{$persen_belum_pinjam}}%)
 									</p>
 									<div class="progress mb-0" style="height:8px; width:100%;">
 										<div class="progress-bar bg-warning progress-animated" style="width:{{$persen_belum_pinjam}}%; height:8px;" role="progressbar">
@@ -251,89 +259,133 @@
 				</div>
 			</div>
 		</div>
-		{{-- <!-- <div class="col-xl-6 col-xxl-6 col-lg-12 col-md-12">
-			<div class="card">
-				<div class="card-header border-0 pb-0 d-sm-flex d-block">
-					<div>
-						<h4 class="card-title mb-1">Total Alat Kembali</h4>
-						<small class="mb-0">Lab. {{ Auth::user()->laboratorium->lab() }}</small>
-					</div>
-				</div>
-				<div class="card-body revenue-chart px-3">
-						<div class="d-flex align-items-end pr-3 pull-right revenue-chart-bar">
-							<div class="d-flex align-items-end mr-4">
-								<img src="{{ asset('images/svg/ic_stat2.svg') }}" height="22" width="22" class="mr-2 mb-1" alt=""/>
-								<div>
-									<small class="text-dark fs-14">Rusak</small>
-									<h3 class="font-w600 mb-0"><span class="counter">{{ $total_alat_rusak }}</span>pcs</h3>
-								</div>
-							</div>
-							<div class="d-flex align-items-end">
-								<img src="{{ asset('images/svg/ic_stat1.svg') }}" height="22" width="22" class="mr-2 mb-1" alt=""/>
-								<div>
-									<small class="text-dark fs-14">Bagus</small>
-									<h3 class="font-w600 mb-0"><span class="counter">{{ $total_alat_bagus }}</span>pcs</h3>
-								</div>
-							</div>
-						</div>
-					<div id="chartBar"></div>
-				</div>
+		<div class="col-12" data-aos="fade-down">
+			<div class="row">
+        <div class="col-xl-3">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-intro-title">Jadwal Praktikum</h4>
+                    <div class="">
+                        <div id="external-events" class="my-3">
+                            <div class="external-event" data-class="bg-primary"><i class="fa fa-move"></i>X MIPA</div>
+                            <div class="external-event" data-class="bg-success"><i class="fa fa-move"></i>XI MIPA
+                            </div>
+                            <div class="external-event" data-class="bg-warning"><i class="fa fa-move"></i>XII MIPA</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-9">
+            <div class="card">
+                <div class="card-body">
+                    <div id="calendar" class="app-fullcalendar"></div>
+                </div>
+            </div>
+        </div>
 			</div>
-		</div> -->
-		<!-- <div class="col-xl-9 col-xxl-9 col-lg-8 col-md-12">
-			<div id="user-activity" class="card">
-				<div class="card-header border-0 pb-0 d-sm-flex d-block">
-					<div>
-						<h4 class="card-title mb-1">Customer Map</h4>
-						<small class="mb-0">Lorem Ipsum is simply dummy text of the printing</small>
-					</div>
-					<div class="card-action card-tabs mt-3 mt-sm-0">
-						<ul class="nav nav-tabs" role="tablist">
-							<li class="nav-item">
-								<a class="nav-link active" data-toggle="tab" href="#user" role="tab">
-									Monthly
-								</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" data-toggle="tab" href="#bounce" role="tab">
-									Weekly
-								</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" data-toggle="tab" href="#session-duration" role="tab">
-									Today
-								</a>
-							</li>
-						</ul>
-					</div>
-				</div>
-				<div class="card-body">
-					<div class="tab-content" id="myTabContent">
-						<div class="tab-pane fade show active" id="user" role="tabpanel">
-							<canvas id="activity" class="chartjs"></canvas>
+    </div>
+		<div class="col-6" data-aos="fade-down">
+			<div class="widget-stat card">
+				<div class="card-body p-4">
+					<h3 class="text-black font-w600 mb-4">Daftar Praktikum Akan Datang</h3>
+					<div class="row justify-content-center">
+						@foreach($praktikum_menunggu as $p)
+						<div class="col-12">
+							<h5 class="mb-0 text-black">
+								<span class="ml-0">{{ $p->praktikum->NAMA_PRAKTIKUM }}</span>
+							</h5>
+							<p class="mb-0">{{ $p->praktikum->kelas->jenis_kelas->NAMA_JENIS_KELAS }}</p>
+							<small>{{ $p->TANGGAL_PEMINJAMAN }} {{ $p->JAM_MULAI }} - {{ $p->JAM_SELESAI }}</small>
+							<hr>
 						</div>
+						@endforeach
+						@if($praktikum_menunggu->isEmpty())
+						<div class="col-12 text-center">
+							Tidak ada praktikum.
+						</div>
+						@else
+						<div class="col-12">
+							<a href="{{ url('guru/praktikum') }}">
+								<button class="btn btn-outline-success">Lihat Lainnya<i class="fa fa-arrow-right ml-2"></i></button>
+							</a>
+						</div>
+						@endif
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="col-xl-3 col-xxl-3 col-lg-4 col-md-12">
-			<div class="card bg-secondary" style="background-image:url(images/bg-icon.png); background-repeat:no-repeat; background-position:top right;">
-				<div class="card-body p-5 mt-3">
-					<svg width="44" height="44" viewBox="0 0 44 44" class="mb-3" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14.9531 20.625H5.67188C2.54435 20.625 0 18.0806 0 14.9531V5.67188C0 2.54435 2.54435 0 5.67188 0H14.9531C18.0806 0 20.625 2.54435 20.625 5.67188V14.9531C20.625 18.0806 18.0806 20.625 14.9531 20.625ZM5.67188 2.75C4.06072 2.75 2.75 4.06072 2.75 5.67188V14.9531C2.75 16.5643 4.06072 17.875 5.67188 17.875H14.9531C16.5643 17.875 17.875 16.5643 17.875 14.9531V5.67188C17.875 4.06072 16.5643 2.75 14.9531 2.75H5.67188Z" fill="#fff"/><path d="M38.3281 20.625H29.0469C25.9194 20.625 23.375 18.0806 23.375 14.9531V5.67188C23.375 2.54435 25.9194 0 29.0469 0H38.3281C41.4556 0 44 2.54435 44 5.67188V14.9531C44 18.0806 41.4556 20.625 38.3281 20.625ZM29.0469 2.75C27.4357 2.75 26.125 4.06072 26.125 5.67188V14.9531C26.125 16.5643 27.4357 17.875 29.0469 17.875H38.3281C39.9393 17.875 41.25 16.5643 41.25 14.9531V5.67188C41.25 4.06072 39.9393 2.75 38.3281 2.75H29.0469Z" fill="#fff"/><path d="M33.6875 44C28.0012 44 23.375 39.3738 23.375 33.6875C23.375 28.0012 28.0012 23.375 33.6875 23.375C39.3738 23.375 44 28.0012 44 33.6875C44 39.3738 39.3738 44 33.6875 44ZM33.6875 26.125C29.5176 26.125 26.125 29.5176 26.125 33.6875C26.125 37.8574 29.5176 41.25 33.6875 41.25C37.8574 41.25 41.25 37.8574 41.25 33.6875C41.25 29.5176 37.8574 26.125 33.6875 26.125Z" fill="#fff"/><path d="M14.9531 44H5.67188C2.54435 44 0 41.4556 0 38.3281V29.0469C0 25.9194 2.54435 23.375 5.67188 23.375H14.9531C18.0806 23.375 20.625 25.9194 20.625 29.0469V38.3281C20.625 41.4556 18.0806 44 14.9531 44ZM5.67188 26.125C4.06072 26.125 2.75 27.4357 2.75 29.0469V38.3281C2.75 39.9393 4.06072 41.25 5.67188 41.25H14.9531C16.5643 41.25 17.875 39.9393 17.875 38.3281V29.0469C17.875 27.4357 16.5643 26.125 14.9531 26.125H5.67188Z" fill="#fff"/></svg>
-
-					<h4 class="text-white mb-3">Manage <br/>dashboard layout</h4>
-					<a href="javascript:void(0);" class="d-flex text-light align-items-center justify-content-between">
-						<small>Lorem ipsum dolor sit amet, consectetur</small>
-						<i class="ti-arrow-right"></i>
-					</a>
+		<div class="col-6" data-aos="fade-down">
+			<div class="widget-stat card">
+				<div class="card-body p-4">
+					<h3 class="text-black font-w600 mb-4">Daftar Praktikum Selesai</h3>
+					<div class="row justify-content-center">
+						@foreach($praktikum_selesai as $p)
+						<div class="col-12">
+							<h5 class="mb-0 text-black">
+								<span class="ml-0">{{ $p->praktikum->NAMA_PRAKTIKUM }}</span>
+							</h5>
+							<p class="mb-0">{{ $p->praktikum->kelas->jenis_kelas->NAMA_JENIS_KELAS }}</p>
+							<small>{{ $p->TANGGAL_PEMINJAMAN }} {{ $p->JAM_MULAI }} - {{ $p->JAM_SELESAI }}</small>
+							<hr>
+						</div>
+						@endforeach
+						@if($praktikum_selesai->isEmpty())
+						<div class="col-12 text-center">
+							Tidak ada praktikum.
+						</div>
+						@else
+						<div class="col-12">
+							<a href="{{ url('guru/praktikum') }}">
+								<button class="btn btn-outline-success">Lihat Lainnya<i class="fa fa-arrow-right ml-2"></i></button>
+							</a>
+						</div>
+						@endif
+					</div>
 				</div>
 			</div>
-		</div> --> --}}
 		</div>
+	</div>
 </div>
+@foreach($praktikum as $p)
+<div class="modal fade" id="modal-peminjaman-{{ $p->ID_PEMINJAMAN }}">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Detail Peminjaman #{{ $p->ID_PEMINJAMAN }}</h5>
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-4">Nama Prakt.</div>
+                    <div class="col-8">{{ $p->praktikum->NAMA_PRAKTIKUM }}</div>
+                </div>
+                <div class="row">
+                    <div class="col-4">Jadwal Prakt.</div>
+                    <div class="col-8">{{ $p->TANGGAL_PEMINJAMAN }} {{$p->JAM_MULAI}} - {{ $p->JAM_SELESAI }}</div>
+                </div>
+                <div class="row">
+                    <div class="col-4">Kelas</div>
+                    <div class="col-8">{{ $p->praktikum->kelas->jenis_kelas->NAMA_JENIS_KELAS }}</div>
+                </div>
+                <div class="row">
+                    <div class="col-4">Guru</div>
+                    <div class="col-8">{{ $p->praktikum->kelas->guru->NAMA_LENGKAP }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endforeach
 @endsection
 
 @section('tambahan-script')
+@if(!empty(config('dz.public.pagelevel.js.app_calender')))
+	@foreach(config('dz.public.pagelevel.js.app_calender') as $script)
+			<script src="{{ asset($script) }}" type="text/javascript"></script>
+		@endforeach
+@endif
 <script>
 	var series_1 = Number("{{$persen_belum_pinjam}}");
 	var series_2 = Number("{{$persen_sedang_pinjam}}");
@@ -341,6 +393,7 @@
 	var donutChart = function(){
 		var options = {
 			series: [series_1,series_2,series_3],
+			labels: ['Belum Pinjam', 'Sedang Pinjam', 'Sudah Dikembalikan'],
 			colors:['#ff5c5a', '#2bc156', '#404a56'],
 			chart: {
 				width: 140,
@@ -378,5 +431,31 @@
 		chart.render();
 	}
 	donutChart();
+	var a;
+	var url = "{{ url('pengelola/datapraktikum') }}";
+
+	$.get(url,function(result){
+			a = result;
+			var calendar = $("#calendar").fullCalendar({
+					slotDuration: "00:15:00",
+					minTime: "06:00:00",
+					maxTime: "19:00:00",
+					defaultView: "month",
+					header: {
+							left: "prev,next today",
+							center: "title",
+							right: "month,agendaWeek,agendaDay"
+					},
+					height: $(window).height() - 100,
+					events: a,
+					editable: false,
+					droppable: false,
+					eventLimit: false,
+					selectable: false,
+					eventClick: function(calEvent, jsEvent, view) {
+							$("#modal-peminjaman-"+calEvent.id_peminjaman).modal('toggle');
+					}
+			});
+	});
 </script>
 @endsection
