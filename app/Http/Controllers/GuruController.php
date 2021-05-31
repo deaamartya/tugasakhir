@@ -85,7 +85,7 @@ class GuruController extends Controller
         ->where('k.ID_USER','=',Auth::user()->ID_USER)
         ->where('k.ID_TAHUN_AKADEMIK',$tahun_akademik->ID_TAHUN_AKADEMIK)
         ->where('STATUS_PEMINJAMAN','MENUNGGU KONFIRMASI')
-        ->limit(3)->get();
+        ->limit(10)->get();
 
         // Ambil 3 praktikum selesai
         $praktikum_selesai = PeminjamanAlatBahan::join('praktikum as pr','pr.ID_PRAKTIKUM','=','peminjaman_alat_bahan.ID_PRAKTIKUM')
@@ -94,7 +94,7 @@ class GuruController extends Controller
         ->where('k.ID_TAHUN_AKADEMIK',$tahun_akademik->ID_TAHUN_AKADEMIK)
         ->where('STATUS_PEMINJAMAN','SUDAH DIKEMBALIKAN')
         ->orderBy('ID_PEMINJAMAN','DESC')
-        ->limit(3)->get();
+        ->limit(10)->get();
 
         return view('guru.dashboard', compact('page_title', 'page_description','action','dikembalikan','sedang_pinjam','menunggu_penjadwalan','praktikum','praktikum_menunggu','praktikum_selesai','tahun_akademik'));
     }
