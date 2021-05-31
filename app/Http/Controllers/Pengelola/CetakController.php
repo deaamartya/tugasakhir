@@ -58,10 +58,22 @@ class CetakController extends Controller
 
                 $id_lab = Auth::user()->ID_LABORATORIUM;
 
+                $tahun = intval(date('Y'));
+                $tahunp1 = $tahun+1;
+                $tahunm1 = $tahun-1;
+                if(date('m') >= 6 ){
+                    $tahun_akademik = $tahun.'/'.$tahunp1.' Ganjil';
+                }
+                else {
+                    $tahun_akademik = $tahunm1.'/'.$tahun.' Genap';
+                }
+
+                $tahun_akademik = TahunAkademik::where('TAHUN_AKADEMIK',$tahun_akademik)->first();
+
                 $tahunakademik = TahunAkademik::get();
                 $alat = Alat::select('*')->join('lemari as l','l.ID_LEMARI','alat.ID_LEMARI')->where('l.ID_LABORATORIUM',$id_lab)->get();
 
-                return view('pengelola.cetak-kartu', compact('page_title', 'page_description','action','tahunakademik','alat'));
+                return view('pengelola.cetak-kartu', compact('page_title', 'page_description','action','tahunakademik','alat','tahun_akademik'));
             default:
                 break;
         }
@@ -139,9 +151,21 @@ class CetakController extends Controller
 
                 $id_lab = Auth::user()->ID_LABORATORIUM;
 
+                $tahun = intval(date('Y'));
+                $tahunp1 = $tahun+1;
+                $tahunm1 = $tahun-1;
+                if(date('m') >= 6 ){
+                    $tahun_akademik = $tahun.'/'.$tahunp1.' Ganjil';
+                }
+                else {
+                    $tahun_akademik = $tahunm1.'/'.$tahun.' Genap';
+                }
+
+                $tahun_akademik = TahunAkademik::where('TAHUN_AKADEMIK',$tahun_akademik)->first();
+
                 $tahunakademik = TahunAkademik::get();
 
-                return view('pengelola.cetak-rusak', compact('page_title', 'page_description','action','tahunakademik'));
+                return view('pengelola.cetak-rusak', compact('page_title', 'page_description','action','tahunakademik','tahun_akademik'));
             default:
                 break;
         }

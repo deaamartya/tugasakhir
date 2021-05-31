@@ -103,9 +103,9 @@
                     <span class="nav-text">Laporan</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="{!! url('pengelola/cetak/kartu-stok'); !!}">Data Kartu Stok</a></li>
-                    <li><a href="{!! url('pengelola/cetak/katalog-lemari'); !!}">Data Katalog Lemari</a></li>
-                    <li><a href="{!! url('pengelola/cetak/alat-rusak'); !!}">Daftar Alat Rusak</a></li>
+                    <li><a href="{!! url('pengelola/cetak/kartu-stok'); !!}">Cetak Kartu Stok</a></li>
+                    <li><a href="{!! url('pengelola/cetak/katalog-lemari'); !!}">Cetak Katalog Lemari</a></li>
+                    <li><a href="{!! url('pengelola/cetak/alat-rusak'); !!}">Cetak Daftar Alat Rusak</a></li>
                 </ul>
             </li>
         </ul>

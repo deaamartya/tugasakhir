@@ -301,7 +301,7 @@
 						</div>
 						@endforeach
 						@if($praktikum_menunggu->isEmpty())
-						<div class="col-12 text-center">
+						<div class="col-12 text-center my-5">
 							Tidak ada praktikum.
 						</div>
 						@else
@@ -331,7 +331,7 @@
 						</div>
 						@endforeach
 						@if($praktikum_selesai->isEmpty())
-						<div class="col-12 text-center">
+						<div class="col-12 text-center my-5">
 							Tidak ada praktikum.
 						</div>
 						@else

@@ -68,7 +68,7 @@
                                 <label>Alat</label>
                                 <select class="form-control select2 @error('ID_ALAT') is-invalid @enderror" name="ID_ALAT" id="ID_ALAT">
                                     @foreach($alat as $t)
-                                        <option value="{{ $t->ID_ALAT }}">{{ $t->katalog_alat->ID_KATALOG_ALAT}} {{ $t->merk_tipe_alat->NAMA_MERK_TIPE}} {{ $t->katalog_alat->NAMA_ALAT}} {{$t->katalog_alat->UKURAN}}</option>
+                                        <option value="{{ $t->ID_ALAT }}">{{ $t->ID_ALAT}} {{ $t->merk_tipe_alat->NAMA_MERK_TIPE}} {{ $t->katalog_alat->NAMA_ALAT}} {{$t->katalog_alat->UKURAN}}</option>
                                     @endforeach
                                 </select>
                                 <div class="invalid-feedback animated fadeInUp">
@@ -79,7 +79,7 @@
                                 <label>Tahun Akademik</label>
                                 <select class="form-control select2 @error('ID_TAHUN_AKADEMIK') is-invalid @enderror" name="ID_TAHUN_AKADEMIK" id="ID_TAHUN_AKADEMIK">
                                     @foreach($tahunakademik as $t)
-                                        <option value="{{ $t->ID_TAHUN_AKADEMIK }}">{{ $t->TAHUN_AKADEMIK}}</option>
+                                        <option value="{{ $t->ID_TAHUN_AKADEMIK }}" @if($t->ID_TAHUN_AKADEMIK == $tahun_akademik->ID_TAHUN_AKADEMIK) selected @endif>{{ $t->TAHUN_AKADEMIK}}</option>
                                     @endforeach
                                 </select>
                                 <div class="invalid-feedback animated fadeInUp">

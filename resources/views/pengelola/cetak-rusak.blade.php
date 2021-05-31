@@ -68,7 +68,7 @@
                                 <label>Tahun Akademik</label>
                                 <select class="form-control select2 @error('ID_TAHUN_AKADEMIK') is-invalid @enderror" name="ID_TAHUN_AKADEMIK" id="ID_TAHUN_AKADEMIK">
                                     @foreach($tahunakademik as $t)
-                                        <option value="{{ $t->ID_TAHUN_AKADEMIK }}">{{ $t->TAHUN_AKADEMIK}}</option>
+                                        <option value="{{ $t->ID_TAHUN_AKADEMIK }}" @if($t->ID_TAHUN_AKADEMIK == $tahun_akademik->ID_TAHUN_AKADEMIK) selected @endif>{{ $t->TAHUN_AKADEMIK}}</option>
                                     @endforeach
                                 </select>
                                 <div class="invalid-feedback animated fadeInUp">
