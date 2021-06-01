@@ -13,31 +13,24 @@ class KategoriAlatTableSeeder extends Seeder
      */
     public function run()
     {
-        
-
         \DB::table('kategori_alat')->delete();
-        
-        \DB::table('kategori_alat')->insert(array (
-            0 => 
-            array (
-                'ID_KATEGORI_ALAT' => 1,
-                'ID_LABORATORIUM' => 1,
-                'NAMA_KATEGORI' => 'I',
-            ),
-            1 => 
-            array (
-                'ID_KATEGORI_ALAT' => 6,
-                'ID_LABORATORIUM' => 1,
-                'NAMA_KATEGORI' => 'II',
-            ),
-            2 => 
-            array (
-                'ID_KATEGORI_ALAT' => 7,
-                'ID_LABORATORIUM' => 1,
-                'NAMA_KATEGORI' => 'III',
-            ),
-        ));
-        
+
+        $data_lab = ["1","2","3"];
+        $data_kategori_alat = ["I","II","III"];
+
+        $data = [];
+
+        $i=0;$j=0;
+        foreach($data_lab as $l){
+            foreach($data_kategori_alat as $k){
+                $data[] = [
+                    'ID_LABORATORIUM' => $l,
+                    'NAMA_KATEGORI' => $k,
+                ];
+            }
+        }
+
+        \DB::table('kategori_alat')->insert($data);
         
     }
 }

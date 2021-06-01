@@ -14,6 +14,7 @@ class JenisKelasTableSeeder extends Seeder
     public function run()
     {
         \DB::table('jenis_kelas')->delete();
+        
         for($k=0;$k<3;$k++){
             if($k == 0){
                 $angkatan = "X";
@@ -24,19 +25,11 @@ class JenisKelasTableSeeder extends Seeder
             else if($k == 2){
                 $angkatan = "XII";
             }
-            for($i=1;$i<9;$i++){
+            for($i=1;$i<13;$i++){
                 $data[] = [
                     "NAMA_JENIS_KELAS" => $angkatan." MIPA ".$i
                 ];
             }
-            for($i=1;$i<3;$i++){
-                $data[] = [
-                    "NAMA_JENIS_KELAS" => $angkatan." IIS ".$i
-                ];
-            }
-            $data[] = [
-                "NAMA_JENIS_KELAS" => $angkatan." IBB 1"
-            ];
         }
         
         \DB::table('jenis_kelas')->insert($data);

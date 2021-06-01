@@ -14,6 +14,7 @@ class TipeUserTableSeeder extends Seeder
     public function run()
     {
         \DB::table('tipe_user')->delete();
+        
         \DB::table('tipe_user')->insert(
             [
                 'ID_TIPE_USER' => 1,

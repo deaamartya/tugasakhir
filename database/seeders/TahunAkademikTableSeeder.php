@@ -20,11 +20,11 @@ class TahunAkademikTableSeeder extends Seeder
             $tahun_2 = $tahun++;
             for($j=0;$j<2;$j++){
                 $string = ($j == 0) ? $tahun_2."/".$tahun." Gasal" : $tahun_2."/".$tahun." Genap";
-                $data[] = [
+                $data_tahun_akademik[] = [
                     "TAHUN_AKADEMIK" => $string
                     ];
             }
         }
-        \DB::table('tahun_akademik')->insert($data);
+        \DB::table('tahun_akademik')->insert($data_tahun_akademik);
     }
 }
