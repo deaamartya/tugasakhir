@@ -158,7 +158,7 @@
                                     @endforeach
                                 </tbody>
                             </table>
-                            <button type="submit" class="btn btn-success submit-btn btn-lg">Konfirmasi Pengembalian</button>
+                            <button type="submit" class="btn btn-success submit-btn btn-lg float-right">Konfirmasi Pengembalian</button>
                         </form>
                     </div>
                 </div>

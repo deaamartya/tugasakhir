@@ -144,8 +144,8 @@ class PengelolaController extends Controller
         $id_lab = Auth::user()->ID_LABORATORIUM;
         $peminjaman = PeminjamanAlatBahan::join('ruang_laboratorium as r','r.ID_RUANG_LABORATORIUM','peminjaman_alat_bahan.ID_RUANG_LABORATORIUM')
         ->join('praktikum as p','p.ID_PRAKTIKUM','=','peminjaman_alat_bahan.ID_PRAKTIKUM')
-        ->join('kelas as k','p.ID_KELAS','=','k.ID_KELAS')
-        ->where('k.ID_TAHUN_AKADEMIK',$tahun_akademik->ID_TAHUN_AKADEMIK)
+        // ->join('kelas as k','p.ID_KELAS','=','k.ID_KELAS')
+        // ->where('k.ID_TAHUN_AKADEMIK',$tahun_akademik->ID_TAHUN_AKADEMIK)
         ->where('r.ID_LABORATORIUM','=',$id_lab)->get();
         
         $i = 0;

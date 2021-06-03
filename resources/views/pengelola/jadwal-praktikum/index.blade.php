@@ -163,7 +163,8 @@
     $('document').ready( function(){
         var now = new Date();
         var a;
-        $.get('datapraktikum',function(result){
+        var url = "{{ url('pengelola/datapraktikum') }}";
+        $.get(url,function(result){
             a = result;
             console.log(a);
             var calendar = $("#calendar").fullCalendar({

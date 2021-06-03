@@ -356,7 +356,7 @@ $(document).ready(function(){
             var markup =
             "<tr id='alat-"+index+"'>"+
                 "<td width='60%'>"+nama_alat+"<input type='hidden' class='id_katalog_alat' id='id_katalog_alat-"+index+"' value='"+id_alat+"'><input type='hidden' class='index_alat' id='index_alat["+index+"]' value='"+index+"'></td>"+
-                "<td width='30%'><input type='number' name='jumlah_alat["+index+"]' value='1' class='jumlah_alat border-0' id='qtyalat-"+index+"'></td>"+
+                "<td width='30%'><input type='number' name='jumlah_alat["+index+"]' value='1' class='jumlah_alat border-1 p-2' id='qtyalat-"+index+"'></td>"+
                 "<td width='10%'><button type='button' class='btn btn-danger shadow btn-xs sharp mr-1 delete-alat' id='"+index+"'><i class='fa fa-trash'></i></button></td>"
             "</tr>";
             $("#table-alat tbody").append(markup);
@@ -379,7 +379,7 @@ $(document).ready(function(){
             var markup =
             "<tr id='bahan-"+index+"'>"+
                 "<td width='60%'>"+nama_bahan+"<input type='hidden' class='id_bahan' id='id_bahan-"+index+"' value='"+id_bahan+"'><input type='hidden' class='index_bahan' id='index_bahan["+index+"]' value='"+index+"'></td>"+
-                "<td width='30%'><input type='number' name='jumlah_bahan["+index+"]' value='1' class='jumlah_bahan border-0' id='qtybahan-"+index+"'></td>"+
+                "<td width='30%'><input type='number' name='jumlah_bahan["+index+"]' value='1' class='jumlah_bahan border-1 p-2' id='qtybahan-"+index+"'></td>"+
                 "<td width='10%'><button type='button' class='btn btn-danger shadow btn-xs sharp mr-1 delete-bahan' id='"+index+"'><i class='fa fa-trash'></i></button></td>"
             "</tr>";
             $("#table-bahan tbody").append(markup);
@@ -402,7 +402,7 @@ $(document).ready(function(){
             var markup =
             "<tr id='bahan-kimia-"+index+"'>"+
                 "<td width='60%'>"+nama_bahan+"<input type='hidden' class='id_bahan_kimia' id='id_bahan_kimia-"+index+"' value='"+id_bahan_kimia+"'><input type='hidden' class='index_bahan_kimia' name='index_bahan_kimia["+index+"]' value='"+index+"'></td>"+
-                "<td width='30%'><input type='number' name='jumlah_bahan_kimia["+index+"]' value='1' class='jumlah_bahan_kimia border-0' id='qtybahan-kimia-"+index+"'></td>"+
+                "<td width='30%'><input type='number' name='jumlah_bahan_kimia["+index+"]' value='1' class='jumlah_bahan_kimia border-1 p-2' id='qtybahan-kimia-"+index+"'></td>"+
                 "<td width='10%'><button type='button' class='btn btn-danger shadow btn-xs sharp mr-1 delete-bahan-kimia' id='"+index+"'><i class='fa fa-trash'></i></button></td>"
             "</tr>";
             $("#table-bahan-kimia tbody").append(markup);
