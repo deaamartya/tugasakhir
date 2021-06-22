@@ -12,6 +12,7 @@ use DB;
 use App\Models\PerubahanJadwalPeminjaman;
 use App\Notifications\RequestPenjadwalanUlang;
 use App\Models\User;
+use App\Models\TipeUser;
 use Notification;
 use Auth;
 
@@ -57,10 +58,12 @@ class PenjadwalanUlangController extends Controller
 
     public function store(Request $request)
     {
-        $id_pengelola = 3;
+        $nama_tipe = "Pengelola Lab ".Auth::user()->laboratorium->lab();
+        $id_tipe = TipeUser::where('NAMA_TIPE_USER','LIKE',"%".$nama_tipe."%")->value('ID_TIPE_USER');
+        $pengelola = User::where('ID_LABORATORIUM','=',Auth::user()->ID_LABORATORIUM)
+        ->where('ID_TIPE_USER','=',$id_tipe)->first();
         $id_guru = Auth::user()->ID_USER;
-        DB::transaction(function() use($request,$id_guru,$id_pengelola){
-
+        DB::transaction(function() use($request,$id_guru,$pengelola){
             PerubahanJadwalPeminjaman::insert([
                 'ID_PEMINJAMAN' => $request->ID_PEMINJAMAN,
                 'ID_USER' => $id_guru,
@@ -70,11 +73,8 @@ class PenjadwalanUlangController extends Controller
                 'PESAN' => $request->PESAN,
                 'STATUS_PERUBAHAN' => 0,
             ]);
-
-            $user = User::find($id_pengelola);
-            Notification::send($user, new RequestPenjadwalanUlang($request->ID_PEMINJAMAN));    
+            Notification::send($pengelola, new RequestPenjadwalanUlang($request->ID_PEMINJAMAN));    
         });
-
         return redirect()->route('guru.penjadwalan-ulang.index')->with('created','Data berhasil dibuat');
     }
 }

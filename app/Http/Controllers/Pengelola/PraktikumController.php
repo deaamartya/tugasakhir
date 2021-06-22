@@ -12,6 +12,7 @@ use DB;
 use App\Models\Alat;
 use App\Models\Bahan;
 use App\Models\BahanKimia;
+use App\Models\TahunAkademik;
 use App\Models\AlatBahanPraktikum;
 use Auth;
 
@@ -73,9 +74,23 @@ class PraktikumController extends Controller
 
         DB::transaction(function() use($request){
             if($request->ID_KELAS == "X" || $request->ID_KELAS == "XI" || $request->ID_KELAS == "XII"){
+                $tahun = intval(date('Y'));
+                $tahunp1 = $tahun+1;
+                $tahunm1 = $tahun-1;
+                if(date('m') >= 7 ){
+                    $tahun_akademik = $tahun.'/'.$tahunp1.' Gasal';
+                }
+                else {
+                    $tahun_akademik = $tahunm1.'/'.$tahun.' Genap';
+                }
+                $tahun_akademik = TahunAkademik::where('TAHUN_AKADEMIK',$tahun_akademik)->value('ID_TAHUN_AKADEMIK');
                 $lab = strrchr(Laboratorium::find($request->ID_LABORATORIUM)->value('NAMA_LABORATORIUM'),' ');
                 $lab = str_replace(" ","",$lab);
-                $kelas = Kelas::join('mata_pelajaran as m','m.ID_MAPEL','=','kelas.ID_MAPEL')->join('jenis_kelas as j','j.ID_JENIS_KELAS','=','kelas.ID_JENIS_KELAS')->where('m.NAMA_MAPEL','LIKE',"%".$lab."%")->where('j.NAMA_JENIS_KELAS','LIKE',"%".$request->ID_KELAS." MIPA%")->get();
+                $kelas = Kelas::join('mata_pelajaran as m','m.ID_MAPEL','=','kelas.ID_MAPEL')->join('jenis_kelas as j','j.ID_JENIS_KELAS','=','kelas.ID_JENIS_KELAS')
+                ->where('m.NAMA_MAPEL','LIKE',"%".$lab."%")
+                ->where('j.NAMA_JENIS_KELAS','LIKE',"%".$request->ID_KELAS." MIPA%")
+                ->where('kelas.ID_TAHUN_AKADEMIK','=',$tahun_akademik)
+                ->get();
 
                 $data = [];
 

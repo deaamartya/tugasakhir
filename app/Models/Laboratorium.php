@@ -65,17 +65,6 @@ class Laboratorium extends Model
 
 	public function lab()
 	{
-		if($this->ID_LABORATORIUM == 1)
-		{
-			return "Fisika";
-		}
-		else if($this->ID_LABORATORIUM == 2)
-		{
-			return "Kimia";
-		}
-		else if($this->ID_LABORATORIUM == 3)
-		{
-			return "Biologi";
-		}
+		return substr(strstr($this->NAMA_LABORATORIUM," "), 1);
 	}
 }
