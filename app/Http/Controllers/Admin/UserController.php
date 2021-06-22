@@ -93,13 +93,12 @@ class UserController extends Controller
             'id_tipe_user' => 'required|exists:App\Models\TipeUser,ID_TIPE_USER',
             'nama_lengkap' => 'required|min:3',
             'username' => 'required|min:6',
-            'password' => 'min:6',
             'id_laboratorium' => 'required|exists:App\Models\Laboratorium,ID_LABORATORIUM',
         ]);
 
         $user = User::find($id);
 
-        if($user->USERNAME != $request->username)
+        if($user->username != $request->username)
         {
             $request->validate([
                 "username" => 'unique:App\Models\User,username',
@@ -130,6 +129,9 @@ class UserController extends Controller
         }
         if($request->password != null)
         {
+            $request->validate([
+                'password' => 'required|min:6',
+            ]);
             $user->update([
                 "PASSWORD" => bcrypt($request->password),
             ]);

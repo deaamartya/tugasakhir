@@ -24,14 +24,6 @@
 @section('content')
 
 <div class="container-fluid">
-    <div class="row page-titles mx-0">
-        <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="javascript:void(0)">Pengguna</a></li>
-                <li class="breadcrumb-item active"><a href="javascript:void(0)">Data User</a></li>
-            </ol>
-        </div>
-    </div>
     
     @if(Session::has('created') || Session::has('updated') || Session::has('deleted') || Session::has('error'))
     <div class="alert 
@@ -252,7 +244,7 @@
 
                     <div class="form-group">
                         <label>Username</label>
-                        <input type="text" class="form-control @error('username') is-invalid @enderror" id="username" name="username" value="{{ $d->USERNAME }}">
+                        <input type="text" class="form-control @error('username') is-invalid @enderror" id="username" name="username" value="{{ $d->username }}">
                         <div class="invalid-feedback">
                             Username harus unik.
                         </div>
@@ -260,7 +252,10 @@
 
                     <div class="form-group">
                         <label>Password Baru</label>
-                        <input type="password" class="form-control" id="edit-password" name="password" minlength="6" value="">
+                        <input type="password" class="form-control @error('password') is-invalid @enderror" id="edit-password" name="password" minlength="6" value="">
+                        <div class="invalid-feedback">
+                            Password minimal 6 karakter
+                        </div>
                     </div>
 
                     <div class="form-group">

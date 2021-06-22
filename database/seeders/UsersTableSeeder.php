@@ -87,7 +87,7 @@ class UsersTableSeeder extends Seeder
         }
 
         // Data Guru Biologi
-        for($i = 60; $i<91; $i++){
+        for($i = 60; $i<89; $i++){
             $data_user[] = [
                 'ID_TIPE_USER' => 5,
                 'USERNAME' => $username_guru[$i],
@@ -98,7 +98,27 @@ class UsersTableSeeder extends Seeder
             ];
         }
 
-        //user Guru
+        // User Kepala Laboratorium
+        $data_user[] = [
+            'ID_TIPE_USER' => 6,
+            'USERNAME' => $username_guru[89],
+            'PASSWORD' => bcrypt($username_guru[89]),
+            'PATH_FOTO' => null,
+            'NAMA_LENGKAP' => $nama_guru[89],
+            'ID_LABORATORIUM' => null,
+        ];
+
+        // User WAKA Sarpras
+        $data_user[] = [
+            'ID_TIPE_USER' => 7,
+            'USERNAME' => $username_guru[90],
+            'PASSWORD' => bcrypt($username_guru[90]),
+            'PATH_FOTO' => null,
+            'NAMA_LENGKAP' => $nama_guru[90],
+            'ID_LABORATORIUM' => null,
+        ];
+
+        //insert seluruh user
         \DB::table('users')->insert($data_user);
     }
 }

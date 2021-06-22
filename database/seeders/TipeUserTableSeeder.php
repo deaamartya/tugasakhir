@@ -40,6 +40,16 @@ class TipeUserTableSeeder extends Seeder
                 'ID_TIPE_USER' => 5,
                 'NAMA_TIPE_USER' => 'Guru'
             ]);
+        \DB::table('tipe_user')->insert(
+            [
+                'ID_TIPE_USER' => 6,
+                'NAMA_TIPE_USER' => 'Kepala Laboratorium'
+            ]);
+        \DB::table('tipe_user')->insert(
+            [
+                'ID_TIPE_USER' => 7,
+                'NAMA_TIPE_USER' => 'WAKA Sarpras'
+            ]);
         
     }
 }

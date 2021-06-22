@@ -24,14 +24,6 @@
 @section('content')
 
 <div class="container-fluid">
-    <div class="row page-titles mx-0">
-        <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="javascript:void(0)">Akademik</a></li>
-                <li class="breadcrumb-item active"><a href="javascript:void(0)">Data Tahun Akademik</a></li>
-            </ol>
-        </div>
-    </div>
     <!-- row -->
     @if(Session::has('created') || Session::has('updated') || Session::has('deleted') || Session::has('error'))
     <div class="alert 
@@ -87,7 +79,6 @@
                                     <td>
                                         <div class="d-flex">
                                             <button type="button" class="btn btn-primary shadow btn-xs sharp mr-1" data-toggle="modal" data-target="#modal-edit-{{ $d->ID_TAHUN_AKADEMIK }}"><i class="fa fa-pencil"></i></button>
-                                            <!-- <button type="button" class="btn btn-danger shadow btn-xs sharp" data-toggle="modal" data-target="#modal-delete-{{ $d->ID_TAHUN_AKADEMIK }}"><i class="fa fa-trash"></i></button> -->
                                         </div>												
                                     </td>											
                                 </tr>

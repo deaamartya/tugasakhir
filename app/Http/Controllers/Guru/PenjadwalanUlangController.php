@@ -61,7 +61,7 @@ class PenjadwalanUlangController extends Controller
         $nama_tipe = "Pengelola Lab ".Auth::user()->laboratorium->lab();
         $id_tipe = TipeUser::where('NAMA_TIPE_USER','LIKE',"%".$nama_tipe."%")->value('ID_TIPE_USER');
         $pengelola = User::where('ID_LABORATORIUM','=',Auth::user()->ID_LABORATORIUM)
-        ->where('ID_TIPE_USER','=',$id_tipe)->first();
+        ->where('ID_TIPE_USER','=',$id_tipe)->get();
         $id_guru = Auth::user()->ID_USER;
         DB::transaction(function() use($request,$id_guru,$pengelola){
             PerubahanJadwalPeminjaman::insert([
@@ -73,7 +73,8 @@ class PenjadwalanUlangController extends Controller
                 'PESAN' => $request->PESAN,
                 'STATUS_PERUBAHAN' => 0,
             ]);
-            Notification::send($pengelola, new RequestPenjadwalanUlang($request->ID_PEMINJAMAN));    
+            Notification::send($pengelola, new RequestPenjadwalanUlang($request->ID_PEMINJAMAN));
+            // Notification::send($pengelola,new PushNotifPengelola);
         });
         return redirect()->route('guru.penjadwalan-ulang.index')->with('created','Data berhasil dibuat');
     }

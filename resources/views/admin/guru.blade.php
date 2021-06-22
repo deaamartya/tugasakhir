@@ -24,14 +24,6 @@
 @section('content')
 
 <div class="container-fluid">
-    <div class="row page-titles mx-0">
-        <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="javascript:void(0)">Akademik</a></li>
-                <li class="breadcrumb-item active"><a href="javascript:void(0)">Data Guru</a></li>
-            </ol>
-        </div>
-    </div>
     
     @if(Session::has('created') || Session::has('updated') || Session::has('deleted') || Session::has('error'))
     <div class="alert 
@@ -151,6 +143,15 @@
                         </div>
 
                         <div class="form-group">
+                            <label>Laboratorium</label>
+                            <select class="form-control select2" name="id_laboratorium" id="id_laboratorium">
+                                @foreach($lab as $t)
+                                    <option value="{{ $t->ID_LABORATORIUM }}">{{ $t->NAMA_LABORATORIUM }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="form-group">
                             <label>Nama Lengkap</label>
                             <input type="text" class="form-control" id="nama_lengkap" name="nama_lengkap" value="{{ @old('nama_lengkap') }}">
                         </div>
@@ -211,13 +212,22 @@
                     </div>
 
                     <div class="form-group">
+                        <label>Laboratorium</label>
+                        <select class="form-control select2" name="id_laboratorium" id="id_laboratorium">
+                            @foreach($lab as $t)
+                                <option value="{{ $t->ID_LABORATORIUM }}" @if($d->ID_LABORATORIUM == $t->ID_LABORATORIUM) selected @endif>{{ $t->NAMA_LABORATORIUM }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="form-group">
                         <label>Nama Lengkap</label>
                         <input type="text" class="form-control" id="nama_lengkap" name="nama_lengkap" value="{{ $d->NAMA_LENGKAP }}">
                     </div>
 
                     <div class="form-group">
                         <label>Username</label>
-                        <input type="text" class="form-control @error('username') is-invalid @enderror" id="username" name="username" value="{{ $d->USERNAME }}">
+                        <input type="text" class="form-control @error('username') is-invalid @enderror" id="username" name="username" value="{{ $d->username }}">
                         <div class="invalid-feedback">
                             Username harus unik.
                         </div>
@@ -225,7 +235,10 @@
 
                     <div class="form-group">
                         <label>Password Baru</label>
-                        <input type="password" class="form-control" id="edit-password" name="password" minlength="6" value="">
+                        <input type="password" class="form-control @error('password') is-invalid @enderror" id="edit-password" name="password" minlength="6" value="">
+                        <div class="invalid-feedback">
+                            Password minimal 6 karakter
+                        </div>
                     </div>
 
                     <div class="form-group">
