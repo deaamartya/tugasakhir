@@ -26,7 +26,7 @@ class PeminjamanAlatBahanTableSeeder extends Seeder
                 'JAM_MULAI' => '08:40',
                 'JAM_SELESAI' => '09:00',
                 'STATUS_PEMINJAMAN' => 'MENUNGGU KONFIRMASI',
-                'TANGGAL_PEMINJAMAN' => '2021-01-25',
+                'TANGGAL_PEMINJAMAN' => date('Y-m-d'),
             ),
         ));
         

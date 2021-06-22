@@ -62,10 +62,10 @@ class UsersTableSeeder extends Seeder
 
         $username_guru = ['arianidwiw','asnanwahyu','bambangwah','berthapusp','chotamulla','chusnawiry','dedeyayahr','deniainurr','desychrisn','dewiprajna','dhananoviy','didikmarsu','donyardhia','draminarsi','dramunawar','drasrimudj','drshachmad','drsdigdosa','drshsubagy','drsnurirfa','elfandaria','endangsasi','endangsuli','endangsusi','ernaarista','evienilams','faridadwis','fatimahalm','fatkurochi','febydasaek','fitripuspa','fxsugiarto','hajarahmad','hendrijoel','hernadhifi','hikmahnafi','hudiyaagun','inaniklumi','izzatulfaj','johannisev','karimullah','karinarubi','krisnaning','kuroikunis','kusumaning','lailuzrizk','lieslienma','lisamahara','mfahrudin','mmisbah','malikithoh','miftakhulj','miftakhuln','muhammadaz','mutthoharo','ngenawatib','nisarachmi','nurulaviva','pangestuti','rirvinadik','rachmadwah','rasyidsale','ratihkusma','renykusuma','riaoktavia','rinihermiw','riskidyahk','rizkidyahk','rrindahsus','sailatulil','sarni','setyowibow','slametamuj','srihariwat','sriiswahyu','srirahayun','sriwahyuni','sriwulanda','suharsi','sunarmi','suparti','sutomo','sutrisno','suwantini','syaifulari','tutikdwiuj','ulfinnimat','wahyususil','widiati','windarwati','yettyponir'];
 
-
+        // Data Guru Fisika
         for($i = 0; $i<30; $i++){
             $data_user[] = [
-                'ID_TIPE_USER' => 4,
+                'ID_TIPE_USER' => 5,
                 'USERNAME' => $username_guru[$i],
                 'PASSWORD' => bcrypt($username_guru[$i]),
                 'PATH_FOTO' => null,
@@ -73,10 +73,11 @@ class UsersTableSeeder extends Seeder
                 'ID_LABORATORIUM' => 1,
             ];
         }
-
+        
+        // Data Guru Kimia
         for($i = 30; $i<60; $i++){
             $data_user[] = [
-                'ID_TIPE_USER' => 4,
+                'ID_TIPE_USER' => 5,
                 'USERNAME' => $username_guru[$i],
                 'PASSWORD' => bcrypt($username_guru[$i]),
                 'PATH_FOTO' => null,
@@ -85,9 +86,10 @@ class UsersTableSeeder extends Seeder
             ];
         }
 
+        // Data Guru Biologi
         for($i = 60; $i<91; $i++){
             $data_user[] = [
-                'ID_TIPE_USER' => 4,
+                'ID_TIPE_USER' => 5,
                 'USERNAME' => $username_guru[$i],
                 'PASSWORD' => bcrypt($username_guru[$i]),
                 'PATH_FOTO' => null,
