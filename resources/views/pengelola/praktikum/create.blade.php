@@ -105,7 +105,7 @@
                                 </div>
                             </div>
 
-                            <hr></hr>
+                            <hr>
 
                             <div class="form-group">
                                 <label>Alat Praktikum</label>
@@ -155,7 +155,7 @@
                                 </div>
                             </div>
 
-                            <hr></hr>
+                            <hr>
 
                             <table class="table alatbahan-table" id="table-alat">
                                 <thead>
@@ -188,7 +188,7 @@
                                 <tbody>
                                 </tbody>
                             </table>
-                            <hr></hr>
+                            <hr>
 
                             <div class="row justify-content-end">
                                 <div class="col-9 text-right">
@@ -231,7 +231,7 @@
                                 </div>
                             </div>
 
-                            <button type="submit" class="btn btn-success submit-btn btn-lg">Simpan</button>
+                            <button type="submit" class="btn btn-success submit-btn btn-lg float-right">Simpan</button>
                         </form>
                     </div>
                 </div>

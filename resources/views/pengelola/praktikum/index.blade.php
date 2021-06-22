@@ -124,12 +124,27 @@
                     <div>{{ $d->kelas->jenis_kelas->NAMA_JENIS_KELAS }}</div>
                 </div>
 
-                <hr></hr>
+                <hr>
 
                 <div class="form-group px-2">
                     <div>Kebutuhan Alat dan Bahan per kelompok : </div>
                 </div>
-
+                @php
+                    $alat = false;
+                    $bahan = false;
+                    $bahan_kimia = false;
+                @endphp
+                @foreach($d->alat_bahan_praktikums as $a)
+                    @if($a->ID_TIPE == 1)
+                        @php $alat = true; @endphp
+                    @elseif($a->ID_TIPE == 2)
+                        @php $bahan = true; @endphp
+                    @elseif($a->ID_TIPE == 3)
+                        @php $bahan_kimia = true; @endphp
+                    @endif
+                @endforeach
+                
+                @if($alat)
                 <div class="form-group px-2">
                     <table class="table text-black">
                         <thead>
@@ -148,7 +163,9 @@
                         </tbody>
                     </table>
                 </div>
+                @endif
 
+                @if($bahan)
                 <div class="form-group px-2">
                     <table class="table text-black">
                         <thead>
@@ -167,7 +184,9 @@
                         </tbody>
                     </table>
                 </div>
+                @endif
 
+                @if($bahan_kimia)
                 <div class="form-group px-2">
                     <table class="table text-black">
                         <thead>
@@ -186,7 +205,7 @@
                         </tbody>
                     </table>
                 </div>
-
+                @endif
             </div>
         </div>
     </div>
