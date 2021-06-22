@@ -82,7 +82,7 @@
                                     <td>
                                         <div class="d-flex">
                                             <button type="button" class="btn btn-primary shadow btn-xs sharp mr-1" data-toggle="modal" data-target="#modal-edit-{{ $d->ID_LEMARI }}"><i class="fa fa-pencil"></i></button>
-                                            <button type="button" class="btn btn-danger shadow btn-xs sharp" data-toggle="modal" data-target="#modal-delete-{{ $d->ID_LEMARI }}"><i class="fa fa-trash"></i></button>
+                                            {{-- <button type="button" class="btn btn-danger shadow btn-xs sharp" data-toggle="modal" data-target="#modal-delete-{{ $d->ID_LEMARI }}"><i class="fa fa-trash"></i></button> --}}
                                         </div>												
                                     </td>											
                                 </tr>

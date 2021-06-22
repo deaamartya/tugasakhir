@@ -35,8 +35,8 @@ class PraktikumController extends Controller
 
     public function create()
     {
-        $page_title = 'Data Praktikum';
-        $page_description = 'Menampilkan seluruh data praktikum';
+        $page_title = 'Buat Praktikum';
+        $page_description = 'Membuat praktikum baru untuk laboratorium';
         $action = 'uc_select2';
 
         $id_lab = Auth::user()->ID_LABORATORIUM;
