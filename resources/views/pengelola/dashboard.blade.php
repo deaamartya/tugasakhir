@@ -386,6 +386,9 @@
 			<script src="{{ asset($script) }}" type="text/javascript"></script>
 		@endforeach
 @endif
+{{-- @auth
+    <script src="{{ asset('js/enable-push.js') }}" defer></script>
+@endauth --}}
 <script>
 	var series_1 = Number("{{$persen_belum_pinjam}}");
 	var series_2 = Number("{{$persen_sedang_pinjam}}");

@@ -14,7 +14,7 @@
                     </div>
                     <h4 class="text-center mb-4">Selamat datang di Sistem Informasi Laboratorium IPA Terpadu SMA Negeri 3 Sidoarjo</h4>
                     @if($errors->any())
-                        <div class="alert alert-danger">Username dan Password salah</div>
+                        <div class="alert alert-danger">Kombinasi username dan password salah</div>
                     @endif
                     <form action="{{ route('login') }}" method="POST">
                     @csrf

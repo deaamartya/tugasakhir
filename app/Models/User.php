@@ -26,9 +26,11 @@ use Illuminate\Notifications\Notifiable;
  *
  * @package App\Models
  */
+// use NotificationChannels\WebPush\HasPushSubscriptions;
 class User extends Authenticatable
 {
 	use Notifiable;
+	// use HasPushSubscriptions;
 	protected $table = 'users';
 	protected $primaryKey = 'ID_USER';
 	public $timestamps = false;

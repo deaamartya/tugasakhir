@@ -198,6 +198,9 @@
 			<script src="{{ asset($script) }}" type="text/javascript"></script>
 		@endforeach
 @endif
+{{-- @auth
+    <script src="{{ asset('js/enable-push.js') }}" defer></script>
+@endauth --}}
 <script>
 	$('document').ready( function(){
 			var a;

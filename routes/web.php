@@ -113,6 +113,7 @@ Route::middleware(['auth','cekPengelola'])->prefix('pengelola')->name('pengelola
 // Route untuk notifikasi
 Route::get('notifications','App\Http\Controllers\NotificationController@index')->name('notification.index');
 Route::get('notifications/unread','App\Http\Controllers\NotificationController@index')->name('notification.unread');
+Route::post('/push','PushController@store');
 
 // Route untuk ajax cek username
 Route::get('cekusername/{username}', function($username){
