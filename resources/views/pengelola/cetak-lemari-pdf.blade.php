@@ -11,8 +11,8 @@
                 <br>LABORATORIUM {{ strtoupper(Auth::user()->laboratorium->lab()) }}
                 <br>SMA NEGERI 3 SIDOARJO
             </td>
-            <td><img src="{{ $_SERVER['DOCUMENT_ROOT'].'/images/logo/sman3.png' }}" height="60"></td>
             <td><img src="{{ $_SERVER['DOCUMENT_ROOT'].'/images/logo/dispendik.png' }}" height="60"></td>
+            <td><img src="{{ $_SERVER['DOCUMENT_ROOT'].'/images/logo/sman3.png' }}" height="60"></td>
         </tr>
     </table>
 
@@ -93,6 +93,6 @@
     </table>
     @endif
 
-    <small class="fixed-bottom">Dokumen ini dibuat pada {{ date('Y-m-d h:i:s') }}</small>
+    <small class="fixed-bottom">Dokumen ini dibuat pada {{ date('Y-m-d H:i:s') }}</small>
 
 </body>

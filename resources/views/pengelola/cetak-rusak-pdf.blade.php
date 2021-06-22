@@ -5,11 +5,11 @@
 <body>
     <table width="100%" style="font-family:'Times New Roman';font-weight:bold">
         <tr>
-            <td><img src="{{ $_SERVER['DOCUMENT_ROOT'].'/images/logo/sman3.png' }}" height="60" class="float-left"></td>
+            <td><img src="{{ $_SERVER['DOCUMENT_ROOT'].'/images/logo/dispendik.png' }}" height="60" class="float-left"></td>
             <td colspan="10" style="line-height:1.5;text-align:center">
                 LABORATORIUM {{ strtoupper(Auth::user()->laboratorium->lab()) }}
             </td>
-            <td><img src="{{ $_SERVER['DOCUMENT_ROOT'].'/images/logo/dispendik.png' }}" height="60" class="float-right"></td>
+            <td><img src="{{ $_SERVER['DOCUMENT_ROOT'].'/images/logo/sman3.png' }}" height="60" class="float-right"></td>
         </tr>
         <tr>
             <td></td>
@@ -23,7 +23,7 @@
 
     <hr></hr>
 
-    <div style="margin-left:-30px;width:100%;line-height:1.5;text-align:center;margin-top:50px;font-size:18pt;font-weight:bold;">DAFTAR ALAT RUSAK</div>
+    <div style="margin-left:-30px;width:100%;line-height:1.5;text-align:center;margin-top:50px;font-size:18pt;font-weight:bold;">LAPORAN BARANG RUSAK</div>
 
     <div style="margin-left:-30px;width:100%;line-height:1.5;text-align:center;margin-top:10px;margin-bottom:50px;font-size:18pt;">{{ $tahunakademik->TAHUN_AKADEMIK }}</div>
 
