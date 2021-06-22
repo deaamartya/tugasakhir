@@ -165,6 +165,7 @@
                                 @foreach($lab as $t)
                                     <option value="{{ $t->ID_LABORATORIUM }}">{{ $t->NAMA_LABORATORIUM }}</option>
                                 @endforeach
+                                <option value="">Semua Laboratorium</option>
                             </select>
                         </div>
 
@@ -234,6 +235,7 @@
                             @foreach($lab as $t)
                                 <option value="{{ $t->ID_LABORATORIUM }}" @if($d->ID_LABORATORIUM == $t->ID_LABORATORIUM) selected @endif>{{ $t->NAMA_LABORATORIUM }}</option>
                             @endforeach
+                            <option value="" @if($d->ID_LABORATORIUM == 0) selected @endif>Semua Laboratorium</option>
                         </select>
                     </div>
 

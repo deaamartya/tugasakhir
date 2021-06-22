@@ -42,7 +42,6 @@ class UserController extends Controller
             'nama_lengkap' => 'required|min:3',
             'username' => 'required|min:6|unique:App\Models\User,username',
             'password' => 'required|min:6',
-            'id_laboratorium' => 'required|exists:App\Models\Laboratorium,ID_LABORATORIUM',
         ]);
 
         DB::transaction(function() use($request){
@@ -93,7 +92,6 @@ class UserController extends Controller
             'id_tipe_user' => 'required|exists:App\Models\TipeUser,ID_TIPE_USER',
             'nama_lengkap' => 'required|min:3',
             'username' => 'required|min:6',
-            'id_laboratorium' => 'required|exists:App\Models\Laboratorium,ID_LABORATORIUM',
         ]);
 
         $user = User::find($id);
