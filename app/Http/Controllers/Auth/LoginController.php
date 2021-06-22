@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Auth;
+use Illuminate\Validation\ValidationException;
 
 class LoginController extends Controller
 {
@@ -51,5 +52,15 @@ class LoginController extends Controller
     public function username()
     {
         return 'username';
+    }
+
+    protected function getFailedLoginMessage()
+    {
+        return '';
+    }
+
+    protected function sendFailedLoginResponse(Request $request)
+    {
+        throw ValidationException::withMessages(["Username dan Password salah"]);
     }
 }
