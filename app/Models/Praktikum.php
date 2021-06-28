@@ -33,38 +33,22 @@ class Praktikum extends Model
 	public $incrementing = false;
 	public $timestamps = false;
 
-	protected $casts = [
-		'ID_LABORATORIUM' => 'int'
-	];
-
 	protected $fillable = [
-		'ID_LABORATORIUM',
 		'ID_MAPEL',
-		'ID_KELAS',
-		'NAMA_PRAKTIKUM'
+		'JUDUL_PRAKTIKUM'
 	];
-
-	public function laboratorium()
-	{
-		return $this->belongsTo(Laboratorium::class, 'ID_LABORATORIUM');
-	}
 
 	public function mata_pelajaran()
 	{
 		return $this->belongsTo(MataPelajaran::class, 'ID_MAPEL');
 	}
 
-	public function kelas()
-	{
-		return $this->belongsTo(Kelas::class, 'ID_KELAS');
-	}
-
-	public function alat_bahan_praktikums()
+	public function alat_bahan_praktikum()
 	{
 		return $this->hasMany(AlatBahanPraktikum::class, 'ID_PRAKTIKUM');
 	}
 
-	public function peminjaman_alat_bahans()
+	public function peminjaman_alat_bahan()
 	{
 		return $this->hasMany(PeminjamanAlatBahan::class, 'ID_PRAKTIKUM');
 	}

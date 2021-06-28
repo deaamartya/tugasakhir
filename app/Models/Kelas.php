@@ -59,9 +59,9 @@ class Kelas extends Model
 		return $this->belongsTo(JenisKelas::class, 'ID_JENIS_KELAS');
 	}
 
-	public function praktikums()
+	public function peminjaman_alat_bahans()
 	{
-		return $this->hasMany(Praktikum::class, 'ID_KELAS');
+		return $this->hasMany(PeminjamanAlatBahan::class, 'ID_KELAS');
 	}
 
 	public function mapel()

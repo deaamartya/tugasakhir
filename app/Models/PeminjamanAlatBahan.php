@@ -38,6 +38,7 @@ class PeminjamanAlatBahan extends Model
 
 	protected $fillable = [
 		'ID_RUANG_LABORATORIUM',
+		'ID_KELAS',
 		'ID_PRAKTIKUM',
 		'TANGGAL_PEMINJAMAN',
 		'STATUS_PEMINJAMAN',
@@ -50,6 +51,11 @@ class PeminjamanAlatBahan extends Model
 		return $this->belongsTo(Praktikum::class, 'ID_PRAKTIKUM');
 	}
 
+	public function kelas()
+	{
+		return $this->belongsTo(Kelas::class, 'ID_KELAS');
+	}
+
 	public function ruang_laboratorium()
 	{
 		return $this->belongsTo(RuangLaboratorium::class, 'ID_RUANG_LABORATORIUM');
@@ -58,10 +64,5 @@ class PeminjamanAlatBahan extends Model
 	public function perubahan_jadwal_peminjamen()
 	{
 		return $this->hasOne(PerubahanJadwalPeminjaman::class, 'ID_PEMINJAMAN');
-	}
-
-	public function detail_peminjamans()
-	{
-		return $this->hasMany(DetailPeminjamanAlatBahan::class, 'ID_PEMINJAMAN');
 	}
 }

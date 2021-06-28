@@ -53,7 +53,7 @@ class Laboratorium extends Model
 		return $this->hasMany(Praktikum::class, 'ID_LABORATORIUM');
 	}
 
-	public function ruang_laboratoria()
+	public function ruang_laboratorium()
 	{
 		return $this->hasMany(RuangLaboratorium::class, 'ID_LABORATORIUM');
 	}

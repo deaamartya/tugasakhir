@@ -35,18 +35,20 @@ class HistoriStok extends Model
 
 	protected $casts = [
 		'ID_TIPE' => 'int',
-		'JUMLAH_MASUK' => 'int',
-		'JUMLAH_KELUAR' => 'int',
+		'JUMLAH_MASUK' => 'float',
+		'JUMLAH_KELUAR' => 'float',
 		'KONDISI' => 'bool',
 	];
 
 	protected $dates = [
-		'TIMESTAMP'
+		'TIMESTAMP' => 'datetime:Y-m-d H:i:s'
 	];
 
 	protected $fillable = [
 		'ID_TIPE',
 		'ID_ALAT_BAHAN',
+		'ID_TRANSAKSI',
+		'TIMESTAMP',
 		'JUMLAH_MASUK',
 		'JUMLAH_KELUAR',
 		'KONDISI',

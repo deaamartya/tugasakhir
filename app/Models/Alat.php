@@ -35,16 +35,12 @@ class Alat extends Model
 	protected $casts = [
 		'ID_LEMARI' => 'int',
 		'ID_MERK_TIPE' => 'int',
-		'JUMLAH_BAGUS' => 'int',
-		'JUMLAH_RUSAK' => 'int'
 	];
 
 	protected $fillable = [
 		'ID_KATALOG_ALAT',
 		'ID_LEMARI',
 		'ID_MERK_TIPE',
-		'JUMLAH_BAGUS',
-		'JUMLAH_RUSAK'
 	];
 
 	public function katalog_alat()

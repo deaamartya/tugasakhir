@@ -43,7 +43,6 @@ class BahanKimia extends Model
 		'ID_LEMARI',
 		'RUMUS',
 		'WUJUD',
-		'JUMLAH_BAHAN_KIMIA',
 		'SPESIFIKASI_BAHAN'
 	];
 

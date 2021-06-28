@@ -36,16 +36,18 @@ class User extends Authenticatable
 	public $timestamps = false;
 
 	protected $casts = [
-		'ID_TIPE_USER' => 'int'
+		'ID_TIPE_USER' => 'int',
+		'ONLINE' => 'bool'
 	];
 
 	protected $fillable = [
 		'ID_TIPE_USER',
-		'USERNAME',
-		'PASSWORD',
+		'username',
+		'password',
 		'PATH_FOTO',
 		'NAMA_LENGKAP',
-		'ID_LABORATORIUM'
+		'ID_LABORATORIUM',
+		'ONLINE'
 	];
 
 	public function tipe_user()

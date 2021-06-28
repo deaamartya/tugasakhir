@@ -27,11 +27,22 @@ class MataPelajaran extends Model
 	public $timestamps = false;
 
 	protected $fillable = [
-		'NAMA_MAPEL'
+		'NAMA_MAPEL',
+		'ID_LABORATORIUM'
 	];
 
 	public function praktikums()
 	{
 		return $this->hasMany(Praktikum::class, 'ID_MAPEL');
+	}
+
+	public function kelas()
+	{
+		return $this->hasMany(Kelas::class, 'ID_MAPEL');
+	}
+
+	public function laboratorium()
+	{
+		return $this->belongsTo(Praktikum::class, 'ID_LABORATORIUM');
 	}
 }
