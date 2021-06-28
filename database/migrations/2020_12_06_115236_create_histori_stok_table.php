@@ -16,12 +16,13 @@ class CreateHistoriStokTable extends Migration
         Schema::create('histori_stok', function (Blueprint $table) {
             $table->string('ID_HISTORI', 15)->primary();
             $table->integer('ID_TIPE')->index('FK_MERUPAKAN_4');
+            $table->char('ID_TRANSAKSI',15)->nullable();
             $table->string('ID_ALAT_BAHAN', 20)->nullable();
             $table->dateTime('TIMESTAMP')->useCurrent();
             $table->integer('JUMLAH_MASUK');
             $table->integer('JUMLAH_KELUAR');
             $table->boolean('KONDISI')->nullable();
-            $table->integer('STOK')->nullable();
+            $table->integer('STOK');
             $table->text('KETERANGAN')->nullable();
         });
 
@@ -35,26 +36,12 @@ class CreateHistoriStokTable extends Migration
                 END IF;
 
                 IF (new.ID_TIPE = 1) THEN
-                    IF(new.KONDISI = 1) THEN
-                        SELECT `JUMLAH_BAGUS` INTO @stok FROM alat WHERE `ID_ALAT`=new.ID_ALAT_BAHAN;
-                        SET new.STOK = @stok+new.JUMLAH_MASUK-new.JUMLAH_KELUAR;
-                        UPDATE `alat` SET `JUMLAH_BAGUS` = @stok+new.JUMLAH_MASUK-new.JUMLAH_KELUAR WHERE `ID_ALAT` = new.ID_ALAT_BAHAN;
-                    ELSE
-                        SELECT `JUMLAH_RUSAK` INTO @stok FROM alat WHERE `ID_ALAT`=new.ID_ALAT_BAHAN;
-                        SET new.STOK = @stok+new.JUMLAH_MASUK-new.JUMLAH_KELUAR;
-                        UPDATE `alat` SET `JUMLAH_RUSAK` = @stok+new.JUMLAH_MASUK-new.JUMLAH_KELUAR WHERE `ID_ALAT` = new.ID_ALAT_BAHAN;
-                    END IF;
-                ELSEIF (new.ID_TIPE = 2) THEN
-                    SELECT `JUMLAH` INTO @stok FROM bahan WHERE `ID_BAHAN` = new.ID_ALAT_BAHAN;
+                    SELECT `STOK` INTO @stok from histori_stok WHERE `ID_ALAT_BAHAN` = new.ID_ALAT_BAHAN AND KONDISI = new.KONDISI ORDER BY TIMESTAMP DESC LIMIT 1;
                     SET new.STOK = @stok+new.JUMLAH_MASUK-new.JUMLAH_KELUAR;
-                    UPDATE `bahan` SET `JUMLAH` = @stok+new.JUMLAH_MASUK-new.JUMLAH_KELUAR WHERE `ID_BAHAN` = new.ID_ALAT_BAHAN;
-                ELSEIF (new.ID_TIPE = 3) THEN
-                    SELECT `JUMLAH_BAHAN_KIMIA` INTO @stok FROM bahan_kimia WHERE `ID_BAHAN_KIMIA` = new.ID_ALAT_BAHAN;
+                ELSEIF (new.ID_TIPE > 1) THEN
+                    SELECT `STOK` INTO @stok from histori_stok WHERE `ID_ALAT_BAHAN` = new.ID_ALAT_BAHAN ORDER BY TIMESTAMP DESC LIMIT 1;
                     SET new.STOK = @stok+new.JUMLAH_MASUK-new.JUMLAH_KELUAR;
-                    UPDATE `bahan_kimia` SET `JUMLAH_BAHAN_KIMIA` = @stok+new.JUMLAH_MASUK-new.JUMLAH_KELUAR WHERE `ID_BAHAN_KIMIA` = new.ID_ALAT_BAHAN;
                 END IF;
-
-                SET new.TIMESTAMP = SYSDATE();
             END");
     }
 

@@ -16,6 +16,7 @@ class CreateMataPelajaranTable extends Migration
         Schema::create('mata_pelajaran', function (Blueprint $table) {
             $table->char('ID_MAPEL', 5)->primary();
             $table->string('NAMA_MAPEL', 50);
+            $table->integer('ID_LABORATORIUM')->index('FK_MERUPAKAN_5');
         });
 
         DB::unprepared("CREATE TRIGGER `auto_id_mapel` BEFORE INSERT ON `mata_pelajaran` FOR EACH ROW 

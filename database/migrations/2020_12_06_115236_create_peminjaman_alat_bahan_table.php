@@ -14,8 +14,9 @@ class CreatePeminjamanAlatBahanTable extends Migration
     public function up()
     {
         Schema::create('peminjaman_alat_bahan', function (Blueprint $table) {
-            $table->string('ID_PEMINJAMAN', 15)->primary();
+            $table->char('ID_PEMINJAMAN', 15)->primary();
             $table->integer('ID_RUANG_LABORATORIUM')->index('FK_MENGGUNAKAN');
+            $table->char('ID_KELAS', 10)->index('FK_MEMILIKI_6');
             $table->char('ID_PRAKTIKUM', 10)->index('FK_MEMILIKI');
             $table->date('TANGGAL_PEMINJAMAN');
             $table->string('JAM_MULAI',5);

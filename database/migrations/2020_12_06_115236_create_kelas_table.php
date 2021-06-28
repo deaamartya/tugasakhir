@@ -16,7 +16,7 @@ class CreateKelasTable extends Migration
         Schema::create('kelas', function (Blueprint $table) {
             $table->char('ID_KELAS', 10)->primary();
             $table->integer('ID_TAHUN_AKADEMIK')->index('FK_DILAKSANAKAN_PADA');
-            $table->string('ID_MAPEL',5)->index('FK_MAPEL');
+            $table->char('ID_MAPEL',5)->index('FK_MAPEL');
             $table->integer('ID_USER')->index('FK_MENGAJAR');
             $table->integer('ID_JENIS_KELAS')->index('FK_MERUPAKAN_2');
         });

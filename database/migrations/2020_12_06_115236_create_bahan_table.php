@@ -17,7 +17,6 @@ class CreateBahanTable extends Migration
             $table->string('ID_BAHAN', 20)->primary();
             $table->integer('ID_LEMARI')->index('FK_DISIMPAN2');
             $table->string('NAMA_BAHAN', 50);
-            $table->integer('JUMLAH');
         });
     }
 

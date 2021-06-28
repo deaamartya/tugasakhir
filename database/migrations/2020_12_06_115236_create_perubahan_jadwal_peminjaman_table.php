@@ -14,19 +14,19 @@ class CreatePerubahanJadwalPeminjamanTable extends Migration
     public function up()
     {
         Schema::create('perubahan_jadwal_peminjaman', function (Blueprint $table) {
-            $table->string('ID_PERUBAHAN_JADWAL', 15)->primary();
-            $table->string('ID_PEMINJAMAN')->index('FK_PERUBAHAN_JADWAL');
+            $table->char('ID_PERUBAHAN_JADWAL', 15)->primary();
+            $table->char('ID_PEMINJAMAN')->index('FK_PERUBAHAN_JADWAL');
             $table->integer('ID_USER')->index('FK_DIPROSES');
             $table->date('TANGGAL_BARU')->nullable();
             $table->string('JAM_MULAI_BARU')->nullable();
             $table->string('JAM_SELESAI_BARU')->nullable();
-            $table->text('PESAN')->nullable();
+            $table->text('PESAN');
             $table->boolean('STATUS_PERUBAHAN');
         });
 
         DB::unprepared("CREATE TRIGGER `auto_id_perubahan_jadwal` BEFORE INSERT ON `perubahan_jadwal_peminjaman` FOR EACH ROW 
             BEGIN
-                SELECT SUBSTRING((MAX(`ID_PERUBAHAN_JADWAL`)),2,13) INTO @total FROM perubahan_jadwal_peminjaman;
+                SELECT SUBSTRING((MAX(`ID_PERUBAHAN_JADWAL`)),3,13) INTO @total FROM perubahan_jadwal_peminjaman;
                 IF (@total >= 1) THEN
                     SET new.ID_PERUBAHAN_JADWAL = CONCAT('PJ',LPAD(@total+1,13,'0'));
                 ELSE

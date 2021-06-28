@@ -14,8 +14,9 @@ class AddForeignKeysToPeminjamanAlatBahanTable extends Migration
     public function up()
     {
         Schema::table('peminjaman_alat_bahan', function (Blueprint $table) {
-            $table->foreign('ID_PRAKTIKUM', 'FK_MEMILIKI')->references('ID_PRAKTIKUM')->on('praktikum')->onUpdate('NO ACTION')->onDelete('NO ACTION');
             $table->foreign('ID_RUANG_LABORATORIUM', 'FK_MENGGUNAKAN')->references('ID_RUANG_LABORATORIUM')->on('ruang_laboratorium')->onUpdate('NO ACTION')->onDelete('NO ACTION');
+            $table->foreign('ID_KELAS', 'FK_MEMILIKI_6')->references('ID_KELAS')->on('kelas')->onUpdate('NO ACTION')->onDelete('NO ACTION');
+            $table->foreign('ID_PRAKTIKUM', 'FK_MEMILIKI')->references('ID_PRAKTIKUM')->on('praktikum')->onUpdate('NO ACTION')->onDelete('NO ACTION');
         });
     }
 

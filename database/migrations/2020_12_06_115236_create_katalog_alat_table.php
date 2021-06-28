@@ -17,7 +17,7 @@ class CreateKatalogAlatTable extends Migration
             $table->string('ID_KATALOG_ALAT', 15)->primary();
             $table->integer('ID_KATEGORI_ALAT')->index('FK_BAGIAN_DARI_4');
             $table->string('NAMA_ALAT', 100);
-            $table->string('UKURAN', 20);
+            $table->string('UKURAN', 20)->nullable;
         });
     }
 

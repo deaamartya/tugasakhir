@@ -14,9 +14,7 @@ class AddForeignKeysToPraktikumTable extends Migration
     public function up()
     {
         Schema::table('praktikum', function (Blueprint $table) {
-            $table->foreign('ID_LABORATORIUM', 'FK_BAGIAN_DARI')->references('ID_LABORATORIUM')->on('laboratorium')->onUpdate('NO ACTION')->onDelete('NO ACTION');
             $table->foreign('ID_MAPEL', 'FK_BAGIAN_DARI_2')->references('ID_MAPEL')->on('mata_pelajaran')->onUpdate('NO ACTION')->onDelete('NO ACTION');
-            $table->foreign('ID_KELAS', 'FK_DILAKUKAN')->references('ID_KELAS')->on('kelas')->onUpdate('NO ACTION')->onDelete('NO ACTION');
         });
     }
 
