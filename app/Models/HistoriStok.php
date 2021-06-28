@@ -38,6 +38,7 @@ class HistoriStok extends Model
 		'JUMLAH_MASUK' => 'float',
 		'JUMLAH_KELUAR' => 'float',
 		'KONDISI' => 'bool',
+		'STOK' => 'float'
 	];
 
 	protected $dates = [

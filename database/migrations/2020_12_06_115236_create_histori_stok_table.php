@@ -22,7 +22,7 @@ class CreateHistoriStokTable extends Migration
             $table->float('JUMLAH_MASUK',11,2);
             $table->float('JUMLAH_KELUAR',11,2);
             $table->boolean('KONDISI')->nullable();
-            $table->integer('STOK');
+            $table->float('STOK',11,2)->nullable();
             $table->text('KETERANGAN')->nullable();
         });
 

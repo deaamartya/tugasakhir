@@ -24,13 +24,26 @@ class PengelolaController extends Controller
 
         $id_lab = Auth::user()->ID_LABORATORIUM;
 
-        $total_alat_bagus = Alat::join('katalog_alat as ka','ka.ID_KATALOG_ALAT','alat.ID_KATALOG_ALAT')->join('kategori_alat as kt','kt.ID_KATEGORI_ALAT','ka.ID_KATEGORI_ALAT')->where('kt.ID_LABORATORIUM',$id_lab)->sum('JUMLAH_BAGUS');
+        $alat_lab = Alat::join('katalog_alat as ka','ka.ID_KATALOG_ALAT','alat.ID_KATALOG_ALAT')->join('kategori_alat as kt','kt.ID_KATEGORI_ALAT','ka.ID_KATEGORI_ALAT')->where('kt.ID_LABORATORIUM',$id_lab)->get();
+        $total_alat_bagus = 0;
+        $total_alat_rusak = 0;
 
-        $total_alat_rusak = Alat::join('katalog_alat as ka','ka.ID_KATALOG_ALAT','alat.ID_KATALOG_ALAT')->join('kategori_alat as kt','kt.ID_KATEGORI_ALAT','ka.ID_KATEGORI_ALAT')->where('kt.ID_LABORATORIUM',$id_lab)->sum('JUMLAH_RUSAK');
+        foreach($alat_lab as $t){
+            $total_alat_bagus = $total_alat_bagus + $t->stok_bagus();
+            $total_alat_rusak = $total_alat_rusak + $t->stok_rusak();
+        }
 
-        $total_bahan = Bahan::join('lemari as l','l.ID_LEMARI','bahan.ID_LEMARI')->where('l.ID_LABORATORIUM',$id_lab)->sum('JUMLAH');
+        $bahan_lab = Bahan::join('lemari as l','l.ID_LEMARI','bahan.ID_LEMARI')->where('l.ID_LABORATORIUM',$id_lab)->get();
+        $total_bahan = 0;
+        foreach($bahan_lab as $t){
+            $total_bahan = $total_bahan + $t->stok();
+        }
 
-        $total_bahan_kimia = BahanKimia::join('lemari as l','l.ID_LEMARI','bahan_kimia.ID_LEMARI')->where('l.ID_LABORATORIUM',$id_lab)->sum('JUMLAH_BAHAN_KIMIA');
+        $bahan_kimia_lab = BahanKimia::join('lemari as l','l.ID_LEMARI','bahan_kimia.ID_LEMARI')->where('l.ID_LABORATORIUM',$id_lab)->get();
+        $total_bahan_kimia = 0;
+        foreach($bahan_lab as $t){
+            $total_bahan_kimia = $total_bahan_kimia + $t->stok();
+        }
 
         $tahun = date('Y');
         if(date('m') >= 7 ){
@@ -68,8 +81,7 @@ class PengelolaController extends Controller
         $dikembalikan = PeminjamanAlatBahan::
         join('ruang_laboratorium as l','l.ID_RUANG_LABORATORIUM','peminjaman_alat_bahan.ID_RUANG_LABORATORIUM')
         ->where('l.ID_LABORATORIUM',$id_lab)
-        ->join('praktikum as p','p.ID_PRAKTIKUM','peminjaman_alat_bahan.ID_PRAKTIKUM')
-        ->join('kelas as k','k.ID_KELAS','p.ID_KELAS')
+        ->join('kelas as k','k.ID_KELAS','peminjaman_alat_bahan.ID_KELAS')
         ->where('k.ID_TAHUN_AKADEMIK',$tahun_akademik->ID_TAHUN_AKADEMIK)
         ->where('STATUS_PEMINJAMAN','SUDAH DIKEMBALIKAN')
         ->count('ID_PEMINJAMAN');
@@ -78,51 +90,41 @@ class PengelolaController extends Controller
         $sedang_pinjam = PeminjamanAlatBahan::
         join('ruang_laboratorium as l','l.ID_RUANG_LABORATORIUM','peminjaman_alat_bahan.ID_RUANG_LABORATORIUM')
         ->where('l.ID_LABORATORIUM',$id_lab)
-        ->join('praktikum as p','p.ID_PRAKTIKUM','peminjaman_alat_bahan.ID_PRAKTIKUM')
-        ->join('kelas as k','k.ID_KELAS','p.ID_KELAS')
+        ->join('kelas as k','k.ID_KELAS','peminjaman_alat_bahan.ID_KELAS')
         ->where('k.ID_TAHUN_AKADEMIK',$tahun_akademik->ID_TAHUN_AKADEMIK)
         ->where('STATUS_PEMINJAMAN','SUDAH DIKONFIRMASI')
         ->count('ID_PEMINJAMAN');
 
-        // Ambil semua praktikum guru dalam semester.
+        // Ambil semua praktikum lab dalam semester.
         $jadwal = PeminjamanAlatBahan::
         select('peminjaman_alat_bahan.ID_PRAKTIKUM')
         ->join('ruang_laboratorium as l','l.ID_RUANG_LABORATORIUM','peminjaman_alat_bahan.ID_RUANG_LABORATORIUM')
         ->where('l.ID_LABORATORIUM',$id_lab)
-        ->join('praktikum as p','p.ID_PRAKTIKUM','peminjaman_alat_bahan.ID_PRAKTIKUM')
-        ->join('kelas as k','k.ID_KELAS','p.ID_KELAS')
+        ->join('kelas as k','k.ID_KELAS','peminjaman_alat_bahan.ID_KELAS')
         ->where('k.ID_TAHUN_AKADEMIK',$tahun_akademik->ID_TAHUN_AKADEMIK)
         ->get()->toArray();
 
-        // Jumlah praktikum belum dijadwalkan dalam semester.
-        $menunggu_penjadwalan = Praktikum::
-        join('kelas as k','k.ID_KELAS','praktikum.ID_KELAS')
-        ->where('k.ID_TAHUN_AKADEMIK',$tahun_akademik->ID_TAHUN_AKADEMIK)
-        ->whereNotIn('ID_PRAKTIKUM',$jadwal)
-        ->count('ID_PRAKTIKUM');
-
         // Ambil seluruh praktikum terjadwal
-        $praktikum = PeminjamanAlatBahan::join('praktikum as pr','pr.ID_PRAKTIKUM','=','peminjaman_alat_bahan.ID_PRAKTIKUM')
-        ->join('kelas as k','k.ID_KELAS','=','pr.ID_KELAS')
+        $praktikum = PeminjamanAlatBahan::join('kelas as k','k.ID_KELAS','=','peminjaman_alat_bahan.ID_KELAS')
         ->where('k.ID_TAHUN_AKADEMIK',$tahun_akademik->ID_TAHUN_AKADEMIK)
         ->get();
 
         // Ambil 3 praktikum terjadwal
-        $praktikum_menunggu = PeminjamanAlatBahan::join('praktikum as pr','pr.ID_PRAKTIKUM','=','peminjaman_alat_bahan.ID_PRAKTIKUM')
-        ->join('kelas as k','k.ID_KELAS','=','pr.ID_KELAS')
+        $praktikum_menunggu = PeminjamanAlatBahan::join('kelas as k','k.ID_KELAS','=','peminjaman_alat_bahan.ID_KELAS')
         ->where('k.ID_TAHUN_AKADEMIK',$tahun_akademik->ID_TAHUN_AKADEMIK)
         ->where('STATUS_PEMINJAMAN','MENUNGGU KONFIRMASI')
         ->limit(10)->get();
 
         // Ambil 3 praktikum selesai
-        $praktikum_selesai = PeminjamanAlatBahan::join('praktikum as pr','pr.ID_PRAKTIKUM','=','peminjaman_alat_bahan.ID_PRAKTIKUM')
-        ->join('kelas as k','k.ID_KELAS','=','pr.ID_KELAS')
+        $praktikum_selesai = PeminjamanAlatBahan::join('kelas as k','k.ID_KELAS','=','peminjaman_alat_bahan.ID_KELAS')
         ->where('k.ID_TAHUN_AKADEMIK',$tahun_akademik->ID_TAHUN_AKADEMIK)
         ->where('STATUS_PEMINJAMAN','SUDAH DIKEMBALIKAN')
         ->orderBy('ID_PEMINJAMAN','DESC')
         ->limit(10)->get();
 
-        return view('pengelola.dashboard', compact('page_title', 'page_description','action','total_alat_bagus','total_alat_rusak','total_bahan','total_bahan_kimia','menunggu_penjadwalan','sedang_pinjam','dikembalikan','total_peminjaman','beban_lab_semester','beban_lab_tahun','jadwal_ulang','dikembalikan','sedang_pinjam','menunggu_penjadwalan','praktikum','praktikum_menunggu','praktikum_selesai'));
+        $menunggu_penjadwalan = 0;
+
+        return view('pengelola.dashboard', compact('page_title', 'page_description','action','total_alat_bagus','total_alat_rusak','total_bahan','total_bahan_kimia','sedang_pinjam','dikembalikan','menunggu_penjadwalan','total_peminjaman','beban_lab_semester','beban_lab_tahun','jadwal_ulang','dikembalikan','sedang_pinjam','praktikum','praktikum_menunggu','praktikum_selesai'));
     }
 
     public function seluruhJadwal()

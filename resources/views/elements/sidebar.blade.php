@@ -170,7 +170,6 @@
                 </ul>
             </li>
         </ul>
-        @else
         @elseif(Request::segment(1) == "sarpras" || (Auth::user()->tipe_user->NAMA_TIPE_USER == 'WAKA Sarpras'))
         <ul class="metismenu" id="menu">
             <li><a href="{!! route('pengelola.dashboard'); !!}" class="ai-icon" aria-expanded="false">

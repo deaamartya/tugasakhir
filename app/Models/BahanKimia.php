@@ -58,6 +58,7 @@ class BahanKimia extends Model
 
 	public function stok()
 	{
-		return self::join('histori_stok as h','h.ID_ALAT_BAHAN','=',$this->ID_BAHAN_KIMIA)->where('ID_TIPE','=',3)->orderBy('h.TIMESTAMP','DESC')->limit(1)->value('STOK');
+		$stok = self::join('histori_stok as h','h.ID_ALAT_BAHAN','=','bahan_kimia.ID_BAHAN_KIMIA')->where('h.ID_ALAT_BAHAN','=',$this->ID_BAHAN_KIMIA)->where('ID_TIPE','=',3)->orderBy('h.TIMESTAMP','DESC')->limit(1)->value('STOK');
+		return ($stok < 1) ? 0 : $stok;
 	}
 }
