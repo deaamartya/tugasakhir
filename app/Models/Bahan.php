@@ -40,4 +40,9 @@ class Bahan extends Model
 	{
 		return $this->belongsTo(Lemari::class, 'ID_LEMARI');
 	}
+
+	public function stok()
+	{
+		return self::join('histori_stok as h','h.ID_ALAT_BAHAN','=',$this->ID_BAHAN)->where('ID_TIPE','=',2)->orderBy('h.TIMESTAMP','DESC')->limit(1)->value('STOK');
+	}
 }

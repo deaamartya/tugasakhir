@@ -57,4 +57,14 @@ class Alat extends Model
 	{
 		return $this->belongsTo(MerkTipeAlat::class, 'ID_MERK_TIPE');
 	}
+
+	public function stok_bagus()
+	{
+		return self::join('histori_stok as h','h.ID_ALAT_BAHAN','=',$this->ID_ALAT)->where('h.KONDISI','=',1)->where('ID_TIPE','=',1)->orderBy('h.TIMESTAMP','DESC')->limit(1)->value('STOK');
+	}
+
+	public function stok_rusak()
+	{
+		return self::join('histori_stok as h','h.ID_ALAT_BAHAN','=',$this->ID_ALAT)->where('h.KONDISI','=',0)->where('ID_TIPE','=',1)->orderBy('h.TIMESTAMP','DESC')->limit(1)->value('STOK');
+	}
 }
