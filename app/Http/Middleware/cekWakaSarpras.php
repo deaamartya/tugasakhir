@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Auth;
 
-class cekPengelola
+class cekWakaSarpras
 {
     /**
      * Handle an incoming request.
@@ -17,11 +17,11 @@ class cekPengelola
      */
     public function handle(Request $request, Closure $next)
     {
-        // cek apakah pengelola
-        if(strpos(Auth::user()->tipe_user->NAMA_TIPE_USER,"Pengelola")) {
+        // cek apakah waka sarpras
+        if(Auth::user()->tipe_user->NAMA_TIPE_USER == "WAKA Sarpras") {
             return $next($request);
         }
-        // selain pengelola
+        // selain waka
         elseif(Auth::check()) {
             return abort(403,'notPermitted');
         }

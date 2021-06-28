@@ -65,5 +65,7 @@ class Kernel extends HttpKernel
         'cekAdmin' => \App\Http\Middleware\cekAdmin::class,
         'cekPengelola' => \App\Http\Middleware\cekPengelola::class,
         'cekGuru' => \App\Http\Middleware\cekGuru::class,
+        'cekKepalaLab' => \App\Http\Middleware\cekKepalaLab::class,
+        'cekWakaSarpras' => \App\Http\Middleware\cekWakaSarpras::class,
     ];
 }

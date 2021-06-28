@@ -17,17 +17,17 @@ class cekGuru
      */
     public function handle(Request $request, Closure $next)
     {
-        //guru
+        // cek apakah guru
         if (Auth::user()->tipe_user->NAMA_TIPE_USER == "Guru") {
             return $next($request);
         }
-        //admin
-        elseif (Auth::user()->tipe_user->NAMA_TIPE_USER == "Admin") {
-            return redirect()->route('admin.dashboard');
+        // selain guru
+        elseif (Auth::check()) {
+            return abort(403,'notPermitted');
         }
-        //pengelola
-        elseif (Auth::user()->tipe_user->NAMA_TIPE_USER == "Pengelola Lab Fisika" || Auth::user()->tipe_user->NAMA_TIPE_USER == "Pengelola Lab Kimia" || Auth::user()->tipe_user->NAMA_TIPE_USER == "Pengelola Lab Biologi") {
-            return redirect()->route('pengelola.dashboard');
+        // belum login
+        elseif(!Auth::check()){
+            return abort(403,'loggedOut');
         }
     }
 }

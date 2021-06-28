@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Auth;
 
-class cekPengelola
+class cekKepalaLab
 {
     /**
      * Handle an incoming request.
@@ -17,12 +17,12 @@ class cekPengelola
      */
     public function handle(Request $request, Closure $next)
     {
-        // cek apakah pengelola
-        if(strpos(Auth::user()->tipe_user->NAMA_TIPE_USER,"Pengelola")) {
+        // cek apakah kepala lab
+        if (Auth::user()->tipe_user->NAMA_TIPE_USER == "Kepala Laboratorium") {
             return $next($request);
         }
-        // selain pengelola
-        elseif(Auth::check()) {
+        // selain kepala lab
+        elseif (Auth::check()) {
             return abort(403,'notPermitted');
         }
         // belum login
