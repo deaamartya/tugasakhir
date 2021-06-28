@@ -18,7 +18,7 @@ class cekPengelola
     public function handle(Request $request, Closure $next)
     {
         // cek apakah pengelola
-        if(strpos(Auth::user()->tipe_user->NAMA_TIPE_USER,"Pengelola")) {
+        if(strpos(Auth::user()->tipe_user->NAMA_TIPE_USER,"Pengelola") > -1) {
             return $next($request);
         }
         // selain pengelola
