@@ -14,9 +14,9 @@ class CreateAlatBahanPraktikumTable extends Migration
     public function up()
     {
         Schema::create('alat_bahan_praktikum', function (Blueprint $table) {
-            $table->integer('ID_TIPE')->index('FK_MERUPAKAN_3');
-            $table->char('ID_PRAKTIKUM', 10);
             $table->string('ID_ALAT_BAHAN', 20);
+            $table->integer('ID_TIPE')->index('FK_MERUPAKAN_3');
+            $table->char('ID_PRAKTIKUM', 10)->index('FK_MEMBUTUHKAN');
             $table->integer('JUMLAH');
             $table->primary(['ID_PRAKTIKUM', 'ID_ALAT_BAHAN']);
         });

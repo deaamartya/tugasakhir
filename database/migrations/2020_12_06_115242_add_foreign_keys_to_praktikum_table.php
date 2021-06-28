@@ -26,9 +26,7 @@ class AddForeignKeysToPraktikumTable extends Migration
     public function down()
     {
         Schema::table('praktikum', function (Blueprint $table) {
-            $table->dropForeign('FK_BAGIAN_DARI');
             $table->dropForeign('FK_BAGIAN_DARI_2');
-            $table->dropForeign('FK_DILAKUKAN');
         });
     }
 }
