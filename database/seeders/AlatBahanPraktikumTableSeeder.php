@@ -21,63 +21,21 @@ class AlatBahanPraktikumTableSeeder extends Seeder
             0 => 
             array (
                 'ID_ALAT_BAHAN' => 'BN/011',
-                'ID_PRAKTIKUM' => 'P100000001',
+                'ID_PRAKTIKUM' => 'P00000001',
                 'ID_TIPE' => 3,
                 'JUMLAH' => 10,
             ),
             1 => 
             array (
                 'ID_ALAT_BAHAN' => 'KGE11/0501',
-                'ID_PRAKTIKUM' => 'P100000001',
+                'ID_PRAKTIKUM' => 'P00000001',
                 'ID_TIPE' => 1,
                 'JUMLAH' => 5,
             ),
             2 => 
             array (
                 'ID_ALAT_BAHAN' => 'L1/B001',
-                'ID_PRAKTIKUM' => 'P100000001',
-                'ID_TIPE' => 2,
-                'JUMLAH' => 3,
-            ),
-            3 => 
-            array (
-                'ID_ALAT_BAHAN' => 'BN/011',
-                'ID_PRAKTIKUM' => 'P100000002',
-                'ID_TIPE' => 3,
-                'JUMLAH' => 10,
-            ),
-            4 => 
-            array (
-                'ID_ALAT_BAHAN' => 'KGE11/0501',
-                'ID_PRAKTIKUM' => 'P100000002',
-                'ID_TIPE' => 1,
-                'JUMLAH' => 5,
-            ),
-            5 => 
-            array (
-                'ID_ALAT_BAHAN' => 'L1/B001',
-                'ID_PRAKTIKUM' => 'P100000002',
-                'ID_TIPE' => 2,
-                'JUMLAH' => 3,
-            ),
-            6 => 
-            array (
-                'ID_ALAT_BAHAN' => 'BN/011',
-                'ID_PRAKTIKUM' => 'P100000003',
-                'ID_TIPE' => 3,
-                'JUMLAH' => 10,
-            ),
-            7 => 
-            array (
-                'ID_ALAT_BAHAN' => 'KGE11/0501',
-                'ID_PRAKTIKUM' => 'P100000003',
-                'ID_TIPE' => 1,
-                'JUMLAH' => 5,
-            ),
-            8 => 
-            array (
-                'ID_ALAT_BAHAN' => 'L1/B001',
-                'ID_PRAKTIKUM' => 'P100000003',
+                'ID_PRAKTIKUM' => 'P00000001',
                 'ID_TIPE' => 2,
                 'JUMLAH' => 3,
             ),

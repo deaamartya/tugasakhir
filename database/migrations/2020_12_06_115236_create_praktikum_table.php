@@ -23,9 +23,9 @@ class CreatePraktikumTable extends Migration
             BEGIN
                 SELECT SUBSTRING((MAX(`ID_PRAKTIKUM`)),2,9) INTO @total FROM praktikum;
                 IF (@total >= 1) THEN
-                    SET new.ID_PRAKTIKUM = CONCAT('P',LPAD(@total+1,8,'0'));
+                    SET new.ID_PRAKTIKUM = CONCAT('P',LPAD(@total+1,9,'0'));
                 ELSE
-                    SET new.ID_PRAKTIKUM = CONCAT('P',LPAD(1,8,'0'));
+                    SET new.ID_PRAKTIKUM = CONCAT('P',LPAD(1,9,'0'));
                 END IF;
             END");
     }

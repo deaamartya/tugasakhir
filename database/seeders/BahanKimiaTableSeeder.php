@@ -25,7 +25,6 @@ class BahanKimiaTableSeeder extends Seeder
                 'ID_LEMARI' => 10,
                 'RUMUS' => 'Na',
                 'WUJUD' => 'Padat',
-                'JUMLAH_BAHAN_KIMIA' => 50.0,
                 'SPESIFIKASI_BAHAN' => 1,
             ),
         ));
