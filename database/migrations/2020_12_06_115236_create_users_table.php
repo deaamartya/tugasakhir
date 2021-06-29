@@ -19,7 +19,7 @@ class CreateUsersTable extends Migration
             $table->integer('ID_LABORATORIUM')->index('FK_LABORATORIUM')->nullable();
             $table->string('username', 16)->unique();
             $table->string('password',255);
-            $table->string('PATH_FOTO',20)->nullable();
+            $table->string('PATH_FOTO',40)->nullable();
             $table->string('NAMA_LENGKAP', 60);
             $table->boolean('ONLINE')->default(0);
         });
