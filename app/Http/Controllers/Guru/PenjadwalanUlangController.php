@@ -36,7 +36,7 @@ class PenjadwalanUlangController extends Controller
 
         $lab = Laboratorium::find($id_lab);
 
-        $jadwalulang = PerubahanJadwalPeminjaman::join('peminjaman_alat_bahan as p','p.ID_PEMINJAMAN','perubahan_jadwal_peminjaman.ID_PEMINJAMAN')->join('praktikum as pr','pr.ID_PRAKTIKUM','p.ID_PRAKTIKUM')->join('kelas as k','k.ID_KELAS','pr.ID_KELAS')->join('jenis_kelas as j','j.ID_JENIS_KELAS','k.ID_JENIS_KELAS')->where('perubahan_jadwal_peminjaman.ID_USER','=',$guru)->get();
+        $jadwalulang = PerubahanJadwalPeminjaman::join('peminjaman_alat_bahan as p','p.ID_PEMINJAMAN','perubahan_jadwal_peminjaman.ID_PEMINJAMAN')->join('praktikum as pr','pr.ID_PRAKTIKUM','p.ID_PRAKTIKUM')->join('kelas as k','k.ID_KELAS','p.ID_KELAS')->join('jenis_kelas as j','j.ID_JENIS_KELAS','k.ID_JENIS_KELAS')->where('perubahan_jadwal_peminjaman.ID_USER','=',$guru)->get();
 
         return view('guru.jadwal-ulang.index', compact('page_title', 'page_description','action','praktikum','kelas','matapelajaran','lab','jadwalulang'));
     }

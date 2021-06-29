@@ -11,41 +11,19 @@ use App\Models\TahunAkademik;
 
 class PraktikumController extends Controller
 {
-    private $tahun;
-    private $tahunp1;
-    private $tahunm1;
-    private $tahun_akademik;
-
-    public function __construct()
-    {
-        $this->tahun = intval(date('Y'));
-        $this->tahunp1 = $this->tahun+1;
-        $this->tahunm1 = $this->tahun-1;
-
-        $tahun_akademik;
-        if(date('m') >= 7 ){
-            $tahun_akademik = $this->tahun.'/'.$this->tahunp1.' Gasal';
-        }
-        else {
-            $tahun_akademik = $this->tahunm1.'/'.$this->tahun.' Genap';
-        }
-    
-        $this->tahun_akademik = TahunAkademik::where('TAHUN_AKADEMIK',$tahun_akademik)->value('ID_TAHUN_AKADEMIK');
-    }
-
     public function index()
     {
         $page_title = 'Data Praktikum';
         $page_description = 'Data praktikum guru';
         $action = 'app_calender';
-
+        $id_ta = Auth::user()->id_tahun_akademik();
         $praktikum = PeminjamanAlatBahan::
         join('ruang_laboratorium as l','l.ID_RUANG_LABORATORIUM','peminjaman_alat_bahan.ID_RUANG_LABORATORIUM')
         ->where('l.ID_LABORATORIUM',Auth::user()->ID_LABORATORIUM)
         ->join('praktikum as p','p.ID_PRAKTIKUM','peminjaman_alat_bahan.ID_PRAKTIKUM')
-        ->join('kelas as k','k.ID_KELAS','p.ID_KELAS')
+        ->join('kelas as k','k.ID_KELAS','peminjaman_alat_bahan.ID_KELAS')
         ->where('k.ID_USER',Auth::user()->ID_USER)
-        ->where('k.ID_TAHUN_AKADEMIK',$this->tahun_akademik)
+        ->where('k.ID_TAHUN_AKADEMIK',$id_ta)
         ->where('STATUS_PEMINJAMAN','MENUNGGU KONFIRMASI')
         ->orderBy('TANGGAL_PEMINJAMAN','ASC')
         ->get();
@@ -58,11 +36,11 @@ class PraktikumController extends Controller
         $data = [];
         $id_lab = Auth::user()->ID_LABORATORIUM;
         $id_guru = Auth::user()->ID_USER;
+        $id_ta = Auth::user()->id_tahun_akademik();
         $peminjaman = PeminjamanAlatBahan::join('ruang_laboratorium as r','r.ID_RUANG_LABORATORIUM','peminjaman_alat_bahan.ID_RUANG_LABORATORIUM')
-        ->join('praktikum as p','p.ID_PRAKTIKUM','=','peminjaman_alat_bahan.ID_PRAKTIKUM')
-        ->join('kelas as k','p.ID_KELAS','=','k.ID_KELAS')
+        ->join('kelas as k','peminjaman_alat_bahan.ID_KELAS','=','k.ID_KELAS')
         ->where('k.ID_USER','=',$id_guru)
-        ->where('k.ID_TAHUN_AKADEMIK',$this->tahun_akademik)
+        ->where('k.ID_TAHUN_AKADEMIK',$id_ta)
         ->where('r.ID_LABORATORIUM','=',$id_lab)->get();
         
         $i = 0;
@@ -109,12 +87,13 @@ class PraktikumController extends Controller
         $praktikum = Praktikum::find($request->prakt);
         $id_lab = Auth::user()->ID_LABORATORIUM;
         $id_guru = Auth::user()->ID_USER;
+        $id_ta = Auth::user()->id_tahun_akademik();
         $peminjaman = PeminjamanAlatBahan::join('praktikum as p','p.ID_PRAKTIKUM','=','peminjaman_alat_bahan.ID_PRAKTIKUM')
         ->join('ruang_laboratorium as r','r.ID_RUANG_LABORATORIUM','peminjaman_alat_bahan.ID_RUANG_LABORATORIUM')
         ->join('praktikum as p','p.ID_PRAKTIKUM','=','peminjaman_alat_bahan.ID_PRAKTIKUM')
-        ->join('kelas as k','p.ID_KELAS','=','k.ID_KELAS')
+        ->join('kelas as k','peminjaman_alat_bahan.ID_KELAS','=','k.ID_KELAS')
         ->where('k.ID_USER','=',$id_guru)
-        ->where('k.ID_TAHUN_AKADEMIK',$this->tahun_akademik)
+        ->where('k.ID_TAHUN_AKADEMIK',$id_ta)
         ->where('r.ID_LABORATORIUM','=',$id_lab)
         ->where('p.JUDUL_PRAKTIKUM','LIKE',"%".$praktikum->JUDUL_PRAKTIKUM."%")->get();
         

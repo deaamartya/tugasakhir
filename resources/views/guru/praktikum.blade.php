@@ -156,7 +156,7 @@
                 </div>
                 <div class="row mb-2">
                     <div class="col-4">Tahun Akademik</div>
-                    <div class="col-8">: {{ $p->praktikum->kelas->tahun_akademik->TAHUN_AKADEMIK }}</div>
+                    <div class="col-8">: {{ $p->kelas->tahun_akademik->TAHUN_AKADEMIK }}</div>
                 </div>
                 <div class="row mb-2">
                     <div class="col-4">Status</div>

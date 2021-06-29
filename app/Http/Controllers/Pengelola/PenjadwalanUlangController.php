@@ -36,8 +36,8 @@ class PenjadwalanUlangController extends Controller
         $id_lab = Auth::user()->ID_LABORATORIUM;
 
         $praktikum = PeminjamanAlatBahan::join('praktikum as p','p.ID_PRAKTIKUM','peminjaman_alat_bahan.ID_PRAKTIKUM')
-        ->join('laboratorium as l','l.ID_LABORATORIUM','p.ID_LABORATORIUM')
-        ->where('l.ID_LABORATORIUM','=',$id_lab)
+        ->join('ruang_laboratorium as r','r.ID_RUANG_LABORATORIUM','peminjaman_alat_bahan.ID_RUANG_LABORATORIUM')
+        ->where('r.ID_LABORATORIUM','=',$id_lab)
         ->get();
 
         $jadwalulang = PerubahanJadwalPeminjaman::join('peminjaman_alat_bahan as p','p.ID_PEMINJAMAN','perubahan_jadwal_peminjaman.ID_PEMINJAMAN')->where('ID_PERUBAHAN_JADWAL',$id)->first();
