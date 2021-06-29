@@ -80,7 +80,7 @@
                                     <td> {{ $d->ID_BAHAN }} </td>
                                     <td> {{ $d->lemari->laboratorium->NAMA_LABORATORIUM }} - {{ $d->lemari->NAMA_LEMARI }} </td>
                                     <td> {{ $d->NAMA_BAHAN }} </td>
-                                    <td> {{ $d->JUMLAH }}pcs </td>
+                                    <td> {{ $d->stok() }} </td>
                                     <td>
                                         <div class="d-flex">
                                             <button type="button" class="btn btn-primary shadow btn-xs sharp mr-1" data-toggle="modal" data-target="#modal-edit-{{ $loop->index }}"><i class="fa fa-pencil"></i></button>
@@ -203,14 +203,6 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label>Jumlah(pcs)</label>
-                        <input type="number" class="form-control @error('JUMLAH') is-invalid @enderror" id="JUMLAH" name="JUMLAH" value="{{ $d->JUMLAH }}">
-                        <div class="invalid-feedback animated fadeInUp">
-                            Jumlah harus diisi minimal 0
-                        </div>
-                    </div>
-
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-danger light" data-dismiss="modal">Batal</button>
                         <button type="submit" class="btn btn-primary submit-btn" id="{{ $d->ID_BAHAN }}">Simpan</button>
@@ -260,8 +252,8 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-danger light" data-dismiss="modal">Tidak, batalkan.</button>
-                        <button type="submit" class="btn btn-primary">Ya</button>
+                        <button type="button" class="btn btn-danger light" data-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
                     </div>
                 </form>
             </div>

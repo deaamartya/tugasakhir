@@ -1,5 +1,5 @@
 <head>
-    <title>Katalog Lemari</title>
+    <title>Kartu Stok</title>
     <link rel="stylesheet" href="{{ $_SERVER['DOCUMENT_ROOT'].'/vendor/bootstrap/dist/css/bootstrap.min.css' }}">
 </head>
 <body>

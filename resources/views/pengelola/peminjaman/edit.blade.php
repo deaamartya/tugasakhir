@@ -60,7 +60,7 @@
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label>Laboratorium</label>
-                                        <div>{{ $peminjaman->praktikum->laboratorium->NAMA_LABORATORIUM }}</div>
+                                        <div>{{ $peminjaman->ruang_laboratorium->laboratorium->NAMA_LABORATORIUM }}</div>
                                     </div>
                                 </div>
                                 <div class="col-6">
@@ -75,13 +75,13 @@
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label>Kelas</label>
-                                        <div>{{ $peminjaman->praktikum->kelas->jenis_kelas->NAMA_JENIS_KELAS }}</div>
+                                        <div>{{ $peminjaman->kelas->jenis_kelas->NAMA_JENIS_KELAS }}</div>
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="form-group">
-                                        <label>Nama Praktikum</label>
-                                        <div>{{ $peminjaman->praktikum->NAMA_PRAKTIKUM }}</div>
+                                        <label>Judul Praktikum</label>
+                                        <div>{{ $peminjaman->praktikum->JUDUL_PRAKTIKUM }}</div>
                                     </div>
                                 </div>
                             </div>
@@ -97,6 +97,7 @@
                                 <label>Kebutuhan Praktikum :</label>
                             </div>
 
+                            @if(count($peminjaman->praktikum->alat_praktikum()) !== 0)
                             <table class="table text-black" id="table-alat">
                                 <thead>
                                     <th>Nama Alat</th>
@@ -105,12 +106,12 @@
                                     <th>Total Pinjam</th>
                                 </thead>
                                 <tbody>
-                                    @foreach($peminjaman->praktikum->alat_bahan_praktikums as $a)
+                                    @foreach($peminjaman->praktikum->alat_bahan_praktikum as $a)
                                         @php $i = 1; @endphp
                                         @if($a->ID_TIPE == 1)
                                         <tr>
                                             <td width="50%">{{ $a->alat->ID_ALAT }} {{ $a->alat->merk_tipe_alat->NAMA_MERK_TIPE }} {{ $a->alat->katalog_alat->NAMA_ALAT }} {{ $a->alat->katalog_alat->UKURAN }}</td>
-                                            <td width="20%">{{ $a->alat->JUMLAH_BAGUS }}pcs</td>
+                                            <td width="20%">{{ $a->alat->stok_bagus() }}pcs</td>
                                             <input type="hidden" value="{{ $a->alat->ID_ALAT }}" name="id_alat[{{$i}}]">
                                             <td width="15%">
                                                 <input style="width:100%" type="number" value="{{ $a->JUMLAH }}" class="jumlah_alat border p-2">
@@ -118,14 +119,16 @@
                                                     Jumlah pinjam melebihi stok tersedia.
                                                 </div>
                                             </td>
-                                            <td width="15%"><input style="width:100%" type="number" name="jumlah_alat[{{$i}}]" class="total_alat border p-2" id="t_alat-{{$i}}" readonly max="{{ $a->alat->JUMLAH_BAGUS }}"></td>
+                                            <td width="15%"><input style="width:100%" type="number" name="jumlah_alat[{{$i}}]" class="total_alat border p-2" id="t_alat-{{$i}}" readonly max="{{ $a->alat->stok_bagus() }}"></td>
                                         </tr>
                                         @php $i++; @endphp
                                         @endif
                                     @endforeach
                                 </tbody>
                             </table>
+                            @endif
 
+                            @if(count($peminjaman->praktikum->bahan_praktikum()) !== 0)
                             <table class="table text-black" id="table-bahan">
                                 <thead>
                                     <th>Nama Bahan</th>
@@ -134,27 +137,29 @@
                                     <th>Total Pinjam</th>
                                 </thead>
                                 <tbody>
-                                    @foreach($peminjaman->praktikum->alat_bahan_praktikums as $a)
+                                    @foreach($peminjaman->praktikum->alat_bahan_praktikum as $a)
                                         @php $i = 1; @endphp
                                         @if($a->ID_TIPE == 2)
                                         <tr>
                                             <td width="50%">{{ $a->bahan->ID_BAHAN }} {{ $a->bahan->NAMA_BAHAN }}</td>
                                             <input type="hidden" value="{{ $a->bahan->ID_BAHAN }}" name="id_bahan[{{$i}}]">
-                                            <td width="20%">{{ $a->bahan->JUMLAH }}pcs</td>
+                                            <td width="20%">{{ $a->bahan->stok() }}pcs</td>
                                             <td width="15%">
                                                 <input type="number" style="width:100%" value="{{ $a->JUMLAH }}" class="jumlah_bahan border p-2">
                                                 <div class="text-danger animated fadeInUp" id="error_bahan_{{ $i }}">
                                                     Jumlah pinjam melebihi stok tersedia.
                                                 </div>
                                             </td>
-                                            <td width="15%"><input style="width:100%" type="number" name="jumlah_bahan[{{$i}}]" class="total_bahan_kimia border p-2" id="t_bahan-{{$i}}" max="{{ $a->bahan->JUMLAH }}" readonly></td>
+                                            <td width="15%"><input style="width:100%" type="number" name="jumlah_bahan[{{$i}}]" class="total_bahan_kimia border p-2" id="t_bahan-{{$i}}" max="{{ $a->bahan->stok() }}" readonly></td>
                                         </tr>
                                         @php $i++; @endphp
                                         @endif
                                     @endforeach
                                 </tbody>
                             </table>
+                            @endif
 
+                            @if(count($peminjaman->praktikum->bahan_kimia_praktikum()) !== 0)
                             <table class="table text-black" id="table-bahan-kimia">
                                 <thead>
                                     <th>Nama Bahan Kimia</th>
@@ -163,12 +168,12 @@
                                     <th>Total Pinjam</th>
                                 </thead>
                                 <tbody>
-                                    @foreach($peminjaman->praktikum->alat_bahan_praktikums as $a)
+                                    @foreach($peminjaman->praktikum->alat_bahan_praktikum as $a)
                                         @php $i = 1; @endphp
                                         @if($a->ID_TIPE == 3)
                                             <tr>
                                                 <td width="50%">{{ $a->bahan_kimia->ID_BAHAN_KIMIA }} {{ $a->bahan_kimia->katalog_bahan->NAMA_KATALOG_BAHAN }}</td>
-                                                <td width="20%">{{ $a->bahan_kimia->JUMLAH_BAHAN_KIMIA }}gr</td>
+                                                <td width="20%">{{ $a->bahan_kimia->stok() }}gr</td>
                                                 <input type="hidden" value="{{ $a->bahan_kimia->ID_BAHAN_KIMIA }}" name="id_bahan_kimia[{{$i}}]">
                                                 <td width="15%">
                                                     <input style="width:100%" type="number" value="{{ $a->JUMLAH }}" class="jumlah_bahan_kimia border p-2">
@@ -177,13 +182,14 @@
                                                     </div>
                                                 </td>
                                                 <td width="15%">
-                                                <input style="width:100%" type="number" name="jumlah_bahan_kimia[{{$i}}]" class="total_bahan_kimia border p-2" id="t_bahan_kimia-{{$i}}" max="{{ $a->bahan_kimia->JUMLAH_BAHAN_KIMIA }}" readonly></td>
+                                                <input style="width:100%" type="number" name="jumlah_bahan_kimia[{{$i}}]" class="total_bahan_kimia border p-2" id="t_bahan_kimia-{{$i}}" max="{{ $a->bahan_kimia->stok() }}" readonly></td>
                                             </tr>
                                         @php $i++; @endphp
                                         @endif
                                     @endforeach
                                 </tbody>
                             </table>
+                            @endif
 
                             <div class="row justify-content-end">
                                 <div class="col-9 text-right">
@@ -225,7 +231,7 @@
                                 </div>
                             </div>
 
-                            <button type="submit" class="btn btn-success submit-btn float-right">Konfirmasi Peminjaman</button>
+                            <button type="submit" class="btn btn-success float-right" id="submit-btn" disabled="false">Konfirmasi Peminjaman</button>
                         </form>
                     </div>
                 </div>
@@ -284,20 +290,21 @@ $(document).ready(function(){
         var index = 1;
         var total_sementara = 0;
         var stok = 0;
+        var error = false;
         $(".jumlah_alat").each(function(){
+            console.log("masuk each jumlah alat");
             total_sementara = Number($(this).val())*jumlah_kelompok;
             stok = Number($("#t_alat-"+index).attr('max'));
             if(total_sementara > stok){
                 $("#error_alat_"+index).show();
-                $(".submit-btn").attr('disabled',true);
                 total_sementara = 0;
                 total = 0;
+                error = true;
             } else{
                 $("#error_alat_"+index).hide();
-                $(".submit-btn").attr('disabled',false);
-                $("#t_alat-"+index).val(total_sementara);
                 total = total + total_sementara;
             }
+            $("#t_alat-"+index).val(total_sementara);
             index = index+1;
         });
 
@@ -308,19 +315,19 @@ $(document).ready(function(){
         total = 0;
         index = 1;
         $(".jumlah_bahan").each(function(){
+            console.log("masuk each jumlah bahan");
             total_sementara = Number($(this).val())*jumlah_kelompok;
             stok = Number($("#t_bahan-"+index).attr('max'));
             if(total_sementara > stok){
                 $("#error_bahan_"+index).show();
-                $(".submit-btn").attr('disabled',true);
                 total_sementara = 0;
                 total = 0;
+                error = true;
             } else{
                 $("#error_bahan_"+index).hide();
-                $(".submit-btn").attr('disabled',false);
-                $("#t_bahan-"+index).val(total_sementara);
                 total = total + total_sementara;
             }
+            $("#t_bahan-"+index).val(total_sementara);
             index = index+1;
         });
         $("#total-bahan").html(total);
@@ -334,15 +341,14 @@ $(document).ready(function(){
             stok = Number($("#t_bahan_kimia-"+index).attr('max'));
             if(total_sementara > stok){
                 $("#error_bahan_kimia_"+index).show();
-                $(".submit-btn").attr('disabled',true);
                 total_sementara = 0;
                 total = 0;
+                error = true;
             } else{
                 $("#error_bahan_kimia_"+index).hide();
-                $(".submit-btn").attr('disabled',false);
-                $("#t_bahan_kimia-"+index).val(total_sementara);
                 total = total + total_sementara;
             }
+            $("#t_bahan_kimia-"+index).val(total_sementara);
             index = index+1;
         });
         $("#total-bahan-kimia").html(total);
@@ -350,11 +356,15 @@ $(document).ready(function(){
         total_s = total_s + total;
 
         $("#total-keseluruhan").html(total_s);
+
+        if(error){
+            $("#submit-btn").attr("disabled", true);
+        }
+        else{
+            $("#submit-btn").attr("disabled", false);
+        }
     }
-
     recountAll();
-
-
 });
 </script>
 @endsection

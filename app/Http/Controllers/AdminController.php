@@ -50,8 +50,8 @@ class AdminController extends Controller
         foreach($peminjaman as $p)
         {
             $obj = new \StdClass();
-            $kelas = $p->praktikum->kelas->jenis_kelas->NAMA_JENIS_KELAS;
-            $obj->title = $p->praktikum->NAMA_PRAKTIKUM." ".$kelas;
+            $kelas = $p->kelas->jenis_kelas->NAMA_JENIS_KELAS;
+            $obj->title = $p->praktikum->JUDUL_PRAKTIKUM." ".$kelas;
 
             $jammulai = $p->TANGGAL_PEMINJAMAN." ".$p->JAM_MULAI;
             $jamselesai = $p->TANGGAL_PEMINJAMAN." ".$p->JAM_SELESAI;

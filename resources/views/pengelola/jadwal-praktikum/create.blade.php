@@ -85,11 +85,23 @@
                                 <label>Praktikum</label>
                                 <select class="select2-single @error('ID_PRAKTIKUM') is-invalid @enderror" name="ID_PRAKTIKUM" id="ID_PRAKTIKUM">
                                     @foreach($praktikum as $t)
-                                        <option value="{{ $t->ID_PRAKTIKUM }}">{{ $t->NAMA_PRAKTIKUM }} - {{ $t->kelas->jenis_kelas->NAMA_JENIS_KELAS }}</option>
+                                        <option value="{{ $t->ID_PRAKTIKUM }}">{{ $t->JUDUL_PRAKTIKUM }} - {{ $t->mata_pelajaran->NAMA_MAPEL }}</option>
                                     @endforeach
                                 </select>
                                 <div class="invalid-feedback animated fadeInUp">
                                     Silahkan pilih praktikum
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Kelas</label>
+                                <select class="select2-single @error('ID_KELAS') is-invalid @enderror" name="ID_KELAS" id="ID_KELAS">
+                                    @foreach($kelas as $t)
+                                        <option value="{{ $t->ID_KELAS }}">{{ $t->jenis_kelas->NAMA_JENIS_KELAS }}</option>
+                                    @endforeach
+                                </select>
+                                <div class="invalid-feedback animated fadeInUp">
+                                    Silahkan pilih kelas
                                 </div>
                             </div>
 
@@ -148,7 +160,7 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-4">Nama Prakt.</div>
-                    <div class="col-8">{{ $p->praktikum->NAMA_PRAKTIKUM }}</div>
+                    <div class="col-8">{{ $p->praktikum->JUDUL_PRAKTIKUM }}</div>
                 </div>
                 <div class="row">
                     <div class="col-4">Jadwal Prakt.</div>
@@ -156,11 +168,11 @@
                 </div>
                 <div class="row">
                     <div class="col-4">Kelas</div>
-                    <div class="col-8">{{ $p->praktikum->kelas->jenis_kelas->NAMA_JENIS_KELAS }}</div>
+                    <div class="col-8">{{ $p->kelas->jenis_kelas->NAMA_JENIS_KELAS }}</div>
                 </div>
                 <div class="row">
                     <div class="col-4">Guru</div>
-                    <div class="col-8">{{ $p->praktikum->kelas->guru->NAMA_LENGKAP }}</div>
+                    <div class="col-8">{{ $p->kelas->guru->NAMA_LENGKAP }}</div>
                 </div>
             </div>
         </div>
@@ -195,6 +207,7 @@
 $(document).ready(function(){
     $("#ID_PRAKTIKUM").select2();
     $("#ID_RUANG_LABORATORIUM").select2();
+    $("#ID_KELAS").select2();
     
     $("#create-jadwal").validate({
         rules: {
@@ -297,14 +310,16 @@ $(document).ready(function(){
         console.log(`tgl ${tgl}, id ruang ${id_ruang}, jam mulai ${jam_mulai}, jam selesai ${jam_selesai} `);
     });
 
-    // $("#ID_PRAKTIKUM").on('change',function(){
-    //     $.post('datapraktikum-nama',{ _token: "{{ csrf_token() }}", prakt: $(this).val() },function(result){
-    //         a = result;
-    //         console.log(a);
-    //         $("#calendar").fullCalendar('removeEvents');
-    //         $("#calendar").fullCalendar('addEventSource', a);
-    //     });
-    // });
+    $("#ID_PRAKTIKUM").on('change',function(){
+        $.post('/pengelola/getkelas',{ _token: "{{ csrf_token() }}", id_prak: $(this).val() 
+        },function(result){
+            console.log(result);
+            $('#ID_KELAS').empty();
+            $.each(result, function (id, name) {
+                $('#ID_KELAS').append(new Option(id, name));
+            });
+        });
+    });
 });
     
 </script>

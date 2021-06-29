@@ -42,9 +42,9 @@
 																	</div>
 																	<div class="media-body">
 																		@if(Auth::user()->ID_TIPE_USER != 5)
-																		<h6 class="mb-1">{{ $sender->NAMA_LENGKAP }}</h6><p>mengajukan penjadwalan ulang untuk praktikum {{ $jadwal->peminjaman_alat_bahan->praktikum->NAMA_PRAKTIKUM }} untuk kelas {{ $jadwal->peminjaman_alat_bahan->praktikum->kelas->jenis_kelas->NAMA_JENIS_KELAS }}</p>
+																		<h6 class="mb-1">{{ $sender->NAMA_LENGKAP }}</h6><p>mengajukan penjadwalan ulang untuk praktikum {{ $jadwal->peminjaman_alat_bahan->praktikum->JUDUL_PRAKTIKUM }} untuk kelas {{ $jadwal->peminjaman_alat_bahan->kelas->jenis_kelas->NAMA_JENIS_KELAS }}</p>
 																		@else
-																		<h6 class="mb-1">{{ $sender->NAMA_LENGKAP }}</h6><p>sudah merubah jadwal praktikum {{ $jadwal->peminjaman_alat_bahan->praktikum->NAMA_PRAKTIKUM }} untuk kelas {{ $jadwal->peminjaman_alat_bahan->praktikum->kelas->jenis_kelas->NAMA_JENIS_KELAS }}</p>
+																		<h6 class="mb-1">{{ $sender->NAMA_LENGKAP }}</h6><p>sudah merubah jadwal praktikum {{ $jadwal->peminjaman_alat_bahan->praktikum->JUDUL_PRAKTIKUM }} untuk kelas {{ $jadwal->peminjaman_alat_bahan->kelas->jenis_kelas->NAMA_JENIS_KELAS }}</p>
 																		@endif
 																		<small class="d-block">{{ $notification->created_at }}</small>
 																	</div>

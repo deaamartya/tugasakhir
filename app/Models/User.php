@@ -10,6 +10,8 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
+use App\Models\TahunAkademik;
+use App\Models\MataPelajaran;
 
 /**
  * Class User
@@ -73,4 +75,29 @@ class User extends Authenticatable
 	public static function guru(){
 		return self::join('tipe_user as t','t.ID_TIPE_USER','=','users.ID_TIPE_USER')->where('t.NAMA_TIPE_USER','LIKE','%Guru%')->get();
 	}
+
+	public function id_tahun_akademik()
+	{
+		$tahun = intval(date('Y'));
+		$tahunp1 = $tahun+1;
+		$tahunm1 = $tahun-1;
+		if(date('m') >= 7 ){
+				$tahun_akademik = $tahun.'/'.$tahunp1.' Gasal';
+		}
+		else {
+				$tahun_akademik = $tahunm1.'/'.$tahun.' Genap';
+		}
+
+		return TahunAkademik::where('TAHUN_AKADEMIK',$tahun_akademik)->value('ID_TAHUN_AKADEMIK');
+	}
+
+	public function list_mapel()
+	{
+		$list_mapel = MataPelajaran::select('ID_MAPEL')->where('ID_LABORATORIUM',$this->ID_LABORATORIUM)->get();
+		foreach($list_mapel as $l){
+			$list[] = $l->ID_MAPEL;
+		}
+		return $list;
+	}
+
 }

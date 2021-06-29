@@ -85,7 +85,7 @@
                                     @elseif($d->SPESIFIKASI_BAHAN == "0")
                                     PA
                                     @endif </td>
-                                    <td> {{ $d->JUMLAH_BAHAN_KIMIA }} </td>
+                                    <td> {{ $d->stok() }} </td>
                                     <td>
                                         <div class="d-flex">
                                             <button type="button" class="btn btn-primary shadow btn-xs sharp mr-1" data-toggle="modal" data-target="#modal-edit-{{ $loop->index }}"><i class="fa fa-pencil"></i></button>
@@ -256,14 +256,6 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label>Jumlah (gr)</label>
-                        <input type="number" class="form-control @error('JUMLAH_BAHAN_KIMIA') is-invalid @enderror" id="JUMLAH_BAHAN_KIMIA" name="JUMLAH_BAHAN_KIMIA" value="{{ $d->JUMLAH_BAHAN_KIMIA }}">
-                        <div class="invalid-feedback animated fadeInUp">
-                            Jumlah bahan kimia harus diisi
-                        </div>
-                    </div>
-
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-danger light" data-dismiss="modal">Batal</button>
                         <button type="submit" class="btn btn-primary submit-btn" id="{{ $d->ID_BAHAN_KIMIA }}">Simpan</button>
@@ -274,7 +266,7 @@
     </div>
 </div>
 {{-- End of Edit Modal --}}
-{{-- Delete Modal --}}
+{{-- Pengadaan Modal --}}
 <div class="modal fade" id="modal-tambah-{{ $loop->index }}">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -313,8 +305,8 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-danger light" data-dismiss="modal">Tidak, batalkan.</button>
-                        <button type="submit" class="btn btn-primary">Ya</button>
+                        <button type="button" class="btn btn-danger light" data-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
                     </div>
                 </form>
             </div>
@@ -322,7 +314,7 @@
         </div>
     </div>
 </div>
-{{-- End of Delete Modal --}}
+{{-- End of Pengadaan Modal --}}
 @endforeach
 
 @endsection

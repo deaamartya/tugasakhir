@@ -130,7 +130,7 @@
                             <label>ID Katalog Alat</label>
                             <input type="text" class="form-control @error('ID_KATALOG_ALAT') is-invalid @enderror" id="ID_KATALOG_ALAT" name="ID_KATALOG_ALAT" value="{{ @old('ID_KATALOG_ALAT') }}">
                             <div class="invalid-feedback animated fadeInUp">
-                                ID Katalog Alat harus diisi
+                                ID Katalog Alat harus diisi dan unik
                             </div>
                         </div>
 

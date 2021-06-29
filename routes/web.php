@@ -83,7 +83,7 @@ Route::middleware(['auth','cekPengelola'])->prefix('pengelola')->name('pengelola
     Route::resource('praktikum','App\Http\Controllers\Pengelola\PraktikumController');
 
     Route::resource('jadwal-praktikum','App\Http\Controllers\Pengelola\JadwalPraktikumController');
-    Route::get('datapraktikum','App\Http\Controllers\Pengelola\JadwalPraktikumController@seluruhJadwal');
+    // Route::get('datapraktikum','App\Http\Controllers\Pengelola\JadwalPraktikumController@seluruhJadwal');
     Route::post('jadwal-praktikum/datapraktikum-nama','App\Http\Controllers\Pengelola\JadwalPraktikumController@seluruhJadwalNama');
     Route::get('cekRuang','App\Http\Controllers\Pengelola\JadwalPraktikumController@cekRuang');
 
@@ -108,6 +108,8 @@ Route::middleware(['auth','cekPengelola'])->prefix('pengelola')->name('pengelola
 
     Route::get('notification/{id}','App\Http\Controllers\NotificationController@pengelola');
     Route::get('datapraktikum','App\Http\Controllers\PengelolaController@seluruhJadwal');
+
+    Route::post('getkelas','App\Http\Controllers\Pengelola\JadwalPraktikumController@getKelas');
 });
 
 // Route untuk notifikasi

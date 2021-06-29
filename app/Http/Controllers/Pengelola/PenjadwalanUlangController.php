@@ -22,7 +22,7 @@ class PenjadwalanUlangController extends Controller
 
         $id_lab = Auth::user()->ID_LABORATORIUM;
 
-        $jadwalulang = PerubahanJadwalPeminjaman::join('peminjaman_alat_bahan as p','p.ID_PEMINJAMAN','perubahan_jadwal_peminjaman.ID_PEMINJAMAN')->join('praktikum as pr','pr.ID_PRAKTIKUM','p.ID_PRAKTIKUM')->join('kelas as k','k.ID_KELAS','pr.ID_KELAS')->join('jenis_kelas as j','j.ID_JENIS_KELAS','k.ID_JENIS_KELAS')->where('pr.ID_LABORATORIUM',$id_lab)->get();
+        $jadwalulang = PerubahanJadwalPeminjaman::join('peminjaman_alat_bahan as p','p.ID_PEMINJAMAN','perubahan_jadwal_peminjaman.ID_PEMINJAMAN')->join('ruang_laboratorium as r','r.ID_RUANG_LABORATORIUM','p.ID_RUANG_LABORATORIUM')->join('praktikum as pr','pr.ID_PRAKTIKUM','p.ID_PRAKTIKUM')->join('kelas as k','k.ID_KELAS','p.ID_KELAS')->join('jenis_kelas as j','j.ID_JENIS_KELAS','k.ID_JENIS_KELAS')->where('r.ID_LABORATORIUM',$id_lab)->get();
 
         return view('pengelola.jadwal-ulang.index', compact('page_title', 'page_description','action','jadwalulang'));
     }
@@ -53,7 +53,7 @@ class PenjadwalanUlangController extends Controller
             'JAM_SELESAI' => 'required'
         ]);
         
-        PeminjamanAlatBahan::find($id)->update([
+        PeminjamanAlatBahan::where('ID_PEMINJAMAN','=',$id)->first()->update([
             'TANGGAL_PEMINJAMAN' => $request->TANGGAL_PEMINJAMAN_submit,
             'JAM_MULAI' => $request->JAM_MULAI,
             'JAM_SELESAI' => $request->JAM_SELESAI

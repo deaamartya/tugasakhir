@@ -18,29 +18,43 @@ class JadwalPraktikumController extends Controller
 {
     public function index()
     {
-        $page_title = 'Data Praktikum';
+        $page_title = 'Jadwal Praktikum';
         $page_description = 'Menampilkan seluruh data praktikum';
         $action = 'app_calender';
+
         $id_lab = Auth::user()->ID_LABORATORIUM;
         $praktikum = PeminjamanAlatBahan::join('ruang_laboratorium as r','r.ID_RUANG_LABORATORIUM','peminjaman_alat_bahan.ID_RUANG_LABORATORIUM')->where('r.ID_LABORATORIUM','=',$id_lab)->orderBy('ID_PEMINJAMAN','DESC')->get();
-        $lab = strrchr(Laboratorium::find($id_lab)->value('NAMA_LABORATORIUM'),' ');
-        $lab = str_replace(" ","",$lab);
-        $matapelajaran = MataPelajaran::select('mata_pelajaran.*')->where('NAMA_MAPEL','LIKE',"%".$lab."%")->get();
-        $kelas = Kelas::join('mata_pelajaran as m','m.ID_MAPEL','=','kelas.ID_MAPEL')->where('m.NAMA_MAPEL','LIKE',"%".$lab."%")->get();
         $lab = Laboratorium::find($id_lab);
-        return view('pengelola.jadwal-praktikum.index', compact('page_title', 'page_description','action','praktikum','kelas','matapelajaran','lab'));
+        return view('pengelola.jadwal-praktikum.index', compact('page_title', 'page_description','action','praktikum','lab'));
     }
 
     public function create()
     {
-        $page_title = 'Data Praktikum';
+        $page_title = 'Buat Jadwal Praktikum';
         $page_description = 'Menampilkan seluruh data praktikum';
         $action = 'uc_select2';
+
         $id_lab = Auth::user()->ID_LABORATORIUM;
-        $praktikum = Praktikum::where('ID_LABORATORIUM',$id_lab)->get();
+        $list_mapel = Auth::user()->list_mapel();
+        $id_ta = Auth::user()->id_tahun_akademik();
+        $praktikum = Praktikum::whereIn('ID_MAPEL',$list_mapel)->get();
+
         $ruanglaboratorium = RuangLaboratorium::where('ID_LABORATORIUM',$id_lab)->get();
         $peminjaman = PeminjamanAlatBahan::join('ruang_laboratorium as r','r.ID_RUANG_LABORATORIUM','peminjaman_alat_bahan.ID_RUANG_LABORATORIUM')->where('r.ID_LABORATORIUM','=',$id_lab)->get();
-        return view('pengelola.jadwal-praktikum.create', compact('page_title','page_description','action','praktikum','ruanglaboratorium','peminjaman'));
+        $kelas = Kelas::where('ID_TAHUN_AKADEMIK','=',$id_ta)->where('ID_MAPEL',$praktikum[0]->ID_MAPEL)->get();
+
+        return view('pengelola.jadwal-praktikum.create', compact('page_title','page_description','action','praktikum','ruanglaboratorium','peminjaman','kelas'));
+    }
+
+    public function getKelas(Request $request){
+        $id_mapel = Praktikum::where('ID_PRAKTIKUM',$request->id_prak)->value('ID_MAPEL');
+        $id_ta = Auth::user()->id_tahun_akademik();
+        $kelas = Kelas::join('jenis_kelas as j','j.ID_JENIS_KELAS','kelas.ID_JENIS_KELAS')
+        ->where([
+            'ID_TAHUN_AKADEMIK' => $id_ta,
+            'ID_MAPEL' => $id_mapel])
+        ->pluck('ID_KELAS','j.NAMA_JENIS_KELAS');
+        return response()->json($kelas);
     }
 
     public function store(Request $request)
@@ -48,6 +62,7 @@ class JadwalPraktikumController extends Controller
         $request->validate([
             'ID_RUANG_LABORATORIUM' => 'required|exists:App\Models\RuangLaboratorium,ID_RUANG_LABORATORIUM',
             'ID_PRAKTIKUM' => 'required|exists:App\Models\Praktikum,ID_PRAKTIKUM',
+            'ID_KELAS' => 'required|exists:App\Models\Kelas,ID_KELAS',
             'TANGGAL_PEMINJAMAN_submit' => 'required',
             'JAM_MULAI' => 'required',
             'JAM_SELESAI' => 'required',
@@ -57,6 +72,7 @@ class JadwalPraktikumController extends Controller
             PeminjamanAlatBahan::insert([
                 "ID_RUANG_LABORATORIUM" => $request->ID_RUANG_LABORATORIUM,
                 "ID_PRAKTIKUM" => $request->ID_PRAKTIKUM,
+                "ID_KELAS" => $request->ID_KELAS,
                 "TANGGAL_PEMINJAMAN" => $request->TANGGAL_PEMINJAMAN_submit,
                 "JAM_MULAI" => $request->JAM_MULAI,
                 "JAM_SELESAI" => $request->JAM_SELESAI,
@@ -75,8 +91,8 @@ class JadwalPraktikumController extends Controller
         foreach($peminjaman as $p)
         {
             $obj = new \StdClass();
-            $kelas = $p->praktikum->kelas->jenis_kelas->NAMA_JENIS_KELAS;
-            $obj->title = $p->praktikum->NAMA_PRAKTIKUM." ".$kelas;
+            $kelas = $p->kelas->jenis_kelas->NAMA_JENIS_KELAS;
+            $obj->title = $p->praktikum->JUDUL_PRAKTIKUM." ".$kelas;
 
             $jammulai = $p->TANGGAL_PEMINJAMAN." ".$p->JAM_MULAI;
             $jamselesai = $p->TANGGAL_PEMINJAMAN." ".$p->JAM_SELESAI;
@@ -114,13 +130,13 @@ class JadwalPraktikumController extends Controller
         $data = [];
         $praktikum = Praktikum::find($request->prakt);
         $id_lab = Auth::user()->ID_LABORATORIUM;
-        $peminjaman = PeminjamanAlatBahan::join('praktikum as p','p.ID_PRAKTIKUM','=','peminjaman_alat_bahan.ID_PRAKTIKUM')->join('ruang_laboratorium as r','r.ID_RUANG_LABORATORIUM','peminjaman_alat_bahan.ID_RUANG_LABORATORIUM')->where('r.ID_LABORATORIUM','=',$id_lab)->where('p.NAMA_PRAKTIKUM','LIKE',"%".$praktikum->NAMA_PRAKTIKUM."%")->get();
+        $peminjaman = PeminjamanAlatBahan::join('praktikum as p','p.ID_PRAKTIKUM','=','peminjaman_alat_bahan.ID_PRAKTIKUM')->join('ruang_laboratorium as r','r.ID_RUANG_LABORATORIUM','peminjaman_alat_bahan.ID_RUANG_LABORATORIUM')->where('r.ID_LABORATORIUM','=',$id_lab)->where('p.JUDUL_PRAKTIKUM','LIKE',"%".$praktikum->JUDUL_PRAKTIKUM."%")->get();
         $i = 0;
         foreach($peminjaman as $p)
         {
             $obj = new \StdClass();
-            $kelas = $p->praktikum->kelas->jenis_kelas->NAMA_JENIS_KELAS;
-            $obj->title = $p->praktikum->NAMA_PRAKTIKUM." ".$kelas;
+            $kelas = $p->kelas->jenis_kelas->NAMA_JENIS_KELAS;
+            $obj->title = $p->praktikum->JUDUL_PRAKTIKUM." ".$kelas;
 
             $jammulai = $p->TANGGAL_PEMINJAMAN." ".$p->JAM_MULAI;
             $jamselesai = $p->TANGGAL_PEMINJAMAN." ".$p->JAM_SELESAI;

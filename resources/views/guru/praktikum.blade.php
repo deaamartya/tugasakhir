@@ -88,7 +88,7 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Nama Praktikum</th>
+                                    <th>Judul Praktikum</th>
                                     <th>Kelas</th>
                                     <th>Guru</th>
                                     <th>Waktu Pelaksanaan</th>
@@ -99,9 +99,9 @@
                                 @foreach($praktikum as $d)
                                 <tr>
                                     <td> {{ $loop->iteration }} </td>
-                                    <td> {{ $d->praktikum->NAMA_PRAKTIKUM }} </td>
-                                    <td> {{ $d->praktikum->kelas->jenis_kelas->NAMA_JENIS_KELAS }}</td>
-                                    <td> {{ $d->praktikum->kelas->guru->NAMA_LENGKAP }}</td>
+                                    <td> {{ $d->praktikum->JUDUL_PRAKTIKUM }} </td>
+                                    <td> {{ $d->kelas->jenis_kelas->NAMA_JENIS_KELAS }}</td>
+                                    <td> {{ $d->kelas->guru->NAMA_LENGKAP }}</td>
                                     <td> {{ $d->TANGGAL_PEMINJAMAN }} {{ $d->JAM_MULAI }} - {{ $d->JAM_SELESAI }} </td>	
                                     <td>
                                         @if(!isset($d->perubahan_jadwal_peminjamen))
@@ -140,7 +140,7 @@
             <div class="modal-body">
                 <div class="row mb-2">
                     <div class="col-4">Nama Prakt.</div>
-                    <div class="col-8">: {{ $p->praktikum->NAMA_PRAKTIKUM }}</div>
+                    <div class="col-8">: {{ $p->praktikum->JUDUL_PRAKTIKUM }}</div>
                 </div>
                 <div class="row mb-2">
                     <div class="col-4">Jadwal Prakt.</div>
@@ -148,11 +148,11 @@
                 </div>
                 <div class="row mb-2">
                     <div class="col-4">Kelas</div>
-                    <div class="col-8">: {{ $p->praktikum->kelas->jenis_kelas->NAMA_JENIS_KELAS }}</div>
+                    <div class="col-8">: {{ $p->kelas->jenis_kelas->NAMA_JENIS_KELAS }}</div>
                 </div>
                 <div class="row mb-2">
                     <div class="col-4">Guru</div>
-                    <div class="col-8">: {{ $p->praktikum->kelas->guru->NAMA_LENGKAP }}</div>
+                    <div class="col-8">: {{ $p->kelas->guru->NAMA_LENGKAP }}</div>
                 </div>
                 <div class="row mb-2">
                     <div class="col-4">Tahun Akademik</div>

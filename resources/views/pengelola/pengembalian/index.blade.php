@@ -53,7 +53,7 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Nama Praktikum</th>
+                                    <th>Judul Praktikum</th>
                                     <th>Kelas</th>
                                     <th>Guru</th>
                                     <th>Jadwal</th>
@@ -64,9 +64,9 @@
                                 @foreach($peminjaman as $d)
                                 <tr>
                                     <td> {{ $loop->iteration }} </td>
-                                    <td> {{ $d->praktikum->NAMA_PRAKTIKUM }} </td>
-                                    <td> {{ $d->praktikum->kelas->jenis_kelas->NAMA_JENIS_KELAS }}</td>
-                                    <td> {{ $d->praktikum->kelas->guru->NAMA_LENGKAP }}</td>
+                                    <td> {{ $d->praktikum->JUDUL_PRAKTIKUM }} </td>
+                                    <td> {{ $d->kelas->jenis_kelas->NAMA_JENIS_KELAS }}</td>
+                                    <td> {{ $d->kelas->guru->NAMA_LENGKAP }}</td>
                                     <td> {{ $d->TANGGAL_PEMINJAMAN }} {{ $d->JAM_MULAI }} - {{ $d->JAM_SELESAI }} </td>
                                     <td>
                                     @if($d->STATUS_PEMINJAMAN == "SUDAH DIKONFIRMASI")
@@ -99,7 +99,7 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Nama Praktikum</th>
+                                    <th>Judul Praktikum</th>
                                     <th>Kelas</th>
                                     <th>Guru</th>
                                     <th>Jadwal</th>
@@ -110,9 +110,9 @@
                                 @foreach($pengembalian as $d)
                                 <tr>
                                     <td> {{ $loop->iteration }} </td>
-                                    <td> {{ $d->praktikum->NAMA_PRAKTIKUM }} </td>
-                                    <td> {{ $d->praktikum->kelas->jenis_kelas->NAMA_JENIS_KELAS }}</td>
-                                    <td> {{ $d->praktikum->kelas->guru->NAMA_LENGKAP }}</td>
+                                    <td> {{ $d->praktikum->JUDUL_PRAKTIKUM }} </td>
+                                    <td> {{ $d->kelas->jenis_kelas->NAMA_JENIS_KELAS }}</td>
+                                    <td> {{ $d->kelas->guru->NAMA_LENGKAP }}</td>
                                     <td> {{ $d->TANGGAL_PEMINJAMAN }} {{ $d->JAM_MULAI }} - {{ $d->JAM_SELESAI }} </td>
                                     <td> {{$d->STATUS_PEMINJAMAN}} </td>			
                                 </tr>

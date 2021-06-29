@@ -56,7 +56,7 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Nama Praktikum</th>
+                                    <th>Judul Praktikum</th>
                                     <th>Kelas</th>
                                     <th>Status</th>
                                     <th>Aksi</th>
@@ -66,7 +66,7 @@
                                 @foreach($jadwalulang as $d)
                                 <tr>
                                     <td> {{ $loop->iteration }} </td>
-                                    <td> {{ $d->NAMA_PRAKTIKUM }} </td>
+                                    <td> {{ $d->JUDUL_PRAKTIKUM }} </td>
                                     <td> {{ $d->NAMA_JENIS_KELAS }} </td>
                                     <td> @if($d->STATUS_PERUBAHAN == 0) Belum diubah @else Sudah diubah @endif </td>
                                     <td> 

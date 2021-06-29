@@ -43,7 +43,14 @@ class BahanController extends Controller
                 'ID_BAHAN' => $request->ID_BAHAN,
                 'ID_LEMARI' => $request->ID_LEMARI,
                 'NAMA_BAHAN' => $request->NAMA_BAHAN,
-                'JUMLAH' => $request->JUMLAH,
+            ]);
+            HistoriStok::insert([
+                'ID_TIPE' => 2,
+                'ID_ALAT_BAHAN' => $request->ID_BAHAN,
+                'JUMLAH_KELUAR' => 0,
+                'JUMLAH_MASUK' => $request->JUMLAH,
+                'KONDISI' => 0,
+                'KETERANGAN' => "Stok awal"
             ]);
         });
         
@@ -63,7 +70,6 @@ class BahanController extends Controller
             'ID_BAHAN' => 'required',
             'ID_LEMARI' => 'required|exists:App\Models\Lemari,ID_LEMARI',
             'NAMA_BAHAN' => 'required',
-            'JUMLAH' => 'required|min:0',
         ]);
 
         $bahan = Bahan::find($request->ID_BAHAN_LAMA);

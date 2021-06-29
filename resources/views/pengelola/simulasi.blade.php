@@ -55,22 +55,22 @@
                         <form id="create-praktikum" action="{{ route('pengelola.simulasi.store') }}" name="create-praktikum" method="POST">
                         @csrf
                             <div class="form-group">
-                                <label>Nama Praktikum</label>
-                                <input type="text" class="form-control @error('NAMA_PRAKTIKUM') is-invalid @enderror" id="NAMA_PRAKTIKUM" name="NAMA_PRAKTIKUM" value="{{ @old('NAMA_PRAKTIKUM') }}">
+                                <label>Judul Praktikum</label>
+                                <input type="text" class="form-control @error('JUDUL_PRAKTIKUM') is-invalid @enderror" id="JUDUL_PRAKTIKUM" name="JUDUL_PRAKTIKUM" value="{{ @old('JUDUL_PRAKTIKUM') }}">
                                 <div class="invalid-feedback animated fadeInUp">
-                                    Nama Praktikum harus diisi
+                                    Judul Praktikum harus diisi
                                 </div>
                             </div>
 
-                            <hr></hr>
+                            <hr>
 
                             <div class="form-group">
                                 <label>Alat Praktikum</label>
                                 <div class="form-row">
                                     <div class="col-9">
-                                        <select class="form-control select2" id="ID_KATALOG_ALAT">
+                                        <select class="form-control select2" id="ID_ALAT">
                                             @foreach($alat as $t)
-                                            <option value="{{ $t->ID_KATALOG_ALAT }}"> {{ $t->NAMA_ALAT }} {{ $t->UKURAN }} </option>
+                                            <option value="{{ $t->ID_ALAT }}"> {{ $t->ID_ALAT }} - {{ $t->merk_tipe_alat->NAMA_MERK_TIPE }} {{ $t->katalog_alat->NAMA_ALAT }} {{ $t->katalog_alat->UKURAN }} </option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -102,7 +102,7 @@
                                     <div class="col-9">
                                         <select class="form-control select2" id="ID_BAHAN_KIMIA">
                                             @foreach($bahan_kimia as $t)
-                                            <option value="{{ $t->ID_BAHAN_KIMIA }}"> {{ $t->katalog_bahan->NAMA_KATALOG_BAHAN }} </option>
+                                            <option value="{{ $t->ID_BAHAN_KIMIA }}"> {{ $t->ID_BAHAN_KIMIA }} {{ $t->katalog_bahan->NAMA_KATALOG_BAHAN }} </option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -186,7 +186,7 @@ $(document).ready(function(){
     {
         for(var i=0;i<alat.length;i++)
         {
-            if(alat[i]['ID_KATALOG_ALAT'] == id_alat)
+            if(alat[i]['ID_ALAT'] == id_alat)
             {
                 return i;
             }
@@ -303,47 +303,53 @@ $(document).ready(function(){
         $("#simulasi-tidakbisa").hide();
 
         $(".index_alat").each(function(){
-            var index = $(this).val();
-            var jumlah = $("#qtyalat-"+index).val();
-            $.post('getStokAlat',{ _token: "{{ csrf_token() }}", id: $("#id_katalog_alat-"+index).val() },function(result){
-                if(Number(result) < Number(jumlah)){
-                    hasil_alat = false;
-                    text_alat = " stok alat";
-                }
-                flag_alat = true;
-                hasil();
-            });
+            if(hasil_alat){
+                var index = $(this).val();
+                var jumlah = $("#qtyalat-"+index).val();
+                $.post('getStokAlat',{ _token: "{{ csrf_token() }}", id: $("#id_alat-"+index).val() },function(result){
+                    if(Number(result) < Number(jumlah)){
+                        hasil_alat = false;
+                        text_alat = " stok alat";
+                    }
+                    flag_alat = true;
+                    hasil();
+                });
+            }
         });
 
         $(".index_bahan").each(function(){
-            var index = $(this).val();
-            var jumlah = $("#qtybahan-"+index).val();
-            $.post('getStokBahan',{_token: "{{ csrf_token() }}", id: $("#id_bahan-"+index).val()},function(result){
-                if(Number(result) < Number(jumlah)){
-                    hasil_bahan = false;
-                    text_bahan = " stok bahan";
-                }
-                flag_bahan = true;
-                hasil();
-            });
+            if(hasil_bahan){
+                var index = $(this).val();
+                var jumlah = $("#qtybahan-"+index).val();
+                $.post('getStokBahan',{_token: "{{ csrf_token() }}", id: $("#id_bahan-"+index).val()},function(result){
+                    if(Number(result) < Number(jumlah)){
+                        hasil_bahan = false;
+                        text_bahan = " stok bahan";
+                    }
+                    flag_bahan = true;
+                    hasil();
+                });
+            }
         });
 
         $(".index_bahan_kimia").each(function(){
-            var index = $(this).val();
-            var jumlah = $("#qtybahan-kimia-"+index).val();
-            $.post('getStokBahanKimia',{_token: "{{ csrf_token() }}", id: $("#id_bahan_kimia-"+index).val()},function(result){
-                if(Number(result) < Number(jumlah)){
-                    hasil_bahan_kimia = false;
-                    text_bahan_kimia = " stok bahan kimia";
-                }
-                flag_bahan_kimia = true;
-                hasil();
-            });
+            if(hasil_bahan_kimia){
+                var index = $(this).val();
+                var jumlah = $("#qtybahan-kimia-"+index).val();
+                $.post('getStokBahanKimia',{_token: "{{ csrf_token() }}", id: $("#id_bahan_kimia-"+index).val()},function(result){
+                    if(Number(result) < Number(jumlah)){
+                        hasil_bahan_kimia = false;
+                        text_bahan_kimia = " stok bahan kimia";
+                    }
+                    flag_bahan_kimia = true;
+                    hasil();
+                });
+            }
         });
     });
 
     $("#add_row_alat").on('click',function(){
-        var id_alat = $("#ID_KATALOG_ALAT").val();
+        var id_alat = $("#ID_ALAT").val();
         var index = getIndexAlat(id_alat);
         if($("#table-alat tbody tr#alat-"+index).length == 1){
             var qty = $("#qtyalat-"+index).val();
@@ -352,10 +358,10 @@ $(document).ready(function(){
             hitungTotalAlat();
         }
         else{
-            var nama_alat = alat[index]['ID_KATALOG_ALAT']+" "+ alat[index]['NAMA_ALAT']+" "+ alat[index]['UKURAN'];
+            var nama_alat = alat[index]['ID_ALAT']+" "+ alat[index]['NAMA_ALAT']+" "+ alat[index]['UKURAN'];
             var markup =
             "<tr id='alat-"+index+"'>"+
-                "<td width='60%'>"+nama_alat+"<input type='hidden' class='id_katalog_alat' id='id_katalog_alat-"+index+"' value='"+id_alat+"'><input type='hidden' class='index_alat' id='index_alat["+index+"]' value='"+index+"'></td>"+
+                "<td width='60%'>"+nama_alat+"<input type='hidden' class='id_alat' id='id_alat-"+index+"' value='"+id_alat+"'><input type='hidden' class='index_alat' id='index_alat["+index+"]' value='"+index+"'></td>"+
                 "<td width='30%'><input type='number' name='jumlah_alat["+index+"]' value='1' class='jumlah_alat border-1 p-2' id='qtyalat-"+index+"'></td>"+
                 "<td width='10%'><button type='button' class='btn btn-danger shadow btn-xs sharp mr-1 delete-alat' id='"+index+"'><i class='fa fa-trash'></i></button></td>"
             "</tr>";

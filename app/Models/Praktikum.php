@@ -16,7 +16,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $ID_LABORATORIUM
  * @property string $ID_MAPEL
  * @property string $ID_KELAS
- * @property string $NAMA_PRAKTIKUM
+ * @property string $JUDUL_PRAKTIKUM
  * 
  * @property Laboratorium $laboratorium
  * @property MataPelajaran $mata_pelajaran
@@ -51,5 +51,20 @@ class Praktikum extends Model
 	public function peminjaman_alat_bahan()
 	{
 		return $this->hasMany(PeminjamanAlatBahan::class, 'ID_PRAKTIKUM');
+	}
+
+	public function alat_praktikum()
+	{
+		return AlatBahanPraktikum::where('ID_PRAKTIKUM','=',$this->ID_PRAKTIKUM)->where('ID_TIPE','=',1)->get();
+	}
+
+	public function bahan_praktikum()
+	{
+		return AlatBahanPraktikum::where('ID_PRAKTIKUM','=',$this->ID_PRAKTIKUM)->where('ID_TIPE','=',2)->get();
+	}
+
+	public function bahan_kimia_praktikum()
+	{
+		return AlatBahanPraktikum::where('ID_PRAKTIKUM','=',$this->ID_PRAKTIKUM)->where('ID_TIPE','=',3)->get();
 	}
 }

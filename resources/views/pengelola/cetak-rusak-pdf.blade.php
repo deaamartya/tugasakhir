@@ -21,7 +21,7 @@
         </tr>
     </table>
 
-    <hr></hr>
+    <hr>
 
     <div style="margin-left:-30px;width:100%;line-height:1.5;text-align:center;margin-top:50px;font-size:18pt;font-weight:bold;">LAPORAN BARANG RUSAK</div>
 

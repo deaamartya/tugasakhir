@@ -52,9 +52,25 @@ class BahanKimiaController extends Controller
                 'ID_LEMARI' => $request->ID_LEMARI,
                 'RUMUS' => $request->RUMUS,
                 'WUJUD' => $request->WUJUD,
-                'JUMLAH_BAHAN_KIMIA' => $request->JUMLAH_BAHAN_KIMIA,
                 'SPESIFIKASI_BAHAN' => $request->SPESIFIKASI_BAHAN,
             ]);
+            
+            $id_bahan_kimia = BahanKimia::where([
+                'ID_KATALOG_BAHAN' => $request->ID_KATALOG_BAHAN,
+                'ID_LEMARI' => $request->ID_LEMARI,
+                'RUMUS' => $request->RUMUS,
+                'WUJUD' => $request->WUJUD,
+                'SPESIFIKASI_BAHAN' => $request->SPESIFIKASI_BAHAN,
+            ])->value('ID_BAHAN_KIMIA');
+
+            HistoriStok::insert([
+                'ID_TIPE' => 3,
+                'ID_ALAT_BAHAN' => $id_bahan_kimia,
+                'JUMLAH_KELUAR' => 0,
+                'JUMLAH_MASUK' => $request->JUMLAH_BAHAN_KIMIA,
+                'KONDISI' => 0,
+                'KETERANGAN' => "Stok awal"
+            ]); 
         });
         return redirect()->route('pengelola.bahan-kimia.index')->with('created','Data berhasil dibuat');
     }
@@ -73,7 +89,6 @@ class BahanKimiaController extends Controller
             'ID_LEMARI' => 'required|exists:App\Models\Lemari,ID_LEMARI',
             'RUMUS' => 'required',
             'WUJUD' => 'required',
-            'JUMLAH_BAHAN_KIMIA' => 'required',
             'SPESIFIKASI_BAHAN' => 'required',
         ]);
 
@@ -85,7 +100,6 @@ class BahanKimiaController extends Controller
             'ID_LEMARI' => $request->ID_LEMARI,
             'RUMUS' => $request->RUMUS,
             'WUJUD' => $request->WUJUD,
-            'JUMLAH_BAHAN_KIMIA' => $request->JUMLAH_BAHAN_KIMIA,
             'SPESIFIKASI_BAHAN' => $request->SPESIFIKASI_BAHAN,
         ]);
         

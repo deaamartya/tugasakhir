@@ -60,7 +60,7 @@
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label>Laboratorium</label>
-                                        <div>{{ $peminjaman->praktikum->laboratorium->NAMA_LABORATORIUM }}</div>
+                                        <div>{{ $peminjaman->ruang_laboratorium->laboratorium->NAMA_LABORATORIUM }}</div>
                                     </div>
                                 </div>
                                 <div class="col-6">
@@ -75,19 +75,20 @@
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label>Kelas</label>
-                                        <div>{{ $peminjaman->praktikum->kelas->jenis_kelas->NAMA_JENIS_KELAS }}</div>
+                                        <div>{{ $peminjaman->kelas->jenis_kelas->NAMA_JENIS_KELAS }}</div>
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="form-group">
-                                        <label>Nama Praktikum</label>
-                                        <div>{{ $peminjaman->praktikum->NAMA_PRAKTIKUM }}</div>
+                                        <label>Judul Praktikum</label>
+                                        <div>{{ $peminjaman->praktikum->JUDUL_PRAKTIKUM }}</div>
                                     </div>
                                 </div>
                             </div>
 
                             <hr>
 
+                            @if(count($peminjaman->alat_peminjaman($peminjaman->ID_PEMINJAMAN)) > 0)
                             <table class="table text-black" id="table-alat">
                                 <thead>
                                     <th>Nama Alat</th>
@@ -97,9 +98,8 @@
                                     <th>Keterangan <small class="text-danger">*Jika ada alat rusak</small></th>
                                 </thead>
                                 <tbody>
-                                    @foreach($peminjaman->detail_peminjamans as $a)
+                                    @foreach($peminjaman->alat_peminjaman($peminjaman->ID_PEMINJAMAN) as $a)
                                         @php $i = 1; @endphp
-                                        @if($a->ID_TIPE == 1)
                                         <tr>
                                             <td width="30%">{{ $a->alat->ID_ALAT }} {{ $a->alat->merk_tipe_alat->NAMA_MERK_TIPE }} {{ $a->alat->katalog_alat->NAMA_ALAT }} {{ $a->alat->katalog_alat->UKURAN }}</td>
                                             <input type="hidden" value="{{ $a->alat->ID_ALAT }}" name="id_alat[{{$i}}]">
@@ -109,11 +109,11 @@
                                             <td width="15%"><textarea name="keterangan_rusak[{{$i}}]" class="form-control"></textarea></td>
                                         </tr>
                                         @php $i++; @endphp
-                                        @endif
                                     @endforeach
                                 </tbody>
                             </table>
-
+                            @endif
+                            @if(count($peminjaman->bahan_peminjaman($peminjaman->ID_PEMINJAMAN)) > 0)
                             <table class="table text-black" id="table-bahan">
                                 <thead>
                                     <th>Nama Bahan</th>
@@ -121,9 +121,8 @@
                                     <th>Sisa</th>
                                 </thead>
                                 <tbody>
-                                    @foreach($peminjaman->detail_peminjamans as $a)
+                                    @foreach($peminjaman->bahan_peminjaman($peminjaman->ID_PEMINJAMAN) as $a)
                                         @php $i = 1; @endphp
-                                        @if($a->ID_TIPE == 2)
                                         <tr>
                                             <td width="50%">{{ $a->bahan->ID_BAHAN }} {{ $a->bahan->NAMA_BAHAN }}</td>
                                             <input type="hidden" value="{{ $a->bahan->ID_BAHAN }}" name="id_bahan[{{$i}}]">
@@ -131,11 +130,11 @@
                                             <td width="15%"><input type="number" style="width:100%" value="0" name="jumlah_bahan[{{$i}}]" class="border p-2"></td>
                                         </tr>
                                         @php $i++; @endphp
-                                        @endif
                                     @endforeach
                                 </tbody>
                             </table>
-
+                            @endif
+                            @if(count($peminjaman->bahan_kimia_peminjaman($peminjaman->ID_PEMINJAMAN)) > 0)
                             <table class="table text-black" id="table-bahan-kimia">
                                 <thead>
                                     <th>Nama Bahan Kimia</th>
@@ -143,9 +142,8 @@
                                     <th>Sisa</th>
                                 </thead>
                                 <tbody>
-                                    @foreach($peminjaman->detail_peminjamans as $a)
+                                    @foreach($peminjaman->bahan_kimia_peminjaman($peminjaman->ID_PEMINJAMAN) as $a)
                                         @php $i = 1; @endphp
-                                        @if($a->ID_TIPE == 3)
                                             <tr>
                                                 <td width="50%">{{ $a->bahan_kimia->ID_BAHAN_KIMIA }} {{ $a->bahan_kimia->katalog_bahan->NAMA_KATALOG_BAHAN }}</td>
                                                 <td width="20%">{{ $a->JUMLAH_PINJAM }}gr</td>
@@ -154,10 +152,11 @@
                                                 <input style="width:100%" type="number" value="0" class="jumlah_bahan_kimia border p-2" name="jumlah_bahan_kimia[{{$i}}]"></td>
                                             </tr>
                                         @php $i++; @endphp
-                                        @endif
                                     @endforeach
                                 </tbody>
                             </table>
+                            @endif
+
                             <button type="submit" class="btn btn-success submit-btn btn-lg float-right">Konfirmasi Pengembalian</button>
                         </form>
                     </div>

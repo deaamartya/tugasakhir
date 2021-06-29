@@ -9,6 +9,8 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\HistoriStok;
+use App\Models\Alat;
 
 /**
  * Class PeminjamanAlatBahan
@@ -64,5 +66,47 @@ class PeminjamanAlatBahan extends Model
 	public function perubahan_jadwal_peminjamen()
 	{
 		return $this->hasOne(PerubahanJadwalPeminjaman::class, 'ID_PEMINJAMAN');
+	}
+
+	public static function alat_peminjaman($id_peminjaman)
+	{
+		$histori_stok = HistoriStok::where('ID_TIPE',1)->where('ID_TRANSAKSI',$id_peminjaman)->where('KONDISI',1)->where('JUMLAH_MASUK',0)->get();
+		$data = [];
+		foreach($histori_stok as $h)
+		{
+			$obj = new \StdClass();
+			$obj->alat = Alat::where('ID_ALAT','=',$h->ID_ALAT_BAHAN)->first();
+			$obj->JUMLAH_PINJAM = $h->JUMLAH_KELUAR;
+			$data[] = $obj;
+		}
+		return $data;
+	}
+
+	public static function bahan_peminjaman($id_peminjaman)
+	{
+		$histori_stok = HistoriStok::where('ID_TIPE',2)->where('ID_TRANSAKSI',$id_peminjaman)->where('JUMLAH_MASUK',0)->get();
+		$data = [];
+		foreach($histori_stok as $h)
+		{
+			$obj = new \StdClass();
+			$obj->bahan = Bahan::where('ID_BAHAN','=',$h->ID_ALAT_BAHAN)->first();
+			$obj->JUMLAH_PINJAM = $h->JUMLAH_KELUAR;
+			$data[] = $obj;
+		}
+		return $data;
+	}
+
+	public static function bahan_kimia_peminjaman($id_peminjaman)
+	{
+		$histori_stok = HistoriStok::where('ID_TIPE',3)->where('ID_TRANSAKSI',$id_peminjaman)->where('JUMLAH_MASUK',0)->get();
+		$data = [];
+		foreach($histori_stok as $h)
+		{
+			$obj = new \StdClass();
+			$obj->bahan_kimia = BahanKimia::where('ID_BAHAN_KIMIA','=',$h->ID_ALAT_BAHAN)->first();
+			$obj->JUMLAH_PINJAM = $h->JUMLAH_KELUAR;
+			$data[] = $obj;
+		}
+		return $data;
 	}
 }

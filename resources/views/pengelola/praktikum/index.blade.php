@@ -69,9 +69,7 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Nama Prakt.</th>
-                                    <th>Kelas</th>
-                                    <th>Guru</th>
+                                    <th>Judul Prakt.</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -79,9 +77,7 @@
                                 @foreach($praktikum as $d)
                                 <tr>
                                     <td> {{ $loop->iteration }} </td>
-                                    <td> {{ $d->NAMA_PRAKTIKUM }} </td>
-                                    <td> {{ $d->kelas->jenis_kelas->NAMA_JENIS_KELAS }} </td>
-                                    <td> {{ $d->kelas->guru->NAMA_LENGKAP }} </td>
+                                    <td> {{ $d->JUDUL_PRAKTIKUM }} </td>
                                     <td>
                                         <div class="d-flex">
                                             <button type="button" class="btn btn-primary shadow sharp px-3" data-toggle="modal" data-target="#modal-detail-{{ $loop->iteration }}"><i class="fa fa-info-circle mr-2"></i>Detail</button>
@@ -111,21 +107,9 @@
 
                 <div class="form-group px-2">
                     <div>Judul Praktikum : </div>
-                    <div>{{ $d->NAMA_PRAKTIKUM }}</div>
+                    <div>{{ $d->JUDUL_PRAKTIKUM }}</div>
                 </div>
-
-                <div class="form-group px-2">
-                    <div>Guru : </div>
-                    <div>{{ $d->kelas->guru->NAMA_LENGKAP }}</div>
-                </div>
-
-                <div class="form-group px-2">
-                    <div>Kelas : </div>
-                    <div>{{ $d->kelas->jenis_kelas->NAMA_JENIS_KELAS }}</div>
-                </div>
-
                 <hr>
-
                 <div class="form-group px-2">
                     <div>Kebutuhan Alat dan Bahan per kelompok : </div>
                 </div>
@@ -134,7 +118,7 @@
                     $bahan = false;
                     $bahan_kimia = false;
                 @endphp
-                @foreach($d->alat_bahan_praktikums as $a)
+                @foreach($d->alat_bahan_praktikum as $a)
                     @if($a->ID_TIPE == 1)
                         @php $alat = true; @endphp
                     @elseif($a->ID_TIPE == 2)
@@ -152,7 +136,7 @@
                             <th>Jumlah</th>
                         </thead>
                         <tbody>
-                            @foreach($d->alat_bahan_praktikums as $a)
+                            @foreach($d->alat_bahan_praktikum as $a)
                                 @if($a->ID_TIPE == 1)
                                 <tr>
                                     <td width="80%">{{ $a->alat->katalog_alat->NAMA_ALAT }}</td>
@@ -173,7 +157,7 @@
                             <th>Jumlah</th>
                         </thead>
                         <tbody>
-                            @foreach($d->alat_bahan_praktikums as $a)
+                            @foreach($d->alat_bahan_praktikum as $a)
                                 @if($a->ID_TIPE == 2)
                                 <tr>
                                     <td width="80%">{{ $a->bahan->NAMA_BAHAN }}</td>
@@ -194,7 +178,7 @@
                             <th>Jumlah</th>
                         </thead>
                         <tbody>
-                            @foreach($d->alat_bahan_praktikums as $a)
+                            @foreach($d->alat_bahan_praktikum as $a)
                                 @if($a->ID_TIPE == 3)
                                     <tr>
                                         <td width="80%">{{ $a->bahan_kimia->katalog_bahan->NAMA_KATALOG_BAHAN }}</td>
@@ -245,7 +229,7 @@ $(document).ready(function(){
             ID_KELAS: {
                 required: true,
             },
-            NAMA_PRAKTIKUM: {
+            JUDUL_PRAKTIKUM: {
                 required: true,
             },
         },
@@ -253,7 +237,7 @@ $(document).ready(function(){
             ID_LABORATORIUM: "Silahkan pilih laboratorium",
             ID_MAPEL: "Silahkan pilih mata pelajaran",
             ID_KELAS: "Silahkan pilih kelas",
-            NAMA_PRAKTIKUM: "Silahkan isi nama praktikum",
+            JUDUL_PRAKTIKUM: "Silahkan isi nama praktikum",
         },
         errorElement : 'div',
         errorClass: "invalid-feedback animated fadeInUp",
@@ -284,7 +268,7 @@ $(document).ready(function(){
                 ID_KELAS: {
                     required: true,
                 },
-                NAMA_PRAKTIKUM: {
+                JUDUL_PRAKTIKUM: {
                     required: true,
                 },
             },
@@ -292,7 +276,7 @@ $(document).ready(function(){
                 ID_LABORATORIUM: "Silahkan pilih laboratorium",
                 ID_MAPEL: "Silahkan pilih mata pelajaran",
                 ID_KELAS: "Silahkan pilih kelas",
-                NAMA_PRAKTIKUM: "Silahkan isi nama praktikum",
+                JUDUL_PRAKTIKUM: "Silahkan isi nama praktikum",
             },
             errorElement : 'div',
             errorClass: "invalid-feedback animated fadeInUp",

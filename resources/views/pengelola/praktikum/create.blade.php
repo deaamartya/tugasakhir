@@ -59,12 +59,7 @@
                             <div class="col-6">
                                 <div class="form-group">
                                     <label>Laboratorium</label>
-                                    <select class="form-control select2" name="ID_LABORATORIUM" id="ID_LABORATORIUM" readonly>
-                                        <option value="{{ $lab->ID_LABORATORIUM }}" selected>{{ $lab->NAMA_LABORATORIUM }}</option>
-                                    </select>
-                                    <div class="invalid-feedback animated fadeInUp">
-                                        Silahkan pilih lab
-                                    </div>
+                                    <h5>{{ $lab->NAMA_LABORATORIUM }}</h5>
                                 </div>
                             </div>
                             <div class="col-6">
@@ -83,25 +78,10 @@
                         </div>
 
                             <div class="form-group">
-                                <label>Kelas</label>
-                                <select class="form-control select2" name="ID_KELAS" id="ID_KELAS">
-                                    <option value="X" selected>Seluruh kelas X MIPA</option>
-                                    <option value="XI">Seluruh kelas XI MIPA</option>
-                                    <option value="XII">Seluruh kelas XII MIPA</option>
-                                    @foreach($kelas as $t)
-                                        <option value="{{ $t->ID_KELAS }}">{{ $t->jenis_kelas->NAMA_JENIS_KELAS }}</option>
-                                    @endforeach
-                                </select>
+                                <label>Judul Praktikum</label>
+                                <input type="text" class="form-control @error('JUDUL_PRAKTIKUM') is-invalid @enderror" id="JUDUL_PRAKTIKUM" name="JUDUL_PRAKTIKUM" value="{{ @old('JUDUL_PRAKTIKUM') }}">
                                 <div class="invalid-feedback animated fadeInUp">
-                                    Silahkan pilih mata pelajaran
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label>Nama Praktikum</label>
-                                <input type="text" class="form-control @error('NAMA_PRAKTIKUM') is-invalid @enderror" id="NAMA_PRAKTIKUM" name="NAMA_PRAKTIKUM" value="{{ @old('NAMA_PRAKTIKUM') }}">
-                                <div class="invalid-feedback animated fadeInUp">
-                                    Nama Praktikum harus diisi
+                                    Judul Praktikum harus diisi
                                 </div>
                             </div>
 
@@ -191,39 +171,39 @@
                             <hr>
 
                             <div class="row justify-content-end">
-                                <div class="col-9 text-right">
+                                <div class="col-md-9 col-12 text-right">
                                     <div class="row justify-content-end">
-                                        <div class="col-4">
+                                        <div class="col-md-4 col-4">
                                             <p class="text-left">Total Alat : </p>
                                         </div>
-                                        <div class="col-3">
+                                        <div class="col-md-3 col-8">
                                             <span class="ml-3 text-right" id="total-alat">0</span>
                                         </div>
                                         <input type="hidden" id="total-alat-input" name="total_alat">
                                     </div>
                                     <div class="row justify-content-end">
-                                        <div class="col-4">
+                                        <div class="col-md-4 col-4">
                                             <p class="text-left">Total Bahan : </p>
                                         </div>
-                                        <div class="col-3">
+                                        <div class="col-md-3 col-8">
                                             <span class="ml-3 text-right" id="total-bahan">0</span>
                                         </div>
                                         <input type="hidden" id="total-bahan-input" name="total_bahan">
                                     </div>
                                     <div class="row justify-content-end">
-                                        <div class="col-4">
+                                        <div class="col-md-4 col-6">
                                             <p class="text-left">Total Bahan Kimia : </p>
                                         </div>
-                                        <div class="col-3">
+                                        <div class="col-md-3 col-6">
                                             <span class="ml-3 text-right" id="total-bahan-kimia">0</span>
                                         </div>
                                         <input type="hidden" id="total-bahan-kimia-input" name="total_bahan_kimia">
                                     </div>
                                     <div class="row justify-content-end">
-                                        <div class="col-4">
+                                        <div class="col-md-4 col-6">
                                             <p class="text-left">Total Keseluruhan : </p>
                                         </div>
-                                        <div class="col-3">
+                                        <div class="col-md-3 col-6">
                                             <span class="ml-3 text-right" id="total-keseluruhan">0</span>
                                         </div>
                                         <input type="hidden" id="total-keseluruhan-input" name="total_keseluruhan">
@@ -298,18 +278,14 @@ $(document).ready(function(){
             ID_MAPEL: {
                 required: true,
             },
-            ID_KELAS: {
-                required: true,
-            },
-            NAMA_PRAKTIKUM: {
+            JUDUL_PRAKTIKUM: {
                 required: true,
             },
         },
         messages: {
             ID_LABORATORIUM: "Silahkan pilih laboratorium",
             ID_MAPEL: "Silahkan pilih mata pelajaran",
-            ID_KELAS: "Silahkan pilih kelas",
-            NAMA_PRAKTIKUM: "Silahkan isi nama praktikum",
+            JUDUL_PRAKTIKUM: "Silahkan isi nama praktikum",
         },
         errorElement : 'div',
         errorClass: "invalid-feedback animated fadeInUp",
@@ -343,7 +319,7 @@ $(document).ready(function(){
             var markup =
             "<tr id='alat-"+index+"'>"+
                 "<td width='60%'>"+nama_alat+"<input type='hidden' name='id_alat["+index+"]' value='"+id_alat+"'><input type='hidden' name='index_alat["+index+"]' value='"+index+"'></td>"+
-                "<td width='30%'><input type='number' name='jumlah_alat["+index+"]' value='1' class='jumlah_alat' id='qtyalat-"+index+"'></td>"+
+                "<td width='30%'><input type='number' name='jumlah_alat["+index+"]' value='1' class='jumlah_alat border p-2 w-100' id='qtyalat-"+index+"'></td>"+
                 "<td width='10%'><button type='button' class='btn btn-danger shadow btn-xs sharp mr-1 delete-alat' id='"+index+"'><i class='fa fa-trash'></i></button></td>"
             "</tr>";
             $("#table-alat tbody").append(markup);
@@ -366,7 +342,7 @@ $(document).ready(function(){
             var markup =
             "<tr id='bahan-"+index+"'>"+
                 "<td width='60%'>"+nama_bahan+"<input type='hidden' name='id_bahan["+index+"]' value='"+id_bahan+"'><input type='hidden' name='index_bahan["+index+"]' value='"+index+"'></td>"+
-                "<td width='30%'><input type='number' name='jumlah_bahan["+index+"]' value='1' class='jumlah_bahan' id='qtybahan-"+index+"'></td>"+
+                "<td width='30%'><input type='number' name='jumlah_bahan["+index+"]' value='1' class='jumlah_bahan border p-2 w-100' id='qtybahan-"+index+"'></td>"+
                 "<td width='10%'><button type='button' class='btn btn-danger shadow btn-xs sharp mr-1 delete-bahan' id='"+index+"'><i class='fa fa-trash'></i></button></td>"
             "</tr>";
             $("#table-bahan tbody").append(markup);
@@ -389,7 +365,7 @@ $(document).ready(function(){
             var markup =
             "<tr id='bahan-kimia-"+index+"'>"+
                 "<td width='60%'>"+nama_bahan+"<input type='hidden' name='id_bahan_kimia["+index+"]' value='"+id_bahan_kimia+"'><input type='hidden' name='index_bahan_kimia["+index+"]' value='"+index+"'></td>"+
-                "<td width='30%'><input type='number' name='jumlah_bahan_kimia["+index+"]' value='1' class='jumlah_bahan_kimia' id='qtybahan-kimia-"+index+"'></td>"+
+                "<td width='30%'><input type='number' name='jumlah_bahan_kimia["+index+"]' value='1' class='jumlah_bahan_kimia border p-2 w-100' id='qtybahan-kimia-"+index+"'></td>"+
                 "<td width='10%'><button type='button' class='btn btn-danger shadow btn-xs sharp mr-1 delete-bahan-kimia' id='"+index+"'><i class='fa fa-trash'></i></button></td>"
             "</tr>";
             $("#table-bahan-kimia tbody").append(markup);
@@ -497,8 +473,6 @@ $(document).ready(function(){
             $("#table-bahan-kimia").hide();
         }
     });
-    
 });
-    
 </script>
 @endsection

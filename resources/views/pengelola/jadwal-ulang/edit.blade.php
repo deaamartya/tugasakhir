@@ -111,7 +111,7 @@
                             <div class="form-group">
                                 <label>Praktikum</label>
                                 <select disabled class="select2-single @error('ID_PRAKTIKUM') is-invalid @enderror" name="ID_PRAKTIKUM" id="ID_PRAKTIKUM">
-                                    <option value="{{ $jadwalulang->peminjaman_alat_bahan->ID_PRAKTIKUM }}" selected>{{ $jadwalulang->peminjaman_alat_bahan->praktikum->NAMA_PRAKTIKUM }} - {{ $jadwalulang->peminjaman_alat_bahan->praktikum->kelas->jenis_kelas->NAMA_JENIS_KELAS }}</option>
+                                    <option value="{{ $jadwalulang->peminjaman_alat_bahan->ID_PRAKTIKUM }}" selected>{{ $jadwalulang->peminjaman_alat_bahan->praktikum->JUDUL_PRAKTIKUM }} - {{ $jadwalulang->peminjaman_alat_bahan->kelas->jenis_kelas->NAMA_JENIS_KELAS }}</option>
                                 </select>
                                 <div class="invalid-feedback animated fadeInUp">
                                     Silahkan pilih praktikum
@@ -167,7 +167,7 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-4">Nama Prakt.</div>
-                    <div class="col-8">{{ $p->praktikum->NAMA_PRAKTIKUM }}</div>
+                    <div class="col-8">{{ $p->praktikum->JUDUL_PRAKTIKUM }}</div>
                 </div>
                 <div class="row">
                     <div class="col-4">Jadwal Prakt.</div>
@@ -175,11 +175,11 @@
                 </div>
                 <div class="row">
                     <div class="col-4">Kelas</div>
-                    <div class="col-8">{{ $p->praktikum->kelas->jenis_kelas->NAMA_JENIS_KELAS }}</div>
+                    <div class="col-8">{{ $p->kelas->jenis_kelas->NAMA_JENIS_KELAS }}</div>
                 </div>
                 <div class="row">
                     <div class="col-4">Guru</div>
-                    <div class="col-8">{{ $p->praktikum->kelas->guru->NAMA_LENGKAP }}</div>
+                    <div class="col-8">{{ $p->kelas->guru->NAMA_LENGKAP }}</div>
                 </div>
             </div>
         </div>

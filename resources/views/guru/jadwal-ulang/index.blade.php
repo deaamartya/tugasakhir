@@ -88,7 +88,7 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Nama Praktikum</th>
+                                    <th>Judul Praktikum</th>
                                     <th>Kelas</th>
                                     <th>Status</th>
                                 </tr>
@@ -97,7 +97,7 @@
                                 @foreach($jadwalulang as $d)
                                 <tr>
                                     <td> {{ $loop->iteration }} </td>
-                                    <td> {{ $d->NAMA_PRAKTIKUM }} </td>
+                                    <td> {{ $d->JUDUL_PRAKTIKUM }} </td>
                                     <td> {{ $d->NAMA_JENIS_KELAS }} </td>
                                     <td> @if($d->STATUS_PERUBAHAN == 0) Belum diubah @else Sudah diubah @endif </td>
                                 </tr>
@@ -122,7 +122,7 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-4">Nama Prakt.</div>
-                    <div class="col-8">{{ $p->praktikum->NAMA_PRAKTIKUM }}</div>
+                    <div class="col-8">{{ $p->praktikum->JUDUL_PRAKTIKUM }}</div>
                 </div>
                 <div class="row">
                     <div class="col-4">Jadwal Prakt.</div>
@@ -130,11 +130,11 @@
                 </div>
                 <div class="row">
                     <div class="col-4">Kelas</div>
-                    <div class="col-8">{{ $p->praktikum->kelas->jenis_kelas->NAMA_JENIS_KELAS }}</div>
+                    <div class="col-8">{{ $p->kelas->jenis_kelas->NAMA_JENIS_KELAS }}</div>
                 </div>
                 <div class="row">
                     <div class="col-4">Guru</div>
-                    <div class="col-8">{{ $p->praktikum->kelas->guru->NAMA_LENGKAP }}</div>
+                    <div class="col-8">{{ $p->kelas->guru->NAMA_LENGKAP }}</div>
                 </div>
             </div>
         </div>

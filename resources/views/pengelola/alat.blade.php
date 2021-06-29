@@ -73,22 +73,22 @@
                                     <th>Nama Alat</th>
                                     <th>Ukuran</th>
                                     <th>Merk/Type</th>
-                                    <th>Jumlah Bagus</th>
-                                    <th>Jumlah Rusak</th>
+                                    <th>Jumlah Bagus(pcs)</th>
+                                    <th>Jumlah Rusak(pcs)</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach($alat as $d)
                                 <tr>
-                                    <td> {{ $d->ID_ALAT }} </td>
-                                    <td> {{ $d->lemari->NAMA_LEMARI }} </td>
-                                    <td> {{ $d->ID_KATALOG_ALAT }} </td>
-                                    <td> {{ $d->katalog_alat->NAMA_ALAT }} </td>
-                                    <td> {{ $d->katalog_alat->UKURAN }} </td>
-                                    <td> {{ $d->merk_tipe_alat->NAMA_MERK_TIPE }} </td>
-                                    <td> {{ $d->JUMLAH_BAGUS }}pcs </td>
-                                    <td> {{ $d->JUMLAH_RUSAK }}pcs </td>
+                                    <td>{{ $d->ID_ALAT }}</td>
+                                    <td>{{ $d->lemari->NAMA_LEMARI }}</td>
+                                    <td>{{ $d->ID_KATALOG_ALAT }}</td>
+                                    <td>{{ $d->katalog_alat->NAMA_ALAT }}</td>
+                                    <td>{{ $d->katalog_alat->UKURAN }}</td>
+                                    <td>{{ $d->merk_tipe_alat->NAMA_MERK_TIPE }}</td>
+                                    <td>{{ $d->stok_bagus() }}</td>
+                                    <td>{{ $d->stok_rusak() }}</td>
                                     <td>
                                         <div class="d-flex">
                                             <button type="button" class="btn btn-primary shadow btn-xs sharp mr-1" data-toggle="modal" data-target="#modal-edit-{{ $loop->index }}"><i class="fa fa-pencil"></i></button>
@@ -299,8 +299,8 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-danger light" data-dismiss="modal">Tidak, batalkan.</button>
-                        <button type="submit" class="btn btn-primary">Ya</button>
+                        <button type="button" class="btn btn-danger light" data-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
                     </div>
                 </form>
             </div>

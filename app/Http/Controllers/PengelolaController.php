@@ -57,6 +57,8 @@ class PengelolaController extends Controller
         $tgl_awal_tahun = $tahun.'-01-01';
         $tgl_akhir_tahun = $tahun.'-12-31';
 
+        $id_ta = Auth::user()->id_tahun_akademik();
+
         $beban_lab_semester = PeminjamanAlatBahan::join('ruang_laboratorium as l','l.ID_RUANG_LABORATORIUM','peminjaman_alat_bahan.ID_RUANG_LABORATORIUM')->where('l.ID_LABORATORIUM',$id_lab)->where('STATUS_PEMINJAMAN','SUDAH DIKEMBALIKAN')->whereBetween(DB::raw('DATE(TANGGAL_PEMINJAMAN)'), [$tgl_awal_semester, $tgl_akhir_semester])->count('ID_PEMINJAMAN');
 
         $beban_lab_tahun = PeminjamanAlatBahan::join('ruang_laboratorium as l','l.ID_RUANG_LABORATORIUM','peminjaman_alat_bahan.ID_RUANG_LABORATORIUM')->where('l.ID_LABORATORIUM',$id_lab)->where('STATUS_PEMINJAMAN','SUDAH DIKEMBALIKAN')->whereBetween(DB::raw('DATE(TANGGAL_PEMINJAMAN)'), [$tgl_awal_tahun, $tgl_akhir_tahun])->count('ID_PEMINJAMAN');
@@ -65,24 +67,12 @@ class PengelolaController extends Controller
 
         $total_peminjaman = PeminjamanAlatBahan::join('ruang_laboratorium as l','l.ID_RUANG_LABORATORIUM','peminjaman_alat_bahan.ID_RUANG_LABORATORIUM')->where('l.ID_LABORATORIUM',$id_lab)->whereBetween(DB::raw('DATE(TANGGAL_PEMINJAMAN)'), [$tgl_awal_tahun, $tgl_akhir_tahun])->count('ID_PEMINJAMAN');
 
-        $tahun = intval(date('Y'));
-        $tahunp1 = $tahun+1;
-        $tahunm1 = $tahun-1;
-        if(date('m') >= 7 ){
-            $tahun_akademik = $tahun.'/'.$tahunp1.' Gasal';
-        }
-        else {
-            $tahun_akademik = $tahunm1.'/'.$tahun.' Genap';
-        }
-
-        $tahun_akademik = TahunAkademik::where('TAHUN_AKADEMIK',$tahun_akademik)->first();
-
         // Jumlah praktikum yang selesai dalam semester.
         $dikembalikan = PeminjamanAlatBahan::
         join('ruang_laboratorium as l','l.ID_RUANG_LABORATORIUM','peminjaman_alat_bahan.ID_RUANG_LABORATORIUM')
         ->where('l.ID_LABORATORIUM',$id_lab)
         ->join('kelas as k','k.ID_KELAS','peminjaman_alat_bahan.ID_KELAS')
-        ->where('k.ID_TAHUN_AKADEMIK',$tahun_akademik->ID_TAHUN_AKADEMIK)
+        ->where('k.ID_TAHUN_AKADEMIK',$id_ta)
         ->where('STATUS_PEMINJAMAN','SUDAH DIKEMBALIKAN')
         ->count('ID_PEMINJAMAN');
 
@@ -91,7 +81,7 @@ class PengelolaController extends Controller
         join('ruang_laboratorium as l','l.ID_RUANG_LABORATORIUM','peminjaman_alat_bahan.ID_RUANG_LABORATORIUM')
         ->where('l.ID_LABORATORIUM',$id_lab)
         ->join('kelas as k','k.ID_KELAS','peminjaman_alat_bahan.ID_KELAS')
-        ->where('k.ID_TAHUN_AKADEMIK',$tahun_akademik->ID_TAHUN_AKADEMIK)
+        ->where('k.ID_TAHUN_AKADEMIK',$id_ta)
         ->where('STATUS_PEMINJAMAN','SUDAH DIKONFIRMASI')
         ->count('ID_PEMINJAMAN');
 
@@ -101,23 +91,23 @@ class PengelolaController extends Controller
         ->join('ruang_laboratorium as l','l.ID_RUANG_LABORATORIUM','peminjaman_alat_bahan.ID_RUANG_LABORATORIUM')
         ->where('l.ID_LABORATORIUM',$id_lab)
         ->join('kelas as k','k.ID_KELAS','peminjaman_alat_bahan.ID_KELAS')
-        ->where('k.ID_TAHUN_AKADEMIK',$tahun_akademik->ID_TAHUN_AKADEMIK)
+        ->where('k.ID_TAHUN_AKADEMIK',$id_ta)
         ->get()->toArray();
 
         // Ambil seluruh praktikum terjadwal
         $praktikum = PeminjamanAlatBahan::join('kelas as k','k.ID_KELAS','=','peminjaman_alat_bahan.ID_KELAS')
-        ->where('k.ID_TAHUN_AKADEMIK',$tahun_akademik->ID_TAHUN_AKADEMIK)
+        ->where('k.ID_TAHUN_AKADEMIK',$id_ta)
         ->get();
 
         // Ambil 3 praktikum terjadwal
         $praktikum_menunggu = PeminjamanAlatBahan::join('kelas as k','k.ID_KELAS','=','peminjaman_alat_bahan.ID_KELAS')
-        ->where('k.ID_TAHUN_AKADEMIK',$tahun_akademik->ID_TAHUN_AKADEMIK)
+        ->where('k.ID_TAHUN_AKADEMIK',$id_ta)
         ->where('STATUS_PEMINJAMAN','MENUNGGU KONFIRMASI')
         ->limit(10)->get();
 
         // Ambil 3 praktikum selesai
         $praktikum_selesai = PeminjamanAlatBahan::join('kelas as k','k.ID_KELAS','=','peminjaman_alat_bahan.ID_KELAS')
-        ->where('k.ID_TAHUN_AKADEMIK',$tahun_akademik->ID_TAHUN_AKADEMIK)
+        ->where('k.ID_TAHUN_AKADEMIK',$id_ta)
         ->where('STATUS_PEMINJAMAN','SUDAH DIKEMBALIKAN')
         ->orderBy('ID_PEMINJAMAN','DESC')
         ->limit(10)->get();
@@ -128,34 +118,19 @@ class PengelolaController extends Controller
     }
 
     public function seluruhJadwal()
-    {
-        $tahun = intval(date('Y'));
-        $tahunp1 = $tahun+1;
-        $tahunm1 = $tahun-1;
-        
-        if(date('m') >= 7 ){
-            $tahun_akademik = $tahun.'/'.$tahunp1.' Gasal';
-        }
-        else {
-            $tahun_akademik = $tahunm1.'/'.$tahun.' Genap';
-        }
-
-        $tahun_akademik = TahunAkademik::where('TAHUN_AKADEMIK',$tahun_akademik)->first();
-        
+    {   
         $data = [];
         $id_lab = Auth::user()->ID_LABORATORIUM;
         $peminjaman = PeminjamanAlatBahan::join('ruang_laboratorium as r','r.ID_RUANG_LABORATORIUM','peminjaman_alat_bahan.ID_RUANG_LABORATORIUM')
         ->join('praktikum as p','p.ID_PRAKTIKUM','=','peminjaman_alat_bahan.ID_PRAKTIKUM')
-        // ->join('kelas as k','p.ID_KELAS','=','k.ID_KELAS')
-        // ->where('k.ID_TAHUN_AKADEMIK',$tahun_akademik->ID_TAHUN_AKADEMIK)
         ->where('r.ID_LABORATORIUM','=',$id_lab)->get();
         
         $i = 0;
         foreach($peminjaman as $p)
         {
             $obj = new \StdClass();
-            $kelas = $p->praktikum->kelas->jenis_kelas->NAMA_JENIS_KELAS;
-            $obj->title = $p->praktikum->NAMA_PRAKTIKUM." ".$kelas;
+            $kelas = $p->kelas->jenis_kelas->NAMA_JENIS_KELAS;
+            $obj->title = $p->praktikum->JUDUL_PRAKTIKUM." ".$kelas;
 
             $jammulai = $p->TANGGAL_PEMINJAMAN." ".$p->JAM_MULAI;
             $jamselesai = $p->TANGGAL_PEMINJAMAN." ".$p->JAM_SELESAI;

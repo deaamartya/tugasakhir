@@ -187,9 +187,9 @@
 						@foreach($praktikum_menunggu as $p)
 						<div class="col-12">
 							<h5 class="mb-0 text-black">
-								<span class="ml-0">{{ $p->praktikum->NAMA_PRAKTIKUM }}</span>
+								<span class="ml-0">{{ $p->praktikum->JUDUL_PRAKTIKUM }}</span>
 							</h5>
-							<p class="mb-0">{{ $p->praktikum->kelas->jenis_kelas->NAMA_JENIS_KELAS }}</p>
+							<p class="mb-0">{{ $p->kelas->jenis_kelas->NAMA_JENIS_KELAS }}</p>
 							<small>{{ $p->TANGGAL_PEMINJAMAN }} {{ $p->JAM_MULAI }} - {{ $p->JAM_SELESAI }}</small>
 							<hr>
 						</div>
@@ -211,9 +211,9 @@
 						@foreach($praktikum_selesai as $p)
 						<div class="col-12">
 							<h5 class="mb-0 text-black">
-								<span class="ml-0">{{ $p->praktikum->NAMA_PRAKTIKUM }}</span>
+								<span class="ml-0">{{ $p->praktikum->JUDUL_PRAKTIKUM }}</span>
 							</h5>
-							<p class="mb-0">{{ $p->praktikum->kelas->jenis_kelas->NAMA_JENIS_KELAS }}</p>
+							<p class="mb-0">{{ $p->kelas->jenis_kelas->NAMA_JENIS_KELAS }}</p>
 							<small>{{ $p->TANGGAL_PEMINJAMAN }} {{ $p->JAM_MULAI }} - {{ $p->JAM_SELESAI }}</small>
 							<hr>
 						</div>
@@ -241,7 +241,7 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-4">Nama Prakt.</div>
-                    <div class="col-8">{{ $p->praktikum->NAMA_PRAKTIKUM }}</div>
+                    <div class="col-8">{{ $p->praktikum->JUDUL_PRAKTIKUM }}</div>
                 </div>
                 <div class="row">
                     <div class="col-4">Jadwal Prakt.</div>
@@ -249,11 +249,11 @@
                 </div>
                 <div class="row">
                     <div class="col-4">Kelas</div>
-                    <div class="col-8">{{ $p->praktikum->kelas->jenis_kelas->NAMA_JENIS_KELAS }}</div>
+                    <div class="col-8">{{ $p->kelas->jenis_kelas->NAMA_JENIS_KELAS }}</div>
                 </div>
                 <div class="row">
                     <div class="col-4">Guru</div>
-                    <div class="col-8">{{ $p->praktikum->kelas->guru->NAMA_LENGKAP }}</div>
+                    <div class="col-8">{{ $p->kelas->guru->NAMA_LENGKAP }}</div>
                 </div>
             </div>
         </div>

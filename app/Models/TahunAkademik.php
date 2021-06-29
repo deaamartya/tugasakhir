@@ -31,6 +31,6 @@ class TahunAkademik extends Model
 
 	public function kelas()
 	{
-		return $this->hasMany(Kela::class, 'ID_TAHUN_AKADEMIK');
+		return $this->hasMany(Kelas::class, 'ID_TAHUN_AKADEMIK');
 	}
 }

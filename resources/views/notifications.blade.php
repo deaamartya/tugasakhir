@@ -34,10 +34,10 @@
                             <div class="card-body p-3">
                               @php if(Auth::user()->ID_TIPE_USER != 5){
                                 $url = url('pengelola/notification/'.$n->id);
-                                $isi = $sender->NAMA_LENGKAP." mengajukan penjadwalan ulang untuk praktikum ".$jadwal->peminjaman_alat_bahan->praktikum->NAMA_PRAKTIKUM." untuk kelas ".$jadwal->peminjaman_alat_bahan->praktikum->kelas->jenis_kelas->NAMA_JENIS_KELAS;
+                                $isi = $sender->NAMA_LENGKAP." mengajukan penjadwalan ulang untuk praktikum ".$jadwal->peminjaman_alat_bahan->praktikum->JUDUL_PRAKTIKUM." untuk kelas ".$jadwal->peminjaman_alat_bahan->kelas->jenis_kelas->NAMA_JENIS_KELAS;
                               } else {
                                 $url = url('guru/notification/'.$n->id);
-                                $isi = $sender->NAMA_LENGKAP." sudah merubah jadwal praktikum ".$jadwal->peminjaman_alat_bahan->praktikum->NAMA_PRAKTIKUM." untuk kelas ".$jadwal->peminjaman_alat_bahan->praktikum->kelas->jenis_kelas->NAMA_JENIS_KELAS;
+                                $isi = $sender->NAMA_LENGKAP." sudah merubah jadwal praktikum ".$jadwal->peminjaman_alat_bahan->praktikum->JUDUL_PRAKTIKUM." untuk kelas ".$jadwal->peminjaman_alat_bahan->kelas->jenis_kelas->NAMA_JENIS_KELAS;
                               }
                               @endphp
                               <div class="row justify-content-between px-3 align-items-center">
@@ -71,10 +71,10 @@
                             <div class="card-body p-3">
                               @php if(Auth::user()->ID_TIPE_USER != 5){
                                 $url = url('pengelola/notification/'.$n->id);
-                                $isi = $sender->NAMA_LENGKAP." mengajukan penjadwalan ulang untuk praktikum ".$jadwal->peminjaman_alat_bahan->praktikum->NAMA_PRAKTIKUM." untuk kelas ".$jadwal->peminjaman_alat_bahan->praktikum->kelas->jenis_kelas->NAMA_JENIS_KELAS;
+                                $isi = $sender->NAMA_LENGKAP." mengajukan penjadwalan ulang untuk praktikum ".$jadwal->peminjaman_alat_bahan->praktikum->JUDUL_PRAKTIKUM." untuk kelas ".$jadwal->peminjaman_alat_bahan->kelas->jenis_kelas->NAMA_JENIS_KELAS;
                               } else {
                                 $url = url('guru/notification/'.$n->id);
-                                $isi = $sender->NAMA_LENGKAP." sudah merubah jadwal praktikum ".$jadwal->peminjaman_alat_bahan->praktikum->NAMA_PRAKTIKUM." untuk kelas ".$jadwal->peminjaman_alat_bahan->praktikum->kelas->jenis_kelas->NAMA_JENIS_KELAS;
+                                $isi = $sender->NAMA_LENGKAP." sudah merubah jadwal praktikum ".$jadwal->peminjaman_alat_bahan->praktikum->JUDUL_PRAKTIKUM." untuk kelas ".$jadwal->peminjaman_alat_bahan->kelas->jenis_kelas->NAMA_JENIS_KELAS;
                               }
                               @endphp
                               <div class="row justify-content-between px-3 align-items-center">

@@ -12,14 +12,13 @@ use App\Models\BahanKimia;
 use App\Models\Laboratorium;
 use App\Models\AlatBahanPraktikum;
 use App\Models\HistoriStok;
-use App\Models\DetailPeminjamanAlatBahan;
 use Auth;
 
 class PeminjamanController extends Controller
 {
     public function index()
     {
-        $page_title = 'Ubah Jadwal Praktikum';
+        $page_title = 'Peminjaman Alat Bahan';
         $page_description = 'Menampilkan seluruh data penjadwalan ulang';
         $action = 'table_datatable_basic';
 
@@ -34,13 +33,13 @@ class PeminjamanController extends Controller
 
     public function konfirmasi($id)
     {
-        $page_title = 'Ubah Jadwal Praktikum';
+        $page_title = 'Konfirmasi Peminjaman';
         $page_description = 'Menampilkan seluruh data penjadwalan ulang';
         $action = 'uc_select2';
 
         $id_lab = Auth::user()->ID_LABORATORIUM;
         
-        $peminjaman = PeminjamanAlatBahan::find($id);
+        $peminjaman = PeminjamanAlatBahan::where('ID_PEMINJAMAN','=',$id)->first();
 
         $alat_bahan_except = AlatBahanPraktikum::where('ID_PRAKTIKUM', '=', $peminjaman->ID_PRAKTIKUM)->select('ID_ALAT_BAHAN')->get()->toArray();
 
@@ -63,7 +62,7 @@ class PeminjamanController extends Controller
 
     public function update(Request $request,$id_peminjaman)
     {
-        $id_praktikum = PeminjamanAlatBahan::find($id_peminjaman)->value('ID_PRAKTIKUM');
+        $id_praktikum = PeminjamanAlatBahan::where('ID_PEMINJAMAN','=',$id_peminjaman)->value('ID_PRAKTIKUM');
         $data_stok = [];
         $data_stok_alat = [];
         $data_detail = [];
@@ -71,27 +70,14 @@ class PeminjamanController extends Controller
         if($request->total_alat > 0){
             $i=1;
             foreach($request->id_alat as $key){
-
                 $data_stok_alat[] = [
                     'ID_TIPE' => 1,
+                    'ID_TRANSAKSI' => $id_peminjaman,
                     'ID_ALAT_BAHAN' => $request->id_alat[$i],
                     'JUMLAH_KELUAR' => $request->jumlah_alat[$i],
                     'JUMLAH_MASUK' => 0,
                     'KONDISI' => 1,
                     'KETERANGAN' => "Stok keluar untuk praktikum"
-                ];
-                $data_stok_alat_rusak[] = [
-                    'ID_TIPE' => 1,
-                    'ID_ALAT_BAHAN' => $request->id_alat[$i],
-                    'JUMLAH_KELUAR' => 0,
-                    'JUMLAH_MASUK' => 0,
-                    'KONDISI' => 0,
-                ];
-                $data_detail[] = [
-                    'ID_TIPE' => 1,
-                    'ID_ALAT_BAHAN' => $request->id_alat[$i],
-                    'JUMLAH_PINJAM' => $request->jumlah_alat[$i],
-                    'ID_PEMINJAMAN' => $id_peminjaman,
                 ];
                 $i++;
             }
@@ -101,16 +87,11 @@ class PeminjamanController extends Controller
             foreach($request->id_bahan as $key){
                 $data_stok[] = [
                     'ID_TIPE' => 2,
+                    'ID_TRANSAKSI' => $id_peminjaman,
                     'ID_ALAT_BAHAN' => $request->id_bahan[$i],
                     'JUMLAH_KELUAR' => $request->jumlah_bahan[$i],
                     'JUMLAH_MASUK' => 0,
                     'KETERANGAN' => "Stok keluar untuk praktikum"
-                ];
-                $data_detail[] = [
-                    'ID_TIPE' => 2,
-                    'ID_ALAT_BAHAN' => $request->id_bahan[$i],
-                    'JUMLAH_PINJAM' => $request->jumlah_bahan[$i],
-                    'ID_PEMINJAMAN' => $id_peminjaman,
                 ];
                 $i++;
             }
@@ -120,16 +101,11 @@ class PeminjamanController extends Controller
             foreach($request->id_bahan_kimia as $key){
                 $data_stok[] = [
                     'ID_TIPE' => 3,
+                    'ID_TRANSAKSI' => $id_peminjaman,
                     'ID_ALAT_BAHAN' => $request->id_bahan_kimia[$i],
                     'JUMLAH_KELUAR' => $request->jumlah_bahan_kimia[$i],
                     'JUMLAH_MASUK' => 0,
                     'KETERANGAN' => "Stok keluar untuk praktikum"
-                ];
-                $data_detail[] = [
-                    'ID_TIPE' => 3,
-                    'ID_ALAT_BAHAN' => $request->id_bahan_kimia[$i],
-                    'JUMLAH_PINJAM' => $request->jumlah_bahan_kimia[$i],
-                    'ID_PEMINJAMAN' => $id_peminjaman,
                 ];
                 $i++;
             }
@@ -139,8 +115,7 @@ class PeminjamanController extends Controller
             HistoriStok::insert($data_stok);
             HistoriStok::insert($data_stok_alat);
             HistoriStok::insert($data_stok_alat_rusak);
-            DetailPeminjamanAlatBahan::insert($data_detail);
-            PeminjamanAlatBahan::find($id_peminjaman)->update(["STATUS_PEMINJAMAN" => "SUDAH DIKONFIRMASI"]);
+            PeminjamanAlatBahan::where('ID_PEMINJAMAN','=',$id_peminjaman)->update(["STATUS_PEMINJAMAN" => "SUDAH DIKONFIRMASI"]);
         });
         
         return redirect()->route('pengelola.peminjaman.index')->with('created','Data berhasil disimpan');

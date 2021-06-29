@@ -69,8 +69,8 @@ class PraktikumController extends Controller
         foreach($peminjaman as $p)
         {
             $obj = new \StdClass();
-            $kelas = $p->praktikum->kelas->jenis_kelas->NAMA_JENIS_KELAS;
-            $obj->title = $p->praktikum->NAMA_PRAKTIKUM." ".$kelas;
+            $kelas = $p->kelas->jenis_kelas->NAMA_JENIS_KELAS;
+            $obj->title = $p->praktikum->JUDUL_PRAKTIKUM." ".$kelas;
 
             $jammulai = $p->TANGGAL_PEMINJAMAN." ".$p->JAM_MULAI;
             $jamselesai = $p->TANGGAL_PEMINJAMAN." ".$p->JAM_SELESAI;
@@ -116,14 +116,14 @@ class PraktikumController extends Controller
         ->where('k.ID_USER','=',$id_guru)
         ->where('k.ID_TAHUN_AKADEMIK',$this->tahun_akademik)
         ->where('r.ID_LABORATORIUM','=',$id_lab)
-        ->where('p.NAMA_PRAKTIKUM','LIKE',"%".$praktikum->NAMA_PRAKTIKUM."%")->get();
+        ->where('p.JUDUL_PRAKTIKUM','LIKE',"%".$praktikum->JUDUL_PRAKTIKUM."%")->get();
         
         $i = 0;
         foreach($peminjaman as $p)
         {
             $obj = new \StdClass();
-            $kelas = $p->praktikum->kelas->jenis_kelas->NAMA_JENIS_KELAS;
-            $obj->title = $p->praktikum->NAMA_PRAKTIKUM." ".$kelas;
+            $kelas = $p->kelas->jenis_kelas->NAMA_JENIS_KELAS;
+            $obj->title = $p->praktikum->JUDUL_PRAKTIKUM." ".$kelas;
 
             $jammulai = $p->TANGGAL_PEMINJAMAN." ".$p->JAM_MULAI;
             $jamselesai = $p->TANGGAL_PEMINJAMAN." ".$p->JAM_SELESAI;

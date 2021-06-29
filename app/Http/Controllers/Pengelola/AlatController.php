@@ -48,16 +48,12 @@ class AlatController extends Controller
                 'ID_LEMARI' => $request->ID_LEMARI,
                 'ID_MERK_TIPE' => $request->ID_MERK_TIPE,
                 'ID_KATALOG_ALAT' => $request->ID_KATALOG_ALAT,
-                'JUMLAH_BAGUS' => 0,
-                'JUMLAH_RUSAK' => 0
             ]);
 
             $id_alat = Alat::where([
                 'ID_LEMARI' => $request->ID_LEMARI,
                 'ID_MERK_TIPE' => $request->ID_MERK_TIPE,
                 'ID_KATALOG_ALAT' => $request->ID_KATALOG_ALAT,
-                'JUMLAH_BAGUS' => 0,
-                'JUMLAH_RUSAK' => 0
             ])->value('ID_ALAT');
 
             $data_stok_alat[] = [
@@ -103,8 +99,6 @@ class AlatController extends Controller
             'ID_LEMARI' => $request->ID_LEMARI,
             'ID_MERK_TIPE' => $request->ID_MERK_TIPE,
             'ID_KATALOG_ALAT' => $request->ID_KATALOG_ALAT,
-            'JUMLAH_BAGUS' => $request->JUMLAH_BAGUS,
-            'JUMLAH_RUSAK' => $request->JUMLAH_RUSAK
         ]);
         
         return redirect()->route('pengelola.alat.index')->with('updated','Data berhasil diubah');
