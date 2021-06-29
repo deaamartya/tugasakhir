@@ -67,4 +67,9 @@ class Laboratorium extends Model
 	{
 		return substr(strstr($this->NAMA_LABORATORIUM," "), 1);
 	}
+
+	public function mata_pelajarans()
+	{
+		return $this->hasMany(MataPelajaran::class, 'ID_LABORATORIUM');
+	}
 }

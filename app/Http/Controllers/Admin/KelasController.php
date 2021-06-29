@@ -10,6 +10,7 @@ use App\Models\TahunAkademik;
 use App\Models\JenisKelas;
 use DB;
 use App\Models\MataPelajaran;
+use Auth;
 
 class KelasController extends Controller
 {
@@ -23,17 +24,8 @@ class KelasController extends Controller
         $page_title = 'Data Kelas';
         $page_description = 'Menampilkan seluruh data kelas';
         $action = 'table_datatable_basic';
-        $tahun = intval(date('Y'));
-        $tahunp1 = $tahun+1;
-        $tahunm1 = $tahun-1;
-        if(date('m') >= 7 ){
-            $tahun_akademik = $tahun.'/'.$tahunp1.' Gasal';
-        }
-        else {
-            $tahun_akademik = $tahunm1.'/'.$tahun.' Genap';
-        }
-        $tahun_akademik = TahunAkademik::where('TAHUN_AKADEMIK',$tahun_akademik)->VALUE('ID_TAHUN_AKADEMIK');
-        $kelas = Kelas::where('ID_TAHUN_AKADEMIK',$tahun_akademik)->get();
+        $id_ta = Auth::user()->id_tahun_akademik();
+        $kelas = Kelas::where('ID_TAHUN_AKADEMIK','=',$id_ta)->get();
         $guru = User::guru();
         $tahunakademik = TahunAkademik::all();
         $jeniskelas = JenisKelas::all();

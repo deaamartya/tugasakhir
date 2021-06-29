@@ -203,13 +203,13 @@ $(document).ready(function(){
         rules: {
             tahun_akademik: {
                 required: true,
-                minlength: 3
+                minlength: 10
             }
         },
         messages: {
             tahun_akademik: {
                 required: "Silahkan isi nama Tahun Akademik",
-                minlength: "Nama Tahun Akademik minimal 3 karakter"
+                minlength: "Nama Tahun Akademik minimal 10 karakter"
             },
         },
         errorElement : 'div',
@@ -234,13 +234,13 @@ $(document).ready(function(){
             rules: {
                 tahun_akademik: {
                     required: true,
-                    minlength: 3
+                    minlength: 10
                 }
             },
             messages: {
                 tahun_akademik: {
                     required: "Silahkan isi nama Tahun Akademik",
-                    minlength: "Nama Tahun Akademik minimal 3 karakter"
+                    minlength: "Nama Tahun Akademik minimal 10 karakter"
                 },
             },
             errorElement : 'div',

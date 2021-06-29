@@ -68,6 +68,7 @@
                                 <tr>
                                     <th>ID Mata Pelajaran</th>
                                     <th>Nama Mata Pelajaran</th>
+                                    <th>Laboratorium</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -76,6 +77,7 @@
                                 <tr>
                                     <td> {{ $d->ID_MAPEL }} </td>
                                     <td> {{ $d->NAMA_MAPEL }} </td>
+                                    <td> {{ $d->laboratorium->NAMA_LABORATORIUM }} </td>
                                     <td>
                                         <div class="d-flex">
                                             <button type="button" class="btn btn-primary shadow btn-xs sharp mr-1" data-toggle="modal" data-target="#modal-edit-{{ $d->ID_MAPEL }}"><i class="fa fa-pencil"></i></button>
@@ -113,6 +115,14 @@
                                 Nama Mata Pelajaran harus unik dengan minimal 3 karakter
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label>Laboratorium</label>
+                            <select class="form-control select2" name="id_laboratorium" id="id_laboratorium">
+                                @foreach($lab as $t)
+                                    <option value="{{ $t->ID_LABORATORIUM }}">{{ $t->NAMA_LABORATORIUM }}</option>
+                                @endforeach
+                            </select>
+                        </div>
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-danger light" data-dismiss="modal">Batal</button>
                             <button type="submit" class="btn btn-primary submit-btn">Simpan</button>
@@ -145,6 +155,14 @@
                         <div class="invalid-feedback animated fadeInUp">
                             Nama Mata Pelajaran harus unik dengan minimal 3 karakter
                         </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Laboratorium</label>
+                        <select class="form-control select2" name="id_laboratorium" id="id_laboratorium">
+                            @foreach($lab as $t)
+                                <option value="{{ $t->ID_LABORATORIUM }}" @if($d->ID_LABORATORIUM == $t->ID_LABORATORIUM) selected @endif>{{ $t->NAMA_LABORATORIUM }}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-danger light" data-dismiss="modal">Batal</button>

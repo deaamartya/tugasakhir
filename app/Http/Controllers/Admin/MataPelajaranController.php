@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\MataPelajaran;
+use App\Models\Laboratorium;
 use Illuminate\Http\Request;
 use DB;
 
@@ -20,7 +21,8 @@ class MataPelajaranController extends Controller
         $page_description = 'Menampilkan seluruh data mata pelajaran';
         $action = 'table_datatable_basic';
         $matapelajaran = MataPelajaran::all();
-        return view('admin.matapelajaran', compact('page_title', 'page_description','action','matapelajaran'));
+        $lab = Laboratorium::all();
+        return view('admin.matapelajaran', compact('page_title', 'page_description','action','matapelajaran','lab'));
     }
 
     /**
@@ -32,11 +34,13 @@ class MataPelajaranController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            "mata_pelajaran" => 'required|min:3|unique:App\Models\MataPelajaran,NAMA_MAPEL'
+            "mata_pelajaran" => 'required|min:3|unique:App\Models\MataPelajaran,NAMA_MAPEL',
+            "id_laboratorium" => 'required|exists:App\Models\Laboratorium,ID_LABORATORIUM'
         ]);
         DB::transaction(function() use($request){
             MataPelajaran::insert([
-                "NAMA_MAPEL" => $request->mata_pelajaran
+                "NAMA_MAPEL" => $request->mata_pelajaran,
+                'ID_LABORATORIUM' => $request->id_laboratorium
             ]);
         });
         return redirect()->route('admin.mata-pelajaran.index')->with('created','Data berhasil dibuat');
@@ -51,16 +55,20 @@ class MataPelajaranController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            "id_laboratorium" => 'required|exists:App\Models\Laboratorium,ID_LABORATORIUM'
+        ]);
         DB::transaction(function() use($request,$id){
             $mataPelajaran = MataPelajaran::find($id);
             if($mataPelajaran->NAMA_MAPEL != $request->mata_pelajaran)
             {
                 $request->validate([
-                    "mata_pelajaran" => 'required|min:3|unique:App\Models\MataPelajaran,NAMA_MAPEL'
+                    "mata_pelajaran" => 'required|min:3|unique:App\Models\MataPelajaran,NAMA_MAPEL',
                 ]);
             }
             $mataPelajaran->update([
-                "NAMA_MAPEL" => $request->mata_pelajaran
+                "NAMA_MAPEL" => $request->mata_pelajaran,
+                'ID_LABORATORIUM' => $request->id_laboratorium
             ]);
         });
         return redirect()->route('admin.mata-pelajaran.index')->with('updated','Data berhasil diubah');

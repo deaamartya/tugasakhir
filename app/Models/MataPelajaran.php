@@ -43,6 +43,6 @@ class MataPelajaran extends Model
 
 	public function laboratorium()
 	{
-		return $this->belongsTo(Praktikum::class, 'ID_LABORATORIUM');
+		return $this->belongsTo(Laboratorium::class, 'ID_LABORATORIUM');
 	}
 }

@@ -56,11 +56,11 @@ class UserController extends Controller
                 Storage::disk('public')->putFileAs('/images/profile/',$request->file('foto'),$path);
 
                 User::insert([
-                    "USERNAME" => str_replace(" ","",strtolower($request->username)),
+                    "username" => str_replace(" ","",strtolower($request->username)),
                     "ID_TIPE_USER" => $request->id_tipe_user,
                     "PATH_FOTO" => '/images/profile/'.$path,
                     "NAMA_LENGKAP" => ucwords(strtolower($request->nama_lengkap)),
-                    "PASSWORD" => bcrypt($request->password),
+                    "password" => bcrypt($request->password),
                     "ID_LABORATORIUM" => $request->id_laboratorium,
                 ]);
             }
@@ -68,9 +68,9 @@ class UserController extends Controller
             {
                 User::insert([
                     "NAMA_LENGKAP" => ucwords(strtolower($request->nama_lengkap)),
-                    "USERNAME" => str_replace(" ","",strtolower($request->username)),
+                    "username" => str_replace(" ","",strtolower($request->username)),
                     "ID_TIPE_USER" => $request->id_tipe_user,
-                    "PASSWORD" => bcrypt($request->password),
+                    "password" => bcrypt($request->password),
                     "ID_LABORATORIUM" => $request->id_laboratorium,
                 ]);
             }
@@ -131,7 +131,7 @@ class UserController extends Controller
                 'password' => 'required|min:6',
             ]);
             $user->update([
-                "PASSWORD" => bcrypt($request->password),
+                "password" => bcrypt($request->password),
             ]);
         }
         
