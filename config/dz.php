@@ -156,7 +156,7 @@ return [
               'vendor/bootstrap-select/dist/css/bootstrap-select.min.css',
 				],
 				'table_datatable_basic' => [
-              'vendor/bootstrap-select/dist/css/bootstrap-select.min.css',
+              // 'vendor/bootstrap-select/dist/css/bootstrap-select.min.css',
 							'vendor/datatables/css/jquery.dataTables.min.css',
 				],
 				'uc_nestable' => [
@@ -564,7 +564,7 @@ return [
             'js/deznav-init.js',
 				],
 				'table_datatable_basic' => [
-            'vendor/bootstrap-select/dist/js/bootstrap-select.min.js',
+            // 'vendor/bootstrap-select/dist/js/bootstrap-select.min.js',
             'vendor/datatables/js/jquery.dataTables.min.js',
             'js/plugins-init/datatables.init.js',
             'js/custom.min.js',
@@ -699,8 +699,8 @@ return [
             'js/deznav-init.js',
 				],
 			'ui_modal_tanpaselect' => [
-				'vendor/chart.js/Chart.bundle.min.js',
-				'vendor/apexchart/apexchart.js',
+				// 'vendor/chart.js/Chart.bundle.min.js',
+				// 'vendor/apexchart/apexchart.js',
 				'js/custom.min.js',
 				'js/deznav-init.js',
 					],

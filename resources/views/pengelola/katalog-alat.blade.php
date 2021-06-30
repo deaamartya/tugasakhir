@@ -279,15 +279,11 @@ $(document).ready(function(){
             ID_KATALOG_ALAT: {
                 required: true,
             },
-            UKURAN: {
-                required: true,
-            },
         },
         messages: {
             ID_KATEGORI_ALAT: "Silahkan pilih kategori alat",
             NAMA_ALAT: "Silahkan isi nama katalog Alat",
             ID_KATALOG_ALAT: "Silahkan isi katalog alat",
-            UKURAN: "Silahkan isi ukuran alat",
         },
         errorElement : 'div',
         errorClass: "invalid-feedback animated fadeInUp",
@@ -318,15 +314,11 @@ $(document).ready(function(){
                 ID_KATALOG_ALAT: {
                     required: true,
                 },
-                UKURAN: {
-                    required: true,
-                },
             },
             messages: {
                 ID_KATEGORI_ALAT: "Silahkan pilih kategori alat",
                 NAMA_ALAT: "Silahkan isi nama katalog Alat",
                 ID_KATALOG_ALAT: "Silahkan isi katalog alat",
-                UKURAN: "Silahkan isi ukuran alat",
             },
             errorElement : 'div',
             errorClass: "invalid-feedback animated fadeInUp",

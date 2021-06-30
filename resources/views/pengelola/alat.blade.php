@@ -3,11 +3,6 @@
 
 {{-- Tambahan Style Admin --}}
 @section('tambahan-style')
-    @if(!empty(config('dz.public.pagelevel.css.ui_modal'))) 
-        @foreach(config('dz.public.pagelevel.css.ui_modal') as $style)
-                <link href="{{ asset($style) }}" rel="stylesheet" type="text/css"/>
-        @endforeach
-    @endif
     @if(!empty(config('dz.public.pagelevel.css.uc_select2'))) 
         @foreach(config('dz.public.pagelevel.css.uc_select2') as $style)
                 <link href="{{ asset($style) }}" rel="stylesheet" type="text/css"/>
@@ -116,14 +111,16 @@
                 </button>
             </div>
             <div class="modal-body">
+                
                 <div class="form-validation">
+                    
                     <form id="create-alat" action="{{ route('pengelola.alat.store') }}" name="create-alat" method="POST" enctype="multipart/form-data">
                     @csrf
                         <div class="form-group">
                             <label>Katalog Alat</label>
-                            <select class="form-control select2 @error('ID_KATALOG_ALAT') is-invalid @enderror" name="ID_KATALOG_ALAT" id="ID_KATALOG_ALAT">
+                            <select class="select2 @error('ID_KATALOG_ALAT') is-invalid @enderror" name="ID_KATALOG_ALAT" id="ID_KATALOG_ALAT">
                                 @foreach($katalog as $t)
-                                    <option value="{{ $t->ID_KATALOG_ALAT }}">{{ $t->ID_KATALOG_ALAT }} - {{ $t->NAMA_ALAT }} - {{ $t->UKURAN }}</option>
+                                    <option value="{{ $t->ID_KATALOG_ALAT }}">{{ $t->ID_KATALOG_ALAT }} - {{ $t->NAMA_ALAT }} {{ $t->UKURAN }}</option>
                                 @endforeach
                             </select>
                             <div class="invalid-feedback animated fadeInUp">
@@ -202,7 +199,7 @@
                         <label>Katalog Alat</label>
                         <select class="form-control select2 @error('ID_KATALOG_ALAT') is-invalid @enderror" name="ID_KATALOG_ALAT" id="ID_KATALOG_ALAT">
                             @foreach($katalog as $t)
-                                <option value="{{ $t->ID_KATALOG_ALAT }}" @if($d->ID_KATALOG_ALAT == $t->ID_KATALOG_ALAT) selected @endif >{{ $t->ID_KATALOG_ALAT }} - {{ $t->NAMA_ALAT }} - {{ $t->UKURAN }}</option>
+                                <option value="{{ $t->ID_KATALOG_ALAT }}" @if($d->ID_KATALOG_ALAT == $t->ID_KATALOG_ALAT) selected @endif >{{ $t->ID_KATALOG_ALAT }} - {{ $t->NAMA_ALAT }} {{ $t->UKURAN }}</option>
                             @endforeach
                         </select>
                         <div class="invalid-feedback animated fadeInUp">
@@ -315,11 +312,6 @@
 
 {{-- Tambahan Script --}}
 @section('tambahan-script')
-@if(!empty(config('dz.public.pagelevel.js.ui_modal')))
-	@foreach(config('dz.public.pagelevel.js.ui_modal') as $script)
-			<script src="{{ asset($script) }}" type="text/javascript"></script>
-	@endforeach
-@endif
 @if(!empty(config('dz.public.pagelevel.js.uc_select2')))
 	@foreach(config('dz.public.pagelevel.js.uc_select2') as $script)
 			<script src="{{ asset($script) }}" type="text/javascript"></script>
@@ -332,6 +324,7 @@
 @endif
 <script>
 $(document).ready(function(){
+    $(".select2").select2();
     $("#create-alat").validate({
         rules: {
             ID_KATALOG_ALAT: {

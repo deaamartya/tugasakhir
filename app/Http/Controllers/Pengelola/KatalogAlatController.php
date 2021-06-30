@@ -34,7 +34,6 @@ class KatalogAlatController extends Controller
             'ID_KATEGORI_ALAT' => 'required|exists:App\Models\KategoriAlat,ID_KATEGORI_ALAT',
             'NAMA_ALAT' => 'required',
             'ID_KATALOG_ALAT' => 'required|unique:App\Models\KatalogAlat,ID_KATALOG_ALAT',
-            'UKURAN' => 'required',
         ]);
 
         DB::transaction(function() use($request){
@@ -60,7 +59,6 @@ class KatalogAlatController extends Controller
         $request->validate([
             'ID_KATEGORI_ALAT' => 'required|exists:App\Models\KategoriAlat,ID_KATEGORI_ALAT',
             'NAMA_ALAT' => 'required',
-            'UKURAN' => 'required',
             'ID_KATALOG_ALAT' => 'required',
         ]);
 

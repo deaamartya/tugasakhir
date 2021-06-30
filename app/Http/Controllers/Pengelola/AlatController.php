@@ -21,9 +21,9 @@ class AlatController extends Controller
         $action = 'table_datatable_basic';
         $id_lab = Auth::user()->ID_LABORATORIUM;
         $lemari = Lemari::where('ID_LABORATORIUM',$id_lab)->get();
-        $katalog = KatalogAlat::all();
+        $katalog = KatalogAlat::join('kategori_alat as k','k.ID_KATEGORI_ALAT','katalog_alat.ID_KATEGORI_ALAT')->where('k.ID_LABORATORIUM','=',$id_lab)->get();
         $tipe = MerkTipeAlat::all();
-        $alat = Alat::all();
+        $alat = Alat::join('lemari as l','l.ID_LEMARI','alat.ID_LEMARI')->where('l.ID_LABORATORIUM','=',$id_lab)->get();
         return view('pengelola.alat', compact('page_title', 'page_description','action','lemari','katalog','tipe','alat'));
     }
 
