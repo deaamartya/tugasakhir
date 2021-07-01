@@ -21,7 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('password',255);
             $table->string('PATH_FOTO',40)->nullable();
             $table->string('NAMA_LENGKAP', 60);
-            $table->boolean('ONLINE')->default(0);
+            $table->boolean('ONLINE')->default(0)->comment('0: Offline, 1: Online');;
         });
     }
 

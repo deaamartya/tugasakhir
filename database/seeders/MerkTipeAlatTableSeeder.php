@@ -45,11 +45,29 @@ class MerkTipeAlatTableSeeder extends Seeder
             ),
             5 => 
             array (
-                'ID_MERK_TIPE' => 7,
+                'ID_MERK_TIPE' => 6,
                 'NAMA_MERK_TIPE' => 'Besi',
             ),
+            6 => 
+            array (
+                'ID_MERK_TIPE' => 7,
+                'NAMA_MERK_TIPE' => 'Pyrex',
+            ),
+            7 => 
+            array (
+                'ID_MERK_TIPE' => 8,
+                'NAMA_MERK_TIPE' => 'Alkohol',
+            ),
+            8 => 
+            array (
+                'ID_MERK_TIPE' => 9,
+                'NAMA_MERK_TIPE' => 'Hg',
+            ),
+            9 => 
+            array (
+                'ID_MERK_TIPE' => 10,
+                'NAMA_MERK_TIPE' => 'All',
+            ),
         ));
-        
-        
     }
 }

@@ -3,7 +3,10 @@ jQuery(document).ready(function() {
         height: 190,
         minHeight: null,
         maxHeight: null,
-        focus: !1
+        focus: !1,
+        toolbar: [
+            ['font', ['superscript', 'subscript']],
+        ],
     }), $(".inline-editor").summernote({
         airMode: !0
     })

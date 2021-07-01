@@ -1,5 +1,6 @@
 <?php
 
+namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 
 class AlatTableSeeder extends Seeder
@@ -64,7 +65,7 @@ class AlatTableSeeder extends Seeder
                 'ID_ALAT' => 'KBR30/0501',
                 'ID_KATALOG_ALAT' => 'KBR30/050',
                 'ID_LEMARI' => 5,
-                'ID_MERK_TIPE' => 11,
+                'ID_MERK_TIPE' => 10,
             ),
             7 => 
             array (
@@ -225,7 +226,7 @@ class AlatTableSeeder extends Seeder
                 'ID_ALAT' => 'KLA45/1001',
                 'ID_KATALOG_ALAT' => 'KLA45/100',
                 'ID_LEMARI' => 3,
-                'ID_MERK_TIPE' => 10,
+                'ID_MERK_TIPE' => 7,
             ),
             30 => 
             array (
@@ -379,7 +380,7 @@ class AlatTableSeeder extends Seeder
                 'ID_ALAT' => 'KSL40/0252',
                 'ID_KATALOG_ALAT' => 'KSL40/025',
                 'ID_LEMARI' => 5,
-                'ID_MERK_TIPE' => 10,
+                'ID_MERK_TIPE' => 7,
             ),
             52 => 
             array (
@@ -526,7 +527,7 @@ class AlatTableSeeder extends Seeder
                 'ID_ALAT' => 'KTA85/0102',
                 'ID_KATALOG_ALAT' => 'KTA85/010',
                 'ID_LEMARI' => 6,
-                'ID_MERK_TIPE' => 7,
+                'ID_MERK_TIPE' => 6,
             ),
             73 => 
             array (
@@ -561,7 +562,7 @@ class AlatTableSeeder extends Seeder
                 'ID_ALAT' => 'PF1',
                 'ID_KATALOG_ALAT' => 'PF',
                 'ID_LEMARI' => 5,
-                'ID_MERK_TIPE' => 11,
+                'ID_MERK_TIPE' => 10,
             ),
             78 => 
             array (

@@ -21,7 +21,7 @@ class CreateHistoriStokTable extends Migration
             $table->dateTime('TIMESTAMP')->useCurrent();
             $table->float('JUMLAH_MASUK',11,2);
             $table->float('JUMLAH_KELUAR',11,2);
-            $table->boolean('KONDISI')->nullable();
+            $table->boolean('KONDISI')->nullable()->comment('0: Rusak, 1: Bagus');
             $table->float('STOK',11,2)->nullable();
             $table->text('KETERANGAN')->nullable();
         });

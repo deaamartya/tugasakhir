@@ -28,11 +28,11 @@ use App\Models\MataPelajaran;
  *
  * @package App\Models
  */
-// use NotificationChannels\WebPush\HasPushSubscriptions;
+use NotificationChannels\WebPush\HasPushSubscriptions;
 class User extends Authenticatable
 {
 	use Notifiable;
-	// use HasPushSubscriptions;
+	use HasPushSubscriptions;
 	protected $table = 'users';
 	protected $primaryKey = 'ID_USER';
 	public $timestamps = false;

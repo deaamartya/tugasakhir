@@ -35,6 +35,7 @@ class BahanKimiaController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         $request->validate([
             'ID_KATALOG_BAHAN' => 'required|exists:App\Models\KatalogBahan,ID_KATALOG_BAHAN',
             'ID_LEMARI' => 'required|exists:App\Models\Lemari,ID_LEMARI',

@@ -18,6 +18,11 @@
                 <link href="{{ asset($style) }}" rel="stylesheet" type="text/css"/>
         @endforeach
     @endif
+    @if(!empty(config('dz.public.pagelevel.css.form_editor_summernote'))) 
+        @foreach(config('dz.public.pagelevel.css.form_editor_summernote') as $style)
+                <link href="{{ asset($style) }}" rel="stylesheet" type="text/css"/>
+        @endforeach
+    @endif
 @endsection
 
 {{-- Content --}}
@@ -79,7 +84,7 @@
                                 <tr>
                                     <td> {{ $d->ID_BAHAN_KIMIA }} </td>
                                     <td> {{ $d->lemari->laboratorium->NAMA_LABORATORIUM }} - {{ $d->lemari->NAMA_LEMARI }} </td>
-                                    <td> {{ $d->katalog_bahan->NAMA_KATALOG_BAHAN }} ({{ $d->RUMUS }}) - {{ $d->WUJUD }}</td>
+                                    <td>@php echo $d->katalog_bahan->NAMA_KATALOG_BAHAN." (".$d->RUMUS.") - ".$d->WUJUD @endphp</td>
                                     <td> @if($d->SPESIFIKASI_BAHAN == "1")
                                     TEK
                                     @elseif($d->SPESIFIKASI_BAHAN == "0")
@@ -142,7 +147,7 @@
 
                         <div class="form-group">
                             <label>Rumus</label>
-                            <input type="text" class="form-control @error('RUMUS') is-invalid @enderror" id="RUMUS" name="RUMUS" value="{{ @old('RUMUS') }}">
+                            <textarea class="summernote @error('RUMUS') is-invalid @enderror" name="RUMUS"></textarea>
                             <div class="invalid-feedback animated fadeInUp">
                                 Rumus harus diisi
                             </div>
@@ -333,6 +338,11 @@
 @endif
 @if(!empty(config('dz.public.pagelevel.js.form_validation_jquery')))
 	@foreach(config('dz.public.pagelevel.js.form_validation_jquery') as $script)
+			<script src="{{ asset($script) }}" type="text/javascript"></script>
+	@endforeach
+@endif
+@if(!empty(config('dz.public.pagelevel.js.form_editor_summernote')))
+	@foreach(config('dz.public.pagelevel.js.form_editor_summernote') as $script)
 			<script src="{{ asset($script) }}" type="text/javascript"></script>
 	@endforeach
 @endif

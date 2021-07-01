@@ -21,7 +21,7 @@ class CreatePerubahanJadwalPeminjamanTable extends Migration
             $table->string('JAM_MULAI_BARU')->nullable();
             $table->string('JAM_SELESAI_BARU')->nullable();
             $table->text('PESAN');
-            $table->boolean('STATUS_PERUBAHAN');
+            $table->boolean('STATUS_PERUBAHAN')->comment('0: Belum Diubah, 1: Telah Diubah');
         });
 
         DB::unprepared("CREATE TRIGGER `auto_id_perubahan_jadwal` BEFORE INSERT ON `perubahan_jadwal_peminjaman` FOR EACH ROW 

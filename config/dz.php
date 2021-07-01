@@ -128,7 +128,7 @@ return [
 							'vendor/bootstrap-select/dist/css/bootstrap-select.min.css',
 				],
 				'form_editor_summernote' => [
-              'vendor/bootstrap-select/dist/css/bootstrap-select.min.css',
+              // 'vendor/bootstrap-select/dist/css/bootstrap-select.min.css',
 							'vendor/summernote/summernote.css',
 				],
 				'form_element' => [
