@@ -64,15 +64,15 @@ class AdminController extends Controller
 
             if(strpos($kelas, 'X MIPA') !== false)
             {
-                $obj->className = "bg-primary";
+                $obj->className = "bg-primary p-1 border-0 mb-1 rounded-2 m-1";
             }
             elseif(strpos($kelas, 'XI MIPA') !== false)
             {
-                $obj->className = "bg-success";
+                $obj->className = "bg-success p-1 border-0 mb-1 rounded-2 m-1";
             }
             elseif(strpos($kelas, 'XII MIPA') !== false)
             {
-                $obj->className = "bg-danger";
+                $obj->className = "bg-danger p-1 border-0 mb-1 rounded-2 m-1";
             }
 
             $obj->id_peminjaman = $p->ID_PEMINJAMAN;

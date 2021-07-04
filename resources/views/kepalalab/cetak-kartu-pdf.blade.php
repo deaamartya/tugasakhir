@@ -11,7 +11,7 @@
         </tr>
         <tr>
             <td colspan="10" style="line-height:1.5;text-align:center">
-                LABORATORIUM {{ strtoupper(Auth::user()->laboratorium->lab()) }}
+                LABORATORIUM {{ strtoupper($lab->lab()) }}
             </td>
         </tr>
         <tr>

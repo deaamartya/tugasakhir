@@ -49,7 +49,7 @@
                 </div>
                 <div class="card-body">
                     <div class="form-validation">
-                        <form id="create-lemari" action="{{ url('pengelola/cetak/katalog-lemari') }}" name="create-lemari" method="POST">
+                        <form id="create-lemari" action="{{ url('kepalalab/cetak/katalog-lemari') }}" name="create-lemari" method="POST">
                             @csrf
                             <div class="form-group">
                                 <label>Lemari</label>

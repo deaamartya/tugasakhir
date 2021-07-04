@@ -49,13 +49,13 @@
                 </div>
                 <div class="card-body">
                     <div class="form-validation">
-                        <form id="create-stok" action="{{ url('pengelola/cetak/kartu-stok') }}" name="create-stok" method="POST">
+                        <form id="create-stok" action="{{ url('kepalalab/cetak/kartu-stok') }}" name="create-stok" method="POST">
                             @csrf
                             <div class="form-group">
                                 <label>Alat</label>
                                 <select class="form-control select2 @error('ID_ALAT') is-invalid @enderror" name="ID_ALAT" id="ID_ALAT">
                                     @foreach($alat as $t)
-                                        <option value="{{ $t->ID_ALAT }}">{{ $t->ID_ALAT}} {{ $t->merk_tipe_alat->NAMA_MERK_TIPE}} {{ $t->katalog_alat->NAMA_ALAT}} {{$t->katalog_alat->UKURAN}}</option>
+                                        <option value="{{ $t->ID_ALAT }}">{{ $t->lemari->laboratorium->NAMA_LABORATORIUM }} - {{ $t->ID_ALAT}} {{ $t->merk_tipe_alat->NAMA_MERK_TIPE}} {{ $t->katalog_alat->NAMA_ALAT}} {{$t->katalog_alat->UKURAN}}</option>
                                     @endforeach
                                 </select>
                                 <div class="invalid-feedback animated fadeInUp">

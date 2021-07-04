@@ -138,15 +138,15 @@ class MasterController extends Controller
 
             if(strpos($kelas, 'X MIPA') !== false)
             {
-                $obj->className = "bg-primary";
+                $obj->className = "bg-primary p-1 border-0 mb-1 rounded-2 m-1";
             }
             elseif(strpos($kelas, 'XI MIPA') !== false)
             {
-                $obj->className = "bg-success";
+                $obj->className = "bg-success p-1 border-0 mb-1 rounded-2 m-1";
             }
             elseif(strpos($kelas, 'XII MIPA') !== false)
             {
-                $obj->className = "bg-danger";
+                $obj->className = "bg-danger p-1 border-0 mb-1 rounded-2 m-1";
             }
 
             $obj->id_peminjaman = $p->ID_PEMINJAMAN;
@@ -166,6 +166,7 @@ class MasterController extends Controller
         $ruang_lab = RuangLaboratorium::all();
         return view('kepalalab.ruang-lab', compact('page_title', 'page_description','action','ruang_lab'));
     }
+
     public function lemari(){
         $page_title = 'Data Lemari';
         $page_description = 'Menampilkan seluruh data lemari';
@@ -173,6 +174,7 @@ class MasterController extends Controller
         $lemari = Lemari::all();
         return view('kepalalab.lemari', compact('page_title', 'page_description','action','lemari'));
     }
+
     public function katalog_alat(){
         $page_title = 'Data Katalog Alat';
         $page_description = 'Menampilkan seluruh data katalog alat';
@@ -180,6 +182,7 @@ class MasterController extends Controller
         $katalog_alat = KatalogAlat::all();
         return view('kepalalab.katalog-alat', compact('page_title', 'page_description','action','katalog_alat'));
     }
+
     public function kategori_alat(){
         $page_title = 'Data Kategori Alat';
         $page_description = 'Menampilkan seluruh data kategori alat';
@@ -187,6 +190,7 @@ class MasterController extends Controller
         $kategori = KategoriAlat::all();
         return view('kepalalab.kategori-alat', compact('page_title', 'page_description','action','kategori'));
     }
+
     public function tipe(){
         $page_title = 'Data Merk/Type Alat';
         $page_description = 'Menampilkan seluruh data merk/type alat';
@@ -194,6 +198,7 @@ class MasterController extends Controller
         $merktipe = MerkTipeAlat::all();
         return view('kepalalab.tipe', compact('page_title', 'page_description','action','merktipe'));
     }
+
     public function alat(){
         $page_title = 'Data Alat';
         $page_description = 'Menampilkan seluruh data alat';
@@ -201,6 +206,7 @@ class MasterController extends Controller
         $alat = Alat::get();
         return view('kepalalab.alat', compact('page_title','page_description','action','alat'));
     }
+
     public function katalog_bahan(){
         $page_title = 'Data Katalog Bahan';
         $page_description = 'Menampilkan seluruh data katalog bahan';
@@ -208,6 +214,7 @@ class MasterController extends Controller
         $katalog_bahan = KatalogBahan::all();
         return view('kepalalab.katalog-bahan', compact('page_title', 'page_description','action','katalog_bahan'));
     }
+
     public function bahan_kimia(){
         $page_title = 'Data Bahan Kimia';
         $page_description = 'Menampilkan seluruh data bahan kimia';
@@ -215,6 +222,7 @@ class MasterController extends Controller
         $bahan_kimia = BahanKimia::all();
         return view('kepalalab.bahan-kimia', compact('page_title', 'page_description','action','bahan_kimia'));
     }
+
     public function bahan(){
         $page_title = 'Data Bahan';
         $page_description = 'Menampilkan seluruh data bahan';
@@ -222,6 +230,7 @@ class MasterController extends Controller
         $bahan = Bahan::all();
         return view('kepalalab.bahan', compact('page_title', 'page_description','action','bahan'));
     }
+
     public function praktikum(){
         $page_title = 'Data Praktikum';
         $page_description = 'Menampilkan seluruh data praktikum';
@@ -229,6 +238,7 @@ class MasterController extends Controller
         $praktikum = Praktikum::all();
         return view('kepalalab.praktikum.index', compact('page_title', 'page_description','action','praktikum'));
     }
+
     public function jadwal_praktikum(){
         $page_title = 'Jadwal Praktikum';
         $page_description = 'Menampilkan seluruh data praktikum';
@@ -237,6 +247,7 @@ class MasterController extends Controller
         $praktikum = PeminjamanAlatBahan::orderBy('ID_PEMINJAMAN','DESC')->get();
         return view('kepalalab.jadwal-praktikum.index', compact('page_title', 'page_description','action','praktikum'));
     }
+
     public function penjadwalan_ulang(){
         $page_title = 'Penjadwalan Ulang Praktikum';
         $page_description = 'Menampilkan seluruh data penjadwalan ulang';
@@ -246,6 +257,7 @@ class MasterController extends Controller
 
         return view('kepalalab.jadwal-ulang.index', compact('page_title', 'page_description','action','jadwalulang'));
     }
+    
     public function peminjaman(){
         $page_title = 'Peminjaman Alat Bahan';
         $page_description = 'Menampilkan seluruh data penjadwalan ulang';
@@ -257,6 +269,7 @@ class MasterController extends Controller
 
         return view('kepalalab.peminjaman.index', compact('page_title', 'page_description','action','peminjaman','history_peminjaman'));
     }
+
     public function pengembalian(){
         $page_title = 'Ubah Jadwal Praktikum';
         $page_description = 'Menampilkan seluruh data penjadwalan ulang';

@@ -49,8 +49,19 @@
                 </div>
                 <div class="card-body">
                     <div class="form-validation">
-                        <form id="create-stok" action="{{ url('pengelola/cetak/alat-rusak') }}" name="create-stok" method="POST">
+                        <form id="create-stok" action="{{ url('kepalalab/cetak/alat-rusak') }}" name="create-stok" method="POST">
                             @csrf
+                            <div class="form-group">
+                                <label>Laboratorium</label>
+                                <select class="form-control select2 @error('ID_LABORATORIUM') is-invalid @enderror" name="ID_LABORATORIUM" id="ID_LABORATORIUM">
+                                    @foreach($lab as $t)
+                                        <option value="{{ $t->ID_LABORATORIUM }}">{{ $t->NAMA_LABORATORIUM }}</option>
+                                    @endforeach
+                                </select>
+                                <div class="invalid-feedback animated fadeInUp">
+                                    Silahkan pilih lab
+                                </div>
+                            </div>
                             <div class="form-group">
                                 <label>Tahun Akademik</label>
                                 <select class="form-control select2 @error('ID_TAHUN_AKADEMIK') is-invalid @enderror" name="ID_TAHUN_AKADEMIK" id="ID_TAHUN_AKADEMIK">
@@ -81,7 +92,8 @@
 @endif
 <script>
 $(document).ready(function(){
-    $(".select2").select2();
+    $("#ID_LABORATORIUM").select2();
+    $("#ID_TAHUN_AKADEMIK").select2();
     $("#create-stok").validate({
         rules: {
             ID_TAHUN_AKADEMIK: {

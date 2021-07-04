@@ -52,7 +52,5 @@ class NotificationsTableSeeder extends Seeder
                 'updated_at' => '2021-07-04 17:13:45',
             ),
         ));
-        
-        
     }
 }

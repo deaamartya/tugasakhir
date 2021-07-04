@@ -124,9 +124,13 @@ class CetakController extends Controller
                 $tgl_genap_start = date('Y-m-d',strtotime($tahun_2."-01-01"));
                 $tgl_genap_end = date('Y-m-d',strtotime($tahun_2."-06-30"));
 
+                $id_lab = Auth::user()->ID_LABORATORIUM;
+
                 if($waktu == "Gasal"){
                     $histori_rusak = HistoriStok::join('alat as a','a.ID_ALAT','histori_stok.ID_ALAT_BAHAN')
                     ->join('katalog_alat as ka','ka.ID_KATALOG_ALAT','a.ID_KATALOG_ALAT')
+                    ->join('lemari as l','l.ID_LEMARI','=','a.ID_LEMARI')
+                    ->where('l.ID_LABORATORIUM',$id_lab)
                     ->where('ID_TIPE',1)
                     ->where('KONDISI','=',0)
                     ->where('JUMLAH_MASUK','>',0)
@@ -135,6 +139,8 @@ class CetakController extends Controller
                 else{
                     $histori_rusak = HistoriStok::join('alat as a','a.ID_ALAT','histori_stok.ID_ALAT_BAHAN')
                     ->join('katalog_alat as ka','ka.ID_KATALOG_ALAT','a.ID_KATALOG_ALAT')
+                    ->join('lemari as l','l.ID_LEMARI','=','a.ID_LEMARI')
+                    ->where('l.ID_LABORATORIUM',$id_lab)
                     ->where('ID_TIPE',1)
                     ->where('KONDISI','=',0)
                     ->where('JUMLAH_MASUK','>',0)
