@@ -84,7 +84,7 @@
                                 <tr>
                                     <td> {{ $d->ID_BAHAN_KIMIA }} </td>
                                     <td> {{ $d->lemari->laboratorium->NAMA_LABORATORIUM }} - {{ $d->lemari->NAMA_LEMARI }} </td>
-                                    <td>@php echo $d->katalog_bahan->NAMA_KATALOG_BAHAN." (".$d->RUMUS.") - ".$d->WUJUD @endphp</td>
+                                    <td>@php echo $d->NAMA_BAHAN_KIMIA." - ".$d->RUMUS." (".$d->WUJUD.")" @endphp</td>
                                     <td> @if($d->SPESIFIKASI_BAHAN == "1")
                                     TEK
                                     @elseif($d->SPESIFIKASI_BAHAN == "0")
@@ -134,7 +134,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label>Bahan</label>
+                            <label>Katalog Bahan</label>
                             <select class="form-control select2" name="ID_KATALOG_BAHAN" id="ID_KATALOG_BAHAN">
                                 @foreach($katalogbahan as $t)
                                     <option value="{{ $t->ID_KATALOG_BAHAN }}">{{ $t->ID_KATALOG_BAHAN }} - {{ $t->NAMA_KATALOG_BAHAN }}</option>
@@ -142,6 +142,14 @@
                             </select>
                             <div class="invalid-feedback animated fadeInUp">
                                 Bahan harus diisi
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Nama Bahan</label>
+                            <input type="text" class="form-control @error('NAMA_BAHAN_KIMIA') is-invalid @enderror" id="NAMA_BAHAN_KIMIA" name="NAMA_BAHAN_KIMIA" value="{{ @old('NAMA_BAHAN_KIMIA') }}">
+                            <div class="invalid-feedback animated fadeInUp">
+                                Nama Bahan harus diisi
                             </div>
                         </div>
 
@@ -234,8 +242,16 @@
                     </div>
 
                     <div class="form-group">
+                        <label>Nama Bahan</label>
+                        <input type="text" class="form-control @error('NAMA_BAHAN_KIMIA') is-invalid @enderror" id="NAMA_BAHAN_KIMIA" name="NAMA_BAHAN_KIMIA" value="{{ $d->NAMA_BAHAN_KIMIA }}">
+                        <div class="invalid-feedback animated fadeInUp">
+                            Nama Bahan harus diisi
+                        </div>
+                    </div>
+
+                    <div class="form-group">
                         <label>Rumus</label>
-                        <input type="text" class="form-control @error('RUMUS') is-invalid @enderror" id="RUMUS" name="RUMUS" value="{{ $d->RUMUS }}">
+                        <textarea class="summernote @error('RUMUS') is-invalid @enderror" name="RUMUS">@php echo $d->RUMUS; @endphp</textarea>
                         <div class="invalid-feedback animated fadeInUp">
                             Rumus harus diisi
                         </div>
@@ -366,6 +382,9 @@ $(document).ready(function(){
                 required: true,
                 min: 0,
             },
+            NAMA_BAHAN_KIMIA: {
+                required: true,
+            },
         },
         messages: {
             ID_LEMARI: "Silahkan pilih lemari",
@@ -373,6 +392,7 @@ $(document).ready(function(){
             SPESIFIKASI_BAHAN: "Silahkan pilih spesifikasi bahan",
             WUJUD: "Silahkan pilih wujud bahan",
             JUMLAH_BAHAN_KIMIA: "Silahkan isi jumlah(gr) bahan",
+            NAMA_BAHAN_KIMIA: "Silahkan isi nama bahan kimia",
         },
         errorElement : 'div',
         errorClass: "invalid-feedback animated fadeInUp",
@@ -410,6 +430,9 @@ $(document).ready(function(){
                     required: true,
                     min: 0,
                 },
+                NAMA_BAHAN_KIMIA: {
+                    required: true,
+                },
             },
             messages: {
                 ID_LEMARI: "Silahkan pilih lemari",
@@ -417,6 +440,7 @@ $(document).ready(function(){
                 SPESIFIKASI_BAHAN: "Silahkan pilih spesifikasi bahan",
                 WUJUD: "Silahkan pilih wujud bahan",
                 JUMLAH_BAHAN_KIMIA: "Silahkan isi jumlah(gr) bahan",
+                NAMA_BAHAN_KIMIA: "Silahkan isi nama bahan kimia",
             },
             errorElement : 'div',
             errorClass: "invalid-feedback animated fadeInUp",

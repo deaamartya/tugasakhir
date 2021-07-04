@@ -106,8 +106,8 @@
                                     <th>Total Pinjam</th>
                                 </thead>
                                 <tbody>
+                                    @php $i = 1; @endphp
                                     @foreach($peminjaman->praktikum->alat_bahan_praktikum as $a)
-                                        @php $i = 1; @endphp
                                         @if($a->ID_TIPE == 1)
                                         <tr>
                                             <td width="50%">{{ $a->alat->ID_ALAT }} {{ $a->alat->merk_tipe_alat->NAMA_MERK_TIPE }} {{ $a->alat->katalog_alat->NAMA_ALAT }} {{ $a->alat->katalog_alat->UKURAN }}</td>
@@ -121,7 +121,7 @@
                                             </td>
                                             <td width="15%"><input style="width:100%" type="number" name="jumlah_alat[{{$i}}]" class="total_alat border p-2" id="t_alat-{{$i}}" readonly max="{{ $a->alat->stok_bagus() }}"></td>
                                         </tr>
-                                        @php $i++; @endphp
+                                        @php $i = $i+1; @endphp
                                         @endif
                                     @endforeach
                                 </tbody>
@@ -137,8 +137,8 @@
                                     <th>Total Pinjam</th>
                                 </thead>
                                 <tbody>
+                                    @php $i = 1; @endphp
                                     @foreach($peminjaman->praktikum->alat_bahan_praktikum as $a)
-                                        @php $i = 1; @endphp
                                         @if($a->ID_TIPE == 2)
                                         <tr>
                                             <td width="50%">{{ $a->bahan->ID_BAHAN }} {{ $a->bahan->NAMA_BAHAN }}</td>
@@ -152,7 +152,7 @@
                                             </td>
                                             <td width="15%"><input style="width:100%" type="number" name="jumlah_bahan[{{$i}}]" class="total_bahan_kimia border p-2" id="t_bahan-{{$i}}" max="{{ $a->bahan->stok() }}" readonly></td>
                                         </tr>
-                                        @php $i++; @endphp
+                                        @php $i = $i+1; @endphp
                                         @endif
                                     @endforeach
                                 </tbody>
@@ -168,8 +168,8 @@
                                     <th>Total Pinjam</th>
                                 </thead>
                                 <tbody>
+                                    @php $i = 1; @endphp
                                     @foreach($peminjaman->praktikum->alat_bahan_praktikum as $a)
-                                        @php $i = 1; @endphp
                                         @if($a->ID_TIPE == 3)
                                             <tr>
                                                 <td width="50%">{{ $a->bahan_kimia->ID_BAHAN_KIMIA }} {{ $a->bahan_kimia->katalog_bahan->NAMA_KATALOG_BAHAN }}</td>
@@ -184,7 +184,7 @@
                                                 <td width="15%">
                                                 <input style="width:100%" type="number" name="jumlah_bahan_kimia[{{$i}}]" class="total_bahan_kimia border p-2" id="t_bahan_kimia-{{$i}}" max="{{ $a->bahan_kimia->stok() }}" readonly></td>
                                             </tr>
-                                        @php $i++; @endphp
+                                        @php $i = $i+1; @endphp
                                         @endif
                                     @endforeach
                                 </tbody>
@@ -292,7 +292,6 @@ $(document).ready(function(){
         var stok = 0;
         var error = false;
         $(".jumlah_alat").each(function(){
-            console.log("masuk each jumlah alat");
             total_sementara = Number($(this).val())*jumlah_kelompok;
             stok = Number($("#t_alat-"+index).attr('max'));
             if(total_sementara > stok){

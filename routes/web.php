@@ -81,8 +81,11 @@ Route::middleware(['auth','cekPengelola'])->prefix('pengelola')->name('pengelola
     Route::post('bahan/updateStock','App\Http\Controllers\Pengelola\BahanController@updateStock')->name('bahan.updateStock');
 
     Route::resource('praktikum','App\Http\Controllers\Pengelola\PraktikumController');
-
+    
     Route::resource('jadwal-praktikum','App\Http\Controllers\Pengelola\JadwalPraktikumController');
+    Route::get('jadwal-praktikum/edit/{id}','App\Http\Controllers\Pengelola\JadwalPraktikumController@edit')->name('jadwal-praktikum.edit');
+    Route::post('edit-jadwal/update','App\Http\Controllers\Pengelola\JadwalPraktikumController@update')->name('jadwal-praktikum.update');
+    
     // Route::get('datapraktikum','App\Http\Controllers\Pengelola\JadwalPraktikumController@seluruhJadwal');
     Route::post('jadwal-praktikum/datapraktikum-nama','App\Http\Controllers\Pengelola\JadwalPraktikumController@seluruhJadwalNama');
     Route::get('cekRuang','App\Http\Controllers\Pengelola\JadwalPraktikumController@cekRuang');

@@ -102,7 +102,7 @@
                                     <div class="col-9">
                                         <select class="form-control select2" id="ID_BAHAN_KIMIA">
                                             @foreach($bahan_kimia as $t)
-                                            <option value="{{ $t->ID_BAHAN_KIMIA }}"> {{ $t->ID_BAHAN_KIMIA }} {{ $t->katalog_bahan->NAMA_KATALOG_BAHAN }} </option>
+                                            <option value="{{ $t->ID_BAHAN_KIMIA }}"> {{ $t->ID_BAHAN_KIMIA }} {{ $t->NAMA_BAHAN_KIMIA }} @php echo $t->RUMUS; @endphp ({{ $t->WUJUD }}) </option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -404,7 +404,7 @@ $(document).ready(function(){
             hitungTotalBahanKimia();
         }
         else{
-            var nama_bahan = bahan_kimia[index]['ID_BAHAN_KIMIA'] +" "+ bahan_kimia[index]['NAMA_KATALOG_BAHAN'];
+            var nama_bahan = bahan_kimia[index]['ID_BAHAN_KIMIA'] +" "+ bahan_kimia[index]['NAMA_BAHAN_KIMIA']+" "+ bahan_kimia[index]['RUMUS']+" ("+ bahan_kimia[index]['WUJUD']+")";
             var markup =
             "<tr id='bahan-kimia-"+index+"'>"+
                 "<td width='60%'>"+nama_bahan+"<input type='hidden' class='id_bahan_kimia' id='id_bahan_kimia-"+index+"' value='"+id_bahan_kimia+"'><input type='hidden' class='index_bahan_kimia' name='index_bahan_kimia["+index+"]' value='"+index+"'></td>"+

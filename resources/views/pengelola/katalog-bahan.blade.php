@@ -120,7 +120,7 @@
                             <label>ID Katalog Bahan</label>
                             <input type="text" class="form-control @error('ID_KATALOG_BAHAN') is-invalid @enderror" id="ID_KATALOG_BAHAN" name="ID_KATALOG_BAHAN" value="{{ @old('ID_KATALOG_BAHAN') }}">
                             <div class="invalid-feedback animated fadeInUp">
-                                ID Katalog Bahan harus diisi
+                                ID Katalog Bahan harus diisi dan unik
                             </div>
                         </div>
 
@@ -171,7 +171,7 @@
                         <label>ID Katalog Bahan</label>
                         <input type="text" class="form-control @error('ID_KATALOG_BAHAN') is-invalid @enderror" id="ID_KATALOG_BAHAN" name="ID_KATALOG_BAHAN" value="{{ $d->ID_KATALOG_BAHAN }}">
                         <div class="invalid-feedback animated fadeInUp">
-                            ID Katalog Bahan harus diisi
+                            ID Katalog Bahan harus diisi dan unik
                         </div>
                     </div>
 

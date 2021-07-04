@@ -96,7 +96,7 @@
                                 <div>@if($jadwalulang->PESAN != null){{ $jadwalulang->PESAN }} @else - @endif</div>
                             </div>
 
-                            <hr></hr>
+                            <hr>
 
                             <div class="form-group">
                                 <label>Ruang Laboratorium</label>
@@ -120,7 +120,7 @@
 
                             <div class="form-group">
                                 <label>Tanggal Baru</label>
-                                <input class="datepicker-default form-control" name="TANGGAL_PEMINJAMAN">
+                                <input class="datepicker-default form-control" name="TANGGAL_PEMINJAMAN" value="{{ date("d F Y",strtotime($jadwalulang->peminjaman_alat_bahan->TANGGAL_PEMINJAMAN)) }}">
                                 <div class="invalid-feedback animated fadeInUp">
                                     Tanggal Peminjaman harus diisi
                                 </div>
@@ -146,7 +146,13 @@
                                 </div>
                             </div>
 
-                            <button type="submit" class="btn btn-primary submit-btn">Simpan</button>
+                            <div class="form-row px-3">
+                                <div class="alert alert-danger animated pulse infinite" hidden id="alert-gagal"><i class="fa fa-exclamation-triangle mr-2"></i> Terdapat praktikum dengan ruang laboratorium pada tanggal dan jam diatas</div>
+
+                                <div class="alert alert-success animated pulse" hidden id="alert-sukses"><i class="fa fa-check mr-2"></i>Ruang laboratorium dapat digunakan pada tanggal dan jam diatas</div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary submit-btn" id="button-form-jadwal">Simpan</button>
 
                         </form>
                     </div>
@@ -211,15 +217,23 @@
 $(document).ready(function(){
     $("#ID_PRAKTIKUM").select2();
     $("#ID_RUANG_LABORATORIUM").select2();
-    
-    $("#create-jadwal").validate({
+
+    $("#edit-jadwal").validate({
         rules: {
-            PESAN: {
+            TANGGAL_PEMINJAMAN: {
+                required: true
+            },
+            JAM_MULAI: {
+                required: true
+            },
+            JAM_SELESAI: {
                 required: true
             },
         },
         messages: {
-            PESAN: "Pesan harus diisi.",
+            TANGGAL_PEMINJAMAN: "Tanggal Peminjaman baru harus diisi",
+            JAM_MULAI: "Jam Mulai Baru harus diisi",
+            JAM_SELESAI: "Jam Selesai Baru harus diisi",
         },
         errorElement : 'div',
         errorClass: "invalid-feedback animated fadeInUp",
@@ -243,7 +257,6 @@ $(document).ready(function(){
 
     $.get(url,function(result){
         a = result;
-        console.log(a);
         $("#calendar").fullCalendar({
             slotDuration: "00:15:00",
             minTime: "06:00:00",
@@ -254,6 +267,7 @@ $(document).ready(function(){
                 center: "title",
                 right: "month,agendaWeek,agendaDay"
             },
+            timeFormat: 'HH(:mm)',
             height: $(window).height(),
             events: a,
             editable: false,
@@ -264,6 +278,34 @@ $(document).ready(function(){
                 $("#modal-peminjaman-"+calEvent.id_peminjaman).modal('toggle');
             }
         });
+    });
+    function checkRuang(tgl, id_ruang, jam_mulai, jam_selesai) {
+        $.get("{{ url('/pengelola/cekRuang') }}", { tgl: tgl, id_ruang: id_ruang, jam_mulai: jam_mulai, jam_selesai:jam_selesai }, function(booked){
+            if(booked){
+                $("#button-form-jadwal").attr('disabled',true);
+                $("#alert-gagal").attr('hidden',false);
+                $("#alert-sukses").attr('hidden',true);
+            } else {
+                $("#button-form-jadwal").attr('disabled',false);
+                $("#alert-gagal").attr('hidden',true);
+                $("#alert-sukses").attr('hidden',false);
+            }
+        });
+    };
+
+    $("input").on('change', function(){
+        let tgl = $("input[name='TANGGAL_PEMINJAMAN_submit']").val();
+        let id_ruang = $("select[name='ID_RUANG_LABORATORIUM']").val();
+        let jam_mulai = $("input[name='JAM_MULAI']").val();
+        let jam_selesai = $("input[name='JAM_SELESAI']").val();
+        if((tgl != "" && id_ruang != "") && (jam_mulai != "" && jam_selesai != "")){
+            jam_mulai = jam_mulai.split(":");
+            jam_mulai =  parseInt(jam_mulai[0]*60)+parseInt(jam_mulai[1]);
+            jam_selesai = jam_selesai.split(":");
+            jam_selesai =  parseInt(jam_selesai[0]*60)+parseInt(jam_selesai[1]);
+            
+            checkRuang(tgl, id_ruang, jam_mulai, jam_selesai);
+        }
     });
 });
     

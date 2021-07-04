@@ -107,24 +107,19 @@ class Lemari extends Model
 
 	public static function katalog_bahan_kimia($id)
 	{
-		$data = [];
-		$list_katalog = self::select('a.*','kb.*')
-		->join('bahan_kimia as a','a.ID_LEMARI','lemari.ID_LEMARI')
-		->join('katalog_bahan as kb','kb.ID_KATALOG_BAHAN','a.ID_KATALOG_BAHAN')
+		$list_bahan = BahanKimia::select('*')
+		->join('lemari','bahan_kimia.ID_LEMARI','lemari.ID_LEMARI')
 		->where('lemari.ID_LEMARI','=',$id)->get();
-		foreach($list_katalog as $l){
+		$data = [];
+
+		foreach($list_bahan as $b){
 			$obj = new \StdClass();
-			$obj->ID_KATALOG_BAHAN = $l->ID_KATALOG_BAHAN;
-			$obj->NAMA_KATALOG_BAHAN = $l->NAMA_KATALOG_BAHAN;
-			$obj->RUMUS = $l->RUMUS;
-			$obj->SPESIFIKASI_BAHAN = $l->SPESIFIKASI_BAHAN;
-			$obj->WUJUD = $l->WUJUD;
-			$list_bahan_kimia = BahanKimia::where('ID_KATALOG_BAHAN','=',$l->ID_KATALOG_BAHAN)->get();
-			$jml_bahan_kimia = 0;
-			foreach($list_bahan_kimia as $a){
-				$jml_bahan_kimia = $jml_bahan_kimia + $a->stok();
-			}
-			$obj->JUMLAH_BAHAN_KIMIA = $jml_bahan_kimia;
+			$obj->ID_BAHAN_KIMIA = $b->ID_BAHAN_KIMIA;
+			$obj->NAMA_BAHAN_KIMIA = $b->NAMA_BAHAN_KIMIA;
+			$obj->RUMUS = $b->RUMUS;
+			$obj->SPESIFIKASI_BAHAN = $b->SPESIFIKASI_BAHAN;
+			$obj->WUJUD = $b->WUJUD;
+			$obj->JUMLAH_BAHAN_KIMIA = $b->stok();
 			$data[] = $obj;
 		}
 		return $data;

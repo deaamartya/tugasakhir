@@ -93,7 +93,7 @@
                                     <div class="col-9">
                                         <select class="form-control select2" id="ID_ALAT">
                                             @foreach($alat as $t)
-                                            <option value="{{ $t->ID_ALAT }}"> {{ $t->merk_tipe_alat->NAMA_MERK_TIPE }} - {{ $t->katalog_alat->NAMA_ALAT }} {{ $t->katalog_alat->UKURAN }} </option>
+                                            <option value="{{ $t->ID_ALAT }}"> {{ $t->ID_ALAT }} {{ $t->merk_tipe_alat->NAMA_MERK_TIPE }} - {{ $t->katalog_alat->NAMA_ALAT }} {{ $t->katalog_alat->UKURAN }} </option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -109,7 +109,7 @@
                                     <div class="col-9">
                                         <select class="form-control select2" id="ID_BAHAN">
                                             @foreach($bahan as $t)
-                                            <option value="{{ $t->ID_BAHAN }}"> {{ $t->NAMA_BAHAN }} </option>
+                                            <option value="{{ $t->ID_BAHAN }}"> {{ $t->ID_BAHAN }} {{ $t->NAMA_BAHAN }} </option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -125,7 +125,7 @@
                                     <div class="col-9">
                                         <select class="form-control select2" id="ID_BAHAN_KIMIA">
                                             @foreach($bahan_kimia as $t)
-                                            <option value="{{ $t->ID_BAHAN_KIMIA }}"> {{ $t->katalog_bahan->NAMA_KATALOG_BAHAN }} </option>
+                                            <option value="{{ $t->ID_BAHAN_KIMIA }}"> {{ $t->ID_BAHAN_KIMIA }} {{ $t->NAMA_BAHAN_KIMIA }} - @php echo $t->RUMUS; @endphp ({{$t->WUJUD}}) </option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -361,7 +361,7 @@ $(document).ready(function(){
             hitungTotalBahanKimia();
         }
         else{
-            var nama_bahan = bahan_kimia[index]['ID_BAHAN_KIMIA'] +" "+ bahan_kimia[index]['NAMA_KATALOG_BAHAN'];
+            var nama_bahan = bahan_kimia[index]['ID_BAHAN_KIMIA'] +" "+ bahan_kimia[index]['NAMA_BAHAN_KIMIA']+" - "+ bahan_kimia[index]['RUMUS']+" ("+bahan_kimia[index]['WUJUD']+") ";
             var markup =
             "<tr id='bahan-kimia-"+index+"'>"+
                 "<td width='60%'>"+nama_bahan+"<input type='hidden' name='id_bahan_kimia["+index+"]' value='"+id_bahan_kimia+"'><input type='hidden' name='index_bahan_kimia["+index+"]' value='"+index+"'></td>"+

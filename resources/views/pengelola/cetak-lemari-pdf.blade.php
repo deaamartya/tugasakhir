@@ -81,9 +81,9 @@
             @foreach($lemari->katalog_bahan_kimia($lemari->ID_LEMARI) as $d)
             <tr>
                 <td>{{ $loop->iteration }}</td>
-                <td>{{ $d->ID_KATALOG_BAHAN }}</td>
-                <td>{{ $d->NAMA_KATALOG_BAHAN }}</td>
-                <td>{{ $d->RUMUS }}</td>
+                <td>{{ $d->ID_BAHAN_KIMIA }}</td>
+                <td>{{ $d->NAMA_BAHAN_KIMIA }}</td>
+                <td>@php echo $d->RUMUS @endphp</td>
                 <td>@if($d->SPESIFIKASI_BAHAN) TEK @else PA @endif</td>
                 <td>{{ $d->WUJUD }}</td>
                 <td>{{ $d->JUMLAH_BAHAN_KIMIA }}</td>

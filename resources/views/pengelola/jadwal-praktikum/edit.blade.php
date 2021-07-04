@@ -24,14 +24,6 @@
 @section('content')
 
 <div class="container-fluid">
-    <div class="row page-titles mx-0">
-        <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ route('pengelola.jadwal-praktikum.index') }}">Jadwal Praktikum</a></li>
-                <li class="breadcrumb-item active"><a href="javascript:void(0)">Buat Penjadwalan Ulang Praktikum</a></li>
-            </ol>
-        </div>
-    </div>
     
     @if(Session::has('created') || Session::has('updated') || Session::has('deleted') || Session::has('error'))
     <div class="alert 
@@ -70,19 +62,35 @@
         <div class="col-xl-6 col-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Jadwal Praktikum</h4>
+                    <h4 class="card-title">Ubah Jadwal Praktikum</h4>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <form id="create-jadwal" action="{{ route('guru.penjadwalan-ulang.store') }}" name="create-praktikum" method="POST">
+                        <form id="edit-jadwal" action="{{ url('pengelola/edit-jadwal/update') }}" name="edit-jadwal" method="POST">
                         @csrf
-                        
-                            <input type="hidden" name="ID_PEMINJAMAN" value="{{ $peminjaman->ID_PEMINJAMAN }}">
+                            <input type="hidden" name="ID_PEMINJAMAN" value="{{ $jadwalulang->ID_PEMINJAMAN }}">
+
+                            <div class="form-group px-2">
+                                <div>Tanggal Lama :</div>
+                                <div>{{ $jadwalulang->TANGGAL_PEMINJAMAN }}</div>
+                            </div>
+
+                            <div class="form-group px-2">
+                                <div>Jam Mulai :</div>
+                                <div>{{ $jadwalulang->JAM_MULAI }}</div>
+                            </div>
+
+                            <div class="form-group px-2">
+                                <div>Jam Selesai :</div>
+                                <div>{{ $jadwalulang->JAM_SELESAI }}</div>
+                            </div>
+
+                            <hr>
 
                             <div class="form-group">
                                 <label>Ruang Laboratorium</label>
                                 <select disabled class="select2-single @error('ID_RUANG_LABORATORIUM') is-invalid @enderror" name="ID_RUANG_LABORATORIUM" id="ID_RUANG_LABORATORIUM">
-                                        <option value="{{ $peminjaman->ID_RUANG_LABORATORIUM }}" selected>{{ $peminjaman->ruang_laboratorium->NAMA_RUANG_LABORATORIUM }}</option>
+                                        <option value="{{ $jadwalulang->ID_RUANG_LABORATORIUM }}" selected>{{ $jadwalulang->ruang_laboratorium->NAMA_RUANG_LABORATORIUM }}</option>
                                 </select>
                                 <div class="invalid-feedback animated fadeInUp">
                                     Silahkan pilih ruang laboratorium
@@ -92,7 +100,7 @@
                             <div class="form-group">
                                 <label>Praktikum</label>
                                 <select disabled class="select2-single @error('ID_PRAKTIKUM') is-invalid @enderror" name="ID_PRAKTIKUM" id="ID_PRAKTIKUM">
-                                    <option value="{{ $peminjaman->ID_PRAKTIKUM }}" selected>{{ $peminjaman->praktikum->JUDUL_PRAKTIKUM }} - {{ $peminjaman->kelas->jenis_kelas->NAMA_JENIS_KELAS }}</option>
+                                    <option value="{{ $jadwalulang->ID_PRAKTIKUM }}" selected>{{ $jadwalulang->praktikum->JUDUL_PRAKTIKUM }} - {{ $jadwalulang->kelas->jenis_kelas->NAMA_JENIS_KELAS }}</option>
                                 </select>
                                 <div class="invalid-feedback animated fadeInUp">
                                     Silahkan pilih praktikum
@@ -100,25 +108,17 @@
                             </div>
 
                             <div class="form-group">
-                                <label>Tanggal Lama</label>
-                                <input class="datepicker-default form-control" value="{{ $peminjaman->TANGGAL_PEMINJAMAN }}" disabled>
+                                <label>Tanggal Baru</label>
+                                <input class="datepicker-default form-control" name="TANGGAL_PEMINJAMAN">
                                 <div class="invalid-feedback animated fadeInUp">
-                                    Tanggal Praktikum harus diisi
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label>Permintaan Tanggal Baru (opsional)</label>
-                                <input name="TANGGAL_BARU" class="datepicker-default form-control @error('TANGGAL_BARU') is-invalid @enderror" id="TANGGAL_BARU">
-                                <div class="invalid-feedback animated fadeInUp">
-                                    Tanggal Praktikum harus diisi
+                                    Tanggal Peminjaman harus diisi
                                 </div>
                             </div>
                             
                             <div class="form-group">
-                                <label>Permintaan Jam Mulai Baru (opsional)</label>
+                                <label>Jam Mulai Baru</label>
                                 <div class="input-group clockpicker" data-placement="bottom" data-align="top" data-autoclose="true">
-                                    <input type="text" class="form-control @error('JAM_MULAI_BARU') is-invalid @enderror" name="JAM_MULAI_BARU" id="JAM_MULAI_BARU">
+                                    <input type="text" class="form-control @error('JAM_MULAI') is-invalid @enderror" name="JAM_MULAI" id="JAM_MULAI">
                                 </div>
                                 <div class="invalid-feedback animated fadeInUp">
                                 Jam Mulai Praktikum harus diisi
@@ -126,21 +126,23 @@
                             </div>
 
                             <div class="form-group">
-                                <label>Permintaan Jam Selesai Baru (opsional)</label>
+                                <label>Jam Selesai Baru</label>
                                 <div class="input-group clockpicker" data-placement="bottom" data-align="top" data-autoclose="true">
-                                    <input type="text" class="form-control @error('JAM_SELESAI_BARU') is-invalid @enderror" name="JAM_SELESAI_BARU" id="JAM_SELESAI_BARU"> 
+                                    <input type="text" class="form-control @error('JAM_SELESAI') is-invalid @enderror" name="JAM_SELESAI" id="JAM_SELESAI">
                                 </div>
                                 <div class="invalid-feedback animated fadeInUp">
                                 Jam Selesai Praktikum harus diisi
                                 </div>
                             </div>
 
-                            <div class="form-group">
-                                <label>Pesan</label>
-                                <textarea id="PESAN" name="PESAN" class="form-control"></textarea>
+                            <div class="form-row px-3">
+                                <div class="alert alert-danger animated pulse infinite" hidden id="alert-gagal"><i class="fa fa-exclamation-triangle mr-2"></i> Terdapat praktikum dengan ruang laboratorium pada tanggal dan jam diatas</div>
+
+                                <div class="alert alert-success animated pulse" hidden id="alert-sukses"><i class="fa fa-check mr-2"></i>Ruang laboratorium dapat digunakan pada tanggal dan jam diatas</div>
                             </div>
 
-                            <button type="submit" class="btn btn-primary submit-btn">Simpan</button>
+                            <button type="submit" class="btn btn-primary submit-btn" id="button-form-jadwal">Simpan</button>
+
                         </form>
                     </div>
                 </div>
@@ -204,15 +206,23 @@
 $(document).ready(function(){
     $("#ID_PRAKTIKUM").select2();
     $("#ID_RUANG_LABORATORIUM").select2();
-    
-    $("#create-jadwal").validate({
+
+    $("#edit-jadwal").validate({
         rules: {
-            PESAN: {
+            TANGGAL_PEMINJAMAN: {
+                required: true
+            },
+            JAM_MULAI: {
+                required: true
+            },
+            JAM_SELESAI: {
                 required: true
             },
         },
         messages: {
-            PESAN: "Pesan harus diisi.",
+            TANGGAL_PEMINJAMAN: "Tanggal Peminjaman baru harus diisi",
+            JAM_MULAI: "Jam Mulai Baru harus diisi",
+            JAM_SELESAI: "Jam Selesai Baru harus diisi",
         },
         errorElement : 'div',
         errorClass: "invalid-feedback animated fadeInUp",
@@ -232,7 +242,7 @@ $(document).ready(function(){
         },
     });
 
-    var url = "{{ url('/guru/datapraktikum') }}";
+    var url = "{{ url('/pengelola/datapraktikum') }}";
 
     $.get(url,function(result){
         a = result;
@@ -248,7 +258,7 @@ $(document).ready(function(){
                 right: "month,agendaWeek,agendaDay"
             },
             timeFormat: 'HH(:mm)',
-            height: $(window).height() - 100,
+            height: $(window).height(),
             events: a,
             editable: false,
             droppable: false,
@@ -258,6 +268,34 @@ $(document).ready(function(){
                 $("#modal-peminjaman-"+calEvent.id_peminjaman).modal('toggle');
             }
         });
+    });
+    function checkRuang(tgl, id_ruang, jam_mulai, jam_selesai) {
+        $.get("{{ url('/pengelola/cekRuang') }}", { tgl: tgl, id_ruang: id_ruang, jam_mulai: jam_mulai, jam_selesai:jam_selesai }, function(booked){
+            if(booked == true){
+                $("#button-form-jadwal").attr('disabled',true);
+                $("#alert-gagal").attr('hidden',false);
+                $("#alert-sukses").attr('hidden',true);
+            } else {
+                $("#button-form-jadwal").attr('disabled',false);
+                $("#alert-gagal").attr('hidden',true);
+                $("#alert-sukses").attr('hidden',false);
+            }
+        });
+    };
+
+    $("input").on('change', function(){
+        let tgl = $("input[name='TANGGAL_PEMINJAMAN_submit']").val();
+        let id_ruang = $("select[name='ID_RUANG_LABORATORIUM']").val();
+        let jam_mulai = $("input[name='JAM_MULAI']").val();
+        let jam_selesai = $("input[name='JAM_SELESAI']").val();
+        if((tgl != "" && id_ruang != "") && (jam_mulai != "" && jam_selesai != "")){
+            jam_mulai = jam_mulai.split(":");
+            jam_mulai =  parseInt(jam_mulai[0]*60)+parseInt(jam_mulai[1]);
+            jam_selesai = jam_selesai.split(":");
+            jam_selesai =  parseInt(jam_selesai[0]*60)+parseInt(jam_selesai[1]);
+            
+            checkRuang(tgl, id_ruang, jam_mulai, jam_selesai);
+        }
     });
 });
     

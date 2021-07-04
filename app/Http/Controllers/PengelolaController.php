@@ -41,7 +41,8 @@ class PengelolaController extends Controller
 
         $bahan_kimia_lab = BahanKimia::join('lemari as l','l.ID_LEMARI','bahan_kimia.ID_LEMARI')->where('l.ID_LABORATORIUM',$id_lab)->get();
         $total_bahan_kimia = 0;
-        foreach($bahan_lab as $t){
+
+        foreach($bahan_kimia_lab as $t){
             $total_bahan_kimia = $total_bahan_kimia + $t->stok();
         }
 
@@ -103,14 +104,14 @@ class PengelolaController extends Controller
         $praktikum_menunggu = PeminjamanAlatBahan::join('kelas as k','k.ID_KELAS','=','peminjaman_alat_bahan.ID_KELAS')
         ->where('k.ID_TAHUN_AKADEMIK',$id_ta)
         ->where('STATUS_PEMINJAMAN','MENUNGGU KONFIRMASI')
-        ->limit(10)->get();
+        ->limit(5)->get();
 
         // Ambil 3 praktikum selesai
         $praktikum_selesai = PeminjamanAlatBahan::join('kelas as k','k.ID_KELAS','=','peminjaman_alat_bahan.ID_KELAS')
         ->where('k.ID_TAHUN_AKADEMIK',$id_ta)
         ->where('STATUS_PEMINJAMAN','SUDAH DIKEMBALIKAN')
         ->orderBy('ID_PEMINJAMAN','DESC')
-        ->limit(10)->get();
+        ->limit(5)->get();
 
         $menunggu_penjadwalan = 0;
 

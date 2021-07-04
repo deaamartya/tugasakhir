@@ -43,7 +43,8 @@ class BahanKimia extends Model
 		'ID_LEMARI',
 		'RUMUS',
 		'WUJUD',
-		'SPESIFIKASI_BAHAN'
+		'SPESIFIKASI_BAHAN',
+		'NAMA_BAHAN_KIMIA'
 	];
 
 	public function katalog_bahan()

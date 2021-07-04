@@ -16,7 +16,7 @@ class CreatePraktikumTable extends Migration
         Schema::create('praktikum', function (Blueprint $table) {
             $table->char('ID_PRAKTIKUM', 10)->primary();
             $table->char('ID_MAPEL', 5)->index('FK_BAGIAN_DARI_2');
-            $table->string('JUDUL_PRAKTIKUM', 100);
+            $table->text('JUDUL_PRAKTIKUM');
         });
 
         DB::unprepared("CREATE TRIGGER `auto_id_praktikum` BEFORE INSERT ON `praktikum` FOR EACH ROW 

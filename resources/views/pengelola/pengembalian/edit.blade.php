@@ -98,8 +98,8 @@
                                     <th>Keterangan <small class="text-danger">*Jika ada alat rusak</small></th>
                                 </thead>
                                 <tbody>
+                                    @php $i = 1; @endphp
                                     @foreach($peminjaman->alat_peminjaman($peminjaman->ID_PEMINJAMAN) as $a)
-                                        @php $i = 1; @endphp
                                         <tr>
                                             <td width="30%">{{ $a->alat->ID_ALAT }} {{ $a->alat->merk_tipe_alat->NAMA_MERK_TIPE }} {{ $a->alat->katalog_alat->NAMA_ALAT }} {{ $a->alat->katalog_alat->UKURAN }}</td>
                                             <input type="hidden" value="{{ $a->alat->ID_ALAT }}" name="id_alat[{{$i}}]">
@@ -121,8 +121,8 @@
                                     <th>Sisa</th>
                                 </thead>
                                 <tbody>
+                                    @php $i = 1; @endphp
                                     @foreach($peminjaman->bahan_peminjaman($peminjaman->ID_PEMINJAMAN) as $a)
-                                        @php $i = 1; @endphp
                                         <tr>
                                             <td width="50%">{{ $a->bahan->ID_BAHAN }} {{ $a->bahan->NAMA_BAHAN }}</td>
                                             <input type="hidden" value="{{ $a->bahan->ID_BAHAN }}" name="id_bahan[{{$i}}]">
@@ -142,8 +142,8 @@
                                     <th>Sisa</th>
                                 </thead>
                                 <tbody>
+                                    @php $i = 1; @endphp
                                     @foreach($peminjaman->bahan_kimia_peminjaman($peminjaman->ID_PEMINJAMAN) as $a)
-                                        @php $i = 1; @endphp
                                             <tr>
                                                 <td width="50%">{{ $a->bahan_kimia->ID_BAHAN_KIMIA }} {{ $a->bahan_kimia->katalog_bahan->NAMA_KATALOG_BAHAN }}</td>
                                                 <td width="20%">{{ $a->JUMLAH_PINJAM }}gr</td>

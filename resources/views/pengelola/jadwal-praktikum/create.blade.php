@@ -267,6 +267,7 @@ $(document).ready(function(){
                 center: "title",
                 right: "month,agendaWeek,agendaDay"
             },
+            timeFormat: 'HH(:mm)',
             height: $(window).height() - 100,
             events: a,
             editable: false,

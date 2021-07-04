@@ -49,7 +49,7 @@ class PenjadwalanUlangController extends Controller
 
         $peminjaman = PeminjamanAlatBahan::find($id);
         
-        $id_lab = 1;
+        $id_lab = Auth::user()->ID_LABORATORIUM;
 
         $praktikum = PeminjamanAlatBahan::join('ruang_laboratorium as r','r.ID_RUANG_LABORATORIUM','peminjaman_alat_bahan.ID_RUANG_LABORATORIUM')->where('r.ID_LABORATORIUM','=',$id_lab)->orderBy('ID_PEMINJAMAN','DESC')->get();
 

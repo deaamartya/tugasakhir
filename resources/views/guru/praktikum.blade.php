@@ -107,7 +107,7 @@
                                         @if(!isset($d->perubahan_jadwal_peminjamen))
                                         <div class="d-flex">
                                             <a href="{{ url('guru/penjadwalan-ulang/'.$d->ID_PEMINJAMAN) }}">
-                                                <button type="button" class="btn btn-primary shadow sharp mr-3"><i class="fa fa-pencil mr-2"></i>Jadwalkan Ulang</button>
+                                                <button type="button" class="btn btn-primary shadow sharp mr-3"><i class="fa fa-pencil"></i></button>
                                             </a>
                                         </div>	
                                         @else
@@ -199,6 +199,7 @@
                     center: "title",
                     right: "month,agendaWeek,agendaDay"
                 },
+                timeFormat: 'HH(:mm)',
                 height: $(window).height() - 100,
                 events: a,
                 editable: false,

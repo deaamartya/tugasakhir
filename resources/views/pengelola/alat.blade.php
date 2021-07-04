@@ -197,7 +197,7 @@
                     <input type="hidden" name="ID_ALAT_LAMA" value="{{ $d->ID_ALAT }}">
                     <div class="form-group">
                         <label>Katalog Alat</label>
-                        <select class="form-control select2 @error('ID_KATALOG_ALAT') is-invalid @enderror" name="ID_KATALOG_ALAT" id="ID_KATALOG_ALAT">
+                        <select class="select2 @error('ID_KATALOG_ALAT') is-invalid @enderror" name="ID_KATALOG_ALAT" id="ID_KATALOG_ALAT">
                             @foreach($katalog as $t)
                                 <option value="{{ $t->ID_KATALOG_ALAT }}" @if($d->ID_KATALOG_ALAT == $t->ID_KATALOG_ALAT) selected @endif >{{ $t->ID_KATALOG_ALAT }} - {{ $t->NAMA_ALAT }} {{ $t->UKURAN }}</option>
                             @endforeach
@@ -209,7 +209,7 @@
 
                     <div class="form-group">
                         <label>Lemari</label>
-                        <select class="form-control select2 @error('ID_LEMARI') is-invalid @enderror" name="ID_LEMARI" id="ID_LEMARI">
+                        <select class="select2 @error('ID_LEMARI') is-invalid @enderror" name="ID_LEMARI" id="ID_LEMARI">
                             @foreach($lemari as $t)
                                 <option value="{{ $t->ID_LEMARI }}" @if($d->ID_LEMARI == $t->ID_LEMARI) selected @endif >{{ $t->NAMA_LEMARI }}</option>
                             @endforeach
@@ -221,7 +221,7 @@
 
                     <div class="form-group">
                         <label>Merk/Tipe</label>
-                        <select class="form-control select2 @error('ID_MERK_TIPE') is-invalid @enderror" name="ID_MERK_TIPE" id="ID_MERK_TIPE">
+                        <select class="select2 @error('ID_MERK_TIPE') is-invalid @enderror" name="ID_MERK_TIPE" id="ID_MERK_TIPE">
                             @foreach($tipe as $t)
                                 <option value="{{ $t->ID_MERK_TIPE }}" @if($d->ID_MERK_TIPE == $t->ID_MERK_TIPE) selected @endif >{{ $t->NAMA_MERK_TIPE }}</option>
                             @endforeach
@@ -324,7 +324,9 @@
 @endif
 <script>
 $(document).ready(function(){
-    $(".select2").select2();
+    $("#ID_KATALOG_ALAT").select2();
+    $("#ID_LEMARI").select2();
+    $("#ID_MERK_TIPE").select2();
     $("#create-alat").validate({
         rules: {
             ID_KATALOG_ALAT: {

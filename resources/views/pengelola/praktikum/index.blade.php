@@ -139,7 +139,7 @@
                             @foreach($d->alat_bahan_praktikum as $a)
                                 @if($a->ID_TIPE == 1)
                                 <tr>
-                                    <td width="80%">{{ $a->alat->katalog_alat->NAMA_ALAT }}</td>
+                                    <td width="80%">{{ $a->alat->merk_tipe_alat->NAMA_MERK_TIPE }} - {{ $a->alat->katalog_alat->NAMA_ALAT }} {{ $a->alat->katalog_alat->UKURAN }}</td>
                                     <td width="20%">{{ $a->JUMLAH }}pcs</td>
                                 </tr>
                                 @endif
@@ -181,7 +181,7 @@
                             @foreach($d->alat_bahan_praktikum as $a)
                                 @if($a->ID_TIPE == 3)
                                     <tr>
-                                        <td width="80%">{{ $a->bahan_kimia->katalog_bahan->NAMA_KATALOG_BAHAN }}</td>
+                                        <td width="80%">{{ $a->bahan_kimia->NAMA_BAHAN_KIMIA }} - @php echo $a->bahan_kimia->RUMUS; @endphp ({{ $a->bahan_kimia->WUJUD }})</td>
                                         <td width="20%">{{ $a->JUMLAH }}gr</td>
                                     </tr>
                                 @endif

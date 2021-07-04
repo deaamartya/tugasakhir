@@ -93,6 +93,7 @@
                                     <th>Kelas</th>
                                     <th>Guru</th>
                                     <th>Waktu Pelaksanaan</th>
+                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -102,7 +103,12 @@
                                     <td>{{ $d->praktikum->JUDUL_PRAKTIKUM }}</td>
                                     <td>{{ $d->kelas->jenis_kelas->NAMA_JENIS_KELAS }}</td>
                                     <td>{{ $d->kelas->guru->NAMA_LENGKAP }}</td>
-                                    <td>{{ $d->TANGGAL_PEMINJAMAN }} {{ $d->JAM_MULAI }} - {{ $d->JAM_SELESAI }}</td>							
+                                    <td>{{ $d->TANGGAL_PEMINJAMAN }} {{ $d->JAM_MULAI }} - {{ $d->JAM_SELESAI }}</td>	
+                                    <td>
+                                        <a href="{{ route('pengelola.jadwal-praktikum.edit',$d->ID_PEMINJAMAN) }}">
+                                            <button type="button" class="btn btn-primary shadow sharp px-3"><i class="fa fa-pencil mr-2"></i>Ubah</button>
+                                        </a>
+                                    </td>						
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -177,6 +183,7 @@
                     center: "title",
                     right: "month,agendaWeek,agendaDay"
                 },
+                timeFormat: 'HH(:mm)',
                 height: $(window).height() - 100,
                 events: a,
                 editable: false,

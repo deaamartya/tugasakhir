@@ -40,18 +40,24 @@ class BahanKimiaController extends Controller
             'ID_KATALOG_BAHAN' => 'required|exists:App\Models\KatalogBahan,ID_KATALOG_BAHAN',
             'ID_LEMARI' => 'required|exists:App\Models\Lemari,ID_LEMARI',
             'RUMUS' => 'required',
+            'NAMA_BAHAN_KIMIA' => 'required',
             'WUJUD' => 'required',
             'JUMLAH_BAHAN_KIMIA' => 'required',
             'SPESIFIKASI_BAHAN' => 'required',
         ]);
 
-        $request->SPESIFIKASI_BAHAN = ($request->SPESIFIKASI_BAHAN == "true") ? true : false;
-
         DB::transaction(function() use($request){
+            str_replace('<p>','', $request->RUMUS);
+            str_replace('</p>','', $request->RUMUS);
+            str_replace('<br>','', $request->RUMUS);
+            str_replace('</br>','', $request->RUMUS);
+
+            $request->SPESIFIKASI_BAHAN = ($request->SPESIFIKASI_BAHAN == "true") ? true : false;
             BahanKimia::insert([
                 'ID_KATALOG_BAHAN' => $request->ID_KATALOG_BAHAN,
                 'ID_LEMARI' => $request->ID_LEMARI,
                 'RUMUS' => $request->RUMUS,
+                'NAMA_BAHAN_KIMIA' => $request->NAMA_BAHAN_KIMIA,
                 'WUJUD' => $request->WUJUD,
                 'SPESIFIKASI_BAHAN' => $request->SPESIFIKASI_BAHAN,
             ]);
@@ -60,6 +66,7 @@ class BahanKimiaController extends Controller
                 'ID_KATALOG_BAHAN' => $request->ID_KATALOG_BAHAN,
                 'ID_LEMARI' => $request->ID_LEMARI,
                 'RUMUS' => $request->RUMUS,
+                'NAMA_BAHAN_KIMIA' => $request->NAMA_BAHAN_KIMIA,
                 'WUJUD' => $request->WUJUD,
                 'SPESIFIKASI_BAHAN' => $request->SPESIFIKASI_BAHAN,
             ])->value('ID_BAHAN_KIMIA');
@@ -89,9 +96,15 @@ class BahanKimiaController extends Controller
             'ID_KATALOG_BAHAN' => 'required|exists:App\Models\KatalogBahan,ID_KATALOG_BAHAN',
             'ID_LEMARI' => 'required|exists:App\Models\Lemari,ID_LEMARI',
             'RUMUS' => 'required',
+            'NAMA_BAHAN_KIMIA' => 'required',
             'WUJUD' => 'required',
             'SPESIFIKASI_BAHAN' => 'required',
         ]);
+
+        str_replace('<p>','', $request->RUMUS);
+        str_replace('</p>','', $request->RUMUS);
+        str_replace('<br>','', $request->RUMUS);
+        str_replace('</br>','', $request->RUMUS);
 
         $request->SPESIFIKASI_BAHAN = ($request->SPESIFIKASI_BAHAN == "true") ? true : false;
 
@@ -100,6 +113,7 @@ class BahanKimiaController extends Controller
             'ID_KATALOG_BAHAN' => $request->ID_KATALOG_BAHAN,
             'ID_LEMARI' => $request->ID_LEMARI,
             'RUMUS' => $request->RUMUS,
+            'NAMA_BAHAN_KIMIA' => $request->NAMA_BAHAN_KIMIA,
             'WUJUD' => $request->WUJUD,
             'SPESIFIKASI_BAHAN' => $request->SPESIFIKASI_BAHAN,
         ]);

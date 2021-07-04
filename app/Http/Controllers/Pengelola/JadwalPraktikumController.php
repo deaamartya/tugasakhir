@@ -172,7 +172,8 @@ class JadwalPraktikumController extends Controller
 
         $booked = PeminjamanAlatBahan::where([
             'ID_RUANG_LABORATORIUM' => $request->id_ruang,
-            'TANGGAL_PEMINJAMAN' => $request->tgl
+            'TANGGAL_PEMINJAMAN' => $request->tgl,
+            'STATUS_PEMINJAMAN' => 'MENUNGGU KONFIRMASI',
         ])->get();
 
         if(count($booked) > 0){
@@ -186,15 +187,54 @@ class JadwalPraktikumController extends Controller
                 $jam_selesai = explode(":",$jam_selesai);
                 $jam_selesai = intval($jam_selesai[0]*60) + intval($jam_selesai[1]);
 
-                if($jam_mulai > $request->jam_selesai || $jam_selesai < $request->jam_mulai){
-                    return response()->json(false);
+                if(($jam_mulai < $request->jam_mulai && $jam_selesai < $request->jam_selesai && $jam_selesai < $request->jam_mulai) || ($jam_mulai > $request->jam_mulai && $jam_selesai > $request->jam_selesai && $jam_selesai > $request->jam_mulai)){
+                    continue;
                 }
-                else {
+                if($jam_mulai <= $request->jam_mulai || $jam_mulai >= $request->jam_selesai){
+                    return response()->json(true);
+                }
+                else if($jam_selesai <= $request->jam_selsai || $jam_selesai >= $request->jam_mulai){
                     return response()->json(true);
                 }
             }
+            return response()->json(false);
         } else {
             return response()->json(false);
         }
+    }
+
+    public function edit(Request $request, $id)
+    {
+        $page_title = 'Ubah Jadwal Praktikum';
+        $action = 'uc_select2';
+
+        $id_lab = Auth::user()->ID_LABORATORIUM;
+
+        $praktikum = PeminjamanAlatBahan::join('praktikum as p','p.ID_PRAKTIKUM','peminjaman_alat_bahan.ID_PRAKTIKUM')
+        ->join('ruang_laboratorium as r','r.ID_RUANG_LABORATORIUM','peminjaman_alat_bahan.ID_RUANG_LABORATORIUM')
+        ->where('r.ID_LABORATORIUM','=',$id_lab)
+        ->get();
+
+        $jadwalulang = PeminjamanAlatBahan::where('ID_PEMINJAMAN',$id)->first();
+
+        return view('pengelola.jadwal-praktikum.edit', compact('page_title','action','jadwalulang','praktikum'));
+    }
+
+    public function update(Request $request)
+    {
+        $request->validate([
+            'TANGGAL_PEMINJAMAN_submit' => 'required',
+            'JAM_MULAI' => 'required',
+            'JAM_SELESAI' => 'required',
+        ]);
+
+        DB::transaction(function() use($request){
+            PeminjamanAlatBahan::where('ID_PEMINJAMAN',$request->ID_PEMINJAMAN)->update([
+                "TANGGAL_PEMINJAMAN" => $request->TANGGAL_PEMINJAMAN_submit,
+                "JAM_MULAI" => $request->JAM_MULAI,
+                "JAM_SELESAI" => $request->JAM_SELESAI,
+            ]);
+        });
+        return redirect()->route('pengelola.jadwal-praktikum.index')->with('created','Data berhasil diubah');
     }
 }

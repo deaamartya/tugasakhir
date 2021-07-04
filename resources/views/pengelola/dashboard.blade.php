@@ -20,7 +20,7 @@
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-md-3 col-6">
+		<div class="col-lg-3 col-sm-6 col-12">
 			<div class="widget-stat card">
 				<div class="card-body p-4">
 					<div class="media ai-icon">
@@ -38,7 +38,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-md-3 col-6">
+		<div class="col-lg-3 col-sm-6 col-12">
 			<div class="widget-stat card">
 				<div class="card-body p-4">
 					<div class="media ai-icon">
@@ -55,7 +55,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-md-3 col-6">
+		<div class="col-lg-3 col-sm-6 col-12">
 			<div class="widget-stat card">
 				<div class="card-body p-4">
 					<div class="media ai-icon">
@@ -71,7 +71,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-md-3 col-6">
+		<div class="col-lg-3 col-sm-6 col-12">
 			<div class="widget-stat card">
 				<div class="card-body p-4">
 					<div class="media ai-icon">
@@ -88,7 +88,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-12 col-md-4">
+		<div class="col-12 col-lg-4">
 			<div class="widget-stat card">
 				<div class="card-body p-4">
 					<div class="media ai-icon">
@@ -105,7 +105,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-12 col-md-4">
+		<div class="col-12 col-lg-4">
 			<div class="widget-stat card">
 				<div class="card-body p-4">
 					<div class="media ai-icon">
@@ -148,7 +148,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-12 col-md-4">
+		<div class="col-12 col-lg-4">
 			<div class="widget-stat card">
 				<div class="card-body p-4">
 					<div class="media ai-icon">
@@ -165,7 +165,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-12">
+		{{-- <div class="col-12">
 			<div class="card">
 				<div class="card-header border-0 pb-0 d-sm-flex d-block">
 					<div>
@@ -258,7 +258,7 @@
 					</div>
 				</div>
 			</div>
-		</div>
+		</div> --}}
 		<div class="col-12" data-aos="fade-down">
 			<div class="row">
         <div class="col-xl-3">
@@ -390,50 +390,50 @@
     <script src="{{ asset('js/enable-push.js') }}" defer></script>
 @endauth --}}
 <script>
-	var series_1 = Number("{{$persen_belum_pinjam}}");
-	var series_2 = Number("{{$persen_sedang_pinjam}}");
-	var series_3 = Number("{{$persen_dikembalikan}}");
-	var donutChart = function(){
-		var options = {
-			series: [series_1,series_2,series_3],
-			labels: ['Belum Pinjam', 'Sedang Pinjam', 'Sudah Dikembalikan'],
-			colors:['#ff5c5a', '#2bc156', '#404a56'],
-			chart: {
-				width: 140,
-				height: 140,
-				type: 'donut',
-				sparkline: {
-					enabled: true,
-				},
-			},
-			plotOptions: {
-				pie: {
-					donut: {
-						size: '50%'
+	{{--var series_1 = Number("{{$persen_belum_pinjam}}");--}}
+	{{-- var series_2 = Number("{{$persen_sedang_pinjam}}");--}}
+	{{-- var series_3 = Number("{{$persen_dikembalikan}}");--}}
+	// var donutChart = function(){
+	// 	var options = {
+	// 		series: [series_1,series_2,series_3],
+	// 		labels: ['Belum Pinjam', 'Sedang Pinjam', 'Sudah Dikembalikan'],
+	// 		colors:['#ff5c5a', '#2bc156', '#404a56'],
+	// 		chart: {
+	// 			width: 140,
+	// 			height: 140,
+	// 			type: 'donut',
+	// 			sparkline: {
+	// 				enabled: true,
+	// 			},
+	// 		},
+	// 		plotOptions: {
+	// 			pie: {
+	// 				donut: {
+	// 					size: '50%'
 						
-					}
-				}
-			},
-			dataLabels: {
-				enabled: false
-			},
-			responsive: [{
-				breakpoint: 1300,
-				options: {
-					chart: {
-						width: 120,
-						height: 120
-					},
-				}
-			}],
-			legend: {
-				show: false
-			}
-		};
-		var chart = new ApexCharts(document.querySelector("#chart-donut"), options);
-		chart.render();
-	}
-	donutChart();
+	// 				}
+	// 			}
+	// 		},
+	// 		dataLabels: {
+	// 			enabled: false
+	// 		},
+	// 		responsive: [{
+	// 			breakpoint: 1300,
+	// 			options: {
+	// 				chart: {
+	// 					width: 120,
+	// 					height: 120
+	// 				},
+	// 			}
+	// 		}],
+	// 		legend: {
+	// 			show: false
+	// 		}
+	// 	};
+	// 	var chart = new ApexCharts(document.querySelector("#chart-donut"), options);
+	// 	chart.render();
+	// }
+	// donutChart();
 	var a;
 	var url = "{{ url('pengelola/datapraktikum') }}";
 
@@ -449,6 +449,7 @@
 							center: "title",
 							right: "month,agendaWeek,agendaDay"
 					},
+					timeFormat: 'HH(:mm)',
 					height: $(window).height() - 100,
 					events: a,
 					editable: false,
