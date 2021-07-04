@@ -267,18 +267,21 @@ class MasterController extends Controller
         
         $history_peminjaman = PeminjamanAlatBahan::where('STATUS_PEMINJAMAN','!=','MENUNGGU KONFIRMASI')->orderBy('TANGGAL_PEMINJAMAN','ASC')->get();
 
-        return view('kepalalab.peminjaman.index', compact('page_title', 'page_description','action','peminjaman','history_peminjaman'));
+        $peminjaman_all = PeminjamanAlatBahan::all();
+
+        return view('kepalalab.peminjaman.index', compact('page_title', 'page_description','action','peminjaman','history_peminjaman','peminjaman_all'));
     }
 
     public function pengembalian(){
-        $page_title = 'Ubah Jadwal Praktikum';
+        $page_title = 'Pengembalian Alat Bahan';
         $page_description = 'Menampilkan seluruh data penjadwalan ulang';
         $action = 'table_datatable_basic';
         
         $peminjaman = PeminjamanAlatBahan::where('STATUS_PEMINJAMAN','SUDAH DIKONFIRMASI')->orderBy('ID_PEMINJAMAN','DESC')->get();
 
         $pengembalian = PeminjamanAlatBahan::where('STATUS_PEMINJAMAN','SUDAH DIKEMBALIKAN')->orderBy('ID_PEMINJAMAN','DESC')->get();
+        $peminjaman_all = PeminjamanAlatBahan::all();
 
-        return view('kepalalab.pengembalian.index', compact('page_title', 'page_description','action','peminjaman','pengembalian'));
+        return view('kepalalab.pengembalian.index', compact('page_title', 'page_description','action','peminjaman','pengembalian','peminjaman_all'));
     }
 }

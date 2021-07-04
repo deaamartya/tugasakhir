@@ -57,6 +57,8 @@
                                     <th>Kelas</th>
                                     <th>Guru</th>
                                     <th>Jadwal</th>
+                                    <th>Status</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -72,7 +74,12 @@
                                     @else
                                         SUDAH DIKEMBALIKAN
                                     @endif
-                                    </td>			
+                                    </td>
+                                    <td>
+                                        <div class="d-flex">
+                                            <button type="button" class="btn btn-primary shadow sharp px-3" data-toggle="modal" data-target="#modal-detail-{{ $d->ID_PEMINJAMAN }}"><i class="fa fa-info-circle"></i></button>
+                                        </div>
+                                    </td>		
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -100,6 +107,7 @@
                                     <th>Guru</th>
                                     <th>Jadwal</th>
                                     <th>Status</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -111,6 +119,11 @@
                                     <td> {{ $d->kelas->guru->NAMA_LENGKAP }}</td>
                                     <td> {{ $d->TANGGAL_PEMINJAMAN }} {{ $d->JAM_MULAI }} - {{ $d->JAM_SELESAI }} </td>
                                     <td> {{$d->STATUS_PEMINJAMAN}} </td>
+                                    <td>
+                                        <div class="d-flex">
+                                            <button type="button" class="btn btn-primary shadow sharp px-3" data-toggle="modal" data-target="#modal-detail-{{ $d->ID_PEMINJAMAN }}"><i class="fa fa-info-circle"></i></button>
+                                        </div>
+                                    </td>
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -121,6 +134,101 @@
         </div>
     </div>
 </div>
+@foreach($peminjaman_all as $d)
+{{-- Detail Modal --}}
+<div id="modal-detail-{{ $d->ID_PEMINJAMAN }}" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Detail Peminjaman #{{ $d->ID_PEMINJAMAN }}</h5>
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div class="form-group px-2">
+                    <div>Judul Praktikum : </div>
+                    <div>{{ $d->praktikum->JUDUL_PRAKTIKUM }}</div>
+                </div>
+                <hr>
+                <div class="form-group px-2">
+                    <div>Kebutuhan Alat dan Bahan per kelompok : </div>
+                </div>
+                @php
+                    $alat = false;
+                    $bahan = false;
+                    $bahan_kimia = false;
+                @endphp
+                @if(count($d->alat_peminjaman($d->ID_PEMINJAMAN)) > 0)
+                    @php $alat = true; @endphp
+                @elseif(count($d->bahan_peminjaman($d->ID_PEMINJAMAN)) > 0)
+                    @php $bahan = true; @endphp
+                @elseif(count($d->bahan_kimia_peminjaman($d->ID_PEMINJAMAN)) > 0)
+                    @php $bahan_kimia = true; @endphp
+                @endif
+                
+                @if($alat)
+                <div class="form-group px-2">
+                    <table class="table text-black">
+                        <thead>
+                            <th>Nama Alat</th>
+                            <th>Jumlah</th>
+                        </thead>
+                        <tbody>
+                            @foreach($d->alat_peminjaman($d->ID_PEMINJAMAN) as $a)
+                                <tr>
+                                    <td width="80%">{{ $a->alat->merk_tipe_alat->NAMA_MERK_TIPE }} - {{ $a->alat->katalog_alat->NAMA_ALAT }} {{ $a->alat->katalog_alat->UKURAN }}</td>
+                                    <td width="20%">{{ $a->JUMLAH_PINJAM }}pcs</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+                @endif
+
+                @if($bahan)
+                <div class="form-group px-2">
+                    <table class="table text-black">
+                        <thead>
+                            <th>Nama Bahan</th>
+                            <th>Jumlah</th>
+                        </thead>
+                        <tbody>
+                            @foreach($d->bahan_peminjaman($d->ID_PEMINJAMAN) as $a)
+                                <tr>
+                                    <td width="80%">{{ $a->bahan->NAMA_BAHAN }}</td>
+                                    <td width="20%">{{ $a->JUMLAH_PINJAM }}pcs</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+                @endif
+
+                @if($bahan_kimia)
+                <div class="form-group px-2">
+                    <table class="table text-black">
+                        <thead>
+                            <th>Nama Bahan Kimia</th>
+                            <th>Jumlah</th>
+                        </thead>
+                        <tbody>
+                            @foreach($d->bahan_kimia_peminjaman($d->ID_PEMINJAMAN) as $a)
+                                <tr>
+                                    <td width="80%">{{ $a->bahan_kimia->NAMA_BAHAN_KIMIA }} - @php echo $a->bahan_kimia->RUMUS; @endphp ({{ $a->bahan_kimia->WUJUD }})</td>
+                                    <td width="20%">{{ $a->JUMLAH_PINJAM }}gr</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+                @endif
+            </div>
+        </div>
+    </div>
+</div>
+{{-- End of Edit Modal --}}
+@endforeach
 @endsection
 
 {{-- Tambahan Script --}}
