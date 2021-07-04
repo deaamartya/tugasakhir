@@ -126,6 +126,38 @@ Route::get('cekusername/{username}', function($username){
     return response()->json($hasil);
 });
 
+Route::middleware(['auth','cekKepalaLab'])->prefix('kepalalab')->name('kepalalab.')->group(function () {
+    Route::get('/', 'App\Http\Controllers\KepalaLab\MasterController@dashboard')->name('dashboard');
+    Route::get('datapraktikum','App\Http\Controllers\KepalaLab\MasterController@seluruhJadwal');
+    
+    Route::get('ruang-lab','App\Http\Controllers\KepalaLab\MasterController@ruang_lab');
+    Route::get('lemari','App\Http\Controllers\KepalaLab\MasterController@lemari');
+    Route::get('katalog-alat','App\Http\Controllers\KepalaLab\MasterController@katalog_alat');
+    Route::get('kategori-alat','App\Http\Controllers\KepalaLab\MasterController@kategori_alat');
+    Route::get('tipe','App\Http\Controllers\KepalaLab\MasterController@tipe');
+    Route::get('alat','App\Http\Controllers\KepalaLab\MasterController@alat');
+    Route::get('katalog-bahan','App\Http\Controllers\KepalaLab\MasterController@katalog_bahan');
+    Route::get('bahan-kimia','App\Http\Controllers\KepalaLab\MasterController@bahan_kimia');
+    Route::get('bahan','App\Http\Controllers\KepalaLab\MasterController@bahan');
+    Route::get('praktikum','App\Http\Controllers\KepalaLab\MasterController@praktikum');
+
+    Route::get('jadwal-praktikum','App\Http\Controllers\KepalaLab\MasterController@jadwal_praktikum');
+    Route::get('penjadwalan-ulang','App\Http\Controllers\KepalaLab\MasterController@penjadwalan_ulang');
+    Route::get('peminjaman','App\Http\Controllers\KepalaLab\MasterController@peminjaman');
+    Route::get('pengembalian','App\Http\Controllers\KepalaLab\MasterController@pengembalian');
+
+    Route::get('cetak/kartu-stok','App\Http\Controllers\KepalaLab\LaporanController@kartuStok');
+    Route::post('cetak/kartu-stok','App\Http\Controllers\KepalaLab\LaporanController@kartuStok');
+    Route::get('cetak/katalog-lemari','App\Http\Controllers\KepalaLab\LaporanController@katalogLemari');
+    Route::post('cetak/katalog-lemari','App\Http\Controllers\KepalaLab\LaporanController@katalogLemari');
+    Route::get('cetak/alat-rusak','App\Http\Controllers\KepalaLab\LaporanController@alatRusak');
+    Route::post('cetak/alat-rusak','App\Http\Controllers\KepalaLab\LaporanController@alatRusak');
+});
+
+Route::middleware(['auth','cekWakaSarpras'])->prefix('sarpras')->name('sarpras.')->group(function () {
+    Route::get('/', 'App\Http\Controllers\WakaSarpras\WakaSarprasController@index')->name('dashboard');
+});
+
 // -- Route dari template --
     Route::get('/dashboard-1', 'App\Http\Controllers\DavuradminController@dashboard_1');
     Route::get('/index', 'App\Http\Controllers\DavuradminController@dashboard_1');
