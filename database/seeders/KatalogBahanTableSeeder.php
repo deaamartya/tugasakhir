@@ -102,6 +102,12 @@ class KatalogBahanTableSeeder extends Seeder
                 'ID_LABORATORIUM' => 2,
                 'NAMA_KATALOG_BAHAN' => 'Timbal',
             ),
+            14 => 
+            array (
+                'ID_KATALOG_BAHAN' => 'BN/15',
+                'ID_LABORATORIUM' => 2,
+                'NAMA_KATALOG_BAHAN' => 'Alkohol',
+            ),
         ));
         
         

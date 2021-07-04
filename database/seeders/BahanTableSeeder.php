@@ -44,11 +44,23 @@ class BahanTableSeeder extends Seeder
             ),
             4 => 
             array (
+                'ID_BAHAN' => 'B005',
+                'ID_LEMARI' => 7,
+                'NAMA_BAHAN' => 'Gula pasir',
+            ),
+            5 => 
+            array (
+                'ID_BAHAN' => 'B006',
+                'ID_LEMARI' => 7,
+                'NAMA_BAHAN' => 'Urea',
+            ),
+            6 => 
+            array (
                 'ID_BAHAN' => 'L1/B001',
                 'ID_LEMARI' => 11,
                 'NAMA_BAHAN' => 'Kertas grafik/millimeter',
             ),
-            5 => 
+            7 => 
             array (
                 'ID_BAHAN' => 'L1/B002',
                 'ID_LEMARI' => 11,
