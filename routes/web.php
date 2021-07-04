@@ -156,6 +156,12 @@ Route::middleware(['auth','cekKepalaLab'])->prefix('kepalalab')->name('kepalalab
 
 Route::middleware(['auth','cekWakaSarpras'])->prefix('sarpras')->name('sarpras.')->group(function () {
     Route::get('/', 'App\Http\Controllers\WakaSarpras\WakaSarprasController@index')->name('dashboard');
+    Route::get('alat','App\Http\Controllers\WakaSarpras\WakaSarprasController@alat');
+    Route::get('bahan-kimia','App\Http\Controllers\WakaSarpras\WakaSarprasController@bahan_kimia');
+    Route::get('bahan','App\Http\Controllers\WakaSarpras\WakaSarprasController@bahan');
+    
+    Route::get('cetak/alat-rusak','App\Http\Controllers\WakaSarpras\WakaSarprasController@alatRusak');
+    Route::post('cetak/alat-rusak','App\Http\Controllers\WakaSarpras\WakaSarprasController@alatRusak');
 });
 
 // -- Route dari template --

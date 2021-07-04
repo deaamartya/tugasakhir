@@ -1,14 +1,6 @@
 {{-- Extends layout --}}
 @extends('layout.default')
 
-@section('tambahan-style')
-	@if(!empty(config('dz.public.pagelevel.css.app_calender'))) 
-		@foreach(config('dz.public.pagelevel.css.app_calender') as $style)
-						<link href="{{ asset($style) }}" rel="stylesheet" type="text/css"/>
-		@endforeach
-	@endif
-@endsection
-
 {{-- Content --}}
 @section('content')
 <!-- row -->
@@ -32,7 +24,6 @@
 						<div class="media-body">
 							<h3 class="mb-0 text-black"><span class="counter ml-0">{{ $total_alat_bagus }}</span></h3>
 							<p class="mb-0">Stok Alat Bagus</p>
-							<small>Lab. {{ Auth::user()->laboratorium->lab() }}</small>
 						</div>
 					</div>
 				</div>
@@ -49,7 +40,6 @@
 						<div class="media-body">
 							<h3 class="mb-0 text-black"><span class="counter ml-0">{{ $total_alat_rusak }}</span></h3>
 							<p class="mb-0">Stok Alat Rusak</p>
-							<small>Lab. {{ Auth::user()->laboratorium->lab() }}</small>
 						</div>
 					</div>
 				</div>
@@ -65,7 +55,6 @@
 						<div class="media-body">
 							<h3 class="mb-0 text-black"><span class="counter ml-0">{{ $total_bahan }}</span></h3>
 							<p class="mb-0">Stok Bahan</p>
-							<small>Lab. {{ Auth::user()->laboratorium->lab() }}</small>
 						</div>
 					</div>
 				</div>
@@ -82,13 +71,12 @@
 						<div class="media-body">
 							<h3 class="mb-0 text-black"><span class="counter ml-0">{{ $total_bahan_kimia }}</span></h3>
 							<p class="mb-0">Stok Bahan Kimia</p>
-							<small>Lab. {{ Auth::user()->laboratorium->lab() }}</small>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="col-12 col-lg-4">
+		<div class="col-12 col-lg-6">
 			<div class="widget-stat card">
 				<div class="card-body p-4">
 					<div class="media ai-icon">
@@ -99,13 +87,12 @@
 						<div class="media-body">
 							<h3 class="mb-0 text-black"><span class="counter ml-0">{{ $beban_lab_semester }}</span></h3>
 							<p class="mb-0">Beban Praktikum Semester</p>
-							<small>Lab. {{ Auth::user()->laboratorium->lab() }}</small>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="col-12 col-lg-4">
+		<div class="col-12 col-lg-6">
 			<div class="widget-stat card">
 				<div class="card-body p-4">
 					<div class="media ai-icon">
@@ -142,324 +129,11 @@
 						<div class="media-body">
 							<h3 class="mb-0 text-black"><span class="counter ml-0">{{ $beban_lab_tahun }}</span></h3>
 							<p class="mb-0">Beban Praktikum dalam Tahun {{ date('Y') }}</p>
-							<small>Lab. {{ Auth::user()->laboratorium->lab() }}</small>
 						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="col-12 col-lg-4">
-			<div class="widget-stat card">
-				<div class="card-body p-4">
-					<div class="media ai-icon">
-						<span class="mr-3 bgl-primary text-primary p-3">
-							<!-- <i class="ti-user"></i> -->
-							<svg height="512" viewBox="0 0 60 52" width="512" xmlns="http://www.w3.org/2000/svg"><g id="Page-1" fill="none" fill-rule="evenodd"><g id="017---Message-Notification" fill="#2F4CDD"><path id="Shape" d="m51 0h-42c-4.96827817.00551113-8.99448887 4.03172183-9 9v24c.00551113 4.9682782 4.03172183 8.9944889 9 9h4v7.845c-.0050552.7813023.449142 1.4927474 1.16 1.817.2655603.1239141.5549529.1884132.848.189.472808-.0011455.9297613-.1705976 1.289-.478l11.069-9.373h23.634c4.9682782-.0055111 8.9944889-4.0317218 9-9v-24c-.0055111-4.96827817-4.0317218-8.99448887-9-9zm7 33c-.0044086 3.8641657-3.1358343 6.9955914-7 7h-23.634c-.4731785.0001886-.9309648.1681381-1.292.474l-11.074 9.371v-7.845c0-1.1045695-.8954305-2-2-2h-4c-3.86416566-.0044086-6.99559136-3.1358343-7-7v-24c.00440864-3.86416566 3.13583434-6.99559136 7-7h42c3.8641657.00440864 6.9955914 3.13583434 7 7z" fill-rule="nonzero"/><path id="Path" d="m55 32c-.5522847 0-1 .4477153-1 1 0 1.6568542-1.3431458 3-3 3-.5522847 0-1 .4477153-1 1s.4477153 1 1 1c2.7600532-.0033061 4.9966939-2.2399468 5-5 0-.5522847-.4477153-1-1-1z"/><path id="Path" d="m9 4c-2.76005315.00330612-4.99669388 2.23994685-5 5 .00000001.55228474.44771526.99999998 1 .99999998s.99999999-.44771524 1-.99999998c0-1.65685425 1.34314575-3 3-3 .55228473-.00000002.99999996-.44771527.99999996-1s-.44771523-.99999998-.99999996-1z"/><path id="Shape" d="m39.211 24.187c-.1383404-.2780955-.210552-.5843958-.211-.895v-5.292c-.0067417-3.8095113-2.4091488-7.2029114-6-8.475v-1.525c-.0082058-1.65344336-1.3465566-2.99179417-3-3-1.6568542 0-3 1.34314575-3 3v1.525c-3.5908512 1.2720886-5.9932583 4.6654887-6 8.475v5.292c-.000349.310296-.0725699.6162936-.211.894l-1.513 3.025c-.6200693 1.2400124-.5538199 2.7126826.1750856 3.8920101s2.0165102 1.8971161 3.4029144 1.8969899h3.146c0 2.209139 1.790861 4 4 4s4-1.790861 4-4h3.146c1.3864042.0001262 2.6740089-.7176624 3.4029144-1.8969899s.7951549-2.6519977.1750856-3.8920101zm-10.211-16.187c0-.55228475.4477153-1 1-1 .2696918-.00067119.5276905.11005477.713.306.1854514.18309032.2889672.4334037.287.694v1.059c-.6643438-.07870466-1.3356562-.07870466-2 0zm1 27c-1.1045695 0-2-.8954305-2-2h4c0 1.1045695-.8954305 2-2 2zm8.847-4.949c-.3586747.5950119-1.0052784.9559688-1.7.949h-14.293c-.6947216.0069688-1.3413253-.3539881-1.7-.949-.3669035-.5888676-.4002563-1.3264201-.088-1.946l1.513-3.025c.2764111-.5555334.4205039-1.1675001.421-1.788v-5.292c0-3.8659932 3.1340068-7 7-7s7 3.1340068 7 7v5.292c.0009057.6208875.1453324 1.2331609.422 1.789l1.513 3.019c.3141426.6209149.2807661 1.3608877-.088 1.951z" fill-rule="nonzero"/></g></g></svg>
-						</span>
-						<div class="media-body">
-							<h3 class="mb-0 text-black"><span class="counter ml-0">{{ $jadwal_ulang }}</span></h3>
-							<p class="mb-0">Permintaan Penjadwalan Ulang</p>
-							<small>Lab. {{ Auth::user()->laboratorium->lab() }}</small>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		{{-- <div class="col-12">
-			<div class="card">
-				<div class="card-header border-0 pb-0 d-sm-flex d-block">
-					<div>
-						<h4 class="card-title mb-1">Peminjaman Alat dan Bahan</h4>
-						<small class="mb-0">Lab. {{ Auth::user()->laboratorium->lab() }}</small>
-					</div>
-				</div>
-				<div class="card-body orders-summary">
-					<div class="row">
-						<div class="col-sm-4 mb-4">
-							<div class="border px-3 py-3 rounded-xl">
-								<h2 class="fs-32 font-w600 counter">{{ $menunggu_penjadwalan }}</h2>
-								<p class="fs-16 mb-0">Menunggu Penjadwalan</p>
-							</div>
-						</div>
-						<div class="col-sm-4 mb-4">
-							<div class="border px-3 py-3 rounded-xl">
-								<h2 class="fs-32 font-w600 counter">{{ $sedang_pinjam }}</h2>
-								<p class="fs-16 mb-0">Sedang Pinjam</p>
-							</div>
-						</div>
-						<div class="col-sm-4 mb-4">
-							<div class="border px-3 py-3 rounded-xl">
-								<h2 class="fs-32 font-w600 counter">{{ $dikembalikan }}</h2>
-								<p class="fs-16 mb-0">Dikembalikan</p>
-							</div>
-						</div>
-					</div>
-					<div class="widget-timeline-icon">
-						<div class="row align-items-center">
-							<div class="col-xl-3 col-lg-2 col-xxl-4 col-sm-3 col-md-3 my-2 text-center text-sm-left">
-									<div id="chart-donut" class="d-inline-block"></div>
-							</div>	
-							<div class="col-xl-9 col-lg-10 col-xxl-8 col-sm-9 col-md-9">
-								<div class="d-flex align-items-center mb-3">
-								@php
-								if(intval($total_peminjaman) == 0){ 
-									$persen_belum_pinjam = 0; 
-								}
-								else {
-									$persen_belum_pinjam = intval(($menunggu_penjadwalan/$total_peminjaman)*100);
-								}
-								@endphp
-									<p class="mb-0 fs-14 mr-2 col-4 col-xxl-5 px-0">
-									Belum Pinjam ({{$persen_belum_pinjam}}%)
-									</p>
-									<div class="progress mb-0" style="height:8px; width:100%;">
-										<div class="progress-bar bg-warning progress-animated" style="width:{{$persen_belum_pinjam}}%; height:8px;" role="progressbar">
-											<span class="sr-only">{{$persen_belum_pinjam}} % Complete</span>
-										</div>
-									</div>	
-									<span class="pull-right ml-auto col-1 col-xxl-2 px-0 text-right">{{$persen_belum_pinjam}}</span>
-								</div>
-								@php
-								if(intval($total_peminjaman) == 0){ 
-									$persen_sedang_pinjam = 0; 
-									}
-								else {
-									$persen_sedang_pinjam = intval(($sedang_pinjam/$total_peminjaman)*100);
-								}
-								@endphp
-								<div class="d-flex align-items-center  mb-3">
-									<p class="mb-0 fs-14 mr-2 col-4 col-xxl-5 px-0">Sedang Pinjam ({{$persen_sedang_pinjam}}%)</p>
-									<div class="progress mb-0" style="height:8px; width:100%;">
-										<div class="progress-bar bg-success progress-animated" style="width:{{$persen_sedang_pinjam}}%; height:8px;" role="progressbar">
-											<span class="sr-only">{{$persen_sedang_pinjam}}% Complete</span>
-										</div>
-									</div>
-									<span class="pull-right ml-auto col-1 col-xxl-2 px-0 text-right">{{$persen_sedang_pinjam}}</span>
-								</div>
-								@php
-								if(intval($total_peminjaman) == 0){ 
-									$persen_dikembalikan = 0;
-								}
-								else{
-									$persen_dikembalikan = intval(($dikembalikan/$total_peminjaman)*100);
-								}
-								@endphp
-								<div class="d-flex align-items-center">
-									<p class="mb-0 fs-14 mr-2 col-4 col-xxl-5 px-0">Sudah Dikembalikan ({{$persen_dikembalikan}}%)</p>
-									<div class="progress mb-0" style="height:8px; width:100%;">
-										<div class="progress-bar bg-dark progress-animated" style="width:{{$persen_dikembalikan}}%; height:8px;" role="progressbar">
-											<span class="sr-only">{{$persen_dikembalikan}}% Complete</span>
-										</div>
-									</div>
-									<span class="pull-right ml-auto col-1 col-xxl-2 px-0 text-right">{{$persen_dikembalikan}}</span>
-								</div>
-							</div>	
-						</div>	
-					</div>
-				</div>
-			</div>
-		</div> --}}
-		<div class="col-12" data-aos="fade-down">
-			<div class="row">
-        <div class="col-xl-3">
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="card-intro-title">Jadwal Praktikum</h4>
-                    <div class="">
-                        <div id="external-events" class="my-3">
-                            <div class="external-event" data-class="bg-primary"><i class="fa fa-move"></i>X MIPA</div>
-                            <div class="external-event" data-class="bg-success"><i class="fa fa-move"></i>XI MIPA
-                            </div>
-                            <div class="external-event" data-class="bg-warning"><i class="fa fa-move"></i>XII MIPA</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xl-9">
-            <div class="card">
-                <div class="card-body">
-                    <div id="calendar" class="app-fullcalendar"></div>
-                </div>
-            </div>
-        </div>
-			</div>
-    </div>
-		<div class="col-6" data-aos="fade-down">
-			<div class="widget-stat card">
-				<div class="card-body p-4">
-					<h3 class="text-black font-w600 mb-4">Daftar Praktikum Akan Datang</h3>
-					<div class="row justify-content-center">
-						@foreach($praktikum_menunggu as $p)
-						<div class="col-12">
-							<h5 class="mb-0 text-black">
-								<span class="ml-0">{{ $p->praktikum->JUDUL_PRAKTIKUM }}</span>
-							</h5>
-							<p class="mb-0">{{ $p->kelas->jenis_kelas->NAMA_JENIS_KELAS }}</p>
-							<small>{{ $p->TANGGAL_PEMINJAMAN }} {{ $p->JAM_MULAI }} - {{ $p->JAM_SELESAI }}</small>
-							<hr>
-						</div>
-						@endforeach
-						@if($praktikum_menunggu->isEmpty())
-						<div class="col-12 text-center my-5">
-							Tidak ada praktikum.
-						</div>
-						@else
-						<div class="col-12">
-							<a href="{{ url('guru/praktikum') }}">
-								<button class="btn btn-outline-success">Lihat Lainnya<i class="fa fa-arrow-right ml-2"></i></button>
-							</a>
-						</div>
-						@endif
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="col-6" data-aos="fade-down">
-			<div class="widget-stat card">
-				<div class="card-body p-4">
-					<h3 class="text-black font-w600 mb-4">Daftar Praktikum Selesai</h3>
-					<div class="row justify-content-center">
-						@foreach($praktikum_selesai as $p)
-						<div class="col-12">
-							<h5 class="mb-0 text-black">
-								<span class="ml-0">{{ $p->praktikum->JUDUL_PRAKTIKUM }}</span>
-							</h5>
-							<p class="mb-0">{{ $p->kelas->jenis_kelas->NAMA_JENIS_KELAS }}</p>
-							<small>{{ $p->TANGGAL_PEMINJAMAN }} {{ $p->JAM_MULAI }} - {{ $p->JAM_SELESAI }}</small>
-							<hr>
-						</div>
-						@endforeach
-						@if($praktikum_selesai->isEmpty())
-						<div class="col-12 text-center my-5">
-							Tidak ada praktikum.
-						</div>
-						@else
-						<div class="col-12">
-							<a href="{{ url('guru/praktikum') }}">
-								<button class="btn btn-outline-success">Lihat Lainnya<i class="fa fa-arrow-right ml-2"></i></button>
-							</a>
-						</div>
-						@endif
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
-@foreach($praktikum as $p)
-<div class="modal fade" id="modal-peminjaman-{{ $p->ID_PEMINJAMAN }}">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Detail Peminjaman #{{ $p->ID_PEMINJAMAN }}</h5>
-                <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-4">Nama Prakt.</div>
-                    <div class="col-8">{{ $p->praktikum->JUDUL_PRAKTIKUM }}</div>
-                </div>
-                <div class="row">
-                    <div class="col-4">Jadwal Prakt.</div>
-                    <div class="col-8">{{ $p->TANGGAL_PEMINJAMAN }} {{$p->JAM_MULAI}} - {{ $p->JAM_SELESAI }}</div>
-                </div>
-                <div class="row">
-                    <div class="col-4">Kelas</div>
-                    <div class="col-8">{{ $p->kelas->jenis_kelas->NAMA_JENIS_KELAS }}</div>
-                </div>
-                <div class="row">
-                    <div class="col-4">Guru</div>
-                    <div class="col-8">{{ $p->kelas->guru->NAMA_LENGKAP }}</div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-@endforeach
-@endsection
-
-@section('tambahan-script')
-@if(!empty(config('dz.public.pagelevel.js.app_calender')))
-	@foreach(config('dz.public.pagelevel.js.app_calender') as $script)
-			<script src="{{ asset($script) }}" type="text/javascript"></script>
-		@endforeach
-@endif
-{{-- @auth
-    <script src="{{ asset('js/enable-push.js') }}" defer></script>
-@endauth --}}
-<script>
-	{{--var series_1 = Number("{{$persen_belum_pinjam}}");--}}
-	{{-- var series_2 = Number("{{$persen_sedang_pinjam}}");--}}
-	{{-- var series_3 = Number("{{$persen_dikembalikan}}");--}}
-	// var donutChart = function(){
-	// 	var options = {
-	// 		series: [series_1,series_2,series_3],
-	// 		labels: ['Belum Pinjam', 'Sedang Pinjam', 'Sudah Dikembalikan'],
-	// 		colors:['#ff5c5a', '#2bc156', '#404a56'],
-	// 		chart: {
-	// 			width: 140,
-	// 			height: 140,
-	// 			type: 'donut',
-	// 			sparkline: {
-	// 				enabled: true,
-	// 			},
-	// 		},
-	// 		plotOptions: {
-	// 			pie: {
-	// 				donut: {
-	// 					size: '50%'
-						
-	// 				}
-	// 			}
-	// 		},
-	// 		dataLabels: {
-	// 			enabled: false
-	// 		},
-	// 		responsive: [{
-	// 			breakpoint: 1300,
-	// 			options: {
-	// 				chart: {
-	// 					width: 120,
-	// 					height: 120
-	// 				},
-	// 			}
-	// 		}],
-	// 		legend: {
-	// 			show: false
-	// 		}
-	// 	};
-	// 	var chart = new ApexCharts(document.querySelector("#chart-donut"), options);
-	// 	chart.render();
-	// }
-	// donutChart();
-	var a;
-	var url = "{{ url('pengelola/datapraktikum') }}";
-
-	$.get(url,function(result){
-			a = result;
-			var calendar = $("#calendar").fullCalendar({
-					slotDuration: "00:15:00",
-					minTime: "06:00:00",
-					maxTime: "19:00:00",
-					defaultView: "month",
-					header: {
-							left: "prev,next today",
-							center: "title",
-							right: "month,agendaWeek,agendaDay"
-					},
-					timeFormat: 'HH(:mm)',
-					height: $(window).height() - 100,
-					events: a,
-					editable: false,
-					droppable: false,
-					eventLimit: false,
-					selectable: false,
-					eventClick: function(calEvent, jsEvent, view) {
-							$("#modal-peminjaman-"+calEvent.id_peminjaman).modal('toggle');
-					}
-			});
-	});
-</script>
 @endsection

@@ -167,7 +167,7 @@
         </ul>
         @elseif(Request::segment(1) == "sarpras" || (Auth::user()->tipe_user->NAMA_TIPE_USER == 'WAKA Sarpras'))
         <ul class="metismenu" id="menu">
-            <li><a href="{!! route('pengelola.dashboard'); !!}" class="ai-icon" aria-expanded="false">
+            <li><a href="{!! route('sarpras.dashboard'); !!}" class="ai-icon" aria-expanded="false">
                     <i class="flaticon-381-home-2"></i>
                     <span class="nav-text">Dashboard</span>
                 </a>
@@ -177,16 +177,12 @@
                     <span class="nav-text">Data Master</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="{!! route('pengelola.kategori-alat.index'); !!}">Data Kategori Alat</a></li>
-                    <li><a href="{!! route('pengelola.katalog-alat.index'); !!}">Data Katalog Alat</a></li>
-                    <li><a href="{!! route('pengelola.tipe.index'); !!}">Data Merk/Tipe</a></li>
-                    <li><a href="{!! route('pengelola.alat.index'); !!}">Data Alat</a></li>
-                    <li><a href="{!! route('pengelola.katalog-bahan.index'); !!}">Data Katalog Bahan</a></li>
-                    <li><a href="{!! route('pengelola.bahan-kimia.index'); !!}">Data Bahan Kimia</a></li>
-                    <li><a href="{!! route('pengelola.bahan.index'); !!}">Data Bahan</a></li>
+                    <li><a href="{!! url('sarpras/alat'); !!}">Data Alat</a></li>
+                    <li><a href="{!! url('sarpras/bahan-kimia'); !!}">Data Bahan Kimia</a></li>
+                    <li><a href="{!! url('sarpras/bahan'); !!}">Data Bahan</a></li>
                 </ul>
             </li>
-            <li><a href="{!! url('pengelola/cetak/alat-rusak'); !!}" class="ai-icon" aria-expanded="false">
+            <li><a href="{!! url('sarpras/cetak/alat-rusak'); !!}" class="ai-icon" aria-expanded="false">
                     <i class="flaticon-381-search-3"></i>
                     <span class="nav-text">Cetak Daftar Alat Rusak</span>
                 </a>
