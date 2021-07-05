@@ -15,11 +15,11 @@ class CreatePerubahanJadwalPeminjamanTable extends Migration
     {
         Schema::create('perubahan_jadwal_peminjaman', function (Blueprint $table) {
             $table->char('ID_PERUBAHAN_JADWAL', 15)->primary();
-            $table->char('ID_PEMINJAMAN')->index('FK_PERUBAHAN_JADWAL');
+            $table->char('ID_PEMINJAMAN',15)->index('FK_PERUBAHAN_JADWAL');
             $table->integer('ID_USER')->index('FK_DIPROSES');
             $table->date('TANGGAL_BARU')->nullable();
-            $table->string('JAM_MULAI_BARU')->nullable();
-            $table->string('JAM_SELESAI_BARU')->nullable();
+            $table->char('JAM_MULAI_BARU',5)->nullable();
+            $table->char('JAM_SELESAI_BARU',5)->nullable();
             $table->text('PESAN');
             $table->boolean('STATUS_PERUBAHAN')->comment('0: Belum Diubah, 1: Telah Diubah');
         });

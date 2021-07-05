@@ -17,7 +17,7 @@ class CreateAlatBahanPraktikumTable extends Migration
             $table->string('ID_ALAT_BAHAN', 20);
             $table->integer('ID_TIPE')->index('FK_MERUPAKAN_3');
             $table->char('ID_PRAKTIKUM', 10)->index('FK_MEMBUTUHKAN');
-            $table->integer('JUMLAH');
+            $table->float('JUMLAH',11,2);
             $table->primary(['ID_PRAKTIKUM', 'ID_ALAT_BAHAN']);
         });
     }
