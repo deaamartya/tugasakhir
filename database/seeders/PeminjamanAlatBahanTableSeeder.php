@@ -137,7 +137,7 @@ class PeminjamanAlatBahanTableSeeder extends Seeder
                 'TANGGAL_PEMINJAMAN' => '2021-07-19',
                 'JAM_MULAI' => '08:20',
                 'JAM_SELESAI' => '09:40',
-                'STATUS_PEMINJAMAN' => 'SUDAH DIKEMBALIKAN',
+                'STATUS_PEMINJAMAN' => 'MENUNGGU KONFIRMASI',
             ),
             11 => 
             array (
@@ -148,7 +148,7 @@ class PeminjamanAlatBahanTableSeeder extends Seeder
                 'TANGGAL_PEMINJAMAN' => '2021-07-19',
                 'JAM_MULAI' => '12:20',
                 'JAM_SELESAI' => '13:40',
-                'STATUS_PEMINJAMAN' => 'SUDAH DIKEMBALIKAN',
+                'STATUS_PEMINJAMAN' => 'MENUNGGU KONFIRMASI',
             ),
             12 => 
             array (

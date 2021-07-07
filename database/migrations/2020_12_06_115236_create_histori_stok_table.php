@@ -37,14 +37,14 @@ class CreateHistoriStokTable extends Migration
 
                 IF (new.ID_TIPE = 1) THEN
                     SELECT `STOK` INTO @stok from `histori_stok` WHERE `ID_ALAT_BAHAN` = new.ID_ALAT_BAHAN AND `KONDISI` = new.KONDISI ORDER BY `TIMESTAMP` DESC LIMIT 1;
-                    IF (@stok < 0) THEN
-                    	SET new.STOK = new.JUMLAH_MASUK-new.JUMLAH_KELUAR;
-                    ELSE
+                    IF (@stok) THEN
                     	SET new.STOK = @stok+new.JUMLAH_MASUK-new.JUMLAH_KELUAR;
+                    ELSE
+                    	SET new.STOK = new.JUMLAH_MASUK-new.JUMLAH_KELUAR;
                     END IF;
                 ELSEIF (new.ID_TIPE != 1) THEN
                     SELECT `STOK` INTO @stok from `histori_stok` WHERE `ID_ALAT_BAHAN` = new.ID_ALAT_BAHAN ORDER BY `TIMESTAMP` DESC LIMIT 1;
-                    IF (@stok < 0) THEN
+                    IF (@stok) THEN
                     	SET new.STOK = @stok+new.JUMLAH_MASUK-new.JUMLAH_KELUAR;
                     ELSE
                     	SET new.STOK = new.JUMLAH_MASUK-new.JUMLAH_KELUAR;

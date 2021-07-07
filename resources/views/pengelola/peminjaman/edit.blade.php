@@ -172,7 +172,7 @@
                                     @foreach($peminjaman->praktikum->alat_bahan_praktikum as $a)
                                         @if($a->ID_TIPE == 3)
                                             <tr>
-                                                <td width="50%">{{ $a->bahan_kimia->ID_BAHAN_KIMIA }} {{ $a->bahan_kimia->katalog_bahan->NAMA_KATALOG_BAHAN }}</td>
+                                                <td width="50%">{{ $a->bahan_kimia->ID_BAHAN_KIMIA }} {{ $a->bahan_kimia->NAMA_BAHAN_KIMIA }} @php echo $a->bahan_kimia->RUMUS; @endphp {{ $a->bahan_kimia->WUJUD }}</td>
                                                 <td width="20%">{{ $a->bahan_kimia->stok() }}gr</td>
                                                 <input type="hidden" value="{{ $a->bahan_kimia->ID_BAHAN_KIMIA }}" name="id_bahan_kimia[{{$i}}]">
                                                 <td width="15%">

@@ -72,19 +72,6 @@ class HistoriStokTableSeeder extends Seeder
             ),
             4 => 
             array (
-                'ID_HISTORI' => 'H00000000000005',
-                'ID_TIPE' => 3,
-                'ID_TRANSAKSI' => NULL,
-                'ID_ALAT_BAHAN' => 'BN/012',
-                'TIMESTAMP' => '2021-07-04 12:29:37',
-                'JUMLAH_MASUK' => 50.0,
-                'JUMLAH_KELUAR' => 0.0,
-                'KONDISI' => 0,
-                'STOK' => 50.0,
-                'KETERANGAN' => 'Stok awal',
-            ),
-            5 => 
-            array (
                 'ID_HISTORI' => 'H00000000000006',
                 'ID_TIPE' => 3,
                 'ID_TRANSAKSI' => NULL,
@@ -96,7 +83,7 @@ class HistoriStokTableSeeder extends Seeder
                 'STOK' => 1500.0,
                 'KETERANGAN' => 'Stok awal',
             ),
-            6 => 
+            5 => 
             array (
                 'ID_HISTORI' => 'H00000000000007',
                 'ID_TIPE' => 3,
@@ -109,7 +96,7 @@ class HistoriStokTableSeeder extends Seeder
                 'STOK' => 750.0,
                 'KETERANGAN' => 'Stok awal',
             ),
-            7 => 
+            6 => 
             array (
                 'ID_HISTORI' => 'H00000000000008',
                 'ID_TIPE' => 3,
@@ -122,7 +109,7 @@ class HistoriStokTableSeeder extends Seeder
                 'STOK' => 800.0,
                 'KETERANGAN' => 'Stok awal',
             ),
-            8 => 
+            7 => 
             array (
                 'ID_HISTORI' => 'H00000000000009',
                 'ID_TIPE' => 3,
@@ -135,7 +122,7 @@ class HistoriStokTableSeeder extends Seeder
                 'STOK' => 1800.0,
                 'KETERANGAN' => 'Stok awal',
             ),
-            9 => 
+            8 => 
             array (
                 'ID_HISTORI' => 'H00000000000010',
                 'ID_TIPE' => 3,
@@ -148,7 +135,7 @@ class HistoriStokTableSeeder extends Seeder
                 'STOK' => 450.0,
                 'KETERANGAN' => 'Stok awal',
             ),
-            10 => 
+            9 => 
             array (
                 'ID_HISTORI' => 'H00000000000011',
                 'ID_TIPE' => 3,
@@ -161,7 +148,7 @@ class HistoriStokTableSeeder extends Seeder
                 'STOK' => 500.0,
                 'KETERANGAN' => 'Stok awal',
             ),
-            11 => 
+            10 => 
             array (
                 'ID_HISTORI' => 'H00000000000012',
                 'ID_TIPE' => 3,
@@ -174,7 +161,7 @@ class HistoriStokTableSeeder extends Seeder
                 'STOK' => 1000.0,
                 'KETERANGAN' => 'Stok awal',
             ),
-            12 => 
+            11 => 
             array (
                 'ID_HISTORI' => 'H00000000000013',
                 'ID_TIPE' => 3,
@@ -187,7 +174,7 @@ class HistoriStokTableSeeder extends Seeder
                 'STOK' => 4000.0,
                 'KETERANGAN' => 'Stok awal',
             ),
-            13 => 
+            12 => 
             array (
                 'ID_HISTORI' => 'H00000000000014',
                 'ID_TIPE' => 3,
@@ -200,7 +187,7 @@ class HistoriStokTableSeeder extends Seeder
                 'STOK' => 1000.0,
                 'KETERANGAN' => 'Stok awal',
             ),
-            14 => 
+            13 => 
             array (
                 'ID_HISTORI' => 'H00000000000015',
                 'ID_TIPE' => 2,
@@ -213,7 +200,7 @@ class HistoriStokTableSeeder extends Seeder
                 'STOK' => 100.0,
                 'KETERANGAN' => 'Stok awal',
             ),
-            15 => 
+            14 => 
             array (
                 'ID_HISTORI' => 'H00000000000016',
                 'ID_TIPE' => 2,
@@ -226,7 +213,7 @@ class HistoriStokTableSeeder extends Seeder
                 'STOK' => 1000.0,
                 'KETERANGAN' => 'Stok awal',
             ),
-            16 => 
+            15 => 
             array (
                 'ID_HISTORI' => 'H00000000000017',
                 'ID_TIPE' => 3,
@@ -239,7 +226,7 @@ class HistoriStokTableSeeder extends Seeder
                 'STOK' => 1700.0,
                 'KETERANGAN' => 'Stok awal',
             ),
-            17 => 
+            16 => 
             array (
                 'ID_HISTORI' => 'H00000000000018',
                 'ID_TIPE' => 3,
@@ -252,512 +239,31 @@ class HistoriStokTableSeeder extends Seeder
                 'STOK' => 500.0,
                 'KETERANGAN' => 'Stok awal',
             ),
-            18 => 
+            17 => 
             array (
-                'ID_HISTORI' => 'H00000000000019',
-                'ID_TIPE' => 1,
+                'ID_HISTORI' => 'H00000000000066',
+                'ID_TIPE' => 3,
                 'ID_TRANSAKSI' => NULL,
-                'ID_ALAT_BAHAN' => 'JS1',
-                'TIMESTAMP' => '2021-07-04 16:38:59',
-                'JUMLAH_MASUK' => 10.0,
-                'JUMLAH_KELUAR' => 0.0,
-                'KONDISI' => 1,
-                'STOK' => 10.0,
-                'KETERANGAN' => 'Stok tambahan dari pengadaan',
-            ),
-            19 => 
-            array (
-                'ID_HISTORI' => 'H00000000000020',
-                'ID_TIPE' => 1,
-                'ID_TRANSAKSI' => NULL,
-                'ID_ALAT_BAHAN' => 'JS1',
-                'TIMESTAMP' => '2021-07-04 16:38:59',
-                'JUMLAH_MASUK' => 0.0,
-                'JUMLAH_KELUAR' => 0.0,
-                'KONDISI' => 0,
-                'STOK' => 0.0,
-                'KETERANGAN' => 'Stok tambahan dari pengadaan',
-            ),
-            20 => 
-            array (
-                'ID_HISTORI' => 'H00000000000021',
-                'ID_TIPE' => 1,
-                'ID_TRANSAKSI' => NULL,
-                'ID_ALAT_BAHAN' => 'JS1',
-                'TIMESTAMP' => '2021-07-04 16:39:05',
-                'JUMLAH_MASUK' => 15.0,
-                'JUMLAH_KELUAR' => 0.0,
-                'KONDISI' => 1,
-                'STOK' => 25.0,
-                'KETERANGAN' => 'Stok tambahan dari pengadaan',
-            ),
-            21 => 
-            array (
-                'ID_HISTORI' => 'H00000000000022',
-                'ID_TIPE' => 1,
-                'ID_TRANSAKSI' => NULL,
-                'ID_ALAT_BAHAN' => 'JS1',
-                'TIMESTAMP' => '2021-07-04 16:39:05',
-                'JUMLAH_MASUK' => 0.0,
-                'JUMLAH_KELUAR' => 0.0,
-                'KONDISI' => 0,
-                'STOK' => 0.0,
-                'KETERANGAN' => 'Stok tambahan dari pengadaan',
-            ),
-            22 => 
-            array (
-                'ID_HISTORI' => 'H00000000000023',
-                'ID_TIPE' => 1,
-                'ID_TRANSAKSI' => NULL,
-                'ID_ALAT_BAHAN' => 'JS1',
-                'TIMESTAMP' => '2021-07-04 16:39:20',
-                'JUMLAH_MASUK' => 0.0,
-                'JUMLAH_KELUAR' => 0.0,
-                'KONDISI' => 1,
-                'STOK' => 25.0,
-                'KETERANGAN' => 'Alat rusak karena usia',
-            ),
-            23 => 
-            array (
-                'ID_HISTORI' => 'H00000000000024',
-                'ID_TIPE' => 1,
-                'ID_TRANSAKSI' => NULL,
-                'ID_ALAT_BAHAN' => 'JS1',
-                'TIMESTAMP' => '2021-07-04 16:39:20',
-                'JUMLAH_MASUK' => 1.0,
-                'JUMLAH_KELUAR' => 0.0,
-                'KONDISI' => 0,
-                'STOK' => 1.0,
-                'KETERANGAN' => 'Alat rusak karena usia',
-            ),
-            24 => 
-            array (
-                'ID_HISTORI' => 'H00000000000025',
-                'ID_TIPE' => 1,
-                'ID_TRANSAKSI' => NULL,
-                'ID_ALAT_BAHAN' => 'KCR15/0751',
-                'TIMESTAMP' => '2021-07-04 16:41:37',
+                'ID_ALAT_BAHAN' => 'BN/014',
+                'TIMESTAMP' => '2021-07-07 20:59:05',
                 'JUMLAH_MASUK' => 1000.0,
                 'JUMLAH_KELUAR' => 0.0,
-                'KONDISI' => 1,
-                'STOK' => 1000.0,
-                'KETERANGAN' => 'Stok tambahan dari pengadaan',
-            ),
-            25 => 
-            array (
-                'ID_HISTORI' => 'H00000000000026',
-                'ID_TIPE' => 1,
-                'ID_TRANSAKSI' => NULL,
-                'ID_ALAT_BAHAN' => 'KCR15/0751',
-                'TIMESTAMP' => '2021-07-04 16:41:37',
-                'JUMLAH_MASUK' => 0.0,
-                'JUMLAH_KELUAR' => 0.0,
-                'KONDISI' => 0,
-                'STOK' => 0.0,
-                'KETERANGAN' => 'Stok tambahan dari pengadaan',
-            ),
-            26 => 
-            array (
-                'ID_HISTORI' => 'H00000000000027',
-                'ID_TIPE' => 1,
-                'ID_TRANSAKSI' => NULL,
-                'ID_ALAT_BAHAN' => 'KGE11/0501',
-                'TIMESTAMP' => '2021-07-04 16:41:47',
-                'JUMLAH_MASUK' => 100.0,
-                'JUMLAH_KELUAR' => 0.0,
-                'KONDISI' => 1,
-                'STOK' => 100.0,
-                'KETERANGAN' => 'Stok tambahan dari pengadaan',
-            ),
-            27 => 
-            array (
-                'ID_HISTORI' => 'H00000000000028',
-                'ID_TIPE' => 1,
-                'ID_TRANSAKSI' => NULL,
-                'ID_ALAT_BAHAN' => 'KGE11/0501',
-                'TIMESTAMP' => '2021-07-04 16:41:47',
-                'JUMLAH_MASUK' => 0.0,
-                'JUMLAH_KELUAR' => 0.0,
-                'KONDISI' => 0,
-                'STOK' => 0.0,
-                'KETERANGAN' => 'Stok tambahan dari pengadaan',
-            ),
-            28 => 
-            array (
-                'ID_HISTORI' => 'H00000000000029',
-                'ID_TIPE' => 1,
-                'ID_TRANSAKSI' => NULL,
-                'ID_ALAT_BAHAN' => 'KGE11/0502',
-                'TIMESTAMP' => '2021-07-04 16:41:56',
-                'JUMLAH_MASUK' => 50.0,
-                'JUMLAH_KELUAR' => 0.0,
-                'KONDISI' => 1,
-                'STOK' => 50.0,
-                'KETERANGAN' => 'Stok tambahan dari pengadaan',
-            ),
-            29 => 
-            array (
-                'ID_HISTORI' => 'H00000000000030',
-                'ID_TIPE' => 1,
-                'ID_TRANSAKSI' => NULL,
-                'ID_ALAT_BAHAN' => 'KGE11/0502',
-                'TIMESTAMP' => '2021-07-04 16:41:56',
-                'JUMLAH_MASUK' => 0.0,
-                'JUMLAH_KELUAR' => 0.0,
-                'KONDISI' => 0,
-                'STOK' => 0.0,
-                'KETERANGAN' => 'Stok tambahan dari pengadaan',
-            ),
-            30 => 
-            array (
-                'ID_HISTORI' => 'H00000000000031',
-                'ID_TIPE' => 1,
-                'ID_TRANSAKSI' => NULL,
-                'ID_ALAT_BAHAN' => 'KTE25/1101',
-                'TIMESTAMP' => '2021-07-04 16:42:07',
-                'JUMLAH_MASUK' => 50.0,
-                'JUMLAH_KELUAR' => 0.0,
-                'KONDISI' => 1,
-                'STOK' => 50.0,
-                'KETERANGAN' => 'Stok tambahan dari pengadaan',
-            ),
-            31 => 
-            array (
-                'ID_HISTORI' => 'H00000000000032',
-                'ID_TIPE' => 1,
-                'ID_TRANSAKSI' => NULL,
-                'ID_ALAT_BAHAN' => 'KTE25/1101',
-                'TIMESTAMP' => '2021-07-04 16:42:07',
-                'JUMLAH_MASUK' => 0.0,
-                'JUMLAH_KELUAR' => 0.0,
-                'KONDISI' => 0,
-                'STOK' => 0.0,
-                'KETERANGAN' => 'Stok tambahan dari pengadaan',
-            ),
-            32 => 
-            array (
-                'ID_HISTORI' => 'H00000000000033',
-                'ID_TIPE' => 3,
-                'ID_TRANSAKSI' => 'P00000000000012',
-                'ID_ALAT_BAHAN' => 'BN/014',
-                'TIMESTAMP' => '2021-07-04 16:47:17',
-                'JUMLAH_MASUK' => 0.0,
-                'JUMLAH_KELUAR' => 50.0,
                 'KONDISI' => NULL,
-                'STOK' => 700.0,
-                'KETERANGAN' => 'Stok keluar untuk praktikum',
+                'STOK' => 900.0,
+                'KETERANGAN' => 'Stok tambahan dari pengadaan',
             ),
-            33 => 
+            18 => 
             array (
-                'ID_HISTORI' => 'H00000000000034',
+                'ID_HISTORI' => 'H00000000000067',
                 'ID_TIPE' => 3,
-                'ID_TRANSAKSI' => 'P00000000000012',
+                'ID_TRANSAKSI' => NULL,
                 'ID_ALAT_BAHAN' => 'BN/151',
-                'TIMESTAMP' => '2021-07-04 16:47:17',
-                'JUMLAH_MASUK' => 0.0,
-                'JUMLAH_KELUAR' => 50.0,
-                'KONDISI' => NULL,
-                'STOK' => 950.0,
-                'KETERANGAN' => 'Stok keluar untuk praktikum',
-            ),
-            34 => 
-            array (
-                'ID_HISTORI' => 'H00000000000035',
-                'ID_TIPE' => 1,
-                'ID_TRANSAKSI' => 'P00000000000012',
-                'ID_ALAT_BAHAN' => 'KCR15/0751',
-                'TIMESTAMP' => '2021-07-04 16:47:17',
-                'JUMLAH_MASUK' => 0.0,
-                'JUMLAH_KELUAR' => 5.0,
-                'KONDISI' => 1,
-                'STOK' => 995.0,
-                'KETERANGAN' => 'Stok keluar untuk praktikum',
-            ),
-            35 => 
-            array (
-                'ID_HISTORI' => 'H00000000000036',
-                'ID_TIPE' => 1,
-                'ID_TRANSAKSI' => 'P00000000000012',
-                'ID_ALAT_BAHAN' => 'KGE11/0501',
-                'TIMESTAMP' => '2021-07-04 16:47:17',
-                'JUMLAH_MASUK' => 0.0,
-                'JUMLAH_KELUAR' => 5.0,
-                'KONDISI' => 1,
-                'STOK' => 95.0,
-                'KETERANGAN' => 'Stok keluar untuk praktikum',
-            ),
-            36 => 
-            array (
-                'ID_HISTORI' => 'H00000000000037',
-                'ID_TIPE' => 1,
-                'ID_TRANSAKSI' => 'P00000000000012',
-                'ID_ALAT_BAHAN' => 'KGE11/0502',
-                'TIMESTAMP' => '2021-07-04 16:47:17',
-                'JUMLAH_MASUK' => 0.0,
-                'JUMLAH_KELUAR' => 5.0,
-                'KONDISI' => 1,
-                'STOK' => 45.0,
-                'KETERANGAN' => 'Stok keluar untuk praktikum',
-            ),
-            37 => 
-            array (
-                'ID_HISTORI' => 'H00000000000038',
-                'ID_TIPE' => 1,
-                'ID_TRANSAKSI' => 'P00000000000012',
-                'ID_ALAT_BAHAN' => 'KTE25/1101',
-                'TIMESTAMP' => '2021-07-04 16:47:17',
-                'JUMLAH_MASUK' => 0.0,
-                'JUMLAH_KELUAR' => 5.0,
-                'KONDISI' => 1,
-                'STOK' => 45.0,
-                'KETERANGAN' => 'Stok keluar untuk praktikum',
-            ),
-            38 => 
-            array (
-                'ID_HISTORI' => 'H00000000000039',
-                'ID_TIPE' => 3,
-                'ID_TRANSAKSI' => 'P00000000000012',
-                'ID_ALAT_BAHAN' => 'BN/151',
-                'TIMESTAMP' => '2021-07-04 16:47:58',
-                'JUMLAH_MASUK' => 20.0,
+                'TIMESTAMP' => '2021-07-07 20:59:16',
+                'JUMLAH_MASUK' => 500.0,
                 'JUMLAH_KELUAR' => 0.0,
                 'KONDISI' => NULL,
-                'STOK' => 970.0,
-                'KETERANGAN' => 'Stok masuk sisa dari praktikum',
-            ),
-            39 => 
-            array (
-                'ID_HISTORI' => 'H00000000000040',
-                'ID_TIPE' => 1,
-                'ID_TRANSAKSI' => 'P00000000000012',
-                'ID_ALAT_BAHAN' => 'KTE25/1101',
-                'TIMESTAMP' => '2021-07-04 16:47:58',
-                'JUMLAH_MASUK' => 5.0,
-                'JUMLAH_KELUAR' => 0.0,
-                'KONDISI' => 1,
-                'STOK' => 50.0,
-                'KETERANGAN' => 'Stok masuk setelah praktikum',
-            ),
-            40 => 
-            array (
-                'ID_HISTORI' => 'H00000000000041',
-                'ID_TIPE' => 1,
-                'ID_TRANSAKSI' => 'P00000000000012',
-                'ID_ALAT_BAHAN' => 'KTE25/1101',
-                'TIMESTAMP' => '2021-07-04 16:47:58',
-                'JUMLAH_MASUK' => 0.0,
-                'JUMLAH_KELUAR' => 0.0,
-                'KONDISI' => 0,
-                'STOK' => 0.0,
-                'KETERANGAN' => NULL,
-            ),
-            41 => 
-            array (
-                'ID_HISTORI' => 'H00000000000042',
-                'ID_TIPE' => 3,
-                'ID_TRANSAKSI' => 'P00000000000011',
-                'ID_ALAT_BAHAN' => 'BN/014',
-                'TIMESTAMP' => '2021-07-04 16:59:44',
-                'JUMLAH_MASUK' => 0.0,
-                'JUMLAH_KELUAR' => 50.0,
-                'KONDISI' => NULL,
-                'STOK' => 650.0,
-                'KETERANGAN' => 'Stok keluar untuk praktikum',
-            ),
-            42 => 
-            array (
-                'ID_HISTORI' => 'H00000000000043',
-                'ID_TIPE' => 3,
-                'ID_TRANSAKSI' => 'P00000000000011',
-                'ID_ALAT_BAHAN' => 'BN/151',
-                'TIMESTAMP' => '2021-07-04 16:59:44',
-                'JUMLAH_MASUK' => 0.0,
-                'JUMLAH_KELUAR' => 50.0,
-                'KONDISI' => NULL,
-                'STOK' => 920.0,
-                'KETERANGAN' => 'Stok keluar untuk praktikum',
-            ),
-            43 => 
-            array (
-                'ID_HISTORI' => 'H00000000000044',
-                'ID_TIPE' => 1,
-                'ID_TRANSAKSI' => 'P00000000000011',
-                'ID_ALAT_BAHAN' => 'KCR15/0751',
-                'TIMESTAMP' => '2021-07-04 16:59:44',
-                'JUMLAH_MASUK' => 0.0,
-                'JUMLAH_KELUAR' => 5.0,
-                'KONDISI' => 1,
-                'STOK' => 990.0,
-                'KETERANGAN' => 'Stok keluar untuk praktikum',
-            ),
-            44 => 
-            array (
-                'ID_HISTORI' => 'H00000000000045',
-                'ID_TIPE' => 1,
-                'ID_TRANSAKSI' => 'P00000000000011',
-                'ID_ALAT_BAHAN' => 'KGE11/0501',
-                'TIMESTAMP' => '2021-07-04 16:59:44',
-                'JUMLAH_MASUK' => 0.0,
-                'JUMLAH_KELUAR' => 5.0,
-                'KONDISI' => 1,
-                'STOK' => 90.0,
-                'KETERANGAN' => 'Stok keluar untuk praktikum',
-            ),
-            45 => 
-            array (
-                'ID_HISTORI' => 'H00000000000046',
-                'ID_TIPE' => 1,
-                'ID_TRANSAKSI' => 'P00000000000011',
-                'ID_ALAT_BAHAN' => 'KGE11/0502',
-                'TIMESTAMP' => '2021-07-04 16:59:44',
-                'JUMLAH_MASUK' => 0.0,
-                'JUMLAH_KELUAR' => 5.0,
-                'KONDISI' => 1,
-                'STOK' => 40.0,
-                'KETERANGAN' => 'Stok keluar untuk praktikum',
-            ),
-            46 => 
-            array (
-                'ID_HISTORI' => 'H00000000000047',
-                'ID_TIPE' => 1,
-                'ID_TRANSAKSI' => 'P00000000000011',
-                'ID_ALAT_BAHAN' => 'KTE25/1101',
-                'TIMESTAMP' => '2021-07-04 16:59:44',
-                'JUMLAH_MASUK' => 0.0,
-                'JUMLAH_KELUAR' => 5.0,
-                'KONDISI' => 1,
-                'STOK' => 45.0,
-                'KETERANGAN' => 'Stok keluar untuk praktikum',
-            ),
-            47 => 
-            array (
-                'ID_HISTORI' => 'H00000000000048',
-                'ID_TIPE' => 3,
-                'ID_TRANSAKSI' => 'P00000000000011',
-                'ID_ALAT_BAHAN' => 'BN/014',
-                'TIMESTAMP' => '2021-07-04 17:00:02',
-                'JUMLAH_MASUK' => 0.0,
-                'JUMLAH_KELUAR' => 0.0,
-                'KONDISI' => NULL,
-                'STOK' => 650.0,
-                'KETERANGAN' => 'Stok masuk sisa dari praktikum',
-            ),
-            48 => 
-            array (
-                'ID_HISTORI' => 'H00000000000049',
-                'ID_TIPE' => 3,
-                'ID_TRANSAKSI' => 'P00000000000011',
-                'ID_ALAT_BAHAN' => 'BN/151',
-                'TIMESTAMP' => '2021-07-04 17:00:02',
-                'JUMLAH_MASUK' => 0.0,
-                'JUMLAH_KELUAR' => 0.0,
-                'KONDISI' => NULL,
-                'STOK' => 920.0,
-                'KETERANGAN' => 'Stok masuk sisa dari praktikum',
-            ),
-            49 => 
-            array (
-                'ID_HISTORI' => 'H00000000000050',
-                'ID_TIPE' => 1,
-                'ID_TRANSAKSI' => 'P00000000000011',
-                'ID_ALAT_BAHAN' => 'KCR15/0751',
-                'TIMESTAMP' => '2021-07-04 17:00:02',
-                'JUMLAH_MASUK' => 5.0,
-                'JUMLAH_KELUAR' => 0.0,
-                'KONDISI' => 1,
-                'STOK' => 995.0,
-                'KETERANGAN' => 'Stok masuk setelah praktikum',
-            ),
-            50 => 
-            array (
-                'ID_HISTORI' => 'H00000000000051',
-                'ID_TIPE' => 1,
-                'ID_TRANSAKSI' => 'P00000000000011',
-                'ID_ALAT_BAHAN' => 'KCR15/0751',
-                'TIMESTAMP' => '2021-07-04 17:00:02',
-                'JUMLAH_MASUK' => 0.0,
-                'JUMLAH_KELUAR' => 0.0,
-                'KONDISI' => 0,
-                'STOK' => 0.0,
-                'KETERANGAN' => NULL,
-            ),
-            51 => 
-            array (
-                'ID_HISTORI' => 'H00000000000052',
-                'ID_TIPE' => 1,
-                'ID_TRANSAKSI' => 'P00000000000011',
-                'ID_ALAT_BAHAN' => 'KGE11/0501',
-                'TIMESTAMP' => '2021-07-04 17:00:02',
-                'JUMLAH_MASUK' => 5.0,
-                'JUMLAH_KELUAR' => 0.0,
-                'KONDISI' => 1,
-                'STOK' => 95.0,
-                'KETERANGAN' => 'Stok masuk setelah praktikum',
-            ),
-            52 => 
-            array (
-                'ID_HISTORI' => 'H00000000000053',
-                'ID_TIPE' => 1,
-                'ID_TRANSAKSI' => 'P00000000000011',
-                'ID_ALAT_BAHAN' => 'KGE11/0501',
-                'TIMESTAMP' => '2021-07-04 17:00:02',
-                'JUMLAH_MASUK' => 0.0,
-                'JUMLAH_KELUAR' => 0.0,
-                'KONDISI' => 0,
-                'STOK' => 0.0,
-                'KETERANGAN' => NULL,
-            ),
-            53 => 
-            array (
-                'ID_HISTORI' => 'H00000000000054',
-                'ID_TIPE' => 1,
-                'ID_TRANSAKSI' => 'P00000000000011',
-                'ID_ALAT_BAHAN' => 'KGE11/0502',
-                'TIMESTAMP' => '2021-07-04 17:00:02',
-                'JUMLAH_MASUK' => 5.0,
-                'JUMLAH_KELUAR' => 0.0,
-                'KONDISI' => 1,
-                'STOK' => 45.0,
-                'KETERANGAN' => 'Stok masuk setelah praktikum',
-            ),
-            54 => 
-            array (
-                'ID_HISTORI' => 'H00000000000055',
-                'ID_TIPE' => 1,
-                'ID_TRANSAKSI' => 'P00000000000011',
-                'ID_ALAT_BAHAN' => 'KGE11/0502',
-                'TIMESTAMP' => '2021-07-04 17:00:02',
-                'JUMLAH_MASUK' => 0.0,
-                'JUMLAH_KELUAR' => 0.0,
-                'KONDISI' => 0,
-                'STOK' => 0.0,
-                'KETERANGAN' => NULL,
-            ),
-            55 => 
-            array (
-                'ID_HISTORI' => 'H00000000000056',
-                'ID_TIPE' => 1,
-                'ID_TRANSAKSI' => 'P00000000000011',
-                'ID_ALAT_BAHAN' => 'KTE25/1101',
-                'TIMESTAMP' => '2021-07-04 17:00:02',
-                'JUMLAH_MASUK' => 5.0,
-                'JUMLAH_KELUAR' => 0.0,
-                'KONDISI' => 1,
-                'STOK' => 50.0,
-                'KETERANGAN' => 'Stok masuk setelah praktikum',
-            ),
-            56 => 
-            array (
-                'ID_HISTORI' => 'H00000000000057',
-                'ID_TIPE' => 1,
-                'ID_TRANSAKSI' => 'P00000000000011',
-                'ID_ALAT_BAHAN' => 'KTE25/1101',
-                'TIMESTAMP' => '2021-07-04 17:00:02',
-                'JUMLAH_MASUK' => 0.0,
-                'JUMLAH_KELUAR' => 0.0,
-                'KONDISI' => 0,
-                'STOK' => 0.0,
-                'KETERANGAN' => NULL,
+                'STOK' => 420.0,
+                'KETERANGAN' => 'Stok tambahan dari pengadaan',
             ),
         ));
         
