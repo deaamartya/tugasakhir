@@ -104,8 +104,8 @@
                                             <td width="30%">{{ $a->alat->ID_ALAT }} {{ $a->alat->merk_tipe_alat->NAMA_MERK_TIPE }} {{ $a->alat->katalog_alat->NAMA_ALAT }} {{ $a->alat->katalog_alat->UKURAN }}</td>
                                             <input type="hidden" value="{{ $a->alat->ID_ALAT }}" name="id_alat[{{$i}}]">
                                             <td width="15%">{{ $a->JUMLAH_PINJAM }}pcs</td>
-                                            <td width="15%"><input style="width:100%" type="number" name="jumlah_bagus[{{$i}}]" id="jumlah_bagus-{{$i}}" value="{{ $a->JUMLAH_PINJAM }}" class="border p-2"></td>
-                                            <td width="15%"><input style="width:100%" type="number" name="jumlah_rusak[{{$i}}]" id="jumlah_rusak-{{$i}}" value="0" class="border p-2"></td>
+                                            <td width="15%"><input style="width:100%" type="number" name="jumlah_bagus[{{$i}}]" id="jumlah_bagus-{{$i}}" value="{{ $a->JUMLAH_PINJAM }}" class="jumlah_alat border p-2"></td>
+                                            <td width="15%"><input style="width:100%" type="number" name="jumlah_rusak[{{$i}}]" id="jumlah_rusak-{{$i}}" value="0" class="jumlah_alat border p-2"></td>
                                             <td width="15%"><textarea name="keterangan_rusak[{{$i}}]" class="form-control"></textarea></td>
                                         </tr>
                                         @php $i++; @endphp
@@ -127,7 +127,7 @@
                                             <td width="50%">{{ $a->bahan->ID_BAHAN }} {{ $a->bahan->NAMA_BAHAN }}</td>
                                             <input type="hidden" value="{{ $a->bahan->ID_BAHAN }}" name="id_bahan[{{$i}}]">
                                             <td width="20%">{{ $a->JUMLAH_PINJAM }}pcs</td>
-                                            <td width="15%"><input type="number" style="width:100%" value="0" name="jumlah_bahan[{{$i}}]" class="border p-2"></td>
+                                            <td width="15%"><input type="number" style="width:100%" value="0" name="jumlah_bahan[{{$i}}]" class="jumlah_bahan border p-2"></td>
                                         </tr>
                                         @php $i++; @endphp
                                     @endforeach
@@ -170,10 +170,9 @@
 @section('tambahan-script')
 <script type="text/javascript">
 $(document).ready(function(){
-    $(".select2").select2();
 
     $(document).on('input','.jumlah_alat',function(){
-        if($(this).val() >= 1){
+        if($(this).val() >= 1 && !isNan($(this).val())){
             recountAll();
         }
         else{
@@ -182,7 +181,7 @@ $(document).ready(function(){
     });
 
     $(document).on('input','.jumlah_bahan',function(){
-        if($(this).val() >= 1){
+        if($(this).val() >= 1 && !isNan($(this).val())){
             recountAll();
         }
         else{
@@ -191,17 +190,7 @@ $(document).ready(function(){
     });
 
     $(document).on('input','.jumlah_bahan_kimia',function(){
-        if($(this).val() >= 1){
-            recountAll();
-        }
-        else{
-            $(this).val(1);
-        }
-    });
-
-    $(document).on('input','#jumlah_kelompok',function(){
-        
-        if($(this).val() >= 1){
+        if($(this).val() >= 1 && !isNan($(this).val())){
             recountAll();
         }
         else{

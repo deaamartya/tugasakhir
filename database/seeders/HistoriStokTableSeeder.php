@@ -275,7 +275,7 @@ class HistoriStokTableSeeder extends Seeder
                 'JUMLAH_MASUK' => 50.0,
                 'JUMLAH_KELUAR' => 0.0,
                 'KONDISI' => 1,
-                'STOK' => 50.0,
+                'STOK' => 1050.0,
                 'KETERANGAN' => 'Stok tambahan dari pengadaan',
             ),
             20 => 
@@ -288,7 +288,7 @@ class HistoriStokTableSeeder extends Seeder
                 'JUMLAH_MASUK' => 0.0,
                 'JUMLAH_KELUAR' => 0.0,
                 'KONDISI' => 0,
-                'STOK' => 0.0,
+                'STOK' => 1000.0,
                 'KETERANGAN' => 'Stok tambahan dari pengadaan',
             ),
             21 => 
@@ -301,7 +301,7 @@ class HistoriStokTableSeeder extends Seeder
                 'JUMLAH_MASUK' => 100.0,
                 'JUMLAH_KELUAR' => 0.0,
                 'KONDISI' => 1,
-                'STOK' => 100.0,
+                'STOK' => 1100.0,
                 'KETERANGAN' => 'Stok tambahan dari pengadaan',
             ),
             22 => 
@@ -314,7 +314,7 @@ class HistoriStokTableSeeder extends Seeder
                 'JUMLAH_MASUK' => 0.0,
                 'JUMLAH_KELUAR' => 0.0,
                 'KONDISI' => 0,
-                'STOK' => 0.0,
+                'STOK' => 1000.0,
                 'KETERANGAN' => 'Stok tambahan dari pengadaan',
             ),
             23 => 
@@ -327,7 +327,7 @@ class HistoriStokTableSeeder extends Seeder
                 'JUMLAH_MASUK' => 90.0,
                 'JUMLAH_KELUAR' => 0.0,
                 'KONDISI' => 1,
-                'STOK' => 90.0,
+                'STOK' => 1090.0,
                 'KETERANGAN' => 'Stok tambahan dari pengadaan',
             ),
             24 => 
@@ -340,7 +340,7 @@ class HistoriStokTableSeeder extends Seeder
                 'JUMLAH_MASUK' => 0.0,
                 'JUMLAH_KELUAR' => 0.0,
                 'KONDISI' => 0,
-                'STOK' => 0.0,
+                'STOK' => 1000.0,
                 'KETERANGAN' => 'Stok tambahan dari pengadaan',
             ),
             25 => 
@@ -353,7 +353,7 @@ class HistoriStokTableSeeder extends Seeder
                 'JUMLAH_MASUK' => 120.0,
                 'JUMLAH_KELUAR' => 0.0,
                 'KONDISI' => 1,
-                'STOK' => 120.0,
+                'STOK' => 1120.0,
                 'KETERANGAN' => 'Stok tambahan dari pengadaan',
             ),
             26 => 
@@ -366,7 +366,7 @@ class HistoriStokTableSeeder extends Seeder
                 'JUMLAH_MASUK' => 0.0,
                 'JUMLAH_KELUAR' => 0.0,
                 'KONDISI' => 0,
-                'STOK' => 0.0,
+                'STOK' => 1000.0,
                 'KETERANGAN' => 'Stok tambahan dari pengadaan',
             ),
             27 => 
@@ -379,7 +379,7 @@ class HistoriStokTableSeeder extends Seeder
                 'JUMLAH_MASUK' => 47.0,
                 'JUMLAH_KELUAR' => 0.0,
                 'KONDISI' => 1,
-                'STOK' => 47.0,
+                'STOK' => 1047.0,
                 'KETERANGAN' => 'Stok tambahan dari pengadaan',
             ),
             28 => 
@@ -392,7 +392,7 @@ class HistoriStokTableSeeder extends Seeder
                 'JUMLAH_MASUK' => 0.0,
                 'JUMLAH_KELUAR' => 0.0,
                 'KONDISI' => 0,
-                'STOK' => 0.0,
+                'STOK' => 1000.0,
                 'KETERANGAN' => 'Stok tambahan dari pengadaan',
             ),
             29 => 
@@ -405,7 +405,7 @@ class HistoriStokTableSeeder extends Seeder
                 'JUMLAH_MASUK' => 37.0,
                 'JUMLAH_KELUAR' => 0.0,
                 'KONDISI' => 1,
-                'STOK' => 37.0,
+                'STOK' => 1037.0,
                 'KETERANGAN' => 'Stok tambahan dari pengadaan',
             ),
             30 => 
@@ -418,7 +418,7 @@ class HistoriStokTableSeeder extends Seeder
                 'JUMLAH_MASUK' => 0.0,
                 'JUMLAH_KELUAR' => 0.0,
                 'KONDISI' => 0,
-                'STOK' => 0.0,
+                'STOK' => 1000.0,
                 'KETERANGAN' => 'Stok tambahan dari pengadaan',
             ),
             31 => 
@@ -431,7 +431,7 @@ class HistoriStokTableSeeder extends Seeder
                 'JUMLAH_MASUK' => 90.0,
                 'JUMLAH_KELUAR' => 0.0,
                 'KONDISI' => 1,
-                'STOK' => 90.0,
+                'STOK' => 1090.0,
                 'KETERANGAN' => 'Stok tambahan dari pengadaan',
             ),
             32 => 
@@ -444,7 +444,7 @@ class HistoriStokTableSeeder extends Seeder
                 'JUMLAH_MASUK' => 0.0,
                 'JUMLAH_KELUAR' => 0.0,
                 'KONDISI' => 0,
-                'STOK' => 0.0,
+                'STOK' => 1000.0,
                 'KETERANGAN' => 'Stok tambahan dari pengadaan',
             ),
             33 => 
@@ -457,7 +457,7 @@ class HistoriStokTableSeeder extends Seeder
                 'JUMLAH_MASUK' => 190.0,
                 'JUMLAH_KELUAR' => 0.0,
                 'KONDISI' => 1,
-                'STOK' => 190.0,
+                'STOK' => 1190.0,
                 'KETERANGAN' => 'Stok tambahan dari pengadaan',
             ),
             34 => 
@@ -470,7 +470,7 @@ class HistoriStokTableSeeder extends Seeder
                 'JUMLAH_MASUK' => 0.0,
                 'JUMLAH_KELUAR' => 0.0,
                 'KONDISI' => 0,
-                'STOK' => 0.0,
+                'STOK' => 1000.0,
                 'KETERANGAN' => 'Stok tambahan dari pengadaan',
             ),
             35 => 
@@ -483,7 +483,7 @@ class HistoriStokTableSeeder extends Seeder
                 'JUMLAH_MASUK' => 53.0,
                 'JUMLAH_KELUAR' => 0.0,
                 'KONDISI' => 1,
-                'STOK' => 53.0,
+                'STOK' => 1053.0,
                 'KETERANGAN' => 'Stok tambahan dari pengadaan',
             ),
             36 => 
@@ -496,7 +496,7 @@ class HistoriStokTableSeeder extends Seeder
                 'JUMLAH_MASUK' => 0.0,
                 'JUMLAH_KELUAR' => 0.0,
                 'KONDISI' => 0,
-                'STOK' => 0.0,
+                'STOK' => 1000.0,
                 'KETERANGAN' => 'Stok tambahan dari pengadaan',
             ),
             37 => 
@@ -509,7 +509,7 @@ class HistoriStokTableSeeder extends Seeder
                 'JUMLAH_MASUK' => 68.0,
                 'JUMLAH_KELUAR' => 0.0,
                 'KONDISI' => 1,
-                'STOK' => 68.0,
+                'STOK' => 1068.0,
                 'KETERANGAN' => 'Stok tambahan dari pengadaan',
             ),
             38 => 
@@ -522,7 +522,7 @@ class HistoriStokTableSeeder extends Seeder
                 'JUMLAH_MASUK' => 0.0,
                 'JUMLAH_KELUAR' => 0.0,
                 'KONDISI' => 0,
-                'STOK' => 0.0,
+                'STOK' => 1000.0,
                 'KETERANGAN' => 'Stok tambahan dari pengadaan',
             ),
             39 => 
@@ -535,7 +535,7 @@ class HistoriStokTableSeeder extends Seeder
                 'JUMLAH_MASUK' => 242.0,
                 'JUMLAH_KELUAR' => 0.0,
                 'KONDISI' => 1,
-                'STOK' => 242.0,
+                'STOK' => 1242.0,
                 'KETERANGAN' => 'Stok tambahan dari pengadaan',
             ),
             40 => 
@@ -548,7 +548,7 @@ class HistoriStokTableSeeder extends Seeder
                 'JUMLAH_MASUK' => 0.0,
                 'JUMLAH_KELUAR' => 0.0,
                 'KONDISI' => 0,
-                'STOK' => 0.0,
+                'STOK' => 1000.0,
                 'KETERANGAN' => 'Stok tambahan dari pengadaan',
             ),
             41 => 
@@ -587,7 +587,7 @@ class HistoriStokTableSeeder extends Seeder
                 'JUMLAH_MASUK' => 0.0,
                 'JUMLAH_KELUAR' => 15.0,
                 'KONDISI' => 1,
-                'STOK' => 175.0,
+                'STOK' => 1175.0,
                 'KETERANGAN' => 'Stok keluar untuk praktikum',
             ),
             44 => 
@@ -600,7 +600,7 @@ class HistoriStokTableSeeder extends Seeder
                 'JUMLAH_MASUK' => 0.0,
                 'JUMLAH_KELUAR' => 10.0,
                 'KONDISI' => 1,
-                'STOK' => 43.0,
+                'STOK' => 1043.0,
                 'KETERANGAN' => 'Stok keluar untuk praktikum',
             ),
             45 => 
@@ -613,7 +613,7 @@ class HistoriStokTableSeeder extends Seeder
                 'JUMLAH_MASUK' => 0.0,
                 'JUMLAH_KELUAR' => 25.0,
                 'KONDISI' => 1,
-                'STOK' => 43.0,
+                'STOK' => 1043.0,
                 'KETERANGAN' => 'Stok keluar untuk praktikum',
             ),
             46 => 
@@ -626,7 +626,7 @@ class HistoriStokTableSeeder extends Seeder
                 'JUMLAH_MASUK' => 0.0,
                 'JUMLAH_KELUAR' => 20.0,
                 'KONDISI' => 1,
-                'STOK' => 222.0,
+                'STOK' => 1222.0,
                 'KETERANGAN' => 'Stok keluar untuk praktikum',
             ),
             47 => 
@@ -665,7 +665,7 @@ class HistoriStokTableSeeder extends Seeder
                 'JUMLAH_MASUK' => 15.0,
                 'JUMLAH_KELUAR' => 0.0,
                 'KONDISI' => 1,
-                'STOK' => 190.0,
+                'STOK' => 1190.0,
                 'KETERANGAN' => 'Stok masuk setelah praktikum',
             ),
             50 => 
@@ -678,7 +678,7 @@ class HistoriStokTableSeeder extends Seeder
                 'JUMLAH_MASUK' => 0.0,
                 'JUMLAH_KELUAR' => 0.0,
                 'KONDISI' => 0,
-                'STOK' => 0.0,
+                'STOK' => 1000.0,
                 'KETERANGAN' => NULL,
             ),
             51 => 
@@ -691,7 +691,7 @@ class HistoriStokTableSeeder extends Seeder
                 'JUMLAH_MASUK' => 10.0,
                 'JUMLAH_KELUAR' => 0.0,
                 'KONDISI' => 1,
-                'STOK' => 53.0,
+                'STOK' => 1053.0,
                 'KETERANGAN' => 'Stok masuk setelah praktikum',
             ),
             52 => 
@@ -704,7 +704,7 @@ class HistoriStokTableSeeder extends Seeder
                 'JUMLAH_MASUK' => 0.0,
                 'JUMLAH_KELUAR' => 0.0,
                 'KONDISI' => 0,
-                'STOK' => 0.0,
+                'STOK' => 1000.0,
                 'KETERANGAN' => NULL,
             ),
             53 => 
@@ -717,7 +717,7 @@ class HistoriStokTableSeeder extends Seeder
                 'JUMLAH_MASUK' => 24.0,
                 'JUMLAH_KELUAR' => 0.0,
                 'KONDISI' => 1,
-                'STOK' => 67.0,
+                'STOK' => 1067.0,
                 'KETERANGAN' => 'Stok masuk setelah praktikum',
             ),
             54 => 
@@ -730,7 +730,7 @@ class HistoriStokTableSeeder extends Seeder
                 'JUMLAH_MASUK' => 1.0,
                 'JUMLAH_KELUAR' => 0.0,
                 'KONDISI' => 0,
-                'STOK' => 1.0,
+                'STOK' => 1001.0,
                 'KETERANGAN' => 'Jatuh saat praktikum',
             ),
             55 => 
@@ -743,7 +743,7 @@ class HistoriStokTableSeeder extends Seeder
                 'JUMLAH_MASUK' => 20.0,
                 'JUMLAH_KELUAR' => 0.0,
                 'KONDISI' => 1,
-                'STOK' => 242.0,
+                'STOK' => 1242.0,
                 'KETERANGAN' => 'Stok masuk setelah praktikum',
             ),
             56 => 
@@ -756,7 +756,7 @@ class HistoriStokTableSeeder extends Seeder
                 'JUMLAH_MASUK' => 0.0,
                 'JUMLAH_KELUAR' => 0.0,
                 'KONDISI' => 0,
-                'STOK' => 0.0,
+                'STOK' => 1000.0,
                 'KETERANGAN' => NULL,
             ),
             57 => 
@@ -795,7 +795,7 @@ class HistoriStokTableSeeder extends Seeder
                 'JUMLAH_MASUK' => 35.0,
                 'JUMLAH_KELUAR' => 0.0,
                 'KONDISI' => 1,
-                'STOK' => 85.0,
+                'STOK' => 1085.0,
                 'KETERANGAN' => 'Stok tambahan dari pengadaan',
             ),
             60 => 
@@ -808,6 +808,58 @@ class HistoriStokTableSeeder extends Seeder
                 'JUMLAH_MASUK' => 0.0,
                 'JUMLAH_KELUAR' => 0.0,
                 'KONDISI' => 0,
+                'STOK' => 1000.0,
+                'KETERANGAN' => 'Stok tambahan dari pengadaan',
+            ),
+            61 => 
+            array (
+                'ID_HISTORI' => 'H00000000000062',
+                'ID_TIPE' => 2,
+                'ID_TRANSAKSI' => NULL,
+                'ID_ALAT_BAHAN' => 'B006',
+                'TIMESTAMP' => '2021-07-10 16:53:56',
+                'JUMLAH_MASUK' => 0.0,
+                'JUMLAH_KELUAR' => 900.0,
+                'KONDISI' => NULL,
+                'STOK' => 100.0,
+                'KETERANGAN' => 'Stok tambahan dari pengadaan',
+            ),
+            62 => 
+            array (
+                'ID_HISTORI' => 'H00000000000063',
+                'ID_TIPE' => 2,
+                'ID_TRANSAKSI' => NULL,
+                'ID_ALAT_BAHAN' => 'B006',
+                'TIMESTAMP' => '2021-07-10 16:54:07',
+                'JUMLAH_MASUK' => 0.0,
+                'JUMLAH_KELUAR' => 90.0,
+                'KONDISI' => NULL,
+                'STOK' => 10.0,
+                'KETERANGAN' => 'Stok tambahan dari pengadaan',
+            ),
+            63 => 
+            array (
+                'ID_HISTORI' => 'H00000000000064',
+                'ID_TIPE' => 2,
+                'ID_TRANSAKSI' => NULL,
+                'ID_ALAT_BAHAN' => 'B006',
+                'TIMESTAMP' => '2021-07-10 16:54:21',
+                'JUMLAH_MASUK' => 0.0,
+                'JUMLAH_KELUAR' => 2.0,
+                'KONDISI' => NULL,
+                'STOK' => 8.0,
+                'KETERANGAN' => 'Stok tambahan dari pengadaan',
+            ),
+            64 => 
+            array (
+                'ID_HISTORI' => 'H00000000000065',
+                'ID_TIPE' => 2,
+                'ID_TRANSAKSI' => NULL,
+                'ID_ALAT_BAHAN' => 'B006',
+                'TIMESTAMP' => '2021-07-10 16:54:32',
+                'JUMLAH_MASUK' => 0.0,
+                'JUMLAH_KELUAR' => 8.0,
+                'KONDISI' => NULL,
                 'STOK' => 0.0,
                 'KETERANGAN' => 'Stok tambahan dari pengadaan',
             ),

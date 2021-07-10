@@ -22,14 +22,12 @@ class SimulasiController extends Controller
 
         $id_lab = Auth::user()->ID_LABORATORIUM;
         $praktikum = Praktikum::whereIn('ID_MAPEL',Auth::user()->list_mapel())->get();
-        $lab = strrchr(Laboratorium::find($id_lab)->value('NAMA_LABORATORIUM'),' ');
-        $lab = str_replace(" ","",$lab);
 
-        $alat = Alat::select('alat.*','k.*')->join('katalog_alat as k','k.ID_KATALOG_ALAT','alat.ID_KATALOG_ALAT')->join('lemari as l','l.ID_LEMARI','alat.ID_LEMARI')->where('l.ID_LABORATORIUM',$id_lab)->get();
+        $alat = Alat::select('alat.*','k.*')->join('katalog_alat as k','k.ID_KATALOG_ALAT','alat.ID_KATALOG_ALAT')->join('lemari as l','l.ID_LEMARI','alat.ID_LEMARI')->where('l.ID_LABORATORIUM','=',$id_lab)->get();
 
-        $bahan = Bahan::select('l.*','bahan.*')->join('lemari as l','l.ID_LEMARI','bahan.ID_LEMARI')->where('l.ID_LABORATORIUM',$id_lab)->get();
+        $bahan = Bahan::select('l.*','bahan.*')->join('lemari as l','l.ID_LEMARI','bahan.ID_LEMARI')->where('l.ID_LABORATORIUM','=',$id_lab)->get();
 
-        $bahan_kimia = BahanKimia::select('k.*','bahan_kimia.*')->join('katalog_bahan as k','k.ID_KATALOG_BAHAN','bahan_kimia.ID_KATALOG_BAHAN')->where('k.ID_LABORATORIUM',$id_lab)->get();
+        $bahan_kimia = BahanKimia::select('k.*','bahan_kimia.*')->join('katalog_bahan as k','k.ID_KATALOG_BAHAN','bahan_kimia.ID_KATALOG_BAHAN')->where('k.ID_LABORATORIUM','=',$id_lab)->get();
 
         $lab = Laboratorium::find($id_lab);
 
@@ -91,12 +89,18 @@ class SimulasiController extends Controller
     public function getStokBahan(Request $request)
     {
         $stok = Bahan::where('ID_BAHAN','=',$request->id)->join('histori_stok as h','h.ID_ALAT_BAHAN','=','bahan.ID_BAHAN')->where('h.ID_ALAT_BAHAN','=',$request->id)->where('ID_TIPE','=',2)->orderBy('h.TIMESTAMP','DESC')->limit(1)->value('STOK');
+        if($stok == null){
+            $stok = 0;
+        }
         return response()->json($stok);
     }
 
     public function getStokBahanKimia(Request $request)
     {
         $stok = BahanKimia::where('ID_BAHAN_KIMIA','=',$request->id)->join('histori_stok as h','h.ID_ALAT_BAHAN','=','bahan_kimia.ID_BAHAN_KIMIA')->where('h.ID_ALAT_BAHAN','=',$request->id)->where('ID_TIPE','=',3)->orderBy('h.TIMESTAMP','DESC')->limit(1)->value('STOK');
+        if($stok == null){
+            $stok = 0;
+        }
         return response()->json($stok);
     }
 }

@@ -299,7 +299,7 @@
 						</div>
 						@else
 						<div class="col-12">
-							<a href="{{ url('guru/praktikum') }}">
+							<a href="{{ url('kepalalab/jadwal-praktikum') }}">
 								<button class="btn btn-outline-success">Lihat Lainnya<i class="fa fa-arrow-right ml-2"></i></button>
 							</a>
 						</div>
@@ -329,7 +329,7 @@
 						</div>
 						@else
 						<div class="col-12">
-							<a href="{{ url('guru/praktikum') }}">
+							<a href="{{ url('kepalalab/jadwal-praktikum') }}">
 								<button class="btn btn-outline-success">Lihat Lainnya<i class="fa fa-arrow-right ml-2"></i></button>
 							</a>
 						</div>

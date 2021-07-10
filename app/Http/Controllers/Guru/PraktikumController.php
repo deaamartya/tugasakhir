@@ -16,17 +16,14 @@ class PraktikumController extends Controller
         $page_title = 'Data Praktikum';
         $page_description = 'Data praktikum guru';
         $action = 'app_calender';
+        $id_lab = Auth::user()->ID_LABORATORIUM;
+        $id_guru = Auth::user()->ID_USER;
         $id_ta = Auth::user()->id_tahun_akademik();
-        $praktikum = PeminjamanAlatBahan::
-        join('ruang_laboratorium as l','l.ID_RUANG_LABORATORIUM','peminjaman_alat_bahan.ID_RUANG_LABORATORIUM')
-        ->where('l.ID_LABORATORIUM',Auth::user()->ID_LABORATORIUM)
-        ->join('praktikum as p','p.ID_PRAKTIKUM','peminjaman_alat_bahan.ID_PRAKTIKUM')
-        ->join('kelas as k','k.ID_KELAS','peminjaman_alat_bahan.ID_KELAS')
-        ->where('k.ID_USER',Auth::user()->ID_USER)
+        $praktikum = PeminjamanAlatBahan::join('ruang_laboratorium as r','r.ID_RUANG_LABORATORIUM','peminjaman_alat_bahan.ID_RUANG_LABORATORIUM')
+        ->join('kelas as k','peminjaman_alat_bahan.ID_KELAS','=','k.ID_KELAS')
+        ->where('k.ID_USER','=',$id_guru)
         ->where('k.ID_TAHUN_AKADEMIK',$id_ta)
-        ->where('STATUS_PEMINJAMAN','MENUNGGU KONFIRMASI')
-        ->orderBy('TANGGAL_PEMINJAMAN','ASC')
-        ->get();
+        ->where('r.ID_LABORATORIUM','=',$id_lab)->get();
 
         return view('guru.praktikum', compact('page_title', 'page_description','action','praktikum'));
     }

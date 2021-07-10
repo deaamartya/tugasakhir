@@ -3,14 +3,44 @@
 @php $action = "page_login"; $page_title = 'Login'; @endphp
 {{-- Content --}}
 @section('content')
-<div class="col-md-6">
+<div class="col-lg-6 col-12">
     <div class="authincation-content">
         <div class="row no-gutters">
             <div class="col-xl-12">
-                <div class="auth-form">
+                <div class="auth-form d-lg-block d-none">
                     <div class="row justify-content-center mb-3">
                         <img class="logo-abbr mr-3" src="{{ asset('images/logo.png') }}" alt="" height="90">
                         <img class="logo-compact" src="{{ asset('images/logo-text.png') }}" alt="" height="90">
+                    </div>
+                    <h4 class="text-center mb-4">Selamat datang di Sistem Informasi Laboratorium IPA Terpadu SMA Negeri 3 Sidoarjo</h4>
+                    @if($errors->any())
+                        <div class="alert alert-danger">Kombinasi username dan password salah</div>
+                    @endif
+                    <form action="{{ route('login') }}" method="POST">
+                    @csrf
+                        <div class="form-group">
+                            <label class="mb-1 text-black"><strong>Username</strong></label>
+                            <input type="text" class="form-control" name="username" placeholder="Masukkan username Anda..." required>
+                        </div>
+                        <div class="form-group">
+                            <label class="mb-1 text-black"><strong>Kata Sandi</strong></label>
+                            <div class="input-group transparent-append">
+                                <input type="password" class="form-control" id="val-password1" name="password" placeholder="Masukkan kata sandi Anda.." required>
+                                <div class="input-group-append show-pass" style="cursor: pointer;">
+                                    <span class="input-group-text"> <i class="fa fa-eye"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary btn-block">Masuk</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="p-3 d-lg-none d-block">
+                    <div class="row justify-content-center mb-3">
+                        <img class="logo-abbr mr-3" src="{{ asset('images/logo.png') }}" alt="" height="50">
+                        <img class="logo-compact" src="{{ asset('images/logo-text.png') }}" alt="" height="50">
                     </div>
                     <h4 class="text-center mb-4">Selamat datang di Sistem Informasi Laboratorium IPA Terpadu SMA Negeri 3 Sidoarjo</h4>
                     @if($errors->any())

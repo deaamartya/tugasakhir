@@ -47,10 +47,10 @@ class BahanKimiaController extends Controller
         ]);
 
         DB::transaction(function() use($request){
-            str_replace('<p>','', $request->RUMUS);
-            str_replace('</p>','', $request->RUMUS);
-            str_replace('<br>','', $request->RUMUS);
-            str_replace('</br>','', $request->RUMUS);
+            $request->RUMUS = str_replace('<p>','', $request->RUMUS);
+            $request->RUMUS = str_replace('</p>','', $request->RUMUS);
+            $request->RUMUS = str_replace('<br>','', $request->RUMUS);
+            $request->RUMUS = str_replace('</br>','', $request->RUMUS);
 
             $request->SPESIFIKASI_BAHAN = ($request->SPESIFIKASI_BAHAN == "true") ? true : false;
             BahanKimia::insert([

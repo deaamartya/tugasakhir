@@ -111,7 +111,7 @@
                                             </a>
                                         </div>	
                                         @else
-                                            @if($d->perubahan_jadwal_peminjamen->STATUS_PERUBAHAN == 0)
+                                            @if($d->perubahan_jadwal_peminjamen->STATUS_PERUBAHAN == 0 && $d->STATUS_PEMINJAMAN == "MENUNGGU KONFIRMASI")
                                                 MENUNGGU JAWABAN PENGELOLA
                                             @else
                                                 JADWAL SUDAH DIUBAH

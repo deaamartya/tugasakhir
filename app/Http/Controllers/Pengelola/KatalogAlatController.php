@@ -16,9 +16,9 @@ class KatalogAlatController extends Controller
         $page_title = 'Data Katalog Alat';
         $page_description = 'Menampilkan seluruh data katalog alat';
         $action = 'table_datatable_basic';
-        $katalogalat = KatalogAlat::orderBy('ID_KATALOG_ALAT','DESC')->get();
         $id_lab = Auth::user()->ID_LABORATORIUM;
         $kategori = KategoriAlat::where('ID_LABORATORIUM',$id_lab)->get();
+        $katalogalat = KatalogAlat::join('kategori_alat as k','k.ID_KATEGORI_ALAT','katalog_alat.ID_KATEGORI_ALAT')->where('k.ID_LABORATORIUM',$id_lab)->orderBy('ID_KATALOG_ALAT','DESC')->get();
         return view('pengelola.katalog-alat', compact('page_title', 'page_description','action','katalogalat','kategori'));
     }
 

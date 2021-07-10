@@ -16,8 +16,8 @@ class KatalogBahanController extends Controller
         $page_title = 'Data Katalog Bahan';
         $page_description = 'Menampilkan seluruh data katalog bahan';
         $action = 'table_datatable_basic';
-        $katalogbahan = KatalogBahan::orderBy('ID_KATALOG_BAHAN','DESC')->get();
         $id_lab = Auth::user()->ID_LABORATORIUM;
+        $katalogbahan = KatalogBahan::where('ID_LABORATORIUM',$id_lab)->orderBy('ID_KATALOG_BAHAN','DESC')->get();
         $lab = Laboratorium::find($id_lab);
         return view('pengelola.katalog-bahan', compact('page_title', 'page_description','action','katalogbahan','lab'));
     }
