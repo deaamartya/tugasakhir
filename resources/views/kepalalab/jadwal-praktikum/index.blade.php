@@ -75,13 +75,6 @@
             <div class="card">
                 <div class="card-header">
                     <h4 class="card-title">Praktikum</h4>
-                    <a href="{{ route('pengelola.jadwal-praktikum.create') }}">
-                        <button type="button" class="btn btn-rounded btn-info">
-                            <span class="btn-icon-left text-info">
-                                <i class="fa fa-plus color-info"></i>
-                            </span>Buat Jadwal Praktikum Baru
-                        </button>
-                    </a>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">

@@ -72,7 +72,7 @@
                             <thead>
                                 <tr>
                                     <th>ID Bahan</th>
-                                    <th>Lab. - Lemari</th>
+                                    <th>Lemari</th>
                                     <th>Bahan Kimia</th>
                                     <th>Spek.</th>
                                     <th>Jumlah(gr)</th>
@@ -82,8 +82,8 @@
                             <tbody>
                                 @foreach($bahankimia as $d)
                                 <tr>
-                                    <td> {{ $d->ID_BAHAN_KIMIA }} </td>
-                                    <td> {{ $d->lemari->laboratorium->NAMA_LABORATORIUM }} - {{ $d->lemari->NAMA_LEMARI }} </td>
+                                    <td>{{ $d->ID_BAHAN_KIMIA }}</td>
+                                    <td>{{ $d->lemari->NAMA_LEMARI }} </td>
                                     <td>@php echo $d->NAMA_BAHAN_KIMIA." - ".$d->RUMUS." (".$d->WUJUD.")" @endphp</td>
                                     <td> @if($d->SPESIFIKASI_BAHAN == "1")
                                     TEK
@@ -95,7 +95,12 @@
                                         <div class="d-flex">
                                             <button type="button" class="btn btn-primary shadow btn-xs sharp mr-1" data-toggle="modal" data-target="#modal-edit-{{ $loop->index }}"><i class="fa fa-pencil"></i></button>
                                             <button type="button" class="btn btn-danger shadow btn-xs sharp" data-toggle="modal" data-target="#modal-tambah-{{ $loop->index }}"><i class="fa fa-plus"></i></button>
-                                        </div>												
+                                            @if($d->stok() == 0)
+                                            <div class="ml-2 badge badge-danger"><i class="fa fa-warning mr-2"></i>Bahan habis</div>
+                                            @elseif($d->stok() < 100)
+                                            <div class="ml-2 badge badge-warning"><i class="fa fa-warning mr-2"></i>Bahan akan habis</div>
+                                            @endif	
+                                        </div>				
                                     </td>											
                                 </tr>
                                 @endforeach

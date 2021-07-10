@@ -68,7 +68,7 @@
                             <thead>
                                 <tr>
                                     <th>ID Bahan</th>
-                                    <th>Lab. - Lemari</th>
+                                    <th>Lemari</th>
                                     <th>Nama Bahan</th>
                                     <th>Jumlah(pcs)</th>
                                     <th>Aksi</th>
@@ -78,14 +78,19 @@
                                 @foreach($bahan as $d)
                                 <tr>
                                     <td> {{ $d->ID_BAHAN }} </td>
-                                    <td> {{ $d->lemari->laboratorium->NAMA_LABORATORIUM }} - {{ $d->lemari->NAMA_LEMARI }} </td>
+                                    <td>{{ $d->lemari->NAMA_LEMARI }}</td>
                                     <td> {{ $d->NAMA_BAHAN }} </td>
                                     <td> {{ $d->stok() }} </td>
                                     <td>
                                         <div class="d-flex">
                                             <button type="button" class="btn btn-primary shadow btn-xs sharp mr-1" data-toggle="modal" data-target="#modal-edit-{{ $loop->index }}"><i class="fa fa-pencil"></i></button>
                                             <button type="button" class="btn btn-danger shadow btn-xs sharp" data-toggle="modal" data-target="#modal-tambah-{{ $loop->index }}"><i class="fa fa-plus"></i></button>
-                                        </div>												
+                                            @if($d->stok() == 0)
+                                            <div class="ml-2 badge badge-danger"><i class="fa fa-warning mr-2"></i>Bahan habis</div>
+                                            @elseif($d->stok() < 10)
+                                            <div class="ml-2 badge badge-warning"><i class="fa fa-warning mr-2"></i>Bahan akan habis</div>
+                                            @endif
+                                        </div>									
                                     </td>											
                                 </tr>
                                 @endforeach

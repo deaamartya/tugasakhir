@@ -65,9 +65,7 @@
                                     <th>ID Alat</th>
                                     <th>Lemari</th>
                                     <th>ID Katalog</th>
-                                    <th>Nama Alat</th>
-                                    <th>Ukuran</th>
-                                    <th>Merk/Type</th>
+                                    <th>Alat</th>
                                     <th>Jumlah Bagus(pcs)</th>
                                     <th>Jumlah Rusak(pcs)</th>
                                     <th>Aksi</th>
@@ -79,16 +77,19 @@
                                     <td>{{ $d->ID_ALAT }}</td>
                                     <td>{{ $d->lemari->NAMA_LEMARI }}</td>
                                     <td>{{ $d->ID_KATALOG_ALAT }}</td>
-                                    <td>{{ $d->katalog_alat->NAMA_ALAT }}</td>
-                                    <td>{{ $d->katalog_alat->UKURAN }}</td>
-                                    <td>{{ $d->merk_tipe_alat->NAMA_MERK_TIPE }}</td>
+                                    <td>{{ $d->katalog_alat->NAMA_ALAT }} {{ $d->merk_tipe_alat->NAMA_MERK_TIPE }} {{ $d->katalog_alat->UKURAN }} </td>
                                     <td>{{ $d->stok_bagus() }}</td>
                                     <td>{{ $d->stok_rusak() }}</td>
                                     <td>
                                         <div class="d-flex">
                                             <button type="button" class="btn btn-primary shadow btn-xs sharp mr-1" data-toggle="modal" data-target="#modal-edit-{{ $loop->index }}"><i class="fa fa-pencil"></i></button>
                                             <button type="button" class="btn btn-danger shadow btn-xs sharp" data-toggle="modal" data-target="#modal-tambah-{{ $loop->index }}"><i class="fa fa-plus"></i></button>
-                                        </div>												
+                                            @if($d->stok_bagus() == 0)
+                                            <div class="ml-2 badge badge-danger"><i class="fa fa-warning mr-2"></i>Alat habis</div>
+                                            @elseif($d->stok_bagus() < 10)
+                                            <div class="ml-2 badge badge-warning"><i class="fa fa-warning mr-2"></i>Alat akan habis</div>
+                                            @endif
+                                        </div>			
                                     </td>											
                                 </tr>
                                 @endforeach
