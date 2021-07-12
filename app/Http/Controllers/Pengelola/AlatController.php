@@ -39,8 +39,8 @@ class AlatController extends Controller
             'ID_LEMARI' => 'required|exists:App\Models\Lemari,ID_LEMARI',
             'ID_MERK_TIPE' => 'required|exists:App\Models\MerkTipeAlat,ID_MERK_TIPE',
             'ID_KATALOG_ALAT' => 'required|exists:App\Models\KatalogAlat,ID_KATALOG_ALAT',
-            'JUMLAH_BAGUS' => 'required',
-            'JUMLAH_RUSAK' => 'required'
+            'JUMLAH_BAGUS' => 'required|min:0',
+            'JUMLAH_RUSAK' => 'required|min:0'
         ]);
 
         DB::transaction(function() use($request){
@@ -54,7 +54,7 @@ class AlatController extends Controller
                 'ID_LEMARI' => $request->ID_LEMARI,
                 'ID_MERK_TIPE' => $request->ID_MERK_TIPE,
                 'ID_KATALOG_ALAT' => $request->ID_KATALOG_ALAT,
-            ])->value('ID_ALAT');
+            ])->orderBy('ID_ALAT','DESC')->limit(1)->value('ID_ALAT');
 
             $data_stok_alat[] = [
                 'ID_TIPE' => 1,
