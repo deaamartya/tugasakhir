@@ -30,7 +30,7 @@ class KatalogAlatTableSeeder extends Seeder
                 'ID_KATALOG_ALAT' => 'KAB32',
                 'ID_KATEGORI_ALAT' => 4,
                 'NAMA_ALAT' => 'Tabung U',
-                'UKURAN' => 'Ǿ 20mm X 150',
+                'UKURAN' => '20mm X 150',
             ),
             2 => 
             array (
@@ -65,7 +65,7 @@ class KatalogAlatTableSeeder extends Seeder
                 'ID_KATALOG_ALAT' => 'KCR15/075',
                 'ID_KATEGORI_ALAT' => 4,
                 'NAMA_ALAT' => 'Corong Kaca',
-                'UKURAN' => 'Ǿ75mm',
+                'UKURAN' => '75mm',
             ),
             7 => 
             array (
@@ -296,56 +296,56 @@ class KatalogAlatTableSeeder extends Seeder
                 'ID_KATALOG_ALAT' => 'KSM24/008',
                 'ID_KATEGORI_ALAT' => 4,
                 'NAMA_ALAT' => 'Sumbat karet',
-                'UKURAN' => 'Ǿ 8mm',
+                'UKURAN' => '8mm',
             ),
             40 => 
             array (
                 'ID_KATALOG_ALAT' => 'KSM24/012',
                 'ID_KATEGORI_ALAT' => 4,
                 'NAMA_ALAT' => 'Sumbat karet',
-                'UKURAN' => 'Ǿ 12mm',
+                'UKURAN' => '12mm',
             ),
             41 => 
             array (
                 'ID_KATALOG_ALAT' => 'KSM24/014',
                 'ID_KATEGORI_ALAT' => 4,
                 'NAMA_ALAT' => 'Sumbat karet',
-                'UKURAN' => 'Ǿ 14mm',
+                'UKURAN' => '14mm',
             ),
             42 => 
             array (
                 'ID_KATALOG_ALAT' => 'KSM24/024',
                 'ID_KATEGORI_ALAT' => 4,
                 'NAMA_ALAT' => 'Sumbat karet',
-                'UKURAN' => 'Ǿ 24mm',
+                'UKURAN' => '24mm',
             ),
             43 => 
             array (
                 'ID_KATALOG_ALAT' => 'KSM24/028',
                 'ID_KATEGORI_ALAT' => 4,
                 'NAMA_ALAT' => 'Sumbat karet',
-                'UKURAN' => 'Ǿ 28mm',
+                'UKURAN' => '28mm',
             ),
             44 => 
             array (
                 'ID_KATALOG_ALAT' => 'KSM36/023',
                 'ID_KATEGORI_ALAT' => 4,
                 'NAMA_ALAT' => 'Sumbat karet',
-                'UKURAN' => '1 lb, Ǿ 23mm',
+                'UKURAN' => '1 lb, 23mm',
             ),
             45 => 
             array (
                 'ID_KATALOG_ALAT' => 'KSM36/026',
                 'ID_KATEGORI_ALAT' => 4,
                 'NAMA_ALAT' => 'Sumbat karet',
-                'UKURAN' => '1 lb, Ǿ 26mm',
+                'UKURAN' => '1 lb, 26mm',
             ),
             46 => 
             array (
                 'ID_KATALOG_ALAT' => 'KSM48/025',
                 'ID_KATEGORI_ALAT' => 4,
                 'NAMA_ALAT' => 'Sumbat karet',
-                'UKURAN' => '2 lb, Ǿ 25mm',
+                'UKURAN' => '2 lb, 25mm',
             ),
             47 => 
             array (
@@ -387,7 +387,7 @@ class KatalogAlatTableSeeder extends Seeder
                 'ID_KATALOG_ALAT' => 'KTA40/025',
                 'ID_KATEGORI_ALAT' => 4,
                 'NAMA_ALAT' => 'Tabung Reaksi',
-                'UKURAN' => 'Ǿ 25mm',
+                'UKURAN' => '25mm',
             ),
             53 => 
             array (

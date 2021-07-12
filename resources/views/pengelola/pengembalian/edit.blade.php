@@ -104,8 +104,16 @@
                                             <td width="30%">{{ $a->alat->ID_ALAT }} {{ $a->alat->merk_tipe_alat->NAMA_MERK_TIPE }} {{ $a->alat->katalog_alat->NAMA_ALAT }} {{ $a->alat->katalog_alat->UKURAN }}</td>
                                             <input type="hidden" value="{{ $a->alat->ID_ALAT }}" name="id_alat[{{$i}}]">
                                             <td width="15%">{{ $a->JUMLAH_PINJAM }}pcs</td>
-                                            <td width="15%"><input style="width:100%" type="number" name="jumlah_bagus[{{$i}}]" id="jumlah_bagus-{{$i}}" value="{{ $a->JUMLAH_PINJAM }}" class="jumlah_alat border p-2"></td>
-                                            <td width="15%"><input style="width:100%" type="number" name="jumlah_rusak[{{$i}}]" id="jumlah_rusak-{{$i}}" value="0" class="jumlah_alat border p-2"></td>
+                                            <input type="hidden" value="{{ $a->JUMLAH_PINJAM }}" id="jumlah_pinjam-{{$i}}">
+                                            <td width="15%">
+                                                <input style="width:100%" type="number" name="jumlah_bagus[{{$i}}]" id="jumlah_bagus-{{$i}}" value="{{ $a->JUMLAH_PINJAM }}" class="jumlah_alat border p-2">
+                                                <div class="text-danger animated fadeInUp error-alat" id="error_alat_{{ $i }}">
+                                                    Jumlah kembali harus sama dengan jumlah pinjam.
+                                                </div>
+                                            </td>
+                                            <td width="15%">
+                                                <input style="width:100%" type="number" name="jumlah_rusak[{{$i}}]" id="jumlah_rusak-{{$i}}" value="0" class="jumlah_alat_rusak border p-2">
+                                            </td>
                                             <td width="15%"><textarea name="keterangan_rusak[{{$i}}]" class="form-control"></textarea></td>
                                         </tr>
                                         @php $i++; @endphp
@@ -172,75 +180,65 @@
 $(document).ready(function(){
 
     $(document).on('input','.jumlah_alat',function(){
-        if($(this).val() >= 1 && !isNan($(this).val())){
-            recountAll();
+        let index = $(this).attr('id').substr(13);
+        if($(this).val() >= 0 && !isNaN($(this).val())){
+            recountAll(index);
+            $(this).val(Number($(this).val()))
         }
         else{
             $(this).val(1);
+        }
+    });
+
+    $(document).on('input','.jumlah_alat_rusak',function(){
+        let index = $(this).attr('id').substr(13);
+        if($(this).val() >= 0 && !isNaN($(this).val())){
+            recountAll(index);
+            $(this).val(Number($(this).val()))
+        }
+        else{
+            $(this).val(0);
         }
     });
 
     $(document).on('input','.jumlah_bahan',function(){
-        if($(this).val() >= 1 && !isNan($(this).val())){
-            recountAll();
+        if($(this).val() >= 0 && !isNaN($(this).val())){
+            $(this).val(Number($(this).val()))
         }
         else{
-            $(this).val(1);
+            $(this).val(0);
         }
     });
 
     $(document).on('input','.jumlah_bahan_kimia',function(){
-        if($(this).val() >= 1 && !isNan($(this).val())){
-            recountAll();
+        if($(this).val() >= 0 && !isNaN($(this).val())){
+            $(this).val(Number($(this).val()))
         }
         else{
-            $(this).val(1);
+            $(this).val(0);
         }
     });
 
-    function recountAll()
+    function recountAll(index)
     {
-        var jumlah_kelompok = Number($("#jumlah_kelompok").val());
-        var total = 0;
-        var total_s = 0;
-        var index = 1;
-        $(".jumlah_alat").each(function(){
-            $("#t_alat-"+index).val(Number($(this).val())*jumlah_kelompok);
-            total = total + Number($(this).val())*jumlah_kelompok;
-            index = index+1;
-        });
-        $("#total-alat").html(total);
-        $("#total_alat").val(total);
-        total_s = total_s + total;
-
-        total = 0;
-        index = 1;
-        $(".jumlah_bahan").each(function(){
-            $("#t_bahan-"+index).val(Number($(this).val())*jumlah_kelompok);
-            total = total + Number($(this).val())*jumlah_kelompok;
-            index = index+1;
-        });
-        $("#total-bahan").html(total);
-        $("#total_bahan").val(total);
-        total_s = total_s + total;
-
-        total = 0;
-        index = 1;
-        $(".jumlah_bahan_kimia").each(function(){
-            $("#t_bahan_kimia-"+index).val(Number($(this).val())*jumlah_kelompok);
-            total = total + Number($(this).val())*jumlah_kelompok;
-            index = index+1;
-        });
-        $("#total-bahan-kimia").html(total);
-        $("#total_bahan_kimia").val(total);
-        total_s = total_s + total;
-
-        $("#total-keseluruhan").html(total_s);
+        let jumlah = Number($("#jumlah_pinjam-"+index).val());
+        let jumlah_bagus = Number($("#jumlah_bagus-"+index).val());
+        let jumlah_rusak = Number($("#jumlah_rusak-"+index).val());
+        let jumlah_sekarang = jumlah_bagus + jumlah_rusak;
+        if(jumlah > jumlah_sekarang) {
+            $(".submit-btn").attr('disabled',true);
+            $("#error_alat_"+index).show();
+        }
+        else if (jumlah < jumlah_sekarang) {
+            $(".submit-btn").attr('disabled',true);
+            $("#error_alat_"+index).show();
+        }
+        else {
+            $(".submit-btn").attr('disabled',false);
+            $("#error_alat_"+index).hide();
+        }
     }
-
-    recountAll();
-
-
+    $(".error-alat").hide();
 });
 </script>
 @endsection
