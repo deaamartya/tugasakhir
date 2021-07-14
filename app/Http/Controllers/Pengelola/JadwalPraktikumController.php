@@ -86,7 +86,7 @@ class JadwalPraktikumController extends Controller
     {
         $data = [];
         $id_lab = Auth::user()->ID_LABORATORIUM;
-        $peminjaman = PeminjamanAlatBahan::join('ruang_laboratorium as r','r.ID_RUANG_LABORATORIUM','peminjaman_alat_bahan.ID_RUANG_LABORATORIUM')->where('r.ID_LABORATORIUM','=',$id_lab)->get();
+        $peminjaman = PeminjamanAlatBahan::join('ruang_laboratorium as r','r.ID_RUANG_LABORATORIUM','peminjaman_alat_bahan.ID_RUANG_LABORATORIUM')->where('r.ID_LABORATORIUM','=',$id_lab)->where('STATUS_PEMINJAMAN','=','MENUNGGU KONFIRMASI')->get();
         $i = 0;
         foreach($peminjaman as $p)
         {
@@ -130,7 +130,7 @@ class JadwalPraktikumController extends Controller
         $data = [];
         $praktikum = Praktikum::find($request->prakt);
         $id_lab = Auth::user()->ID_LABORATORIUM;
-        $peminjaman = PeminjamanAlatBahan::join('praktikum as p','p.ID_PRAKTIKUM','=','peminjaman_alat_bahan.ID_PRAKTIKUM')->join('ruang_laboratorium as r','r.ID_RUANG_LABORATORIUM','peminjaman_alat_bahan.ID_RUANG_LABORATORIUM')->where('r.ID_LABORATORIUM','=',$id_lab)->where('p.JUDUL_PRAKTIKUM','LIKE',"%".$praktikum->JUDUL_PRAKTIKUM."%")->get();
+        $peminjaman = PeminjamanAlatBahan::join('praktikum as p','p.ID_PRAKTIKUM','=','peminjaman_alat_bahan.ID_PRAKTIKUM')->join('ruang_laboratorium as r','r.ID_RUANG_LABORATORIUM','peminjaman_alat_bahan.ID_RUANG_LABORATORIUM')->where('r.ID_LABORATORIUM','=',$id_lab)->where('p.JUDUL_PRAKTIKUM','LIKE',"%".$praktikum->JUDUL_PRAKTIKUM."%")->where('STATUS_PEMINJAMAN','MENUNGGU KONFIRMASI')->get();
         $i = 0;
         foreach($peminjaman as $p)
         {

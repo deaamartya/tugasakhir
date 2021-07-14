@@ -32,11 +32,11 @@ class AdminController extends Controller
 
         // Ambil 5 praktikum terjadwal
         $praktikum_menunggu = PeminjamanAlatBahan::where('STATUS_PEMINJAMAN','MENUNGGU KONFIRMASI')->orderBy('TANGGAL_PEMINJAMAN','ASC')
-        ->limit(10)->get();
+        ->limit(5)->get();
 
         // Ambil 5 praktikum selesai
         $praktikum_selesai = PeminjamanAlatBahan::where('STATUS_PEMINJAMAN','SUDAH DIKEMBALIKAN')->orderBy('ID_PEMINJAMAN','DESC')
-        ->limit(10)->get();
+        ->limit(5)->get();
 
         return view('admin.dashboard', compact('page_title','action', 'total_lab', 'total_user','total_prak','total_user_online','menunggu_penjadwalan','praktikum','praktikum_menunggu','praktikum_selesai'));
     }
@@ -44,7 +44,7 @@ class AdminController extends Controller
     public function seluruhJadwal()
     {
         $data = [];
-        $peminjaman = PeminjamanAlatBahan::all();
+        $peminjaman = PeminjamanAlatBahan::where('STATUS_PEMINJAMAN','=','MENUNGGU KONFIRMASI')->get();
         
         $i = 0;
         foreach($peminjaman as $p)

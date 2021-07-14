@@ -60,9 +60,9 @@ class PengelolaController extends Controller
 
         $id_ta = Auth::user()->id_tahun_akademik();
 
-        $beban_lab_semester = PeminjamanAlatBahan::where('STATUS_PEMINJAMAN','SUDAH DIKEMBALIKAN')->whereBetween(DB::raw('DATE(TANGGAL_PEMINJAMAN)'), [$tgl_awal_semester, $tgl_akhir_semester])->count('ID_PEMINJAMAN');
+        $beban_lab_semester = PeminjamanAlatBahan::join('ruang_laboratorium as l','l.ID_RUANG_LABORATORIUM','peminjaman_alat_bahan.ID_RUANG_LABORATORIUM')->where('l.ID_LABORATORIUM',$id_lab)->where('STATUS_PEMINJAMAN','SUDAH DIKEMBALIKAN')->whereBetween(DB::raw('DATE(TANGGAL_PEMINJAMAN)'), [$tgl_awal_semester, $tgl_akhir_semester])->count('ID_PEMINJAMAN');
 
-        $beban_lab_tahun = PeminjamanAlatBahan::where('STATUS_PEMINJAMAN','SUDAH DIKEMBALIKAN')->whereBetween(DB::raw('DATE(TANGGAL_PEMINJAMAN)'), [$tgl_awal_tahun, $tgl_akhir_tahun])->count('ID_PEMINJAMAN');
+        $beban_lab_tahun = PeminjamanAlatBahan::join('ruang_laboratorium as l','l.ID_RUANG_LABORATORIUM','peminjaman_alat_bahan.ID_RUANG_LABORATORIUM')->where('l.ID_LABORATORIUM',$id_lab)->where('STATUS_PEMINJAMAN','SUDAH DIKEMBALIKAN')->whereBetween(DB::raw('DATE(TANGGAL_PEMINJAMAN)'), [$tgl_awal_tahun, $tgl_akhir_tahun])->count('ID_PEMINJAMAN');
 
         $jadwal_ulang = PerubahanJadwalPeminjaman::join('peminjaman_alat_bahan as p','p.ID_PEMINJAMAN','perubahan_jadwal_peminjaman.ID_PEMINJAMAN')->join('ruang_laboratorium as l','l.ID_RUANG_LABORATORIUM','p.ID_RUANG_LABORATORIUM')->where('l.ID_LABORATORIUM',$id_lab)->where('STATUS_PERUBAHAN',0)->count('ID_PERUBAHAN_JADWAL');
 
@@ -128,7 +128,7 @@ class PengelolaController extends Controller
         $id_lab = Auth::user()->ID_LABORATORIUM;
         $peminjaman = PeminjamanAlatBahan::join('ruang_laboratorium as r','r.ID_RUANG_LABORATORIUM','peminjaman_alat_bahan.ID_RUANG_LABORATORIUM')
         ->join('praktikum as p','p.ID_PRAKTIKUM','=','peminjaman_alat_bahan.ID_PRAKTIKUM')
-        ->where('r.ID_LABORATORIUM','=',$id_lab)->get();
+        ->where('r.ID_LABORATORIUM','=',$id_lab)->where('STATUS_PEMINJAMAN','=','MENUNGGU KONFIRMASI')->get();
         
         $i = 0;
         foreach($peminjaman as $p)

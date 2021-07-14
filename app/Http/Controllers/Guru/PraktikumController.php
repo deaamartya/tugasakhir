@@ -38,7 +38,7 @@ class PraktikumController extends Controller
         ->join('kelas as k','peminjaman_alat_bahan.ID_KELAS','=','k.ID_KELAS')
         ->where('k.ID_USER','=',$id_guru)
         ->where('k.ID_TAHUN_AKADEMIK',$id_ta)
-        ->where('r.ID_LABORATORIUM','=',$id_lab)->get();
+        ->where('r.ID_LABORATORIUM','=',$id_lab)->where('STATUS_PEMINJAMAN','=','MENUNGGU KONFIRMASI')->get();
         
         $i = 0;
         foreach($peminjaman as $p)
@@ -92,7 +92,7 @@ class PraktikumController extends Controller
         ->where('k.ID_USER','=',$id_guru)
         ->where('k.ID_TAHUN_AKADEMIK',$id_ta)
         ->where('r.ID_LABORATORIUM','=',$id_lab)
-        ->where('p.JUDUL_PRAKTIKUM','LIKE',"%".$praktikum->JUDUL_PRAKTIKUM."%")->get();
+        ->where('p.JUDUL_PRAKTIKUM','LIKE',"%".$praktikum->JUDUL_PRAKTIKUM."%")->where('STATUS_PEMINJAMAN','=','MENUNGGU KONFIRMASI')->get();
         
         $i = 0;
         foreach($peminjaman as $p)

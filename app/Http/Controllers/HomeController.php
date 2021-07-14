@@ -32,7 +32,7 @@ class HomeController extends Controller
 
         } else if (Auth::user()->tipe_user->NAMA_TIPE_USER == "Kepala Laboratorium") {
             return redirect()->route('kepalalab.dashboard');
-        } else if (Auth::user()->tipe_user->NAMA_TIPE_USER == "WAKA Sarpras") {
+        } else if (Auth::user()->tipe_user->NAMA_TIPE_USER == "Waka Sarpras") {
             return redirect()->route('sarpras.dashboard');
         } else {
             return redirect()->route('pengelola.dashboard');

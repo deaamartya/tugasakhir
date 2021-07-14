@@ -270,7 +270,7 @@
                             <div class="external-event" data-class="bg-primary"><i class="fa fa-move"></i>X MIPA</div>
                             <div class="external-event" data-class="bg-success"><i class="fa fa-move"></i>XI MIPA
                             </div>
-                            <div class="external-event" data-class="bg-warning"><i class="fa fa-move"></i>XII MIPA</div>
+                            <div class="external-event" data-class="bg-danger"><i class="fa fa-move"></i>XII MIPA</div>
                         </div>
                     </div>
                 </div>

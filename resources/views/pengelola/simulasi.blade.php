@@ -358,7 +358,7 @@ $(document).ready(function(){
             hitungTotalAlat();
         }
         else{
-            var nama_alat = alat[index]['ID_ALAT']+" "+ alat[index]['NAMA_ALAT']+" "+ alat[index]['UKURAN'];
+            var nama_alat = alat[index]['ID_ALAT']+" "+ alat[index]['NAMA_ALAT']+" "+ alat[index]['NAMA_MERK_TIPE']+" "+ alat[index]['UKURAN'];
             var markup =
             "<tr id='alat-"+index+"'>"+
                 "<td width='60%'>"+nama_alat+"<input type='hidden' class='id_alat' id='id_alat-"+index+"' value='"+id_alat+"'><input type='hidden' class='index_alat' id='index_alat["+index+"]' value='"+index+"'></td>"+

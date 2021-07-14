@@ -18,7 +18,7 @@ class cekWakaSarpras
     public function handle(Request $request, Closure $next)
     {
         // cek apakah waka sarpras
-        if(Auth::user()->tipe_user->NAMA_TIPE_USER == "WAKA Sarpras") {
+        if(Auth::user()->tipe_user->NAMA_TIPE_USER == "Waka Sarpras") {
             return $next($request);
         }
         // selain waka

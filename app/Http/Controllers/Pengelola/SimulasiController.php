@@ -23,7 +23,7 @@ class SimulasiController extends Controller
         $id_lab = Auth::user()->ID_LABORATORIUM;
         $praktikum = Praktikum::whereIn('ID_MAPEL',Auth::user()->list_mapel())->get();
 
-        $alat = Alat::select('alat.*','k.*')->join('katalog_alat as k','k.ID_KATALOG_ALAT','alat.ID_KATALOG_ALAT')->join('lemari as l','l.ID_LEMARI','alat.ID_LEMARI')->where('l.ID_LABORATORIUM','=',$id_lab)->get();
+        $alat = Alat::select('alat.*','k.*','m.*')->join('katalog_alat as k','k.ID_KATALOG_ALAT','alat.ID_KATALOG_ALAT')->join('merk_tipe_alat as m','m.ID_MERK_TIPE','alat.ID_MERK_TIPE')->join('lemari as l','l.ID_LEMARI','alat.ID_LEMARI')->where('l.ID_LABORATORIUM','=',$id_lab)->get();
 
         $bahan = Bahan::select('l.*','bahan.*')->join('lemari as l','l.ID_LEMARI','bahan.ID_LEMARI')->where('l.ID_LABORATORIUM','=',$id_lab)->get();
 
