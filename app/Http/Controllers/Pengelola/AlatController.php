@@ -8,6 +8,8 @@ use App\Models\KatalogAlat;
 use App\Models\Lemari;
 use App\Models\MerkTipeAlat;
 use App\Models\Alat;
+use App\Models\KerusakanAlat;
+use App\Models\PengadaanBarang;
 use Auth;
 use DB;
 use App\Models\HistoriStok;
@@ -120,9 +122,27 @@ class AlatController extends Controller
             'JUMLAH_RUSAK_KELUAR' => 'required|min:0|integer',
             'KETERANGAN' => 'required'
         ]);
-        
+
+        $jenis = $request->JENIS_TRANSAKSI;
+        $timestamp = now();
+        if($jenis == 1) {
+            PengadaanBarang::insert([
+                'created_at' => $timestamp
+            ]);
+            $id_transaksi = PengadaanBarang::where('created_at','=',$timestamp)->value('ID_PENGADAAN');
+        }
+        elseif($jenis == 2) {
+            KerusakanAlat::insert([
+                'KETERANGAN_RUSAK' => $request->KETERANGAN,
+                'STATUS' => 1,
+                'created_at' => $timestamp
+            ]);
+            $id_transaksi = KerusakanAlat::where('created_at','=',$timestamp)->value('ID_KERUSAKAN');
+        }
+
         $data_stok_alat[] = [
             'ID_TIPE' => 1,
+            'ID_TRANSAKSI' => $id_transaksi,
             'ID_ALAT_BAHAN' => $request->ID_ALAT_LAMA,
             'JUMLAH_KELUAR' => $request->JUMLAH_BAGUS_KELUAR,
             'JUMLAH_MASUK' => $request->JUMLAH_BAGUS_MASUK,
@@ -131,12 +151,15 @@ class AlatController extends Controller
         ];
         $data_stok_alat[] = [
             'ID_TIPE' => 1,
+            'ID_TRANSAKSI' => $id_transaksi,
             'ID_ALAT_BAHAN' => $request->ID_ALAT_LAMA,
             'JUMLAH_KELUAR' => $request->JUMLAH_RUSAK_KELUAR,
             'JUMLAH_MASUK' => $request->JUMLAH_RUSAK_MASUK,
             'KONDISI' => 0,
             'KETERANGAN' => $request->KETERANGAN
         ];
+        
+        
 
         HistoriStok::insert($data_stok_alat);
         

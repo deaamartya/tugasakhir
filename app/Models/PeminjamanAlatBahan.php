@@ -109,4 +109,9 @@ class PeminjamanAlatBahan extends Model
 		}
 		return $data;
 	}
+
+	public function alat_rusak()
+	{
+		return $this->hasMany(KerusakanAlat::class, 'ID_PEMINJAMAN');
+	}
 }

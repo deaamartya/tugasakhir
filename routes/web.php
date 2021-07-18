@@ -98,6 +98,8 @@ Route::middleware(['auth','cekPengelola'])->prefix('pengelola')->name('pengelola
     Route::get('peminjaman/konfirmasi/{id}','App\Http\Controllers\Pengelola\PeminjamanController@konfirmasi')->name('peminjaman.konfirmasi');
 
     Route::resource('pengembalian','App\Http\Controllers\Pengelola\PengembalianController');
+    Route::post('pengembalian/updateStock','App\Http\Controllers\Pengelola\PengembalianController@updateStock')->name('pengembalian.updateStock');
+    Route::get('kerusakanalat/{id}','App\Http\Controllers\Pengelola\PengembalianController@getInfoKerusakan');
 
     Route::resource('simulasi','App\Http\Controllers\Pengelola\SimulasiController');
     Route::post('getStokAlat','App\Http\Controllers\Pengelola\SimulasiController@getStokAlat');

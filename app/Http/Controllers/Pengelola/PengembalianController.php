@@ -8,13 +8,13 @@ use App\Models\PeminjamanAlatBahan;
 use App\Models\HistoriStok;
 use Auth;
 use DB;
-use App\Models\DetailPengembalian;
+use App\Models\KerusakanAlat;
 
 class PengembalianController extends Controller
 {
     public function index()
     {
-        $page_title = 'Ubah Jadwal Praktikum';
+        $page_title = 'Data Pengembalian Praktikum';
         $page_description = 'Menampilkan seluruh data penjadwalan ulang';
         $action = 'table_datatable_basic';
 
@@ -43,6 +43,7 @@ class PengembalianController extends Controller
     public function update(Request $request,$id_peminjaman)
     {
         $id_praktikum = PeminjamanAlatBahan::where('ID_PEMINJAMAN','=',$id_peminjaman)->value('ID_PRAKTIKUM');
+        $id_kelas = PeminjamanAlatBahan::where('ID_PEMINJAMAN','=',$id_peminjaman)->value('ID_KELAS');
         $data_stok = [];
         $data_stok_alat = [];
         $data_pengembalian = [];
@@ -65,8 +66,18 @@ class PengembalianController extends Controller
                     'JUMLAH_KELUAR' => 0,
                     'JUMLAH_MASUK' => $request->jumlah_rusak[$i],
                     'KONDISI' => 0,
-                    'KETERANGAN' => $request->keterangan_rusak[$i]
+                    'KETERANGAN' => "Stok rusak setelah praktikum"
                 ];
+                if($request->jumlah_rusak[$i] != 0){
+                    KerusakanAlat::insert([
+                        'ID_KELAS' => $id_kelas,
+                        'ID_ALAT' => $request->id_alat[$i],
+                        'KETERANGAN_RUSAK' => $request->keterangan_rusak[$i]." merusak sebanyak ".$request->jumlah_rusak[$i]."pcs",
+                        'STATUS' => 0,
+                        'ID_PEMINJAMAN' => $id_peminjaman,
+                        'created_at' => now()
+                    ]);
+                }
                 $i++;
             }
         }
@@ -105,5 +116,55 @@ class PengembalianController extends Controller
         });
         
         return redirect()->route('pengelola.pengembalian.index')->with('created','Data berhasil disimpan');
+    }
+
+    public function updateStock(Request $request)
+    {
+        $request->validate([
+            'ID_KERUSAKAN' => 'required',
+            'JUMLAH_BAGUS_MASUK' => 'required',
+            'JUMLAH_KELUAR_RUSAK' => 'required',
+        ]);
+
+        $data_kerusakan = KerusakanAlat::where('ID_KERUSAKAN','=',$request->ID_KERUSAKAN)->first();
+        $jumlah_rusak = HistoriStok::where([
+            'ID_ALAT_BAHAN' => $data_kerusakan->ID_ALAT,
+            'KONDISI' => 0,
+            'ID_TRANSAKSI' => $data_kerusakan->ID_PEMINJAMAN,
+        ])->value('JUMLAH_MASUK');
+        $jumlah_dikembalikan = HistoriStok::where([
+            'ID_ALAT_BAHAN' => $data_kerusakan->ID_ALAT,
+            'KONDISI' => 0,
+            'ID_TRANSAKSI' => $data_kerusakan->ID_PEMINJAMAN,
+        ])->where('JUMLAH_KELUAR','>',0)->sum('JUMLAH_KELUAR');
+        $sisa = intval($jumlah_rusak) - intval($jumlah_dikembalikan);
+        if($request->JUMLAH_BAGUS_MASUK >= $sisa){
+            KerusakanAlat::where('ID_KERUSAKAN','=',$request->ID_KERUSAKAN)->update([
+                'STATUS' => 1
+            ]);
+        }
+        HistoriStok::insert([
+            'ID_TIPE' => 1,
+            'ID_TRANSAKSI' => $data_kerusakan->ID_PEMINJAMAN,
+            'ID_ALAT_BAHAN' => $data_kerusakan->ID_ALAT,
+            'JUMLAH_KELUAR' => 0,
+            'JUMLAH_MASUK' => $request->JUMLAH_BAGUS_MASUK,
+            'KONDISI' => 1,
+            'KETERANGAN' => "Penggantian alat rusak"
+        ]);
+        HistoriStok::insert([
+            'ID_TIPE' => 1,
+            'ID_TRANSAKSI' => $data_kerusakan->ID_PEMINJAMAN,
+            'ID_ALAT_BAHAN' => $data_kerusakan->ID_ALAT,
+            'JUMLAH_KELUAR' => $request->JUMLAH_KELUAR_RUSAK,
+            'JUMLAH_MASUK' => 0,
+            'KONDISI' => 0,
+            'KETERANGAN' => "Penggantian alat rusak"
+        ]);
+        return redirect()->route('pengelola.pengembalian.index')->with('created','Data berhasil disimpan');
+    }
+
+    public function getInfoKerusakan($id) {
+        return KerusakanAlat::where('ID_KERUSAKAN','=',$id)->first();
     }
 }

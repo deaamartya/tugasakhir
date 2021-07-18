@@ -34,11 +34,23 @@ class KerusakanAlat extends Model
 	protected $fillable = [
 		'ID_KELAS',
 		'KETERANGAN_RUSAK',
-		'STATUS'
+		'STATUS',
+		'ID_PEMINJAMAN',
+		'ID_ALAT',
 	];
 
 	public function kelas()
 	{
 		return $this->belongsTo(Kelas::class, 'ID_KELAS');
+	}
+
+	public function peminjaman()
+	{
+		return $this->belongsTo(PeminjamanAlatBahan::class, 'ID_PEMINJAMAN');
+	}
+
+	public function alat()
+	{
+		return $this->belongsTo(Alat::class, 'ID_ALAT');
 	}
 }

@@ -15,9 +15,12 @@ class CreateKerusakanAlat extends Migration
     {
         Schema::create('kerusakan_alat', function (Blueprint $table) {
             $table->char('ID_KERUSAKAN', 15)->primary();
-            $table->char('ID_KELAS', 10)->index('FK_KELAS');
+            $table->char('ID_KELAS', 10)->index('FK_KELAS')->nullable();
+            $table->char('ID_PEMINJAMAN', 15)->index('FK_PEMINJAMAN')->nullable();
+            $table->string('ID_ALAT', 20)->index('FK_ALAT')->nullable();
             $table->text('KETERANGAN_RUSAK');
             $table->boolean('STATUS');
+            $table->timestamp('created_at');
         });
 
         DB::unprepared("CREATE TRIGGER `auto_id_kerusakan` BEFORE INSERT ON `kerusakan_alat` FOR EACH ROW 

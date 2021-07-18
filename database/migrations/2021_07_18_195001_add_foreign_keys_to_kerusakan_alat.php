@@ -15,6 +15,8 @@ class AddForeignKeysToKerusakanAlat extends Migration
     {
         Schema::table('kerusakan_alat', function (Blueprint $table) {
             $table->foreign('ID_KELAS', 'FK_KELAS')->references('ID_KELAS')->on('kelas')->onUpdate('NO ACTION')->onDelete('NO ACTION');
+            $table->foreign('ID_PEMINJAMAN', 'FK_PEMINJAMAN')->references('ID_PEMINJAMAN')->on('peminjaman_alat_bahan')->onUpdate('NO ACTION')->onDelete('NO ACTION');
+            $table->foreign('ID_ALAT', 'FK_ALAT')->references('ID_ALAT')->on('alat')->onUpdate('NO ACTION')->onDelete('NO ACTION');
         });
     }
 
@@ -27,6 +29,8 @@ class AddForeignKeysToKerusakanAlat extends Migration
     {
         Schema::table('kerusakan_alat', function (Blueprint $table) {
             $table->dropForeign('FK_KELAS');
+            $table->dropForeign('FK_PEMINJAMAN');
+            $table->dropForeign('FK_ALAT');
         });
     }
 }

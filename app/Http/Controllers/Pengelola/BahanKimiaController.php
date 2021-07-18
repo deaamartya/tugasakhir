@@ -11,6 +11,7 @@ use App\Models\Laboratorium;
 use DB;
 use Auth;
 use App\Models\HistoriStok;
+use App\Models\PengadaanBarang;
 
 class BahanKimiaController extends Controller
 {
@@ -141,8 +142,14 @@ class BahanKimiaController extends Controller
             'KETERANGAN' => 'required'
         ]);
 
+        $timestamp = now();
+        PengadaanBarang::insert([
+            'created_at' => $timestamp
+        ]);
+        $id_transaksi = PengadaanBarang::where('created_at','=',$timestamp)->value('ID_PENGADAAN');
         $data_stok_bahan = [
             'ID_TIPE' => 3,
+            'ID_TRANSAKSI' => $id_transaksi,
             'ID_ALAT_BAHAN' => $request->ID_BAHAN_KIMIA,
             'JUMLAH_KELUAR' => $request->JUMLAH_BAHAN_KIMIA_KELUAR,
             'JUMLAH_MASUK' => $request->JUMLAH_BAHAN_KIMIA_MASUK,

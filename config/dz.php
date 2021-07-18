@@ -441,7 +441,7 @@ return [
               'js/deznav-init.js',
 				],
 				'form_editor_summernote' => [
-              'vendor/bootstrap-select/dist/js/bootstrap-select.min.js',
+              // 'vendor/bootstrap-select/dist/js/bootstrap-select.min.js',
               'vendor/chart.js/Chart.bundle.min.js',
               'vendor/apexchart/apexchart.js',
 							'vendor/summernote/js/summernote.min.js',

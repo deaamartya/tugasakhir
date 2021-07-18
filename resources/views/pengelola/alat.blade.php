@@ -243,7 +243,7 @@
 </div>
 {{-- End of Edit Modal --}}
 
-{{-- Delete Modal --}}
+{{-- Keluar Masuk Stok Modal --}}
 <div class="modal fade" id="modal-tambah-{{ $loop->index }}">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -256,6 +256,18 @@
                 <form action="{{ route('pengelola.alat.updateStock') }}" method="POST">
                     @csrf
                     <input type="hidden" name="ID_ALAT_LAMA" value="{{ $d->ID_ALAT }}">
+
+                    <div class="form-group">
+                        <label>Jenis Transaksi</label>
+                        <select class="form-control @error('JENIS_TRANSAKSI') is-invalid @enderror" name="JENIS_TRANSAKSI" id="JENIS_TRANSAKSI">
+                            <option value="1">Pengadaan Barang</option>
+                            <option value="2">Ditemukan Alat Rusak</option>
+                        </select>
+                        <div class="invalid-feedback animated fadeInUp">
+                            Silahkan pilih jenis transaksi
+                        </div>
+                    </div>
+                    
                     <div class="form-group">
                         <label>Jumlah Masuk Alat Bagus<small class="text-danger">*</small></label>
                         <input type="number" class="form-control @error('JUMLAH_BAGUS_MASUK') is-invalid @enderror" id="JUMLAH_BAGUS_MASUK" name="JUMLAH_BAGUS_MASUK" min="0" value="0">

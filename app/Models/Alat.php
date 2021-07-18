@@ -69,4 +69,8 @@ class Alat extends Model
 		$stok = self::join('histori_stok as h','h.ID_ALAT_BAHAN','=','alat.ID_ALAT')->where('h.ID_ALAT_BAHAN','=',$this->ID_ALAT)->where('h.KONDISI','=',0)->where('ID_TIPE','=',1)->orderBy('h.TIMESTAMP','DESC')->limit(1)->value('STOK');
 		return ($stok < 1) ? 0 : $stok;
 	}
+
+	public function kerusakan(){
+		return $this->hasMany(KerusakanAlat::class, 'ID_ALAT');
+	}
 }

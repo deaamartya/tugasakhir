@@ -9,6 +9,7 @@ use App\Models\Lemari;
 use DB;
 use Auth;
 use App\Models\HistoriStok;
+use App\Models\PengadaanBarang;
 
 class BahanController extends Controller
 {
@@ -103,8 +104,14 @@ class BahanController extends Controller
             'KETERANGAN' => 'required'
         ]);
 
+        $timestamp = now();
+        PengadaanBarang::insert([
+            'created_at' => $timestamp
+        ]);
+        $id_transaksi = PengadaanBarang::where('created_at','=',$timestamp)->value('ID_PENGADAAN');
         $data_stok_bahan = [
             'ID_TIPE' => 2,
+            'ID_TRANSAKSI' => $id_transaksi,
             'ID_ALAT_BAHAN' => $request->ID_BAHAN_LAMA,
             'JUMLAH_KELUAR' => $request->JUMLAH_KELUAR,
             'JUMLAH_MASUK' => $request->JUMLAH_MASUK,
