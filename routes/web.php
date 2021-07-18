@@ -17,6 +17,8 @@ Route::middleware(['auth'])->group(function(){
     })->name('auth.logout');
     
     Route::get('home','App\Http\Controllers\HomeController@index')->name('home');
+    Route::get('ganti-password','App\Http\Controllers\HomeController@gantiPasswordView');
+    Route::post('ganti-password','App\Http\Controllers\HomeController@changePassword');
 });
 
 // Route Halaman Awal

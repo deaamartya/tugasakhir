@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
+use App\Models\User;
+use Illuminate\Validation\ValidationException;
+use Hash;
+use Session;
 
 class HomeController extends Controller
 {
@@ -43,11 +47,22 @@ class HomeController extends Controller
     {
         $user = Auth::user()->ID_USER;
         $passuser = User::find($user)->value('password');
-        if(bcrypt($request->old_password) == $passuser){
+        if(Hash::check($request->old_password,$passuser)){
             User::find($user)->update([
                 'password' => bcrypt($request->new_password)
             ]);
         }
+        else {
+            throw ValidationException::withMessages(["old_password" =>"Password lama salah"]);
+        }
         return redirect('/');
+    }
+
+    public function gantiPasswordView(Request $request)
+    {
+        $page_title = 'Ganti Password';
+        $page_description = 'Ganti Password';
+        $action = 'dashboard_1';
+        return view('auth.changepassword', compact('page_title', 'page_description','action'));
     }
 }
