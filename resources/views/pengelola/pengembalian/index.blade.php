@@ -309,15 +309,15 @@
     $(".kerusakan").each(function(){
         let id = $(this).attr('id').substr(13);
         let id_kerusakan = $(this).val();
-        $.get("{{ url('pengelola/kerusakanalat') }}"+"/"+id_kerusakan,function(data){
-            $("#KETERANGAN_"+id).html(data.KETERANGAN_RUSAK);
+        $.get("{{ url('pengelola/kerusakanalat') }}"+"/"+id_kerusakan,function(result){
+            $("#KETERANGAN_"+id).html(result.data.KETERANGAN_RUSAK+". Sisa alat yang perlu diganti "+result.sisa+"pcs.");
         });
     });
     $(".kerusakan").on('change',function(){
         let id = $(this).attr('id').substr(13);
         let id_kerusakan = $(this).val();
-        $.get("{{ url('pengelola/kerusakanalat') }}"+"/"+id_kerusakan,function(data){
-            $("#KETERANGAN_"+id).html(data.KETERANGAN_RUSAK);
+        $.get("{{ url('pengelola/kerusakanalat') }}"+"/"+id_kerusakan,function(result){
+            $("#KETERANGAN_"+id).html(result.data.KETERANGAN_RUSAK+". Sisa alat yang perlu diganti "+result.sisa+"pcs.");
         });
     });
 </script>

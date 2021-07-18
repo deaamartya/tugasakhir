@@ -165,6 +165,18 @@ class PengembalianController extends Controller
     }
 
     public function getInfoKerusakan($id) {
-        return KerusakanAlat::where('ID_KERUSAKAN','=',$id)->first();
+        $data_kerusakan = KerusakanAlat::where('ID_KERUSAKAN','=',$id)->first();
+        $jumlah_rusak = HistoriStok::where([
+            'ID_ALAT_BAHAN' => $data_kerusakan->ID_ALAT,
+            'KONDISI' => 0,
+            'ID_TRANSAKSI' => $data_kerusakan->ID_PEMINJAMAN,
+        ])->value('JUMLAH_MASUK');
+        $jumlah_dikembalikan = HistoriStok::where([
+            'ID_ALAT_BAHAN' => $data_kerusakan->ID_ALAT,
+            'KONDISI' => 0,
+            'ID_TRANSAKSI' => $data_kerusakan->ID_PEMINJAMAN,
+        ])->where('JUMLAH_KELUAR','>',0)->sum('JUMLAH_KELUAR');
+        $sisa = intval($jumlah_rusak) - intval($jumlah_dikembalikan);
+        return response()->json(["sisa" => $sisa, "data" => $data_kerusakan]);
     }
 }
