@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Validation\ValidationException;
 use Hash;
 use Session;
+use Redirect;
 
 class HomeController extends Controller
 {
@@ -46,15 +47,9 @@ class HomeController extends Controller
     public function changePassword(Request $request)
     {
         $user = Auth::user()->ID_USER;
-        $passuser = User::find($user)->value('password');
-        if(Hash::check($request->old_password,$passuser)){
-            User::find($user)->update([
-                'password' => bcrypt($request->new_password)
-            ]);
-        }
-        else {
-            throw ValidationException::withMessages(["old_password" =>"Password lama salah"]);
-        }
+        User::find($user)->update([
+            'password' => bcrypt($request->new_password)
+        ]);
         return redirect('/');
     }
 

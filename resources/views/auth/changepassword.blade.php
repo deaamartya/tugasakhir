@@ -9,18 +9,6 @@
 		<div class="col-12">
       <form action="{{ url('ganti-password') }}" method="POST">
         @csrf
-        <div class="form-group mx-auto">
-          <label>Password Lama</label>
-          <div class="input-group">
-            <input class="form-control @error('old_password') is-invalid @enderror" type="password" id="pwnow" required name="old_password">
-            <div class="input-group-append">
-              <span class="input-group-text" id="basic-addon1"><i class="fa fa-eye-slash" aria-hidden="true"></i></span>
-            </div>
-            <div class="invalid-feedback">
-              Password lama harus diisi dan benar.
-            </div>
-          </div>
-        </div>
         <div class="form-group">
           <label>Password Baru</label>
           <div class="input-group">
